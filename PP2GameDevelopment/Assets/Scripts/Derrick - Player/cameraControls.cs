@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class cameraControls : MonoBehaviour
 {
+    [Header("----- Component -----")]
     // Mouse Sensitivity
     [SerializeField] int sensitivity;
 
@@ -12,7 +13,7 @@ public class cameraControls : MonoBehaviour
     [SerializeField] int lockVerMin;
     [SerializeField] int lockVerMax;
 
-    // Invert Mouse
+    // Invert Mouse Y
     [SerializeField] bool invertY;
 
     float xRotation;

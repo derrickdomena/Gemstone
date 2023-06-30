@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
+    [Header("----- Component -----")]
     // Character Controller
     [SerializeField] CharacterController controller;
 
+    [Header("----- Player Stats -----")]
     // Track of Player movement, gravity, and max potential jumps.
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
