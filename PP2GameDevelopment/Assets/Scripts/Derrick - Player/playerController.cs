@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
+    // Character Controller
     [SerializeField] CharacterController controller;
 
+    // Track of Player movement, gravity, and max potential jumps.
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
@@ -28,6 +30,7 @@ public class playerController : MonoBehaviour
         Movement();
     }
 
+    // Handles Movement for Player
     void Movement()
     {
         groundedPlayer = controller.isGrounded;
