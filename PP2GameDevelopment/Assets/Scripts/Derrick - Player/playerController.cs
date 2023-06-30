@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour
     [Header("----- Gun Stats -----")]
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
-    [SerializeField] int shootDist;
+    [SerializeField] int shootDistance;
     // Temp Cube Object for Shoot()
     [SerializeField] GameObject cube;
 
@@ -77,7 +77,7 @@ public class playerController : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
         {
             // Temp Shoot Cubes
             Instantiate(cube, hit.point, cube.transform.rotation);
