@@ -144,7 +144,7 @@ Transform:
   m_Children:
   - {fileID: 8830219627794868927}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &612084393060269948
 MeshFilter:
@@ -171,6 +171,10 @@ MonoBehaviour:
   jumpHeight: 10
   gravityValue: 10
   jumpsMax: 1
+  shootRate: 0.1
+  shootDamage: 0
+  shootDist: 20
+  cube: {fileID: 851286390448404851, guid: d29bed2f2423413498e0f6d0c8db8696, type: 3}
 --- !u!143 &5341021482265886340
 CharacterController:
   m_ObjectHideFlags: 0
