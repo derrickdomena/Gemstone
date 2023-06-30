@@ -9,7 +9,8 @@ public class playerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    // Track of Player movement, gravity, and max potential jumps.
+    // Track Player Stats, hp, movement, gravity, and max potential jumps.
+    [SerializeField] float hp;
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
