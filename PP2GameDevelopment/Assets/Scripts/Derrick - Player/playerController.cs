@@ -15,10 +15,18 @@ public class playerController : MonoBehaviour
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
 
+    [Header("----- Gun Stats -----")]
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDamage;
+    [SerializeField] int shootDist;
+    // Temp Cube Object for Shoot()
+    [SerializeField] GameObject cube;
+
     Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     int jumpCount;
+    bool isShooting;
 
     // Start is called before the first frame update
     private void Start()
@@ -30,6 +38,11 @@ public class playerController : MonoBehaviour
     void Update()
     {
         Movement();
+
+        if (Input.GetButton("Shoot") && !isShooting)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     // Handles Movement for Player
@@ -55,5 +68,22 @@ public class playerController : MonoBehaviour
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    // Manages the ability shooting
+    IEnumerator Shoot()
+    {
+        isShooting = true;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        {
+            // Temp Shoot Cubes
+            Instantiate(cube, hit.point, cube.transform.rotation);
+        }
+
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
 }
