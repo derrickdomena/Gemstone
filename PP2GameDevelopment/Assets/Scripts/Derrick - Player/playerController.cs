@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Component -----")]
     // Character Controller
@@ -20,9 +20,9 @@ public class playerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
     [SerializeField] int shootDistance;
-    // Temp Cube Object for Shoot()
-    [SerializeField] GameObject cube;
-
+    [SerializeField] Transform shootingPOS;
+    [SerializeField] GameObject bullet;
+    
     Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -77,14 +77,23 @@ public class playerController : MonoBehaviour
         isShooting = true;
 
         RaycastHit hit;
-
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
         {
-            // Temp Shoot Cubes
-            Instantiate(cube, hit.point, cube.transform.rotation);
+            Instantiate(bullet, shootingPOS.position, transform.rotation);
+
+            IDamage damagable = hit.collider.GetComponent<IDamage>();
+            if (damagable != null)
+            {
+                damagable.TakeDamage(shootDamage);
+            }
         }
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
+    public void TakeDamage(int amount)
+    {
+        hp -= amount;
+    }
 }
+
