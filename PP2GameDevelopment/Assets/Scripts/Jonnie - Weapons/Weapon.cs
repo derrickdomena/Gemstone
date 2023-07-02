@@ -3,29 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
+
 {
+    public static Weapon instance;
+
     [Header("----- Weapon Component -----")]
 
+    [SerializeField] GameObject weapon;
+    [SerializeField] public Transform shootingPOS;
+    [SerializeField] public GameObject bullet;
 
     [Header("----- Weapon Stats -----")]
 
-    [SerializeField] int ammo;
-    [SerializeField] int magazines;
+    [SerializeField] public int ammo;
+    [SerializeField] public int magazines;
 
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDamage;
-    [SerializeField] int shootDistance;
+    [SerializeField] public float shootRate;
+    [SerializeField] public int shootDamage;
+    [SerializeField] public int shootDistance;
 
-    [SerializeField] Transform shootingPOS;
-    [SerializeField] GameObject bullet;
-
-    void Start()
+    void Awake()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        instance = this;
     }
 }

@@ -16,13 +16,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
 
-    [Header("----- Gun Stats -----")]
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDamage;
-    [SerializeField] int shootDistance;
-    [SerializeField] Transform shootingPOS;
-    [SerializeField] GameObject bullet;
-    
+    [Header("----- Gun Components -----")]
+    // Weapon Slots
+    [SerializeField] GameObject weapon;
+    [SerializeField] Transform weaponPOS;
+
+
+
     Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -32,7 +32,7 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     private void Start()
     {
-        
+        Instantiate(weapon, weaponPOS.position, transform.rotation);
     }
 
     // Update is called once per frame
@@ -77,20 +77,22 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = true;
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
-        {
-            Instantiate(bullet, shootingPOS.position, transform.rotation);
 
+        Instantiate(Weapon.instance.bullet, Weapon.instance.shootingPOS.position, transform.rotation);
+
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.instance.shootDistance))
+        {
             IDamage damagable = hit.collider.GetComponent<IDamage>();
             if (damagable != null)
             {
-                damagable.TakeDamage(shootDamage);
+                damagable.TakeDamage(weapon.gameObject.GetInstanceID());
             }
         }
 
-        yield return new WaitForSeconds(shootRate);
+        yield return new WaitForSeconds(Weapon.instance.shootRate);
         isShooting = false;
     }
+    // Apply Damage done by Enemies
     public void TakeDamage(int amount)
     {
         hp -= amount;

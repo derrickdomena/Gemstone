@@ -29,10 +29,10 @@ public class Bullet : MonoBehaviour
         if (damagable != null)
         {
             damagable.TakeDamage(damage);
+            // Destroy bullet
+            Destroy(gameObject);
         }
 
-        // Destroy bullet
-        Destroy(gameObject);
     }
 }
 
