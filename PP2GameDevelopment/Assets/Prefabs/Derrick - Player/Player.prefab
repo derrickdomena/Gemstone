@@ -205,8 +205,10 @@ MonoBehaviour:
   jumpHeight: 10
   gravityValue: 10
   jumpsMax: 2
-  weapon: {fileID: 6873901699777669479, guid: 64fcb8e8081d85546aa5fd0154266ec0, type: 3}
-  weaponPOS: {fileID: 317979021732867607}
+  cube: {fileID: 851286390448404851, guid: d29bed2f2423413498e0f6d0c8db8696, type: 3}
+  shootRate: 0.1
+  shootDamage: 0
+  shootDistance: 20
 --- !u!143 &5341021482265886340
 CharacterController:
   m_ObjectHideFlags: 0
