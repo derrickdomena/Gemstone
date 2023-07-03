@@ -11,7 +11,8 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Player Stats -----")]
     // Track Player Stats, hp, movement, gravity, and max potential jumps.
     [SerializeField] int hp;
-    [SerializeField] float playerSpeed;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float sprintSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
@@ -25,9 +26,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
     [SerializeField] int shootDistance;
 
+    //Keybinds
+    public KeyCode sprintKey = KeyCode.LeftShift;
+
     Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
+    private float playerSpeed;
     int jumpCount;
     bool isShooting;
     int hpOrig;
@@ -46,6 +51,7 @@ public class playerController : MonoBehaviour, IDamage
         if (gameManager.instance.activeMenu == null)
         {
             Movement();
+            StateHandler();
 
             if (Input.GetButton("Shoot") && !isShooting)
             {
@@ -67,7 +73,7 @@ public class playerController : MonoBehaviour, IDamage
         move = (transform.right * Input.GetAxis("Horizontal")) +
                (transform.forward * Input.GetAxis("Vertical"));
 
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        controller.Move(playerSpeed * Time.deltaTime * move);
 
         if (Input.GetButtonDown("Jump") && jumpCount < jumpsMax)
         {
@@ -109,6 +115,11 @@ public class playerController : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
+
+        if (hp <= 0)
+        {
+            //UI Health
+        }
     }
 
     public void SpawnPlayer()
@@ -118,6 +129,36 @@ public class playerController : MonoBehaviour, IDamage
         controller.enabled = true;
 
         hp = hpOrig;
+    }
+
+    public MovementState state;
+
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        air
+    }
+
+    private void StateHandler()
+    {
+        // Movement - Running
+        if (groundedPlayer && Input.GetKey(sprintKey))
+        {
+            state = MovementState.sprinting;
+            playerSpeed = sprintSpeed;
+        }
+        // Movement - Walking
+        else if (groundedPlayer)
+        {
+            state = MovementState.walking;
+            playerSpeed = walkSpeed;
+        }
+        // Movement - Air
+        else
+        {
+            state = MovementState.air;
+        }
     }
 }
 

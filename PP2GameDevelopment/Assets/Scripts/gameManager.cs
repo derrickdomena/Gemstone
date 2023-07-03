@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
@@ -16,7 +18,10 @@ public class gameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
+    public TextMeshProUGUI enemiesRemainingText;
+    public Image playerHPBar;
 
+    int enemiesRemaining;
     bool isPaused;
     float timescaleOrig;
 
@@ -40,6 +45,7 @@ public class gameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
         }
     }
+
     public void statePaused()
     {
         Time.timeScale = 0;
@@ -47,6 +53,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         isPaused = !isPaused;
     }
+
     public void stateUnpaused()
     {
         Time.timeScale = timescaleOrig;
@@ -56,4 +63,17 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(false);
         activeMenu = null;
     }
+    public void updateGameGoal(int amount)
+    {
+        enemiesRemaining += amount;
+        enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+
+        if (enemiesRemaining <= 0)
+        {
+            activeMenu = winMenu;
+            activeMenu.SetActive(true);
+            statePaused();
+        }
+    }
+
 }
