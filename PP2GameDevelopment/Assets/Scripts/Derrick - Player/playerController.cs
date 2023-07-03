@@ -10,7 +10,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Player Stats -----")]
     // Track Player Stats, hp, movement, gravity, and max potential jumps.
-    [SerializeField] float hp;
+    [SerializeField] int hp;
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
@@ -35,6 +35,7 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     private void Start()
     {
+        hpOrig = hp;
         SpawnPlayer();
         //Instantiate(cube, weaponPOS.position, transform.rotation);
     }
@@ -78,40 +79,27 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
-    // Manages the ability shooting
-    //IEnumerator Shoot()
-    //{
-    //    isShooting = true;
-
-    //    RaycastHit hit;
-
-    //    Instantiate(Weapon.instance.bullet, Weapon.instance.shootingPOS.position, transform.rotation);
-
-    //    if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.instance.shootDistance))
-    //    {
-    //        IDamage damagable = hit.collider.GetComponent<IDamage>();
-    //        if (damagable != null)
-    //        {
-    //            damagable.TakeDamage(weapon.gameObject.GetInstanceID());
-    //        }
-    //    }
-
-    //    yield return new WaitForSeconds(Weapon.instance.shootRate);
-    //    isShooting = false;
-    //}
-
+    //Manages the ability shooting
     IEnumerator Shoot()
     {
         isShooting = true;
 
         RaycastHit hit;
 
+        //Instantiate(Weapon.instance.bullet, Weapon.instance.shootingPOS.position, transform.rotation);
+
+        //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.gameObject.shootDistance))
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
         {
-            // Temp Shoot Cubes
             Instantiate(cube, hit.point, cube.transform.rotation);
+            IDamage damagable = hit.collider.GetComponent<IDamage>();
+            if (damagable != null)
+            {
+                //damagable.TakeDamage(weapon.gameObject.GetInstanceID());
+            }
         }
 
+        //yield return new WaitForSeconds(Weapon.instance.shootRate);
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
