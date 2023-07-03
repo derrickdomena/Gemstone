@@ -37,7 +37,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         hpOrig = hp;
         SpawnPlayer();
-        //Instantiate(cube, weaponPOS.position, transform.rotation);
+        //Instantiate(weapon, weaponPOS.transform.position, transform.rotation);
     }
 
     // Update is called once per frame
