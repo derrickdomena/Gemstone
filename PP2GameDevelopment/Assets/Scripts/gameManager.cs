@@ -40,6 +40,7 @@ public class gameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
         }
     }
+
     public void statePaused()
     {
         Time.timeScale = 0;
@@ -47,6 +48,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         isPaused = !isPaused;
     }
+
     public void stateUnpaused()
     {
         Time.timeScale = timescaleOrig;

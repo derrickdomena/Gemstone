@@ -109,6 +109,11 @@ public class playerController : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
+
+        if (hp <= 0)
+        {
+            //UI Health
+        }
     }
 
     public void SpawnPlayer()

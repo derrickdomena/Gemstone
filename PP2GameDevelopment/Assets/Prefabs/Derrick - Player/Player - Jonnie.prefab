@@ -93,7 +93,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3234051807905286644}
+  - {fileID: 3879673955670930925}
   m_Father: {fileID: 8196242233749177028}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -251,7 +251,6 @@ GameObject:
   - component: {fileID: 3034791847570517510}
   - component: {fileID: 5883952889013273771}
   - component: {fileID: 4676633743928075950}
-  - component: {fileID: 6960440159327469149}
   - component: {fileID: 7506952484284937665}
   - component: {fileID: 1209840928045886600}
   - component: {fileID: 5257733751192112183}
@@ -304,30 +303,9 @@ MonoBehaviour:
   jumpHeight: 10
   gravityValue: 10
   jumpsMax: 2
-  cube: {fileID: 851286390448404851, guid: d29bed2f2423413498e0f6d0c8db8696, type: 3}
   shootRate: 0.1
-  shootDamage: 0
+  shootDamage: 1
   shootDistance: 20
---- !u!114 &6960440159327469149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7692242568667614734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10203c68b44a52b43b1b6c66ad54eba4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 9128922240275039606, guid: 5bac80a1bccd1854f8db587a2c57e3e1, type: 3}
-  shootingPOS: {fileID: 0}
-  bullet: {fileID: 0}
-  ammo: 0
-  magazines: 0
-  shootRate: 0
-  shootDamage: 0
-  shootDistance: 0
 --- !u!143 &7506952484284937665
 CharacterController:
   m_ObjectHideFlags: 0
@@ -508,14 +486,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9128922240275039606, guid: 5bac80a1bccd1854f8db587a2c57e3e1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bac80a1bccd1854f8db587a2c57e3e1, type: 3}
---- !u!4 &3234051807905286644 stripped
+--- !u!4 &3879673955670930925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1439312515182534660, guid: 5bac80a1bccd1854f8db587a2c57e3e1, type: 3}
   m_PrefabInstance: {fileID: 2751182546294478313}
