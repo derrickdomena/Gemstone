@@ -8,6 +8,7 @@ public class gameManager : MonoBehaviour
 
     [Header("----- Player Stuff -----")]
     public GameObject player;
+    public GameObject playerSpawnPos;
 
 
     [Header("----- UI Stuff -----")]

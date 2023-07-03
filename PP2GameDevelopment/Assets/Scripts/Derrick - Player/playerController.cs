@@ -30,10 +30,12 @@ public class playerController : MonoBehaviour, IDamage
     private bool groundedPlayer;
     int jumpCount;
     bool isShooting;
+    int hpOrig;
 
     // Start is called before the first frame update
     private void Start()
     {
+        SpawnPlayer();
         //Instantiate(cube, weaponPOS.position, transform.rotation);
     }
 
@@ -118,6 +120,15 @@ public class playerController : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
+    }
+
+    public void SpawnPlayer()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+
+        hp = hpOrig;
     }
 }
 
