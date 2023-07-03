@@ -9,13 +9,14 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
 
     [Header("----- Stats -----")]
-    [SerializeField] int hp;
-    [SerializeField] int moveSpeed;
+    [Range(1, 50)][SerializeField] int hp;
+    [Range(1, 20)][SerializeField] int moveSpeed;
+    [Range(1, 10)][SerializeField] int playerFaceSpeed;
 
     bool playerInRange;
     Vector3 playerDir;
     float angleToPlayer;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     void facePlayer()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
 
     bool canSeePlayer()
@@ -48,6 +50,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if (hp <= 0)
         {
+            gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
     }
