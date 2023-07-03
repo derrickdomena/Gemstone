@@ -8,16 +8,14 @@ public class gameManager : MonoBehaviour
 
     [Header("----- Player Stuff -----")]
     public GameObject player;
+    public playerController playerScript;
     public GameObject playerSpawnPos;
-
 
     [Header("----- UI Stuff -----")]
     public GameObject activeMenu;
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
-
-
 
     bool isPaused;
     float timescaleOrig;
@@ -27,7 +25,9 @@ public class gameManager : MonoBehaviour
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
-        timescaleOrig = Time.timeScale; 
+        playerScript = player.GetComponent<playerController>();
+        timescaleOrig = Time.timeScale;
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
