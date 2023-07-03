@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour, IDamage
     // Weapon Slots
     //[SerializeField] GameObject weapon;
     //[SerializeField] Transform weaponPOS;
-    [SerializeField] GameObject cube;
+    //[SerializeField] GameObject cube;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
     [SerializeField] int shootDistance;
@@ -91,11 +91,12 @@ public class playerController : MonoBehaviour, IDamage
         //if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.gameObject.shootDistance))
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
         {
-            Instantiate(cube, hit.point, cube.transform.rotation);
+            //Instantiate(cube, hit.point, cube.transform.rotation);
             IDamage damagable = hit.collider.GetComponent<IDamage>();
             if (damagable != null)
             {
                 //damagable.TakeDamage(weapon.gameObject.GetInstanceID());
+                damagable.TakeDamage(shootDamage);
             }
         }
 
