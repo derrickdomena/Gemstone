@@ -80,6 +80,10 @@ public class EnemyAI : MonoBehaviour, IDamage
                 {
                     StartCoroutine(Shoot());
                 }
+
+                agent.stoppingDistance = stoppingDistanceOrig;
+
+                return true;
             }
         }
 
