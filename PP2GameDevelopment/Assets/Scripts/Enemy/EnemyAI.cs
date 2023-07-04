@@ -13,17 +13,23 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
     [Range(1, 20)][SerializeField] int moveSpeed;
+    [Range(1, 180)][SerializeField] int viewAngle;
     [Range(1, 10)][SerializeField] int playerFaceSpeed;
     [SerializeField] int roamTimer;
     [SerializeField] int roamDist;
 
+    [Header("----- Gun stuff -----")]
+    [SerializeField] float shootRate;
+    [SerializeField] Transform shootPos;
+    [SerializeField] GameObject bullet;
+
     bool playerInRange;
     bool destinationChosen;
     float angleToPlayer;
+    bool isShooting;
     float stoppingDistanceOrig;
     Vector3 playerDir;
     Vector3 startingPos;
- 
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +42,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        if (playerInRange && !canSeePlayer())
+        if (playerInRange && !CanSeePlayer())
         {
             StartCoroutine(roam());
         }
@@ -47,18 +53,47 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    void facePlayer()
+    void FacePlayer()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
 
-    bool canSeePlayer()
+    bool CanSeePlayer()
     {
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-        
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer < viewAngle)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    FacePlayer();
+                }
+
+                if (!isShooting)
+                {
+                    StartCoroutine(Shoot());
+                }
+            }
+        }
+
         return false;
+    }
+
+    IEnumerator Shoot()
+    {
+        isShooting = true;
+
+        Instantiate(bullet, shootPos.position, transform.rotation);
+
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
 
     void OnTriggerEnter(Collider other)
