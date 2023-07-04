@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class gameManager : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //pressing ESC pauses the game
         if(Input.GetButtonDown("Cancel") && activeMenu == null) 
         {
             statePaused();
@@ -46,6 +48,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    //Pause game instance and unlocks cursor to the area of the game
     public void statePaused()
     {
         Time.timeScale = 0;
@@ -54,6 +57,7 @@ public class gameManager : MonoBehaviour
         isPaused = !isPaused;
     }
 
+    //Resumes game instance from timeScale locks cursor
     public void stateUnpaused()
     {
         Time.timeScale = timescaleOrig;
@@ -63,6 +67,7 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(false);
         activeMenu = null;
     }
+    //updates enemies remaining and if no enemies remain sets active menu to win
     public void updateGameGoal(int amount)
     {
         enemiesRemaining += amount;

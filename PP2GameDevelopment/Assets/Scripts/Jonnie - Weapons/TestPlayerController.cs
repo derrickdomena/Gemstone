@@ -18,12 +18,7 @@ public class TestPlayerController : MonoBehaviour, IDamage
     [SerializeField] int jumpsMax;
 
     //[Header("----- Gun Components -----")]
-    // Weapon Slots
-    //[SerializeField] GameObject weapon;
 
-    //[SerializeField] float shootRate;
-    //[SerializeField] int shootDamage;
-    //[SerializeField] int shootDistance;
 
     //Keybinds
     public KeyCode sprintKey = KeyCode.LeftShift;
@@ -62,8 +57,6 @@ public class TestPlayerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(Shoot());
             }
-
-
         }
     }
 
