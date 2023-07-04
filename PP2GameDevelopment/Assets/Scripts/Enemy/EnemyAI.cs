@@ -61,8 +61,13 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     bool CanSeePlayer()
     {
+        agent.stoppingDistance = stoppingDistanceOrig;
+
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
+
+        Debug.DrawRay(headPos.position, playerDir);
+        Debug.Log(angleToPlayer);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
@@ -80,8 +85,6 @@ public class EnemyAI : MonoBehaviour, IDamage
                 {
                     StartCoroutine(Shoot());
                 }
-
-                agent.stoppingDistance = stoppingDistanceOrig;
 
                 return true;
             }
@@ -139,7 +142,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     IEnumerator roam()
     {
-        if (agent.remainingDistance < 0.05 && !destinationChosen)
+        if (agent.remainingDistance < 0.5f && !destinationChosen)
         {
             destinationChosen = true;
             agent.stoppingDistance = 0;
