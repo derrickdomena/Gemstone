@@ -24,6 +24,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform shootPos;
     [SerializeField] GameObject bullet;
 
+    public GameObject enemyPrefab;
     bool playerInRange;
     bool destinationChosen;
     float angleToPlayer;
@@ -33,15 +34,19 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     int hpOrig;
 
+
+
     void Awake()
     {
         healthBar = GetComponentInChildren<floatingHealthBar>();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.instance.updateGameGoal(1);
+        gameManager.instance.updateGameGoal(gameManager.instance.enemyCount);
+        spawnEnemies();
         stoppingDistanceOrig = agent.stoppingDistance;
         startingPos = transform.position;
         hpOrig = hp;
@@ -140,6 +145,20 @@ public class EnemyAI : MonoBehaviour, IDamage
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
+    }
+
+    public void spawnEnemies()
+    {
+        int remainingSpawn = gameManager.instance.enemyCount;
+        
+        for (int i = 0; i < gameManager.instance.enemySpawnLocs.Length; i++)
+        {
+            int enemyRandomSpawn = Random.Range(1, gameManager.instance.enemySpawnLocs.Length);
+            Instantiate(enemyPrefab, gameManager.instance.enemySpawnLocs[enemyRandomSpawn].transform.position, Quaternion.identity);
+            remainingSpawn--;
+        }
+
+        // spawn based on number in room after deadline
     }
 
     IEnumerator FlashDamage()

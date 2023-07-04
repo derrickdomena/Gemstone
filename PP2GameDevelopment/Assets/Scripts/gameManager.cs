@@ -22,6 +22,11 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
 
+    [Header("----- Enemy Stuff -----")]
+    [SerializeField] public int enemyCount;
+    public GameObject[] enemySpawnLocs;
+
+
     int enemiesRemaining;
     bool isPaused;
     float timescaleOrig;
@@ -34,6 +39,8 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
+
     }
 
     // Update is called once per frame
