@@ -13,7 +13,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int hp;
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
-    [SerializeField] float jumpHeight;
+    [SerializeField] float jumpHeight;   
+
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
 
@@ -37,12 +38,21 @@ public class playerController : MonoBehaviour, IDamage
     bool isShooting;
     int hpOrig;
 
+    public MovementState state;
+
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        air
+    }
+
     // Start is called before the first frame update
     private void Start()
-    {
+    {      
         hpOrig = hp;
         SpawnPlayer();
-        //Instantiate(weapon, weaponPOS.transform.position, transform.rotation);
+        //Instantiate(weapon, weaponPOS.transform.position, transform.rotation);       
     }
 
     // Update is called once per frame
@@ -75,6 +85,7 @@ public class playerController : MonoBehaviour, IDamage
 
         controller.Move(playerSpeed * Time.deltaTime * move);
 
+        // Jump
         if (Input.GetButtonDown("Jump") && jumpCount < jumpsMax)
         {
             playerVelocity.y = jumpHeight;
@@ -131,14 +142,7 @@ public class playerController : MonoBehaviour, IDamage
         hp = hpOrig;
     }
 
-    public MovementState state;
-
-    public enum MovementState
-    {
-        walking,
-        sprinting,
-        air
-    }
+    
 
     private void StateHandler()
     {
