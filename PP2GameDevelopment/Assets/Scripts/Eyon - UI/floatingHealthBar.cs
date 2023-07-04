@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class floatingHealthBar : MonoBehaviour
 {
-    [SerializeField] private Slider slider;
-    [SerializeField] private Camera camera;
-    [SerializeField] private Transform target;
+    public Slider slider;
+    public Camera camera;
+    public Transform target;
+    private GameObject parent;
     [SerializeField] private Vector3 offset;
 
 
@@ -15,7 +16,14 @@ public class floatingHealthBar : MonoBehaviour
     {
         slider.value = currentValue/maxValue; 
     }
+    private void Start()
+    {
+        camera = FindObjectOfType<Camera>(Camera.main);
+        slider = GetComponentInChildren<Slider>();
+        target = parent.GetComponentInParent<Transform>();
 
+        
+    }
     // Update is called once per frame
     void Update()
     {
