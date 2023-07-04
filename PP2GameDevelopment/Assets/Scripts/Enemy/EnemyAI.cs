@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
+    [SerializeField] floatingHealthBar healthBar;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
@@ -30,6 +31,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     float stoppingDistanceOrig;
     Vector3 playerDir;
     Vector3 startingPos;
+    int hpOrig;
+
+    void Awake()
+    {
+        healthBar = GetComponentInChildren<floatingHealthBar>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +44,8 @@ public class EnemyAI : MonoBehaviour, IDamage
         gameManager.instance.updateGameGoal(1);
         stoppingDistanceOrig = agent.stoppingDistance;
         startingPos = transform.position;
+        hpOrig = hp;
+        healthBar.UpdateHealthBar(hp, hpOrig);
     }
 
     // Update is called once per frame
@@ -124,6 +133,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         hp -= damage;
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(FlashDamage());
+        healthBar.UpdateHealthBar(hp, hpOrig);
 
         if (hp <= 0)
         {
