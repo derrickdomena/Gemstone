@@ -13,10 +13,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int hp;
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
-    [SerializeField] float jumpHeight;
-    //public float crouchSpeed;
-    //public float crouchYScale;
-    //private float startYScale;
+    [SerializeField] float jumpHeight;   
 
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
@@ -32,7 +29,6 @@ public class playerController : MonoBehaviour, IDamage
 
     //Keybinds
     public KeyCode sprintKey = KeyCode.LeftShift;
-    //public KeyCode crouchKey = KeyCode.LeftControl;
 
     Vector3 move;
     private Vector3 playerVelocity;
@@ -41,7 +37,6 @@ public class playerController : MonoBehaviour, IDamage
     int jumpCount;
     bool isShooting;
     int hpOrig;
-    //Rigidbody rb;
 
     public MovementState state;
 
@@ -49,17 +44,15 @@ public class playerController : MonoBehaviour, IDamage
     {
         walking,
         sprinting,
-        crouching,
         air
     }
 
     // Start is called before the first frame update
     private void Start()
-    {
+    {      
         hpOrig = hp;
         SpawnPlayer();
-        //Instantiate(weapon, weaponPOS.transform.position, transform.rotation);
-        //startYScale = transform.localScale.y;
+        //Instantiate(weapon, weaponPOS.transform.position, transform.rotation);       
     }
 
     // Update is called once per frame
@@ -98,20 +91,6 @@ public class playerController : MonoBehaviour, IDamage
             playerVelocity.y = jumpHeight;
             jumpCount++;
         }
-
-        //// Start Crouch
-        //if (Input.GetKeyDown(crouchKey))
-        //{
-        //    transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-        //    rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        //}
-
-        //// Stop Crouch
-        //if(Input.GetKeyUp(crouchKey))
-        //{
-        //    transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        //}
-
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
@@ -167,12 +146,6 @@ public class playerController : MonoBehaviour, IDamage
 
     private void StateHandler()
     {
-        // Movement - Crouching
-        //if(Input.GetKey(crouchKey))
-        //{
-        //    state = MovementState.crouching;
-        //    playerSpeed = crouchSpeed;
-        //}
         // Movement - Running
         if (groundedPlayer && Input.GetKey(sprintKey))
         {
