@@ -117,8 +117,10 @@ public class gameManager : MonoBehaviour
         //flashes text on screen to tell player when the next wave will be.
         else if(enemiesRemaining <= 0 && wave < maxWaves)
         {
-            StartCoroutine(NextWave()); 
             wave++;
+            StartCoroutine(NextWave()); 
+            
+            
         }
     }
 
@@ -169,8 +171,14 @@ public class gameManager : MonoBehaviour
     public IEnumerator NextWave()
     {
         nextWave.SetActive(true);
-        updateGameGoal(wave * enemiesPerWave);
+        StartCoroutine(Countdown());
         yield return new WaitForSeconds(2);
         nextWave.SetActive(false);
+    }
+
+    IEnumerator Countdown()
+    {
+        yield return new WaitForSeconds(10);
+        updateGameGoal(wave * enemiesPerWave);
     }
 }
