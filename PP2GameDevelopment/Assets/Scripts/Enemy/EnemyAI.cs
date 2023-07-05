@@ -35,7 +35,10 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 playerDir;
     Vector3 startingPos;
     int hpOrig;
-
+    public void Awake()
+    {
+        healthBar = GetComponentInChildren<floatingHealthBar>();
+    }
     // Start is called before the first frame update
     void Start()
     {
