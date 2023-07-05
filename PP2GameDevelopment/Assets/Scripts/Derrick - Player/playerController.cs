@@ -135,6 +135,11 @@ public class playerController : MonoBehaviour, IDamage
     // Handles Weapon Reload and magazine size
     public void ReloadWeapon()
     {
+        // If ammo reaches 0 and mags are full display reload text
+        if(Weapon.instance.ammo == 0 && Weapon.instance.magazines == 2)
+        {
+            StartCoroutine(gameManager.instance.outOfAmmo());
+        }
         // Only Reaload's Weapon if ammo is less than initial ammoCount and not less than zero.
         // Reloads when the reloadKey is press
         if (Weapon.instance.ammo == 0 && Weapon.instance.ammo <= Weapon.instance.ammoCount && Input.GetKey(reloadKey))
