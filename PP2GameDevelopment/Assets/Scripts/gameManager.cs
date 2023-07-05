@@ -167,12 +167,12 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    //flashes the nextWave game object on screen for 2 seconds
+    //flashes the nextWave game object on screen for 4 seconds
     public IEnumerator NextWave()
     {
         nextWave.SetActive(true);
         StartCoroutine(Countdown());
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         nextWave.SetActive(false);
     }
 
