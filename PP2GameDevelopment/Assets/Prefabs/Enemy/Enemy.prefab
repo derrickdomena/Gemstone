@@ -159,7 +159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036987247479282916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1, z: 11}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -167,7 +167,7 @@ Transform:
   - {fileID: 6988304973907930524}
   - {fileID: 6965792083222877502}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6818974330737578008
 MonoBehaviour:
@@ -185,7 +185,7 @@ MonoBehaviour:
   agent: {fileID: 1118429548658916047}
   headPos: {fileID: 7498930571637161199}
   healthBar: {fileID: 0}
-  hp: 18
+  hp: 3
   moveSpeed: 3
   viewAngle: 85
   playerFaceSpeed: 10
@@ -898,7 +898,6 @@ GameObject:
   - component: {fileID: 236185710140067767}
   - component: {fileID: 2341492172358189075}
   - component: {fileID: 2482944251226030826}
-  - component: {fileID: 5998179747371957607}
   m_Layer: 5
   m_Name: Enemy HP
   m_TagString: Untagged
@@ -1006,22 +1005,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5998179747371957607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3791681830688139054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 117a328e4348d204db109a688e306b7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 0}
-  cameraPos: {fileID: 0}
-  target: {fileID: 7498930571637161199}
-  offset: {x: 0, y: 1.5, z: 0}
 --- !u!1 &4082255754795586944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4365337689125545241}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.5, y: 0, z: -10.99997}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1311,7 +1294,7 @@ TrailRenderer:
   m_PreviewTimeScale: 0
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 2
+    widthMultiplier: 0.05
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1320,6 +1303,15 @@ TrailRenderer:
         value: 1
         inSlope: 0
         outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: -0.018808367
+        outSlope: -0.018808367
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -1338,8 +1330,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.94139844, b: 0.8443396, a: 1}
-      key1: {r: 1, g: 0.62319684, b: 0, a: 0}
+      key0: {r: 1, g: 0.625, b: 0, a: 1}
+      key1: {r: 1, g: 0.625, b: 0, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
