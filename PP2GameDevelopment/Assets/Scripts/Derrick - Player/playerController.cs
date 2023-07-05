@@ -18,10 +18,12 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
 
-    //Keybinds
+    // Keybinds
+    // Movement
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    // Reload
     public KeyCode reloadKey = KeyCode.R;
 
     Vector3 move;
@@ -34,8 +36,8 @@ public class playerController : MonoBehaviour, IDamage
     bool isShooting;
     int hpOrig;
 
+    // Movement
     public MovementState state;
-
     public enum MovementState
     {
         walking,
@@ -106,14 +108,14 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
-    //Manages the ability shooting
+    // Manages Shooting
     IEnumerator Shoot()
     {
         isShooting = true;
 
         RaycastHit hit;
 
-        // Ammo Count
+        // Decrease ammo count when shooting
         if (Weapon.instance.ammo > 0)
         {
             Weapon.instance.ammo -= 1;
@@ -133,7 +135,8 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
-    // Handles Weapon Reload and magazine size
+    // Weapon Script Work
+    // Handles Weapon Reload and Magazine Size
     public void ReloadWeapon()
     {
         // If ammo reaches 0 and mags are full display reload text
@@ -154,6 +157,12 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    // When ammo pack is picked up, increases magazine
+    public void MoreAmmo(int amount)
+    {
+        Weapon.instance.magazines += 1;
+    }
+
     // Apply Damage done by Enemies
     public void TakeDamage(int amount)
     {
@@ -167,14 +176,16 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    // Receive health when picking up a health pack
     public void Heal(int amount)
     {
-        //hp += amount;
+        //hp += amount; Future use, when health packs vary in healing ammount.
         hp = hpOrig;
         UpdatePlayerUI();
 
     }
 
+    // Updates the Player UI health
     public void UpdatePlayerUI()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
@@ -189,6 +200,7 @@ public class playerController : MonoBehaviour, IDamage
         hp = hpOrig;
     }
 
+    // Sets the movement speed for each movement state
     private void StateHandler()
     {
         // Movement - Crouching

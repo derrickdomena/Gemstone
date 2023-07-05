@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class healingItem : MonoBehaviour
+public class ammoItem : MonoBehaviour
 {
-    int healAmount;
+    int magAmount;
 
     // Update rotates the X, Y axis of the iteam
     private void Update()
@@ -12,12 +12,12 @@ public class healingItem : MonoBehaviour
         transform.Rotate(50f * Time.deltaTime, 50f * Time.deltaTime, 0, Space.Self);
     }
 
-    // When item collision occurs with Player, the item gets destroyed and healAmmount gets passed as an ammount to Heal
+    // When item collision occurs with Player, the item gets destroyed and magAmmount gets passed as an ammount to MoreAmmo
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<playerController>().Heal(healAmount);
+            other.GetComponent<playerController>().MoreAmmo(magAmount);
             Destroy(gameObject);
         }
     }
