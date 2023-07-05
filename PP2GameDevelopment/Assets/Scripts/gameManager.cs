@@ -78,7 +78,7 @@ public class gameManager : MonoBehaviour
 
         if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
         {
-            spawnEnemies(1);
+            spawnEnemies(enemiesRemaining);
         }
     }
 
@@ -118,9 +118,7 @@ public class gameManager : MonoBehaviour
         else if(enemiesRemaining <= 0 && wave < maxWaves)
         {
             wave++;
-            StartCoroutine(NextWave()); 
-            
-            
+            StartCoroutine(NextWave());                   
         }
     }
 
