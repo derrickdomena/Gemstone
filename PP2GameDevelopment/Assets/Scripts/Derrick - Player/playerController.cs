@@ -9,8 +9,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    // Track Player Stats, hp, movement, gravity, and max potential jumps.
+    // Health
     [SerializeField] int hp;
+    // Movement
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float jumpHeight;
@@ -20,12 +21,15 @@ public class playerController : MonoBehaviour, IDamage
     //Keybinds
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
     public KeyCode reloadKey = KeyCode.R;
 
     Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed;
+    private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
+    private Vector3 playerScale = new Vector3(1, 1f, 1);
     int jumpCount;
     bool isShooting;
     int hpOrig;
@@ -36,6 +40,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         walking,
         sprinting,
+        crouching,
         air
     }
 
@@ -82,6 +87,19 @@ public class playerController : MonoBehaviour, IDamage
         {
             playerVelocity.y = jumpHeight;
             jumpCount++;
+        }
+
+        // Crouch
+        if (Input.GetKeyDown(crouchKey))
+        {
+            transform.localScale = crouchScale;
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+        }
+
+        if (Input.GetKeyUp(crouchKey))
+        {
+            transform.localScale = playerScale;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         }
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
@@ -159,6 +177,12 @@ public class playerController : MonoBehaviour, IDamage
 
     private void StateHandler()
     {
+        // Movement - Crouching
+        if (Input.GetKey(crouchKey))
+        {
+            state = MovementState.crouching;
+            playerSpeed = walkSpeed / 2;
+        }
         // Movement - Running
         if (groundedPlayer && Input.GetKey(sprintKey))
         {
