@@ -76,7 +76,7 @@ public class gameManager : MonoBehaviour
         ammo.text = Weapon.instance.ammo.ToString("F0");
         mags.text = Weapon.instance.magazines.ToString("F0");
 
-        if (enemiesInScene < maxEnemies && enemiesRemaining > 0)
+        if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
         {
             spawnEnemies(1);
         }
