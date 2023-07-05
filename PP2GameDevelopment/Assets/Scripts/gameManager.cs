@@ -22,6 +22,10 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
     public GameObject playerFlashDamageScreen;
+    public TextMeshProUGUI ammo;
+    public TextMeshProUGUI mags;
+    public GameObject reload;
+
 
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemiesPerWave;
@@ -30,11 +34,13 @@ public class gameManager : MonoBehaviour
     [SerializeField] public int maxEnemies;
 
     GameObject[] enemySpawnLocs;
-    int enemiesInScene;
     int enemiesRemaining;
+    int enemiesInScene;
+    int wave = 1;
+    int ammoRemaining;
+    int magsRemaining;
     bool isPaused;
     float timescaleOrig;
-    int wave = 1;
 
     //Awake is called before Start
     void Awake()
@@ -50,10 +56,14 @@ public class gameManager : MonoBehaviour
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
+        ammoRemaining = Weapon.instance.ammo;
+        magsRemaining = Weapon.instance.magazines;
 
         //temp
         spawnEnemies(enemiesPerWave);
         //temp
+
+        
     }
 
     // Update is called once per frame
@@ -66,6 +76,8 @@ public class gameManager : MonoBehaviour
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
         }
+        ammo.text = Weapon.instance.ammo.ToString("F0");
+        mags.text = Weapon.instance.magazines.ToString("F0");
     }
 
     //Pause game instance and unlocks cursor to the area of the game
@@ -101,6 +113,23 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    //Sets active menu to loseMenu
+    public void youLose()
+    {
+        statePaused();
+        activeMenu = loseMenu;
+        activeMenu.SetActive(true);
+    }
+
+    //first time ammo is 0
+    public IEnumerator outOfAmmo()
+    {
+        reload.SetActive(true);
+        yield return new WaitForSeconds(1);
+        reload.SetActive(false);
+    }
+
+    //when a player is damaged Flash the screen for .01 seconds
     public IEnumerator playerFlashDamage()
     {
         playerFlashDamageScreen.SetActive(true);
