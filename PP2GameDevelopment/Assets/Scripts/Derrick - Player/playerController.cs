@@ -14,11 +14,11 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float jumpHeight;
-
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
 
     //Keybinds
+    public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode reloadKey = KeyCode.R;
 
@@ -62,7 +62,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    // Handles Movement for Player
+    // Movement
     void Movement()
     {
         groundedPlayer = controller.isGrounded;
@@ -78,7 +78,7 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerSpeed * Time.deltaTime * move);
 
         // Jump
-        if (Input.GetButtonDown("Jump") && jumpCount < jumpsMax)
+        if (Input.GetKeyDown(jumpKey) || Input.GetKey(jumpKey) && jumpCount < jumpsMax)
         {
             playerVelocity.y = jumpHeight;
             jumpCount++;
