@@ -26,6 +26,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI ammo;
     public TextMeshProUGUI mags;
     public GameObject reload;
+    public GameObject nextWave;
+    
 
 
     [Header("----- Enemy Stuff -----")]
@@ -37,11 +39,12 @@ public class gameManager : MonoBehaviour
     GameObject[] enemySpawnLocs;
     int enemiesRemaining;
     int enemiesInScene;
-    int wave = 1;
-    int ammoRemaining;
-    int magsRemaining;
+    public int wave = 1;
     bool isPaused;
     float timescaleOrig;
+
+
+  
 
     //Awake is called before Start
     void Awake()
@@ -57,8 +60,7 @@ public class gameManager : MonoBehaviour
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
-        ammoRemaining = Weapon.instance.ammo;
-        magsRemaining = Weapon.instance.magazines;
+
 
 
 
@@ -107,16 +109,23 @@ public class gameManager : MonoBehaviour
         activeMenu = null;
     }
     //updates enemies remaining and if no enemies remain sets active menu to win
+    //also checks the amount of waves left before displaying win screen
     public void updateGameGoal(int amount)
     {
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
 
-        if (enemiesRemaining <= 0)
+        if (enemiesRemaining <= 0 && wave >= maxWaves)
         {
             activeMenu = winMenu;
             activeMenu.SetActive(true);
             statePaused();
+        }
+        //flashes text on screen to tell player when the next wave will be.
+        else if(enemiesRemaining <= 0 && wave < maxWaves)
+        {
+            StartCoroutine(NextWave()); 
+            wave++;
         }
     }
 
@@ -158,5 +167,13 @@ public class gameManager : MonoBehaviour
                 enemySpawnLocs[randomSpawnLoc].transform.position, 
                 enemySpawnLocs[randomSpawnLoc].transform.rotation);
         }
+    }
+
+    //flashes the nextWave game object on screen for 2 seconds
+    public IEnumerator NextWave()
+    {
+        nextWave.SetActive(true);
+        yield return new WaitForSeconds(2);
+        nextWave.SetActive(false);
     }
 }
