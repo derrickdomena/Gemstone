@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         healthBar = GetComponentInChildren<floatingHealthBar>();
-        gameManager.instance.updateGameGoal(1);
+        //gameManager.instance.updateGameGoal(1);
         stoppingDistanceOrig = agent.stoppingDistance;
         hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);

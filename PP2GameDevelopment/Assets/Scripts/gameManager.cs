@@ -60,16 +60,7 @@ public class gameManager : MonoBehaviour
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
-
-
-
-
-        //temp
-        spawnEnemies(enemiesPerWave);
-        
-        //temp
-
-        
+        updateGameGoal(wave * enemiesPerWave);
     }
 
     // Update is called once per frame
@@ -87,7 +78,7 @@ public class gameManager : MonoBehaviour
 
         if (enemiesInScene < maxEnemies && enemiesRemaining > 0)
         {
-            spawnEnemies(maxEnemies - enemiesInScene);
+            spawnEnemies(1);
         }
     }
 
@@ -168,6 +159,9 @@ public class gameManager : MonoBehaviour
                 enemyTypes[randomEnemyType], 
                 enemySpawnLocs[randomSpawnLoc].transform.position, 
                 enemySpawnLocs[randomSpawnLoc].transform.rotation);
+
+            enemiesInScene++;
+            Debug.Log("Enemies in scene: " + enemiesInScene);
         }
     }
 
@@ -175,6 +169,7 @@ public class gameManager : MonoBehaviour
     public IEnumerator NextWave()
     {
         nextWave.SetActive(true);
+        updateGameGoal(wave * enemiesPerWave);
         yield return new WaitForSeconds(2);
         nextWave.SetActive(false);
     }
