@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class gameManager : MonoBehaviour
 {
@@ -59,8 +60,14 @@ public class gameManager : MonoBehaviour
         ammoRemaining = Weapon.instance.ammo;
         magsRemaining = Weapon.instance.magazines;
 
+
+
         //temp
         spawnEnemies(enemiesPerWave);
+        foreach (GameObject i in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            i.GetComponent<NavMeshAgent>().SetDestination(playerSpawnPos.transform.position);
+        }
         //temp
 
         

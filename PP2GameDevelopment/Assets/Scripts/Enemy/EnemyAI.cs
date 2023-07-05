@@ -33,7 +33,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     bool isShooting;
     float stoppingDistanceOrig;
     Vector3 playerDir;
-    Vector3 startingPos;
     int hpOrig;
     public void Awake()
     {
@@ -44,7 +43,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         gameManager.instance.updateGameGoal(1);
         stoppingDistanceOrig = agent.stoppingDistance;
-        startingPos = transform.position;
         hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);
     }
@@ -125,7 +123,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             playerInRange = false;
             agent.stoppingDistance = 0;
-            startingPos = transform.position;
         }
     }
 
@@ -160,7 +157,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             yield return new WaitForSeconds(roamTimer);
 
             Vector3 randomPos = Random.insideUnitSphere * roamDist;
-            randomPos += startingPos;
+            randomPos += gameObject.transform.position;
 
             NavMeshHit hit;
             NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
