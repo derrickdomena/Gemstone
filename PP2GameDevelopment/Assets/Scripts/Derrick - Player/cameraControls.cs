@@ -16,8 +16,6 @@ public class cameraControls : MonoBehaviour
     // Invert Mouse Y
     [SerializeField] bool invertY;
 
-    public Transform orientation;
-
     float xRotation;
 
     // Start is called before the first frame update

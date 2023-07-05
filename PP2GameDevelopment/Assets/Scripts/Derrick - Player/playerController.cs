@@ -113,6 +113,7 @@ public class playerController : MonoBehaviour, IDamage
 
         RaycastHit hit;
 
+        // Ammo Count
         if (Weapon.instance.ammo > 0)
         {
             Weapon.instance.ammo -= 1;
@@ -159,6 +160,14 @@ public class playerController : MonoBehaviour, IDamage
         {
             gameManager.instance.youLose();
         }
+    }
+
+    public void Heal(int amount)
+    {
+        //hp += amount;
+        hp = hpOrig;
+        UpdatePlayerUI();
+
     }
 
     public void UpdatePlayerUI()
