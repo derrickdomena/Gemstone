@@ -24,13 +24,15 @@ public class gameManager : MonoBehaviour
     public GameObject playerFlashDamageScreen;
     public TextMeshProUGUI ammo;
     public TextMeshProUGUI mags;
+    public GameObject reload;
 
 
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemyCount;
     public GameObject[] enemySpawnLocs;
 
-
+    int ammoRemaining;
+    int magsRemaining;
     int enemiesRemaining;
     bool isPaused;
     float timescaleOrig;
@@ -44,7 +46,8 @@ public class gameManager : MonoBehaviour
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
-
+        ammoRemaining = Weapon.instance.ammo;
+        magsRemaining = Weapon.instance.magazines;
     }
 
     // Update is called once per frame
@@ -100,6 +103,14 @@ public class gameManager : MonoBehaviour
         statePaused();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
+    }
+
+    //first time ammo is 0
+    public IEnumerator outOfAmmo()
+    {
+        reload.SetActive(true);
+        yield return new WaitForSeconds(1);
+        reload.SetActive(false);
     }
 
     //when a player is damaged Flash the screen for .01 seconds
