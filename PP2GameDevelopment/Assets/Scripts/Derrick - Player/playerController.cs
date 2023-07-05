@@ -60,7 +60,7 @@ public class playerController : MonoBehaviour, IDamage
             StateHandler();
             ReloadWeapon();
 
-            if (Input.GetButton("Shoot") && !isShooting)
+            if (Input.GetButton("Shoot") && !isShooting && Weapon.instance.ammo > 0)
             {
                 StartCoroutine(Shoot());
             }
