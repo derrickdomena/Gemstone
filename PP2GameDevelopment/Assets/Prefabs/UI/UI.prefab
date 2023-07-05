@@ -309,7 +309,7 @@ RectTransform:
   - {fileID: 4363784667716691163}
   - {fileID: 8295609093611265138}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -337,6 +337,8 @@ MonoBehaviour:
   loseMenu: {fileID: 0}
   enemiesRemainingText: {fileID: 5847245810155761325}
   playerHPBar: {fileID: 0}
+  enemyCount: 0
+  enemySpawnLocs: []
 --- !u!114 &22571992518456786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8174993222554739395
 RectTransform:
   m_ObjectHideFlags: 0

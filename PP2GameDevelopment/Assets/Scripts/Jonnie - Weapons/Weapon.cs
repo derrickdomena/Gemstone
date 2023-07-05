@@ -22,12 +22,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] public int shootDamage;
     [SerializeField] public int shootDistance;
 
-
+    public int ammoCount;
     public bool automatic;
+    
 
     void Awake()
     {
         instance = this;
+        ammoCount = ammo;
     }
     
 
