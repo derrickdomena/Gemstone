@@ -22,6 +22,9 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
     public GameObject playerFlashDamageScreen;
+    public TextMeshProUGUI ammo;
+    public TextMeshProUGUI mags;
+
 
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemyCount;
@@ -54,6 +57,8 @@ public class gameManager : MonoBehaviour
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
         }
+        ammo.text = Weapon.instance.ammo.ToString("F0");
+        mags.text = Weapon.instance.magazines.ToString("F0");
     }
 
     //Pause game instance and unlocks cursor to the area of the game
@@ -89,6 +94,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    //Sets active menu to loseMenu
     public void youLose()
     {
         statePaused();
