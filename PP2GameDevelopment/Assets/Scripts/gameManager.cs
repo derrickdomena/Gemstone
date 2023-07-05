@@ -89,6 +89,14 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    public void youLose()
+    {
+        statePaused();
+        activeMenu = loseMenu;
+        activeMenu.SetActive(true);
+    }
+
+    //when a player is damaged Flash the screen for .01 seconds
     public IEnumerator playerFlashDamage()
     {
         playerFlashDamageScreen.SetActive(true);
