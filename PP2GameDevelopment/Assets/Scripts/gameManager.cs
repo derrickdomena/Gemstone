@@ -64,10 +64,7 @@ public class gameManager : MonoBehaviour
 
         //temp
         spawnEnemies(enemiesPerWave);
-        foreach (GameObject i in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            i.GetComponent<NavMeshAgent>().SetDestination(playerSpawnPos.transform.position);
-        }
+        
         //temp
 
         
@@ -85,6 +82,11 @@ public class gameManager : MonoBehaviour
         }
         ammo.text = Weapon.instance.ammo.ToString("F0");
         mags.text = Weapon.instance.magazines.ToString("F0");
+
+        if (enemiesInScene < maxEnemies && enemiesRemaining > 0)
+        {
+            spawnEnemies(maxEnemies - enemiesInScene);
+        }
     }
 
     //Pause game instance and unlocks cursor to the area of the game
@@ -153,7 +155,7 @@ public class gameManager : MonoBehaviour
 
             Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
 
-            Instantiate(
+            Instantiate( 
                 enemyTypes[randomEnemyType], 
                 enemySpawnLocs[randomSpawnLoc].transform.position, 
                 enemySpawnLocs[randomSpawnLoc].transform.rotation);
