@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
-    floatingHealthBar healthBar;
+    [SerializeField] floatingHealthBar healthBar;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
@@ -36,12 +36,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     int hpOrig;
 
-    void Awake()
-    {
-        healthBar = GetComponentInChildren<floatingHealthBar>();
-        Debug.Log(healthBar);
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +44,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         stoppingDistanceOrig = agent.stoppingDistance;
         startingPos = transform.position;
         hpOrig = hp;
-        //healthBar.UpdateHealthBar(hp, hpOrig);
+        healthBar.UpdateHealthBar(hp, hpOrig);
     }
 
     // Update is called once per frame
