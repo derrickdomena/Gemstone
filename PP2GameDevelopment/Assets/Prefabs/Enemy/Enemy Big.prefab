@@ -55,6 +55,7 @@ MonoBehaviour:
   model: {fileID: 7618424488468723409}
   agent: {fileID: 8931816138582250059}
   headPos: {fileID: 8385983467010762894}
+  healthBar: {fileID: 0}
   hp: 15
   moveSpeed: 3
   viewAngle: 85
@@ -63,7 +64,7 @@ MonoBehaviour:
   roamDist: 10
   shootRate: 1
   shootPos: {fileID: 8385983467010762894}
-  bullet: {fileID: 0}
+  bullet: {fileID: 1617100428924147184}
   shootRange: 0
   shootDamage: 0
   enemyPrefab: {fileID: 0}
@@ -232,7 +233,7 @@ MonoBehaviour:
   rb: {fileID: 1564123007797298871}
   damage: 2
   speed: 20
-  destroyTime: 0.01
+  destroyTime: 0.1
 --- !u!54 &1564123007797298871
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -664,6 +665,7 @@ GameObject:
   - component: {fileID: 479556687248237818}
   - component: {fileID: 9072027205331479860}
   - component: {fileID: 874754284247992230}
+  - component: {fileID: 1698003721790904622}
   m_Layer: 5
   m_Name: Enemy HP
   m_TagString: Untagged
@@ -755,6 +757,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1698003721790904622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718191558798509399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 117a328e4348d204db109a688e306b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  cameraPos: {fileID: 0}
+  target: {fileID: 8385983467010762894}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1001 &4677196412663416248
 PrefabInstance:
   m_ObjectHideFlags: 0
