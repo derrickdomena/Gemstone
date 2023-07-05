@@ -37,7 +37,7 @@ Transform:
   - {fileID: 7000018636623511940}
   - {fileID: 6988304973907930524}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6818974330737578008
 MonoBehaviour:
@@ -60,10 +60,11 @@ MonoBehaviour:
   viewAngle: 85
   playerFaceSpeed: 10
   roamTimer: 3
-  roamDist: 0
+  roamDist: 10
   shootRate: 1
   shootPos: {fileID: 7498930571637161199}
   bullet: {fileID: 5867167230559238418, guid: 02a57a8705ea00441864e75e761a4eb5, type: 3}
+  enemyPrefab: {fileID: 0}
 --- !u!195 &1118429548658916047
 NavMeshAgent:
   m_ObjectHideFlags: 0
