@@ -34,13 +34,17 @@ public class EnemyAI : MonoBehaviour, IDamage
     float stoppingDistanceOrig;
     Vector3 playerDir;
     int hpOrig;
+
+    // Awake is called when the script instance is loaded, before Start()
     public void Awake()
     {
-        healthBar = GetComponentInChildren<floatingHealthBar>();
+        
     }
+
     // Start is called before the first frame update
     void Start()
     {
+        healthBar = GetComponentInChildren<floatingHealthBar>();
         gameManager.instance.updateGameGoal(1);
         stoppingDistanceOrig = agent.stoppingDistance;
         hpOrig = hp;
@@ -50,15 +54,24 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        
-        if (playerInRange && !CanSeePlayer())
-        {
-            StartCoroutine(roam());
-        }
-        else if (agent.destination != gameManager.instance.player.transform.position)
-        {
-            StartCoroutine(roam());
+        pursuePlayer();
+    }
 
+    void pursuePlayer()
+    {
+        agent.SetDestination(gameManager.instance.player.transform.position);
+
+        if (CanSeePlayer())
+        {
+            if (agent.remainingDistance < agent.stoppingDistance)
+            {
+                FacePlayer();
+            }
+
+            if (!isShooting)
+            {
+                StartCoroutine(Shoot());
+            }
         }
     }
 
@@ -83,22 +96,9 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer < viewAngle)
             {
-                agent.SetDestination(gameManager.instance.player.transform.position);
-
-                if (agent.remainingDistance < agent.stoppingDistance)
-                {
-                    FacePlayer();
-                }
-
-                if (!isShooting)
-                {
-                    StartCoroutine(Shoot());
-                }
-
                 return true;
             }
         }
-
         return false;
     }
 
@@ -115,7 +115,9 @@ public class EnemyAI : MonoBehaviour, IDamage
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             playerInRange = true;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -123,7 +125,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            agent.stoppingDistance = 0;
         }
     }
 
