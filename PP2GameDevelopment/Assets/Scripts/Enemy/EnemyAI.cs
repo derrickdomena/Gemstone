@@ -43,7 +43,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         gameManager.instance.updateGameGoal(1);
-        spawnEnemies();
         stoppingDistanceOrig = agent.stoppingDistance;
         startingPos = transform.position;
         hpOrig = hp;
@@ -142,20 +141,6 @@ public class EnemyAI : MonoBehaviour, IDamage
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
-    }
-
-    public void spawnEnemies()
-    {
-        int remainingSpawn = gameManager.instance.enemyCount;
-        
-        for (int i = 0; i < gameManager.instance.enemySpawnLocs.Length; i++)
-        {
-            int enemyRandomSpawn = Random.Range(1, gameManager.instance.enemySpawnLocs.Length);
-            Instantiate(enemyPrefab, gameManager.instance.enemySpawnLocs[enemyRandomSpawn].transform.position, Quaternion.identity);
-            remainingSpawn--;
-        }
-
-        // spawn based on number in room after deadline
     }
 
     IEnumerator FlashDamage()
