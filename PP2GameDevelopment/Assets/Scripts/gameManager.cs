@@ -21,6 +21,7 @@ public class gameManager : MonoBehaviour
     public GameObject loseMenu;
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
+    public GameObject playerFlashDamageScreen;
 
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemyCount;
@@ -86,6 +87,13 @@ public class gameManager : MonoBehaviour
             activeMenu.SetActive(true);
             statePaused();
         }
+    }
+
+    public IEnumerator playerFlashDamage()
+    {
+        playerFlashDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        playerFlashDamageScreen.SetActive(false);
     }
 
 }

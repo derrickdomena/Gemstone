@@ -167,7 +167,7 @@ Transform:
   - {fileID: 6988304973907930524}
   - {fileID: 6965792083222877502}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6818974330737578008
 MonoBehaviour:
@@ -194,8 +194,8 @@ MonoBehaviour:
   shootRate: 1
   shootPos: {fileID: 7498930571637161199}
   bullet: {fileID: 4365337689125545241}
-  shootRange: 0
-  shootDamage: 0
+  shootRange: 1
+  shootDamage: 1
   enemyPrefab: {fileID: 0}
 --- !u!195 &1118429548658916047
 NavMeshAgent:
@@ -898,6 +898,7 @@ GameObject:
   - component: {fileID: 236185710140067767}
   - component: {fileID: 2341492172358189075}
   - component: {fileID: 2482944251226030826}
+  - component: {fileID: 5998179747371957607}
   m_Layer: 5
   m_Name: Enemy HP
   m_TagString: Untagged
@@ -1005,6 +1006,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5998179747371957607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791681830688139054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 117a328e4348d204db109a688e306b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  cameraPos: {fileID: 0}
+  target: {fileID: 7498930571637161199}
+  offset: {x: 0, y: 1.5, z: 0}
 --- !u!1 &4082255754795586944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1177,7 @@ GameObject:
   - component: {fileID: 6965792083222877502}
   - component: {fileID: 5868084783405816860}
   - component: {fileID: 1828675011681609611}
+  - component: {fileID: 8177947982289333026}
   - component: {fileID: 3218244263067655726}
   m_Layer: 8
   m_Name: Enemy Bullet
@@ -1226,6 +1244,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!135 &8177947982289333026
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365337689125545241}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &3218244263067655726
 TrailRenderer:
   serializedVersion: 3
@@ -1269,7 +1308,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Time: 0.1
-  m_PreviewTimeScale: 1
+  m_PreviewTimeScale: 0
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 2
