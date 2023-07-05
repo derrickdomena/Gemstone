@@ -145,7 +145,7 @@ Transform:
   m_Children:
   - {fileID: 3013368943278909336}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5883952889013273771
 MeshFilter:
@@ -280,7 +280,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2445781994977324548, guid: 9a2a3af9c2639b6478dc9fa3744fdf9c, type: 3}
       propertyPath: ammo
-      value: 20
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2445781994977324548, guid: 9a2a3af9c2639b6478dc9fa3744fdf9c, type: 3}
       propertyPath: automatic
@@ -359,6 +359,10 @@ PrefabInstance:
     - target: {fileID: 901619417199823960, guid: 92d3b3b37fbfaf14380dcf47a515ab93, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460802075814202988, guid: 92d3b3b37fbfaf14380dcf47a515ab93, type: 3}
+      propertyPath: magazines
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2460802075814202988, guid: 92d3b3b37fbfaf14380dcf47a515ab93, type: 3}
       propertyPath: shootRate
