@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
-    [SerializeField] floatingHealthBar healthBar;
+    floatingHealthBar healthBar;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
@@ -23,6 +23,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
     [SerializeField] GameObject bullet;
+    [SerializeField] float shootRange;
+    [SerializeField] int shootDamage;
 
     public GameObject enemyPrefab;
     bool playerInRange;
@@ -34,12 +36,10 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     int hpOrig;
 
-
-
     void Awake()
     {
         healthBar = GetComponentInChildren<floatingHealthBar>();
-
+        Debug.Log(healthBar);
     }
 
     // Start is called before the first frame update
@@ -50,7 +50,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         stoppingDistanceOrig = agent.stoppingDistance;
         startingPos = transform.position;
         hpOrig = hp;
-        healthBar.UpdateHealthBar(hp, hpOrig);
+        //healthBar.UpdateHealthBar(hp, hpOrig);
     }
 
     // Update is called once per frame
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
 
         Debug.DrawRay(headPos.position, playerDir);
-        Debug.Log(angleToPlayer);
+        //Debug.Log(angleToPlayer);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
@@ -111,7 +111,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         isShooting = true;
 
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        Instantiate(bullet, shootPos.position, transform.rotation).SetActive(true);
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
@@ -133,9 +133,9 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int amount)
     {
-        hp -= damage;
+        hp -= amount;
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(FlashDamage());
         healthBar.UpdateHealthBar(hp, hpOrig);
