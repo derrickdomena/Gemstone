@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1025389676029101094}
+  - component: {fileID: 5789199948819987080}
   - component: {fileID: 2903231198794155931}
   - component: {fileID: 8023655011825859447}
   - component: {fileID: 8199200997927049875}
-  - component: {fileID: 8814395906887897270}
   m_Layer: 9
   m_Name: Health Pack
   m_TagString: Collectable
@@ -35,6 +35,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5789199948819987080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4939193117834386706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12804815e9ebea4e9bcfcf1fb034bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &2903231198794155931
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -63,7 +75,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: aedd206849cabcb419d993b92d2216c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,15 +118,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8814395906887897270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4939193117834386706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12804815e9ebea4e9bcfcf1fb034bd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

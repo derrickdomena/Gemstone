@@ -22,6 +22,7 @@ public class TestPlayerController : MonoBehaviour, IDamage
 
     //Keybinds
     public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode reloadAmmo = KeyCode.R;
 
     Vector3 move;
     private Vector3 playerVelocity;
@@ -48,16 +49,27 @@ public class TestPlayerController : MonoBehaviour, IDamage
             Movement();
             StateHandler();
 
+            // Check if player has ammo
+            if(Weapon.instance.ammo > 0)
+
             // Switch between Automatic shooting and Semi Automatic shooting
             if (auto && Input.GetButton("Shoot") && !isShooting)
             {
                 StartCoroutine(Shoot());
+                Weapon.instance.ammoUpdate();
             }
             else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
             {
                 StartCoroutine(Shoot());
+                Weapon.instance.ammoUpdate();
             }
         }
+
+        // Reload Ammo
+        if(Input.GetKeyDown(reloadAmmo))
+        {
+            Weapon.instance.ReloadWeapon();
+        }    
     }
 
     // Handles Movement for Player
@@ -157,6 +169,7 @@ public class TestPlayerController : MonoBehaviour, IDamage
         {
             state = MovementState.air;
         }
+
     }
 }
 
