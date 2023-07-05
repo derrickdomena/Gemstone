@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
@@ -61,7 +62,7 @@ public class playerController : MonoBehaviour, IDamage
         if (gameManager.instance.activeMenu == null)
         {
             Movement();
-            StateHandler();
+            StateHandler();          
 
             // Check if player has ammo
             if (Weapon.instance.ammo > 0)
@@ -156,7 +157,6 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = false;
 
     }
-
 
     // When ammo pack is picked up, increases magazine
     public void MoreAmmo(int amount)
