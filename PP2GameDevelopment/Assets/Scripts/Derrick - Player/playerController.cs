@@ -35,6 +35,7 @@ public class playerController : MonoBehaviour, IDamage
     int jumpCount;
     bool isShooting;
     int hpOrig;
+    bool auto;
 
     // Movement
     public MovementState state;
@@ -51,6 +52,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         hpOrig = hp;
         SpawnPlayer();
+        auto = Weapon.instance.automatic;
     }
 
     // Update is called once per frame
@@ -60,12 +62,32 @@ public class playerController : MonoBehaviour, IDamage
         {
             Movement();
             StateHandler();
-            ReloadWeapon();
 
-            if (Input.GetButton("Shoot") && !isShooting && Weapon.instance.ammo > 0)
+            // Check if player has ammo
+            if (Weapon.instance.ammo > 0)
             {
-                StartCoroutine(Shoot());
+                // Switch between Automatic shooting and Semi Automatic shooting
+                if (auto && Input.GetButton("Shoot") && !isShooting)
+                {
+                    StartCoroutine(Shoot());
+                }
+                else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
+                {
+                    StartCoroutine(Shoot());
+                }
             }
+
+        }
+
+        if (Input.GetKeyDown(reloadKey))
+        {
+            Weapon.instance.ReloadWeapon();
+        }
+
+        // If ammo reaches 0 and mags are full display reload text
+        if (Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0)
+        {
+            StartCoroutine(gameManager.instance.outOfAmmo());
         }
     }
 
@@ -118,9 +140,9 @@ public class playerController : MonoBehaviour, IDamage
         // Decrease ammo count when shooting
         if (Weapon.instance.ammo > 0)
         {
-            Weapon.instance.ammo -= 1;
+            Weapon.instance.ammoUpdate();
         }
-        
+
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.instance.shootDistance))
         {
             IDamage damagable = hit.collider.GetComponent<IDamage>();
@@ -135,27 +157,6 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
-    // Weapon Script Work
-    // Handles Weapon Reload and Magazine Size
-    public void ReloadWeapon()
-    {
-        // If ammo reaches 0 and mags are full display reload text
-        if(Weapon.instance.ammo == 0 && Weapon.instance.magazines == 2)
-        {
-            StartCoroutine(gameManager.instance.outOfAmmo());
-        }
-        // Only Reaload's Weapon if ammo is less than initial ammoCount and not less than zero.
-        // Reloads when the reloadKey is press
-        if (Weapon.instance.ammo == 0 && Weapon.instance.ammo <= Weapon.instance.ammoCount && Input.GetKey(reloadKey))
-        {
-            // Reduces magazine size until it hits zero.
-            if (Weapon.instance.magazines >= 1)
-            {
-                Weapon.instance.magazines -= 1;
-                Weapon.instance.ammo = Weapon.instance.ammoCount;
-            }
-        }
-    }
 
     // When ammo pack is picked up, increases magazine
     public void MoreAmmo(int amount)

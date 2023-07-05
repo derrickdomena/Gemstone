@@ -50,6 +50,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+        
         if (playerInRange && !CanSeePlayer())
         {
             StartCoroutine(roam());
