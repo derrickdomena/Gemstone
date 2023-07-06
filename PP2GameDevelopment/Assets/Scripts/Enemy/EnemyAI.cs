@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
-    [SerializeField] Renderer model;
+    private Renderer[] model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
     [SerializeField] floatingHealthBar healthBar;
@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         healthBar = GetComponentInChildren<floatingHealthBar>();
-        //gameManager.instance.updateGameGoal(1);
+        gameManager.instance.enemyCheckIn();
         stoppingDistanceOrig = agent.stoppingDistance;
         hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);
@@ -132,23 +132,26 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         hp -= amount;
         agent.SetDestination(gameManager.instance.player.transform.position);
-        StartCoroutine(FlashDamage());
+        //StartCoroutine(FlashDamage());
         healthBar.UpdateHealthBar(hp, hpOrig);
 
         if (hp <= 0)
         {
-            gameManager.instance.updateGameGoal(-1);
+            gameManager.instance.enemyCheckOut();
             Destroy(gameObject);
         }
     }
 
-    IEnumerator FlashDamage()
+    /*IEnumerator FlashDamage()
     {
+        
+
+        
         Color orig = model.material.color;
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = orig;
-    }
+    }*/
 
     IEnumerator roam()
     {

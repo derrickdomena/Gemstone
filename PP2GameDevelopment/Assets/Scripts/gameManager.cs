@@ -78,7 +78,7 @@ public class gameManager : MonoBehaviour
 
         if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
         {
-            spawnEnemies(enemiesRemaining);
+            spawnEnemies(Mathf.Min(maxEnemies - enemiesInScene, enemiesRemaining - enemiesInScene));
         }
     }
 
@@ -101,6 +101,18 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(false);
         activeMenu = null;
     }
+
+    public void enemyCheckIn()
+    {
+        enemiesInScene++;
+    }
+
+    public void enemyCheckOut()
+    {
+        enemiesInScene--;
+        updateGameGoal(-1);
+    }
+
     //updates enemies remaining and if no enemies remain sets active menu to win
     //also checks the amount of waves left before displaying win screen
     public void updateGameGoal(int amount)
@@ -160,7 +172,6 @@ public class gameManager : MonoBehaviour
                 enemySpawnLocs[randomSpawnLoc].transform.position, 
                 enemySpawnLocs[randomSpawnLoc].transform.rotation);
 
-            enemiesInScene++;
             Debug.Log("Enemies in scene: " + enemiesInScene);
         }
     }
