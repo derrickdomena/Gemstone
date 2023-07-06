@@ -16,7 +16,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerSpawnPos;
 
     [Header("----- UI Stuff -----")]
-    public GameObject activeMenu;
+    public GameObject activeMenu = null;
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
