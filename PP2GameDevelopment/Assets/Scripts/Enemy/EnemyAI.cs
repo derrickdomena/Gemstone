@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
-    private Renderer[] model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
     [SerializeField] floatingHealthBar healthBar;
@@ -26,6 +25,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] float shootRange;
     [SerializeField] int shootDamage;
 
+    private Renderer[] model;
     public GameObject enemyPrefab;
     bool playerInRange;
     bool destinationChosen;
@@ -49,6 +49,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         stoppingDistanceOrig = agent.stoppingDistance;
         hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);
+        model = GetComponentsInChildren<Renderer>();
     }
 
     // Update is called once per frame
@@ -132,7 +133,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         hp -= amount;
         agent.SetDestination(gameManager.instance.player.transform.position);
-        //StartCoroutine(FlashDamage());
+        StartCoroutine(FlashDamage());
         healthBar.UpdateHealthBar(hp, hpOrig);
 
         if (hp <= 0)
@@ -142,16 +143,13 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    /*IEnumerator FlashDamage()
+    IEnumerator FlashDamage()
     {
-        
-
-        
-        Color orig = model.material.color;
-        model.material.color = Color.red;
+        Color orig = model[0].material.color;
+        foreach (Renderer i in model) i.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        model.material.color = orig;
-    }*/
+        foreach (Renderer i in model) i.material.color = orig;
+    }
 
     IEnumerator roam()
     {
