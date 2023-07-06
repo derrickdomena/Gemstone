@@ -101,6 +101,7 @@ public class playerController : MonoBehaviour, IDamage
     // Movement
     void Movement()
     {
+        controller.enabled = true;
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
