@@ -84,14 +84,16 @@ public class playerController : MonoBehaviour, IDamage
 
         if (Input.GetKeyDown(reloadKey))
         {
+            reloadTutorial = false;
             Weapon.instance.ReloadWeapon();
+
         }
 
         // If ammo reaches 0 and mags are full display reload text
-        if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 )
+        if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0  && gameManager.instance.activeMenu == null)
         {
             StartCoroutine(gameManager.instance.outOfAmmo());
-            reloadTutorial = false;
+
         }
     }
 

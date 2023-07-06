@@ -146,7 +146,8 @@ public class gameManager : MonoBehaviour
     public IEnumerator outOfAmmo()
     {
         reload.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(20);
+        
         reload.SetActive(false);
     }
 
