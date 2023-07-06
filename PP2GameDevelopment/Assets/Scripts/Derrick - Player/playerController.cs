@@ -121,6 +121,7 @@ public class playerController : MonoBehaviour, IDamage
             jumpCount++;
         }
 
+
         // Crouch
         if (Input.GetKeyDown(crouchKey))
         {
@@ -233,7 +234,7 @@ public class playerController : MonoBehaviour, IDamage
         // Movement - Air
         else
         {
-            state = MovementState.air;
+            //state = MovementState.air;
         }
     }
 }
