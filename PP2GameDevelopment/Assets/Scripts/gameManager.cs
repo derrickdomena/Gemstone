@@ -26,6 +26,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI ammo;
     public TextMeshProUGUI mags;
     public GameObject reload;
+    public GameObject nextWave;
+    
 
 
     [Header("----- Enemy Stuff -----")]
@@ -37,11 +39,12 @@ public class gameManager : MonoBehaviour
     GameObject[] enemySpawnLocs;
     int enemiesRemaining;
     int enemiesInScene;
-    int wave = 1;
-    int ammoRemaining;
-    int magsRemaining;
+    public int wave = 1;
     bool isPaused;
     float timescaleOrig;
+
+
+  
 
     //Awake is called before Start
     void Awake()
@@ -57,20 +60,7 @@ public class gameManager : MonoBehaviour
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
-        ammoRemaining = Weapon.instance.ammo;
-        magsRemaining = Weapon.instance.magazines;
-
-
-
-        //temp
-        spawnEnemies(enemiesPerWave);
-        foreach (GameObject i in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            i.GetComponent<NavMeshAgent>().SetDestination(playerSpawnPos.transform.position);
-        }
-        //temp
-
-        
+        updateGameGoal(wave * enemiesPerWave);
     }
 
     // Update is called once per frame
@@ -85,6 +75,11 @@ public class gameManager : MonoBehaviour
         }
         ammo.text = Weapon.instance.ammo.ToString("F0");
         mags.text = Weapon.instance.magazines.ToString("F0");
+
+        if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
+        {
+            spawnEnemies(Mathf.Min(maxEnemies - enemiesInScene, enemiesRemaining - enemiesInScene));
+        }
     }
 
     //Pause game instance and unlocks cursor to the area of the game
@@ -106,17 +101,36 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(false);
         activeMenu = null;
     }
+
+    public void enemyCheckIn()
+    {
+        enemiesInScene++;
+    }
+
+    public void enemyCheckOut()
+    {
+        enemiesInScene--;
+        updateGameGoal(-1);
+    }
+
     //updates enemies remaining and if no enemies remain sets active menu to win
+    //also checks the amount of waves left before displaying win screen
     public void updateGameGoal(int amount)
     {
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
 
-        if (enemiesRemaining <= 0)
+        if (enemiesRemaining <= 0 && wave >= maxWaves)
         {
             activeMenu = winMenu;
             activeMenu.SetActive(true);
             statePaused();
+        }
+        //flashes text on screen to tell player when the next wave will be.
+        else if(enemiesRemaining <= 0 && wave < maxWaves)
+        {
+            wave++;
+            StartCoroutine(NextWave());                   
         }
     }
 
@@ -153,10 +167,27 @@ public class gameManager : MonoBehaviour
 
             Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
 
-            Instantiate(
+            Instantiate( 
                 enemyTypes[randomEnemyType], 
                 enemySpawnLocs[randomSpawnLoc].transform.position, 
                 enemySpawnLocs[randomSpawnLoc].transform.rotation);
+
+            Debug.Log("Enemies in scene: " + enemiesInScene);
         }
+    }
+
+    //flashes the nextWave game object on screen for 4 seconds
+    public IEnumerator NextWave()
+    {
+        nextWave.SetActive(true);
+        StartCoroutine(Countdown());
+        yield return new WaitForSeconds(4);
+        nextWave.SetActive(false);
+    }
+
+    IEnumerator Countdown()
+    {
+        yield return new WaitForSeconds(10);
+        updateGameGoal(wave * enemiesPerWave);
     }
 }

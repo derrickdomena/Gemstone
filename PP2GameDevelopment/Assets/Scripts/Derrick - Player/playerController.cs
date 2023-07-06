@@ -38,6 +38,8 @@ public class playerController : MonoBehaviour, IDamage
     int hpOrig;
     bool auto;
 
+    bool reloadTutorial;
+
     // Movement
     public MovementState state;
     public enum MovementState
@@ -51,6 +53,7 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     private void Start()
     {
+        reloadTutorial = true;
         hpOrig = hp;
         SpawnPlayer();
         auto = Weapon.instance.automatic;
@@ -86,9 +89,10 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         // If ammo reaches 0 and mags are full display reload text
-        if (Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0)
+        if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 )
         {
             StartCoroutine(gameManager.instance.outOfAmmo());
+            reloadTutorial = false;
         }
     }
 
