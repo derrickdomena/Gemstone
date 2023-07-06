@@ -160,19 +160,23 @@ public class gameManager : MonoBehaviour
 
     void spawnEnemies(int amount)
     {
-        for (int i = 0; i < amount; i++)
+        if (enemySpawnLocs.Length > 0)
         {
-            int randomSpawnLoc = Random.Range(0, enemySpawnLocs.Length);
-            int randomEnemyType = Random.Range(0, enemyTypes.Length);
 
-            Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
+            for (int i = 0; i < amount; i++)
+            {
+                int randomSpawnLoc = Random.Range(0, enemySpawnLocs.Length);
+                int randomEnemyType = Random.Range(0, enemyTypes.Length);
 
-            Instantiate( 
-                enemyTypes[randomEnemyType], 
-                enemySpawnLocs[randomSpawnLoc].transform.position, 
-                enemySpawnLocs[randomSpawnLoc].transform.rotation);
+                Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
 
-            Debug.Log("Enemies in scene: " + enemiesInScene);
+                Instantiate(
+                    enemyTypes[randomEnemyType],
+                    enemySpawnLocs[randomSpawnLoc].transform.position,
+                    enemySpawnLocs[randomSpawnLoc].transform.rotation);
+
+                Debug.Log("Enemies in scene: " + enemiesInScene);
+            }
         }
     }
 
