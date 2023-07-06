@@ -39,16 +39,6 @@ public class playerController : MonoBehaviour, IDamage
 
     bool reloadTutorial;
 
-    // Movement
-    public MovementState state;
-    public enum MovementState
-    {
-        walking,
-        sprinting,
-        crouching,
-        air
-    }
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -115,7 +105,9 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerSpeed * Time.deltaTime * move);
 
         // Jump
-        if (Input.GetKeyDown(jumpKey) || Input.GetKey(jumpKey) && jumpCount < jumpsMax)
+        // Allows for single consecutive jumps when grounded without needing to press jumpKey again
+        // or double jump while in the air if jumpsCount is less than jumpsMax
+        if (Input.GetKeyDown(jumpKey) && jumpCount < jumpsMax || groundedPlayer && Input.GetKey(jumpKey))
         {
             playerVelocity.y = jumpHeight;
             jumpCount++;
@@ -214,27 +206,19 @@ public class playerController : MonoBehaviour, IDamage
     {
         // Movement - Crouching
         if (Input.GetKey(crouchKey))
-        {
-            state = MovementState.crouching;
+        {          
             playerSpeed = walkSpeed / 2;
         }
         // Movement - Running
         if (groundedPlayer && Input.GetKey(sprintKey))
         {
-            state = MovementState.sprinting;
             playerSpeed = sprintSpeed;
         }
         // Movement - Walking
         else if (groundedPlayer)
         {
-            state = MovementState.walking;
             playerSpeed = walkSpeed;
-        }
-        // Movement - Air
-        else
-        {
-            //state = MovementState.air;
-        }
+        }     
     }
 }
 
