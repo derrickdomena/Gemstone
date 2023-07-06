@@ -46,8 +46,6 @@ public class Weapon : MonoBehaviour
         if (ammo < ammoOrig)
         {
 
-
-
             if (magazines > 0)
             {
                 ammo = ammoOrig;

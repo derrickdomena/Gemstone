@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
@@ -65,7 +64,7 @@ public class playerController : MonoBehaviour, IDamage
         if (gameManager.instance.activeMenu == null)
         {
             Movement();
-            StateHandler();          
+            StateHandler();
 
             // Check if player has ammo
             if (Weapon.instance.ammo > 0)
@@ -91,8 +90,9 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         // If ammo reaches 0 and mags are full display reload text
-        if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0  && gameManager.instance.activeMenu == null)
+        if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
         {
+            reloadTutorial = false;
             StartCoroutine(gameManager.instance.outOfAmmo());
 
         }
@@ -163,6 +163,7 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = false;
 
     }
+
 
     // When ammo pack is picked up, increases magazine
     public void MoreAmmo(int amount)
