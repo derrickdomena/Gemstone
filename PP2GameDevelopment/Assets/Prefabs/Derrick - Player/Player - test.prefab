@@ -223,7 +223,7 @@ Transform:
   m_Children:
   - {fileID: 3013368943278909336}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5883952889013273771
 MeshFilter:
@@ -251,12 +251,11 @@ MonoBehaviour:
   sprintSpeed: 10
   jumpHeight: 5
   gravityValue: 10
-  jumpsMax: 1
+  jumpsMax: 2
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
   reloadKey: 114
-  state: 0
 --- !u!143 &7506952484284937665
 CharacterController:
   m_ObjectHideFlags: 0

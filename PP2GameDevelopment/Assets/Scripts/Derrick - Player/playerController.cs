@@ -26,6 +26,10 @@ public class playerController : MonoBehaviour, IDamage
     // Reload
     public KeyCode reloadKey = KeyCode.R;
 
+    // Health
+    int hpOrig;
+
+    // Movement
     Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -33,10 +37,10 @@ public class playerController : MonoBehaviour, IDamage
     private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
     private Vector3 playerScale = new Vector3(1, 1f, 1);
     int jumpCount;
-    bool isShooting;
-    int hpOrig;
-    //bool auto;
 
+    // Shooting
+    bool isShooting;
+    //bool auto;
     bool reloadTutorial;
 
     // Start is called before the first frame update
@@ -70,21 +74,20 @@ public class playerController : MonoBehaviour, IDamage
                 //}
             }
 
-        }
+            if (Input.GetKeyDown(reloadKey))
+            {
+                reloadTutorial = false;
+                Weapon.instance.ReloadWeapon();
 
-        if (Input.GetKeyDown(reloadKey))
-        {
-            reloadTutorial = false;
-            Weapon.instance.ReloadWeapon();
+            }
 
-        }
+            // If ammo reaches 0 and mags are full display reload text
+            if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
+            {
+                reloadTutorial = false;
+                StartCoroutine(gameManager.instance.outOfAmmo());
 
-        // If ammo reaches 0 and mags are full display reload text
-        if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
-        {
-            reloadTutorial = false;
-            StartCoroutine(gameManager.instance.outOfAmmo());
-
+            }
         }
     }
 
@@ -130,38 +133,24 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
-    // Manages Shooting
-    IEnumerator Shoot()
+    // Sets the movement speed for each movement state
+    private void StateHandler()
     {
-        isShooting = true;
-
-        RaycastHit hit;
-
-        // Decrease ammo count when shooting
-        if (Weapon.instance.ammo > 0)
+        // Movement - Crouching
+        if (Input.GetKey(crouchKey))
         {
-            Weapon.instance.ammoUpdate();
+            playerSpeed = walkSpeed / 2;
         }
-
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.instance.shootDistance))
+        // Movement - Running
+        if (groundedPlayer && Input.GetKey(sprintKey))
         {
-            IDamage damagable = hit.collider.GetComponent<IDamage>();
-            if (damagable != null)
-            {
-                damagable.TakeDamage(Weapon.instance.shootDamage);
-            }
+            playerSpeed = sprintSpeed;
         }
-
-        yield return new WaitForSeconds(Weapon.instance.shootRate);
-        isShooting = false;
-
-    }
-
-
-    // When ammo pack is picked up, increases magazine
-    public void MoreAmmo(int amount)
-    {
-        Weapon.instance.magazines += 1;
+        // Movement - Walking
+        else if (groundedPlayer)
+        {
+            playerSpeed = walkSpeed;
+        }
     }
 
     // Apply Damage done by Enemies
@@ -192,6 +181,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
     }
 
+    // Sets a position for the player starting point
     public void SpawnPlayer()
     {
         controller.enabled = false;
@@ -201,24 +191,37 @@ public class playerController : MonoBehaviour, IDamage
         hp = hpOrig;
     }
 
-    // Sets the movement speed for each movement state
-    private void StateHandler()
+    // Manages Shooting
+    IEnumerator Shoot()
     {
-        // Movement - Crouching
-        if (Input.GetKey(crouchKey))
-        {          
-            playerSpeed = walkSpeed / 2;
-        }
-        // Movement - Running
-        if (groundedPlayer && Input.GetKey(sprintKey))
+        isShooting = true;
+
+        RaycastHit hit;
+
+        // Decrease ammo count when shooting
+        if (Weapon.instance.ammo > 0)
         {
-            playerSpeed = sprintSpeed;
+            Weapon.instance.ammoUpdate();
         }
-        // Movement - Walking
-        else if (groundedPlayer)
+
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.instance.shootDistance))
         {
-            playerSpeed = walkSpeed;
-        }     
+            IDamage damagable = hit.collider.GetComponent<IDamage>();
+            if (damagable != null)
+            {
+                damagable.TakeDamage(Weapon.instance.shootDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(Weapon.instance.shootRate);
+        isShooting = false;
+
+    }
+
+    // When ammo pack is picked up, increases magazine
+    public void MoreAmmo(int amount)
+    {
+        Weapon.instance.magazines += 1;
     }
 }
 
