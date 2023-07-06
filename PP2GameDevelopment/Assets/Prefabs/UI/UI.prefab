@@ -315,7 +315,7 @@ RectTransform:
   - {fileID: 7685017080124841694}
   - {fileID: 5845358953486038649}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -348,13 +348,13 @@ MonoBehaviour:
   mags: {fileID: 5852837733923875913}
   reload: {fileID: 8636324248762126770}
   nextWave: {fileID: 6257060345182427560}
-  enemiesPerWave: 2
+  enemiesPerWave: 5
   maxWaves: 2
   enemyTypes:
   - {fileID: 1036987247479282916, guid: 82245a79f31e50f439190ea318fa3579, type: 3}
   - {fileID: 1517199874240306511, guid: 43d958a84aa3fc346998fab8f872db8e, type: 3}
   - {fileID: 2053946732340941620, guid: ff2b9ff26becb5847ae87d58564a3fd1, type: 3}
-  maxEnemies: 2
+  maxEnemies: 10
   wave: 1
 --- !u!114 &22571992518456786
 MonoBehaviour:
