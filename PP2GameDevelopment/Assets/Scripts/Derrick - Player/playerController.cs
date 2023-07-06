@@ -35,7 +35,7 @@ public class playerController : MonoBehaviour, IDamage
     int jumpCount;
     bool isShooting;
     int hpOrig;
-    bool auto;
+    //bool auto;
 
     bool reloadTutorial;
 
@@ -55,7 +55,7 @@ public class playerController : MonoBehaviour, IDamage
         reloadTutorial = true;
         hpOrig = hp;
         SpawnPlayer();
-        auto = Weapon.instance.automatic;
+        //auto = Weapon.instance.automatic;
     }
 
     // Update is called once per frame
@@ -70,14 +70,14 @@ public class playerController : MonoBehaviour, IDamage
             if (Weapon.instance.ammo > 0)
             {
                 // Switch between Automatic shooting and Semi Automatic shooting
-                if (auto && Input.GetButton("Shoot") && !isShooting)
+                if (Input.GetButton("Shoot") && !isShooting)
                 {
                     StartCoroutine(Shoot());
                 }
-                else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
-                {
-                    StartCoroutine(Shoot());
-                }
+                //else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
+                //{
+                //    StartCoroutine(Shoot());
+                //}
             }
 
         }
@@ -120,7 +120,6 @@ public class playerController : MonoBehaviour, IDamage
             playerVelocity.y = jumpHeight;
             jumpCount++;
         }
-
 
         // Crouch
         if (Input.GetKeyDown(crouchKey))
