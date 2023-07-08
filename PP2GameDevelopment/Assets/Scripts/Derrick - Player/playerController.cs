@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Component -----")]
     // Character Controller
     [SerializeField] CharacterController controller;
+    [SerializeField] CapsuleCollider capsuleCollider;
 
     [Header("----- Player Stats -----")]
     // Health
@@ -34,8 +35,6 @@ public class playerController : MonoBehaviour, IDamage
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed;
-    private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
-    private Vector3 playerScale = new Vector3(1, 1f, 1);
     int jumpCount;
 
     // Shooting
@@ -119,14 +118,22 @@ public class playerController : MonoBehaviour, IDamage
         // Crouch
         if (Input.GetKeyDown(crouchKey))
         {
-            transform.localScale = crouchScale;
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+            // Character Controller Height
+            controller.height = controller.height * 0.5f;
+            // Capsule Collider Height
+            capsuleCollider.height = capsuleCollider.height * 0.5f;
+            // Main Camera Position
+            Camera.main.transform.localPosition = new Vector3(0f, 0.375f, 0f);
         }
 
         if (Input.GetKeyUp(crouchKey))
         {
-            transform.localScale = playerScale;
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            // Character Controller Height
+            controller.height = controller.height * 2;
+            // Capsule Collider Height
+            capsuleCollider.height = capsuleCollider.height * 2;
+            // Main Camera Position
+            Camera.main.transform.localPosition = new Vector3(0f, 0.75f, 0f);
         }
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
@@ -137,7 +144,7 @@ public class playerController : MonoBehaviour, IDamage
     private void StateHandler()
     {
         // Movement - Crouching
-        if (Input.GetKey(crouchKey))
+        if (groundedPlayer && Input.GetKey(crouchKey))
         {
             playerSpeed = walkSpeed / 2;
         }
