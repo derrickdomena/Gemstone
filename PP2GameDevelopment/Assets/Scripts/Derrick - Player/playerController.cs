@@ -11,7 +11,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Player Stats -----")]
     // Health
-    [SerializeField] int hp;
+    [SerializeField] public int hp;
     // Movement
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
@@ -173,15 +173,6 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    // Receive health when picking up a health pack
-    public void Heal(int amount)
-    {
-        //hp += amount; Future use, when health packs vary in healing ammount.
-        hp = hpOrig;
-        UpdatePlayerUI();
-
-    }
-
     // Updates the Player UI health
     public void UpdatePlayerUI()
     {
@@ -223,12 +214,6 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(Weapon.instance.shootRate);
         isShooting = false;
 
-    }
-
-    // When ammo pack is picked up, increases magazine
-    public void MoreAmmo(int amount)
-    {
-        Weapon.instance.magazines += 1;
     }
 }
 
