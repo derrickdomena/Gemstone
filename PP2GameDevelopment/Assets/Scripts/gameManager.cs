@@ -23,8 +23,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
     public GameObject playerFlashDamageScreen;
-    public TextMeshProUGUI ammo;
-    public TextMeshProUGUI mags;
+    public TextMeshProUGUI ammoCur;
+    public TextMeshProUGUI ammoReserve;
     public GameObject reload;
     public GameObject nextWave;
     

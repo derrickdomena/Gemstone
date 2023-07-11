@@ -71,9 +71,6 @@ public class playerController : MonoBehaviour, IDamage
             {
                 ScrollGuns();
 
-            // Check if player has ammo
-            if (Weapon.instance.ammo > 0)
-            {
                 // Switch between Automatic shooting and Semi Automatic shooting
                 if (Input.GetButton("Shoot") && !isShooting)
                 {
@@ -83,7 +80,7 @@ public class playerController : MonoBehaviour, IDamage
                 //{
                 //    StartCoroutine(Shoot());
                 //}
-            }
+            
 
                     if (Input.GetKeyDown(reloadKey))
                     {
@@ -98,7 +95,7 @@ public class playerController : MonoBehaviour, IDamage
             //   reloadTutorial = false;
             //  StartCoroutine(gameManager.instance.outOfAmmo());
 
-            }           
+            //}           
         }
     }
 
@@ -191,8 +188,8 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
         if (gunList.Count > 0)
         {
-            gameManager.instance.ammo.text = gunList[selectedGun].ammoCurr.ToString("f0");
-            gameManager.instance.mags.text = gunList[selectedGun].ammoMax.ToString("f0");
+            gameManager.instance.ammoCur.text = gunList[selectedGun].ammoCurr.ToString("f0");
+            gameManager.instance.ammoReserve.text = gunList[selectedGun].ammoReserve.ToString("f0");
         }
     }
 
