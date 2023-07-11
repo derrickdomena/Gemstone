@@ -22,10 +22,9 @@ public class gameManager : MonoBehaviour
     public GameObject loseMenu;
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
-
     public GameObject playerFlashDamageScreen;
-    public TextMeshProUGUI ammoCur;
-    public TextMeshProUGUI ammoReserve;
+    public TextMeshProUGUI ammo;
+    public TextMeshProUGUI mags;
     public GameObject reload;
     public GameObject nextWave;
     
@@ -72,7 +71,9 @@ public class gameManager : MonoBehaviour
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
         }
- 
+        //ammo.text = Weapon.instance.ammo.ToString("F0");
+        //mags.text = Weapon.instance.magazines.ToString("F0");
+
         if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
         {
             spawnEnemies(Mathf.Min(maxEnemies - enemiesInScene, enemiesRemaining - enemiesInScene));
