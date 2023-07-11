@@ -71,20 +71,19 @@ public class playerController : MonoBehaviour, IDamage
             {
                 ScrollGuns();
 
-                // Check if player has ammo
-                if (gunList[selectedGun].ammoCurr > 0)
+            // Check if player has ammo
+            if (Weapon.instance.ammo > 0)
+            {
+                // Switch between Automatic shooting and Semi Automatic shooting
+                if (Input.GetButton("Shoot") && !isShooting)
                 {
-                    if(Input.GetButtonDown("Shoot") && !isShooting)
-                    {
-                        if(gunList[selectedGun].auto)
-                        {
-                            StartCoroutine(Shoot());
-                        }
-                        else if (!gunList[selectedGun].auto)
-                        {
-                            StartCoroutine(Shoot());
-                        }
-                    }
+                    StartCoroutine(Shoot());
+                }
+                //else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
+                //{
+                //    StartCoroutine(Shoot());
+                //}
+            }
 
                     if (Input.GetKeyDown(reloadKey))
                     {
