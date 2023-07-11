@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         hp -= amount;
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(FlashDamage());
-        healthBar.UpdateHealthBar(hp, hpOrig);
+        healthBar.UpdateHealthBar((float)hp, hpOrig);
 
         if (hp <= 0)
         {
