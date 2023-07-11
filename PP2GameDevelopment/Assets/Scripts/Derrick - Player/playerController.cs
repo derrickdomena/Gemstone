@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.UI;
 public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Component -----")]
@@ -18,6 +19,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
+
+    [Header("----- Gun Stats -----")]
+    public List<GunStats> gunList = new List<GunStats>();
+    [SerializeField] GameObject gunModel;
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDamage;
+    [SerializeField] int shootDistance;
 
     // Keybinds
     // Movement
@@ -39,8 +47,12 @@ public class playerController : MonoBehaviour, IDamage
 
     // Shooting
     bool isShooting;
-    //bool auto;
+
+    bool auto;
+
     bool reloadTutorial;
+
+    public int selectedGun;
 
     // Start is called before the first frame update
     private void Start()
@@ -48,45 +60,49 @@ public class playerController : MonoBehaviour, IDamage
         reloadTutorial = true;
         hpOrig = hp;
         SpawnPlayer();
-        //auto = Weapon.instance.automatic;
+        auto = gunList[selectedGun].auto;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (gameManager.instance.activeMenu == null)
         {
             Movement();
             StateHandler();
-
-            // Check if player has ammo
-            if (Weapon.instance.ammo > 0)
+            
+            if (gunList.Count > 0)
             {
+                ScrollGuns();
+
                 // Switch between Automatic shooting and Semi Automatic shooting
-                if (Input.GetButton("Shoot") && !isShooting)
+                if (auto && Input.GetButton("Shoot") && !isShooting)
                 {
                     StartCoroutine(Shoot());
                 }
-                //else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
-                //{
-                //    StartCoroutine(Shoot());
-                //}
+                else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
+                {
+                    StartCoroutine(Shoot());
+                }
             }
 
+            // Reload Ammo
             if (Input.GetKeyDown(reloadKey))
             {
-                reloadTutorial = false;
-                Weapon.instance.ReloadWeapon();
-
+                gunList[selectedGun].ammoCurr = gunList[selectedGun].ammoMax;
             }
 
+
+
+            gameManager.instance.ammo.text = gunList[selectedGun].ammoCurr.ToString("F0");
             // If ammo reaches 0 and mags are full display reload text
-            if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
-            {
-                reloadTutorial = false;
-                StartCoroutine(gameManager.instance.outOfAmmo());
+            //if (reloadTutorial == true && gunList[selectedGun].ammoCurr <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
+            //{
+            //    reloadTutorial = false;
+            //    StartCoroutine(gameManager.instance.outOfAmmo());
 
-            }
+            //}
         }
     }
 
@@ -192,28 +208,73 @@ public class playerController : MonoBehaviour, IDamage
     // Manages Shooting
     IEnumerator Shoot()
     {
-        isShooting = true;
-
-        RaycastHit hit;
-
-        // Decrease ammo count when shooting
-        if (Weapon.instance.ammo > 0)
+        if (gunList[selectedGun].ammoCurr > 0)
         {
-            Weapon.instance.ammoUpdate();
-        }
+            isShooting = true;
 
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.instance.shootDistance))
-        {
-            IDamage damagable = hit.collider.GetComponent<IDamage>();
-            if (damagable != null)
+            gunList[selectedGun].ammoCurr--;
+
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
             {
-                damagable.TakeDamage(Weapon.instance.shootDamage);
-            }
-        }
+                IDamage damagable = hit.collider.GetComponent<IDamage>();
 
-        yield return new WaitForSeconds(Weapon.instance.shootRate);
-        isShooting = false;
+                if (damagable != null && !hit.collider.CompareTag("Player"))
+                {
+                    damagable.TakeDamage(shootDamage);
+                }
+            }
+
+            yield return new WaitForSeconds(shootRate);
+            isShooting = false;
+        }
+    }
+    public void GunPickup(GunStats gunstat)
+    {
+        gunList.Add(gunstat);
+
+        shootDamage = gunstat.shootDamage;
+        shootDistance = gunstat.shootDist;
+        shootRate = gunstat.shootRate;
+
+        gunModel.GetComponent<MeshFilter>().mesh = gunstat.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunstat.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        selectedGun = gunList.Count - 1;
 
     }
+
+    void ScrollGuns()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
+        {
+            selectedGun++;
+            ChangeGunStats();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
+        {
+            selectedGun--;
+            ChangeGunStats();
+        }
+
+    }
+    void ChangeGunStats()
+    {
+        shootDamage = gunList[selectedGun].shootDamage;
+        shootDistance = gunList[selectedGun].shootDist;
+        shootRate = gunList[selectedGun].shootRate;
+
+        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+<<<<<<< Updated upstream
+=======
+
+    // When ammo pack is picked up, increases magazine
+    public void MoreAmmo(int amount)
+    {
+        //Weapon.instance.magazines += 1;
+    }
+>>>>>>> Stashed changes
 }
 
