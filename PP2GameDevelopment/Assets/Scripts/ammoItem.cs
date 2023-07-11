@@ -22,7 +22,7 @@ public class ammoItem : MonoBehaviour, IAmmo
     // When ammo pack is picked up, increases magazine
     public void GiveAmmo(int amount)
     {
-        Weapon.instance.magazines += amount;
+        //Weapon.instance.magazines += amount;
     }
 
 }

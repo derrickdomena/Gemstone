@@ -60,7 +60,7 @@ public class playerController : MonoBehaviour, IDamage
             StateHandler();
 
             // Check if player has ammo
-            if (Weapon.instance.ammo > 0)
+           /* if (Weapon.instance.ammo > 0)
             {
                 // Switch between Automatic shooting and Semi Automatic shooting
                 if (Input.GetButton("Shoot") && !isShooting)
@@ -87,6 +87,7 @@ public class playerController : MonoBehaviour, IDamage
                 StartCoroutine(gameManager.instance.outOfAmmo());
 
             }
+           */
         }
     }
 
@@ -197,7 +198,7 @@ public class playerController : MonoBehaviour, IDamage
         RaycastHit hit;
 
         // Decrease ammo count when shooting
-        if (Weapon.instance.ammo > 0)
+        /*if (Weapon.instance.ammo > 0)
         {
             Weapon.instance.ammoUpdate();
         }
@@ -210,8 +211,8 @@ public class playerController : MonoBehaviour, IDamage
                 damagable.TakeDamage(Weapon.instance.shootDamage);
             }
         }
-
-        yield return new WaitForSeconds(Weapon.instance.shootRate);
+         */
+        yield return new WaitForSeconds(2);
         isShooting = false;
 
     }
