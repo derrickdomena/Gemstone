@@ -19,6 +19,16 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
 
+    [Header("----- Gun Stats -----")]
+    [SerializeField] List<GunStats> gunList = new List<GunStats>();
+    [SerializeField] GameObject gunModel;
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDamage;
+    [SerializeField] int shootDistance;
+    [SerializeField] GameObject muzzleFlash;
+
+    public int selectedGun;
+
     // Keybinds
     // Movement
     public KeyCode jumpKey = KeyCode.Space;
@@ -39,7 +49,6 @@ public class playerController : MonoBehaviour, IDamage
 
     // Shooting
     bool isShooting;
-    //bool auto;
     bool reloadTutorial;
 
     // Start is called before the first frame update
@@ -58,36 +67,39 @@ public class playerController : MonoBehaviour, IDamage
         {
             Movement();
             StateHandler();
-
-            // Check if player has ammo
-           /* if (Weapon.instance.ammo > 0)
+            if(gunList.Count > 0) 
             {
-                // Switch between Automatic shooting and Semi Automatic shooting
-                if (Input.GetButton("Shoot") && !isShooting)
+                ScrollGuns();
+
+                // Check if player has ammo
+                if (gunList[selectedGun].ammoCurr > 0)
                 {
-                    StartCoroutine(Shoot());
+                    if(!isShooting)
+                    {
+                        if(gunList[selectedGun].auto && Input.GetButton("Shoot"))
+                        {
+                            StartCoroutine(Shoot());
+                        }
+                        else if (!gunList[selectedGun].auto && Input.GetButtonDown("Shoot"))
+                        {
+                            StartCoroutine(Shoot());
+                        }
+                    }
+
+                    if (Input.GetKeyDown(reloadKey))
+                    {
+                        reloadTutorial = false;
+                        //Weapon.instance.ReloadWeapon();
+
+                    }
                 }
-                //else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
-                //{
-                //    StartCoroutine(Shoot());
-                //}
-            }
-
-            if (Input.GetKeyDown(reloadKey))
-            {
-                reloadTutorial = false;
-                Weapon.instance.ReloadWeapon();
-
-            }
-
             // If ammo reaches 0 and mags are full display reload text
-            if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
-            {
-                reloadTutorial = false;
-                StartCoroutine(gameManager.instance.outOfAmmo());
+            //if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
+            //{
+            //   reloadTutorial = false;
+            //  StartCoroutine(gameManager.instance.outOfAmmo());
 
-            }
-           */
+            }           
         }
     }
 
@@ -178,6 +190,11 @@ public class playerController : MonoBehaviour, IDamage
     public void UpdatePlayerUI()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
+        if (gunList.Count > 0)
+        {
+            gameManager.instance.ammo.text = gunList[selectedGun].ammoCurr.ToString("f0");
+            gameManager.instance.mags.text = gunList[selectedGun].ammoMax.ToString("f0");
+        }
     }
 
     // Sets a position for the player starting point
@@ -193,28 +210,74 @@ public class playerController : MonoBehaviour, IDamage
     // Manages Shooting
     IEnumerator Shoot()
     {
-        isShooting = true;
-
-        RaycastHit hit;
-
-        // Decrease ammo count when shooting
-        /*if (Weapon.instance.ammo > 0)
+        if (gunList[selectedGun].ammoCurr > 0)
         {
-            Weapon.instance.ammoUpdate();
-        }
+            isShooting = true;
+            //StartCoroutine(muzzleFlashTimer());
+            gunList[selectedGun].ammoCurr--;
 
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, Weapon.instance.shootDistance))
-        {
-            IDamage damagable = hit.collider.GetComponent<IDamage>();
-            if (damagable != null)
+            UpdatePlayerUI();
+
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
             {
-                damagable.TakeDamage(Weapon.instance.shootDamage);
+                IDamage damagable = hit.collider.GetComponent<IDamage>();
+
+                if (damagable != null && !hit.collider.CompareTag("Player"))
+                {
+                    damagable.TakeDamage(shootDamage);
+                }
+                else
+                {
+                    Instantiate(gunList[selectedGun].hitEffect, hit.point, Quaternion.identity);
+                }
             }
+
+            yield return new WaitForSeconds(shootRate);
+            isShooting = false;
         }
-         */
-        yield return new WaitForSeconds(2);
-        isShooting = false;
 
     }
+    public void GunPickup(GunStats gunstat)
+    {
+        gunList.Add(gunstat);
+
+        shootDamage = gunstat.shootDamage;
+        shootDistance = gunstat.shootDist;
+        shootRate = gunstat.shootRate;
+
+        gunModel.GetComponent<MeshFilter>().mesh = gunstat.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunstat.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        selectedGun = gunList.Count - 1;
+        UpdatePlayerUI();
+
+    }
+
+    void ScrollGuns()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
+        {
+            selectedGun++;
+            ChangeGunStats();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
+        {
+            selectedGun--;
+            ChangeGunStats();
+        }
+
+    }
+    void ChangeGunStats()
+    {
+        shootDamage = gunList[selectedGun].shootDamage;
+        shootDistance = gunList[selectedGun].shootDist;
+        shootRate = gunList[selectedGun].shootRate;
+
+        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        UpdatePlayerUI();
+    }
+
 }
 
