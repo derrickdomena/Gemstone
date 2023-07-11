@@ -73,6 +73,8 @@ public class gameManager : MonoBehaviour
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
         }
+        ammo.text = Weapon.instance.ammo.ToString("F0");
+        mags.text = Weapon.instance.magazines.ToString("F0");
 
         if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
         {
