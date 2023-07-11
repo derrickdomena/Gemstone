@@ -28,8 +28,6 @@ public class gameManager : MonoBehaviour
     public GameObject reload;
     public GameObject nextWave;
     
-
-
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemiesPerWave;
     [SerializeField] public int maxWaves;
