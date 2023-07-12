@@ -8,8 +8,6 @@ public class floatingHealthBar : MonoBehaviour
     public Image enemyHPBar;
     public Transform cameraPos;
     [SerializeField] public Transform target;
-    //[SerializeField] private Vector3 offset;
-
 
     public void UpdateHealthBar(float currentValue, float maxValue)
     {
@@ -28,7 +26,5 @@ public class floatingHealthBar : MonoBehaviour
     {
         //rotates the healthbar to always face the player
         transform.rotation = cameraPos.transform.rotation; 
-        //offsets the position of the camera to the enemy by the offset
-       // transform.position = target.position + offset;
     }
 }
