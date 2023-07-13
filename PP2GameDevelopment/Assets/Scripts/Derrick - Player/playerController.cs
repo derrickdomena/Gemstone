@@ -67,35 +67,38 @@ public class playerController : MonoBehaviour, IDamage
         {
             Movement();
             StateHandler();
-            if(gunList.Count > 0) 
+            if (gunList.Count > 0)
             {
                 ScrollGuns();
 
                 // Switch between Automatic shooting and Semi Automatic shooting
-                if (Input.GetButton("Shoot") && !isShooting)
+                if (gunList[selectedGun].auto && Input.GetButton("Shoot") && !isShooting)
                 {
                     StartCoroutine(Shoot());
                 }
-                //else if (!auto && Input.GetButtonDown("Shoot") && !isShooting)
-                //{
-                //    StartCoroutine(Shoot());
-                //}
-            
-
-                    if (Input.GetKeyDown(reloadKey))
-                    {
-                        reloadTutorial = false;
-                        //Weapon.instance.ReloadWeapon();
-
-                    }
+                else if (!gunList[selectedGun].auto && Input.GetButtonDown("Shoot") && !isShooting)
+                {
+                    StartCoroutine(Shoot());
                 }
-            // If ammo reaches 0 and mags are full display reload text
-            //if (reloadTutorial == true && Weapon.instance.ammo <= 0 && Weapon.instance.magazines > 0 && gameManager.instance.activeMenu == null)
-            //{
-            //   reloadTutorial = false;
-            //  StartCoroutine(gameManager.instance.outOfAmmo());
 
-            //}           
+                //If ammo reaches 0 and mags are full display reload text
+                if (reloadTutorial == true && gunList[selectedGun].ammoCurr <= 0 && gunList[selectedGun].ammoReserve > 0 && gameManager.instance.activeMenu == null)
+                {
+                    reloadTutorial = false;
+                    StartCoroutine(gameManager.instance.outOfAmmo());
+                }
+
+                //reload
+                if (Input.GetKeyDown(reloadKey))
+                {
+                    Debug.Log("reloaded");
+                    reloadTutorial = false;
+                    ReloadWeapon();
+
+                }
+
+                UpdatePlayerUI();
+            }
         }
     }
 
@@ -273,6 +276,26 @@ public class playerController : MonoBehaviour, IDamage
         gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
         UpdatePlayerUI();
+    }
+
+    void ReloadWeapon()
+    {
+        int ammoLeft = gunList[selectedGun].ammoReserve;
+        int ammoEmpty = gunList[selectedGun].ammoMax - gunList[selectedGun].ammoCurr;
+
+        if (gunList[selectedGun].ammoReserve > 0)
+        {
+            if (ammoEmpty > gunList[selectedGun].ammoReserve)
+            {
+                gunList[selectedGun].ammoCurr = ammoLeft;
+                gunList[selectedGun].ammoReserve -= ammoLeft;
+            }
+            else
+            {
+                gunList[selectedGun].ammoReserve -= (gunList[selectedGun].ammoMax - gunList[selectedGun].ammoCurr);
+                gunList[selectedGun].ammoCurr = gunList[selectedGun].ammoMax;
+            }
+        }
     }
 
 }

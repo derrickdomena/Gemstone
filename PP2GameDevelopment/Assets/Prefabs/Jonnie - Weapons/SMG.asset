@@ -15,8 +15,10 @@ MonoBehaviour:
   shootDist: 60
   shootRate: 0.1
   shootDamage: 1
-  ammoCurr: 23
+  ammoCurr: 0
   ammoMax: 50
+  ammoReserve: 0
+  ammoReserveMax: 100
   auto: 1
   model: {fileID: 5494625650325380441, guid: 944f765b84e4c4012876d61f4dfc7b5a, type: 3}
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 9200202391561347005, guid: 7edf9030cc649bf4fa1f2b3d892889a0, type: 3}
