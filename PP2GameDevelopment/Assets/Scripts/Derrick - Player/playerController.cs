@@ -29,6 +29,9 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Gun Components -----")]
     [SerializeField] GameObject gunModel;
     [SerializeField] GameObject gunModelAimPos;
+    [SerializeField] GameObject rifleModelAimPos;
+    [SerializeField] GameObject smgModelAimPos;
+    [SerializeField] GameObject sarModelAimPos;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] GameObject smgMuzzleFlashPOS;
     [SerializeField] GameObject rifleMuzzleFlashPOS;
@@ -268,6 +271,8 @@ public class playerController : MonoBehaviour, IDamage
         }
 
     }
+
+    // Set muzzleFlash to active on timer and turn off
     IEnumerator muzzleFlashTimer()
     {
         muzzleFlash.SetActive(true);
@@ -275,6 +280,7 @@ public class playerController : MonoBehaviour, IDamage
         muzzleFlash.SetActive(false);
     }
 
+    // Handles picking up weapons
     public void GunPickup(GunStats gunstat)
     {
         gunList.Add(gunstat);
@@ -291,8 +297,11 @@ public class playerController : MonoBehaviour, IDamage
         UpdatePlayerUI();
     }
 
+    // Handles scrolling through weapons
     void ScrollGuns()
     {
+        SetMuzzlePOS();
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
         {
             selectedGun++;
@@ -304,6 +313,8 @@ public class playerController : MonoBehaviour, IDamage
             ChangeGunStats();
         }
     }
+
+    // Method for changing weapon stats
     void ChangeGunStats()
     {
         shootDamage = gunList[selectedGun].shootDamage;
@@ -317,6 +328,7 @@ public class playerController : MonoBehaviour, IDamage
         UpdatePlayerUI();
     }
 
+    // Reload Weapon method
     void ReloadWeapon()
     {
         int ammoLeft = gunList[selectedGun].ammoReserve;
@@ -337,6 +349,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    // Sets the position of the muzzleFlash dependent on gun name
     void SetMuzzlePOS() 
     {
         string name = gunList[selectedGun].name;
@@ -345,12 +358,16 @@ public class playerController : MonoBehaviour, IDamage
         {
             case "Rifle":
                 muzzleFlash.transform.position = rifleMuzzleFlashPOS.transform.position;
+                gunModelAimPos.transform.position = rifleModelAimPos.transform.position;
                     break;
             case "SMG":
                 muzzleFlash.transform.position = smgMuzzleFlashPOS.transform.position;
+                gunModelAimPos.transform.position = smgModelAimPos.transform.position;
+
                 break;
             case "SAR":
                 muzzleFlash.transform.position = sarMuzzleFlashPOS.transform.position;
+                gunModelAimPos.transform.position = sarModelAimPos.transform.position;
                 break;
             default:
                 Debug.Log("Error - playerController: SetMuzzlePOS()");
