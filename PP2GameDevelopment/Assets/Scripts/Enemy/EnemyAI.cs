@@ -17,6 +17,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Range(1, 10)][SerializeField] int playerFaceSpeed;
     [SerializeField] int roamTimer;
     [SerializeField] int roamDist;
+    [SerializeField] GameObject enemyHPBar;
+    [SerializeField] float enemyHPBarTimer;
 
     [Header("----- Gun stuff -----")]
     [SerializeField] float shootRate;
@@ -50,6 +52,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);
         model = GetComponentsInChildren<Renderer>();
+        enemyHPBar.SetActive(false);
     }
 
     // Update is called once per frame
@@ -135,11 +138,15 @@ public class EnemyAI : MonoBehaviour, IDamage
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(FlashDamage());
         healthBar.UpdateHealthBar((float)hp, hpOrig);
+        //flashes the enemy hp bar above their heads for a fraction of a second.
+        //will probably be changed with testing
+        StartCoroutine(showTempHp());
 
         if (hp <= 0)
         {
             gameManager.instance.enemyCheckOut();
             Destroy(gameObject);
+            enemyHPBar.SetActive(false);
         }
     }
 
@@ -167,5 +174,13 @@ public class EnemyAI : MonoBehaviour, IDamage
             agent.SetDestination(hit.position);
             destinationChosen = false;
         }
+    }
+    //enables the enemy hpbar to show up for a fraction of a second.
+    //will probably get changed with testing
+    IEnumerator showTempHp()
+    {
+        enemyHPBar.SetActive(true);
+        yield return new WaitForSeconds(enemyHPBarTimer);
+        enemyHPBar.SetActive(false);
     }
 }

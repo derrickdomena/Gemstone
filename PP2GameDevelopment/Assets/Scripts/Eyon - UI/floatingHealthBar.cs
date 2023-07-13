@@ -7,7 +7,7 @@ public class floatingHealthBar : MonoBehaviour
 {
     public Image enemyHPBar;
     public Transform cameraPos;
-    [SerializeField] public Transform target;
+    [SerializeField] private Transform target;
 
     public void UpdateHealthBar(float currentValue, float maxValue)
     {
@@ -21,6 +21,7 @@ public class floatingHealthBar : MonoBehaviour
 
 
     }
+
     // Update is called once per frame
     void Update()
     {
