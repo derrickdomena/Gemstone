@@ -12,6 +12,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Player Stats -----")]
     // Health
     [SerializeField] public int hp;
+
     // Movement
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
@@ -21,10 +22,12 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Gun Stats -----")]
     [SerializeField] public List<GunStats> gunList = new List<GunStats>();
-    [SerializeField] GameObject gunModel;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
     [SerializeField] int shootDistance;
+
+    [Header("----- Gun Components -----")]
+    [SerializeField] GameObject gunModel;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] GameObject smgMuzzleFlashPOS;
     [SerializeField] GameObject rifleMuzzleFlashPOS;
@@ -260,7 +263,6 @@ public class playerController : MonoBehaviour, IDamage
 
         selectedGun = gunList.Count - 1;
         UpdatePlayerUI();
-
     }
 
     void ScrollGuns()
@@ -275,7 +277,6 @@ public class playerController : MonoBehaviour, IDamage
             selectedGun--;
             ChangeGunStats();
         }
-
     }
     void ChangeGunStats()
     {
@@ -285,9 +286,7 @@ public class playerController : MonoBehaviour, IDamage
 
         SetMuzzlePOS();
     
-            //muzzleFlash.transform.position = gunList[selectedGun].muzzleFlashPOS.transform.position;
-
-            gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
         UpdatePlayerUI();
     }

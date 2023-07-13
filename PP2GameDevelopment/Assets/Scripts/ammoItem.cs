@@ -20,7 +20,7 @@ public class ammoItem : MonoBehaviour, IAmmo
     // When ammo pack is picked up, increases ammoReserve
     public void GiveAmmo(int amount)
     {
-        //IMPORTANT: kind... This doesnt seem efficient.. is there a better way to increase that number?
+        //IMPORTANT: kinda... This doesnt seem efficient.. is there a better way to increase that number?
         gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoReserve += amount;
     }
 
