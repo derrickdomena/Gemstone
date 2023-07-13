@@ -28,10 +28,13 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Gun Components -----")]
     [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject gunModelAimPos;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] GameObject smgMuzzleFlashPOS;
     [SerializeField] GameObject rifleMuzzleFlashPOS;
     [SerializeField] GameObject sarMuzzleFlashPOS;
+
+    Vector3 gunModelOrig;
 
     public int selectedGun;
 
@@ -57,9 +60,14 @@ public class playerController : MonoBehaviour, IDamage
     bool isShooting;
     bool reloadTutorial;
 
+    //Aiming bool
+    private bool isAiming = false;
+
     // Start is called before the first frame update
     private void Start()
     {
+        gunModelOrig = gunModel.transform.localPosition;
+
         reloadTutorial = true;
         hpOrig = hp;
         SpawnPlayer();
@@ -72,6 +80,24 @@ public class playerController : MonoBehaviour, IDamage
         {
             Movement();
             StateHandler();
+
+            // Checks if player is aiming or not
+            bool isAimButtonPressed = Input.GetButton("Aim");
+
+            // if player is aiming then transform position of weapon, else put weapon pos back to original
+            if (isAimButtonPressed && !isAiming)
+            {
+                Debug.Log("aimed");
+                gunModel.transform.position = gunModelAimPos.transform.position;
+                isAiming = true;
+            }
+            else if (!isAimButtonPressed && isAiming)
+            {
+                Debug.Log("un-aimed");
+                gunModel.transform.localPosition = gunModelOrig;
+                isAiming = false;
+            }
+
             if (gunList.Count > 0)
             {
                 ScrollGuns();
