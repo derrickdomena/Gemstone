@@ -26,6 +26,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
     [SerializeField] int shootDistance;
     [SerializeField] GameObject muzzleFlash;
+    [SerializeField] GameObject smgMuzzleFlashPOS;
+    [SerializeField] GameObject rifleMuzzleFlashPOS;
+    [SerializeField] GameObject sarMuzzleFlashPOS;
 
     public int selectedGun;
 
@@ -251,6 +254,7 @@ public class playerController : MonoBehaviour, IDamage
         shootDamage = gunstat.shootDamage;
         shootDistance = gunstat.shootDist;
         shootRate = gunstat.shootRate;
+        SetMuzzlePOS();
 
         gunModel.GetComponent<MeshFilter>().mesh = gunstat.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().material = gunstat.model.GetComponent<MeshRenderer>().sharedMaterial;
@@ -280,7 +284,11 @@ public class playerController : MonoBehaviour, IDamage
         shootDistance = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
 
-        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        SetMuzzlePOS();
+    
+            //muzzleFlash.transform.position = gunList[selectedGun].muzzleFlashPOS.transform.position;
+
+            gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
         UpdatePlayerUI();
     }
@@ -302,6 +310,27 @@ public class playerController : MonoBehaviour, IDamage
                 gunList[selectedGun].ammoReserve -= (gunList[selectedGun].ammoMax - gunList[selectedGun].ammoCurr);
                 gunList[selectedGun].ammoCurr = gunList[selectedGun].ammoMax;
             }
+        }
+    }
+
+    void SetMuzzlePOS() 
+    {
+        string name = gunList[selectedGun].name;
+
+        switch (name)
+        {
+            case "Rifle":
+                muzzleFlash.transform.position = rifleMuzzleFlashPOS.transform.position;
+                    break;
+            case "SMG":
+                muzzleFlash.transform.position = smgMuzzleFlashPOS.transform.position;
+                break;
+            case "SAR":
+                muzzleFlash.transform.position = sarMuzzleFlashPOS.transform.position;
+                break;
+            default:
+                Debug.Log("Error - playerController: SetMuzzlePOS()");
+                break;
         }
     }
 
