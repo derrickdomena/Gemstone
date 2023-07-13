@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int jumpsMax;
 
     [Header("----- Gun Stats -----")]
-    [SerializeField] List<GunStats> gunList = new List<GunStats>();
+    [SerializeField] public List<GunStats> gunList = new List<GunStats>();
     [SerializeField] GameObject gunModel;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
@@ -60,7 +60,6 @@ public class playerController : MonoBehaviour, IDamage
         reloadTutorial = true;
         hpOrig = hp;
         SpawnPlayer();
-        //auto = Weapon.instance.automatic;
     }
 
     // Update is called once per frame
@@ -333,6 +332,5 @@ public class playerController : MonoBehaviour, IDamage
                 break;
         }
     }
-
 }
 
