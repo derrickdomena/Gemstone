@@ -212,7 +212,7 @@ public class playerController : MonoBehaviour, IDamage
         if (gunList[selectedGun].ammoCurr > 0)
         {
             isShooting = true;
-            //StartCoroutine(muzzleFlashTimer());
+            StartCoroutine(muzzleFlashTimer());
             gunList[selectedGun].ammoCurr--;
 
             UpdatePlayerUI();
@@ -237,6 +237,13 @@ public class playerController : MonoBehaviour, IDamage
         }
 
     }
+    IEnumerator muzzleFlashTimer()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(.05f);
+        muzzleFlash.SetActive(false);
+    }
+
     public void GunPickup(GunStats gunstat)
     {
         gunList.Add(gunstat);
