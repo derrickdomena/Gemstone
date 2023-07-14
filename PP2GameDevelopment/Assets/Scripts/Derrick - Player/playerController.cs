@@ -37,6 +37,11 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] GameObject rifleMuzzleFlashPOS;
     [SerializeField] GameObject sarMuzzleFlashPOS;
 
+    public AudioSource audioSource;
+    [SerializeField] AudioClip autoAudioClip;
+    [SerializeField] AudioClip semiAudioClip;
+    [SerializeField] AudioClip rifleAudioClip;
+
     Vector3 gunModelOrig;
 
     public int selectedGun;
@@ -248,6 +253,28 @@ public class playerController : MonoBehaviour, IDamage
             isShooting = true;
             StartCoroutine(muzzleFlashTimer());
             gunList[selectedGun].ammoCurr--;
+
+            // Shooting Audio
+
+            string name = gunList[selectedGun].name;
+
+            switch (name)
+            {
+                case "Rifle":
+                    audioSource.PlayOneShot(rifleAudioClip, .7f);
+                    break;
+                case "SMG":
+                    audioSource.PlayOneShot(autoAudioClip, .7f);
+                    break;
+                case "SAR":
+                    audioSource.PlayOneShot(semiAudioClip, .7f);
+                    break;
+                default:
+                    Debug.Log("Error - playerController: SetMuzzlePOS()");
+                    break;
+            }
+
+
 
             UpdatePlayerUI();
 
