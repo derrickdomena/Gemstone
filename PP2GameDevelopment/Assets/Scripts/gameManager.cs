@@ -27,12 +27,16 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI ammoReserve;
     public GameObject reload;
     public GameObject nextWave;
-    
+    public Image gem;
+    public TextMeshProUGUI gemText;
+    public int gemCount;
+
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemiesPerWave;
     [SerializeField] public int maxWaves;
     [SerializeField] public GameObject[] enemyTypes;
     [SerializeField] public int maxEnemies;
+    [SerializeField] float waveTimer;
 
     GameObject[] enemySpawnLocs;
     int enemiesRemaining;
@@ -40,6 +44,7 @@ public class gameManager : MonoBehaviour
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
+    
 
 
   
@@ -185,7 +190,13 @@ public class gameManager : MonoBehaviour
 
     IEnumerator Countdown()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(waveTimer);
         updateGameGoal(wave * enemiesPerWave);
+    }
+
+    public void updateGemCount(int amount)
+    {
+        gemCount += amount;
+        gemText.text = gemCount.ToString("F0");
     }
 }
