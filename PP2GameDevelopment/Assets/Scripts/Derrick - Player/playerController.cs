@@ -14,7 +14,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] public int hp;
 
     // Movement
-    [SerializeField] float walkSpeed;
+    [SerializeField] public float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
@@ -23,7 +23,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Gun Stats -----")]
     [SerializeField] public List<GunStats> gunList = new List<GunStats>();
     [SerializeField] float shootRate;
-    [SerializeField] int shootDamage;
+    [SerializeField] public int shootDamage;
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
@@ -55,7 +55,7 @@ public class playerController : MonoBehaviour, IDamage
     public KeyCode reloadKey = KeyCode.R;
 
     // Health
-    int hpOrig;
+    public int hpOrig;
 
     // Movement
     Vector3 move;
@@ -341,7 +341,7 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     // Method for changing weapon stats
-    void ChangeGunStats()
+    public void ChangeGunStats()
     {
         shootDamage = gunList[selectedGun].shootDamage;
         shootDistance = gunList[selectedGun].shootDist;

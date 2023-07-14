@@ -8,6 +8,7 @@ public class GunPickup : MonoBehaviour
 
     void Start()
     {
+        gun.shootDamage = gun.shootDamageOrig;
         gun.ammoCurr = gun.ammoMax;
         gun.ammoReserve = gun.ammoReserveMax;
     }

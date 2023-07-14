@@ -11,9 +11,9 @@ public class Collect : MonoBehaviour, ICollectible
     public bool rotate;
     public float rotationSpeed;
 
-    [SerializeField] int ammoAmount;
-    [SerializeField] int healingAmount ;
-    [SerializeField] int gemAmount;
+    [SerializeField] public int ammoAmount;
+    [SerializeField] public int healingAmount ;
+    [SerializeField] public int gemAmount;
 
     public GameObject collectEffect;
 
@@ -37,24 +37,18 @@ public class Collect : MonoBehaviour, ICollectible
     {
         if (collectEffect)
             Instantiate(collectEffect, transform.position, Quaternion.identity);
-        //switch (CollectibleType)
-        // {
-        //     case CollectibleTypes.Ammo:
-        //         GiveAmmo(ammoAmount);
-        //         break;
-        //     case CollectibleTypes.HealthPack:
-        //         GiveHP(healingAmount);
-        //         break;
-        //     case CollectibleTypes.Gem:
-        //         GiveGem(gemAmount);
-        //         break;
-        // }
+
         if (CollectibleType == CollectibleTypes.Gem)
         {
             GiveGem(gemAmount);
         }
         if (CollectibleType == CollectibleTypes.HealthPack)
         {
+            //checks to see if the player already has full hp
+            if (gameManager.instance.playerScript.hp >= gameManager.instance.playerScript.hpOrig)
+            {
+                return;
+            }
             GiveHP(healingAmount);
         }
         if(CollectibleType == CollectibleTypes.Ammo)

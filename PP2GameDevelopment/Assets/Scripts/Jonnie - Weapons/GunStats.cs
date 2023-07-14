@@ -12,6 +12,7 @@ public class GunStats : ScriptableObject
     public int ammoMax;
     public int ammoReserve;
     public int ammoReserveMax;
+    public int shootDamageOrig;
 
 
     public bool auto;
