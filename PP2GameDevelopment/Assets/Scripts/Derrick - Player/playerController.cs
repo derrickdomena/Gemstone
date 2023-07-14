@@ -327,8 +327,6 @@ public class playerController : MonoBehaviour, IDamage
     // Handles scrolling through weapons
     void ScrollGuns()
     {
-        SetMuzzlePOS();
-
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
         {
             selectedGun++;
@@ -339,6 +337,7 @@ public class playerController : MonoBehaviour, IDamage
             selectedGun--;
             ChangeGunStats();
         }
+        SetMuzzlePOS();
     }
 
     // Method for changing weapon stats
