@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShopInteract : MonoBehaviour
 {
-    [SerializeField] private UI_Script uiShop;
+
     private void OnTriggerEnter(Collider other)
     {
         ShopCustomer customer = other.GetComponent<ShopCustomer>();
