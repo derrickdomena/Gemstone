@@ -79,7 +79,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         gunModelOrig = gunModel.transform.localPosition;
 
         reloadTutorial = true;
-        hpOrig = hp;
+        hpOrig = hp; 
         SpawnPlayer();
     }
 

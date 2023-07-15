@@ -12,29 +12,26 @@ public class GrenadeAbility : MonoBehaviour
     [SerializeField] float throwForce;
     [SerializeField] float throwUpwardForce;
     [SerializeField] float throwCooldownTime;
-    
-    public KeyCode grenadeKey = KeyCode.Q;
 
-    bool readyToThrow;
+    public KeyCode grenadeKey = KeyCode.Q;
+    bool canThrow;
 
     // Start is called before the first frame update
     void Start()
     {
-        readyToThrow = true;
+        gameManager.instance.grenadeCooldownFill.fillAmount = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(grenadeKey) && readyToThrow)
-        {
-            ThrowGrenade();
-        }
+        UpdateGrenadeUI();
     }
 
+    // Throws the grenade
     void ThrowGrenade()
     {
-        readyToThrow = false;
+        canThrow = false;
 
         // Instantiae grenade object
         GameObject grenadeObj = Instantiate(grenade, grenadePosition.transform.position, grenadePosition.transform.rotation);
@@ -45,13 +42,29 @@ public class GrenadeAbility : MonoBehaviour
         // Add throwing force
         Vector3 upwardForce = transform.forward * throwForce + transform.up * throwUpwardForce;
         rb.AddForce(upwardForce, ForceMode.Impulse);
-
-        // Throw Cooldown
-        Invoke(nameof(ResetThrow), throwCooldownTime);
     }
 
-    private void ResetThrow()
+    // Updates the Grenade UI
+    void UpdateGrenadeUI()
     {
-        readyToThrow = true;
+        // When grenadeKey is pressed and canThrow is true, you can throw a grenade
+        if (Input.GetKeyDown(grenadeKey) && !canThrow)
+        {
+            ThrowGrenade();
+            canThrow = true;          
+        }
+
+        // When canThrow is true, start decrementing the grenade ability image fill amount
+        if (canThrow)
+        {
+            gameManager.instance.grenadeCooldownFill.fillAmount -= 1 / throwCooldownTime * Time.deltaTime;
+
+            // When image fill amount is less than or equal zero, refill the grenade ability and set canThrow to false
+            if (gameManager.instance.grenadeCooldownFill.fillAmount <= 0)
+            {
+                gameManager.instance.grenadeCooldownFill.fillAmount = 1;
+                canThrow = false;
+            }
+        }
     }
 }

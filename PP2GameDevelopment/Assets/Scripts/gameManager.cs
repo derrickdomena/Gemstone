@@ -33,6 +33,9 @@ public class gameManager : MonoBehaviour
     public GameObject shop;
     public GameObject ShopMask;
 
+    public Image grenadeCooldownFill;
+    public Image dashCooldownFill;
+
 
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemiesPerWave;
