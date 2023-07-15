@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class DashAbility : MonoBehaviour
 {
+    [Header("----- Dash Components -----")]
     playerController playerScript;
 
+    [Header("----- Dash Stats -----")]
     [SerializeField] float dashSpeed;
     [SerializeField] float dashTime;
-    [SerializeField] float dashCoolDownTime;
+    [SerializeField] float dashCooldownTime;
 
     public KeyCode dashKey = KeyCode.E;
 
@@ -29,7 +31,7 @@ public class DashAbility : MonoBehaviour
             if (Input.GetKeyDown(dashKey))
             {
                 StartCoroutine(Dash());
-                dashAvailableTime = Time.time + dashCoolDownTime;
+                dashAvailableTime = Time.time + dashCooldownTime;
             }
         }
     }
