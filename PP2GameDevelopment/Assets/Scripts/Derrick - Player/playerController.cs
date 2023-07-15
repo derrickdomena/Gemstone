@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class playerController : MonoBehaviour, IDamage
+public class playerController : MonoBehaviour, IDamage, ShopCustomer
 {
     [Header("----- Component -----")]
     // Character Controller
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
 
     [Header("----- Player Stats -----")]
@@ -14,7 +15,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] public int hp;
 
     // Movement
-    [SerializeField] float walkSpeed;
+    [SerializeField] public float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
@@ -23,11 +24,11 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Gun Stats -----")]
     [SerializeField] public List<GunStats> gunList = new List<GunStats>();
     [SerializeField] float shootRate;
-    [SerializeField] int shootDamage;
+    [SerializeField] public int shootDamage;
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
-    [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject gunModel; 
     [SerializeField] GameObject gunModelAimPos;
     [SerializeField] GameObject rifleModelAimPos;
     [SerializeField] GameObject smgModelAimPos;
@@ -55,10 +56,11 @@ public class playerController : MonoBehaviour, IDamage
     public KeyCode reloadKey = KeyCode.R;
 
     // Health
-    int hpOrig;
+    public int hpOrig;
 
     // Movement
-    Vector3 move;
+    [HideInInspector]
+    public Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed;
@@ -173,8 +175,6 @@ public class playerController : MonoBehaviour, IDamage
             controller.height = controller.height * 0.5f;
             // Capsule Collider Height
             capsuleCollider.height = capsuleCollider.height * 0.5f;
-            // Main Camera Position
-            Camera.main.transform.localPosition = new Vector3(0f, 0.375f, 0f);
         }
 
         if (Input.GetKeyUp(crouchKey))
@@ -183,10 +183,8 @@ public class playerController : MonoBehaviour, IDamage
             controller.height = controller.height * 2;
             // Capsule Collider Height
             capsuleCollider.height = capsuleCollider.height * 2;
-            // Main Camera Position
-            Camera.main.transform.localPosition = new Vector3(0f, 0.75f, 0f);
         }
-
+        
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
@@ -200,7 +198,7 @@ public class playerController : MonoBehaviour, IDamage
             playerSpeed = walkSpeed / 2;
         }
         // Movement - Running
-        if (groundedPlayer && Input.GetKey(sprintKey))
+        if (groundedPlayer && Input.GetKey(sprintKey) && !Input.GetKey(crouchKey))
         {
             playerSpeed = sprintSpeed;
         }
@@ -341,7 +339,7 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     // Method for changing weapon stats
-    void ChangeGunStats()
+    public void ChangeGunStats()
     {
         shootDamage = gunList[selectedGun].shootDamage;
         shootDistance = gunList[selectedGun].shootDist;
@@ -400,5 +398,23 @@ public class playerController : MonoBehaviour, IDamage
                 break;
         }
     }
+    public int getGemAmount()
+    {
+        return gameManager.instance.gemCount;
+    }
+
+    public bool TrySpendGemAmount(int gemAmount)
+    {
+        if (getGemAmount() - gemAmount >= 0)
+        { 
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 }
 

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b56081825b40346841943a0ae25e68, type: 3}
+  m_Name: StaffLevel1
+  m_EditorClassIdentifier: 
+  shootDist: 40
+  shootRate: 2
+  shootDamage: 1
+  ammoCurr: 15
+  ammoMax: 15
+  ammoReserve: 15
+  ammoReserveMax: 15
+  shootDamageOrig: 1
+  auto: 0
+  model: {fileID: 1730734154484704302, guid: 983a522cb9b6f8c46b850ef7f4dcf1a0, type: 3}
+  hitEffect: {fileID: 0}
