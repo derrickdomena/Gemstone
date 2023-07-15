@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Component -----")]
     // Character Controller
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
 
     [Header("----- Player Stats -----")]
@@ -58,7 +59,8 @@ public class playerController : MonoBehaviour, IDamage
     public int hpOrig;
 
     // Movement
-    Vector3 move;
+    [HideInInspector]
+    public Vector3 move;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed;
@@ -186,7 +188,7 @@ public class playerController : MonoBehaviour, IDamage
             // Main Camera Position
             Camera.main.transform.localPosition = new Vector3(0f, 0.75f, 0f);
         }
-
+        
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
@@ -200,7 +202,7 @@ public class playerController : MonoBehaviour, IDamage
             playerSpeed = walkSpeed / 2;
         }
         // Movement - Running
-        if (groundedPlayer && Input.GetKey(sprintKey))
+        if (groundedPlayer && Input.GetKey(sprintKey) && !Input.GetKey(crouchKey))
         {
             playerSpeed = sprintSpeed;
         }
