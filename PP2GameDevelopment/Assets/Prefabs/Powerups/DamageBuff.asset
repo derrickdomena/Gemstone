@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1332f89976679d84d8056bf88c92278e, type: 3}
+  m_Script: {fileID: 11500000, guid: f255c8d20cf801340986e005d55e6467, type: 3}
   m_Name: DamageBuff
   m_EditorClassIdentifier: 
-  amount: 4
+  itemName: DAMAGE UPGRADE
+  cost: 30
+  amount: 2
+  itemType: 0

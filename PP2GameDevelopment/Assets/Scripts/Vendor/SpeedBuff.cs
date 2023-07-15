@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Powerups/SpeedBuff")]
 public class SpeedBuff : PowerupEffect
 {
-    public override void Apply(float amount)
+    public override void Apply()
     {
-        gameManager.instance.playerScript.walkSpeed += amount;
+       // gameManager.instance.playerScript.walkSpeed += amount;
     }
 }

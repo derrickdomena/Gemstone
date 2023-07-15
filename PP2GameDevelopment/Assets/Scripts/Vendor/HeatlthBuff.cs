@@ -6,10 +6,10 @@ using UnityEngine;
 public class HeatlthBuff : PowerupEffect
 {
     public int amount;
-    public override void Apply(float amount)
+    public override void Apply()
     {
-        gameManager.instance.playerScript.hpOrig += (int)amount;
-        gameManager.instance.playerScript.hp += (int)amount;
+       //gameManager.instance.playerScript.hpOrig += (int)amount;
+       //gameManager.instance.playerScript.hp += (int)amount;
 
     }
 }

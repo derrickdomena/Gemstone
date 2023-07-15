@@ -30,6 +30,9 @@ public class gameManager : MonoBehaviour
     public Image gem;
     public TextMeshProUGUI gemText;
     public int gemCount;
+    public GameObject shop;
+    public GameObject ShopMask;
+
 
     [Header("----- Enemy Stuff -----")]
     [SerializeField] public int enemiesPerWave;
@@ -194,9 +197,19 @@ public class gameManager : MonoBehaviour
         updateGameGoal(wave * enemiesPerWave);
     }
 
+    //updates the gem amount
     public void updateGemCount(int amount)
     {
         gemCount += amount;
         gemText.text = gemCount.ToString("F0");
+    }
+    
+    //sets active menu to shop
+    public void Vendor()
+    {
+        statePaused();
+        ShopMask.SetActive(true);
+        activeMenu = shop;
+        activeMenu.SetActive(true);
     }
 }

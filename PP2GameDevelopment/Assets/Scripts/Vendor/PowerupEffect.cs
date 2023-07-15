@@ -6,5 +6,5 @@ using UnityEngine;
 public abstract class PowerupEffect : ScriptableObject  
 {
     
-    public abstract void Apply(float amount);
+    public abstract void Apply();
 }

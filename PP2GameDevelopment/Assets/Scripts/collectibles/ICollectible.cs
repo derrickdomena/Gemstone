@@ -9,7 +9,7 @@ public interface ICollectible
     //collectibles
     void GiveGem(int amount);
     //ammo
-  //  void GiveAmmo(int amount1);
+    void GiveAmmo(int amount1);
     //hp
-    //void GiveHP(int amount2);
+    void GiveHP(int amount2);
 }

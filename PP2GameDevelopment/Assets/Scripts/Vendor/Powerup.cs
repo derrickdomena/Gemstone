@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +9,16 @@ public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
 
-    public void OnButtonClick(float amount)
+    public void OnButtonClick()
     {
-        Destroy(gameObject);
-        powerupEffect.Apply(amount);
+        if(gameManager.instance.playerScript.TrySpendGemAmount(gameManager.instance.gemCount) == true)
+        {
+            Destroy(gameObject);
+            powerupEffect.Apply();
+        }
+        else
+        {
+            return;
+        }
     }
 }

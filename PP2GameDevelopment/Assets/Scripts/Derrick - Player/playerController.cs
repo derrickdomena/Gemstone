@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class playerController : MonoBehaviour, IDamage
+public class playerController : MonoBehaviour, IDamage, ShopCustomer
 {
     [Header("----- Component -----")]
     // Character Controller
@@ -398,5 +398,23 @@ public class playerController : MonoBehaviour, IDamage
                 break;
         }
     }
+    public int getGemAmount()
+    {
+        return gameManager.instance.gemCount;
+    }
+
+    public bool TrySpendGemAmount(int gemAmount)
+    {
+        if (getGemAmount() - gemAmount >= 0)
+        { 
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 }
 
