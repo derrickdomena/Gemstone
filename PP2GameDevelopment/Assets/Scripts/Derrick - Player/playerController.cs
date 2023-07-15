@@ -176,7 +176,7 @@ public class playerController : MonoBehaviour, IDamage
             // Capsule Collider Height
             capsuleCollider.height = capsuleCollider.height * 0.5f;
             // Main Camera Position
-            Camera.main.transform.localPosition = new Vector3(0f, 0.375f, 0f);
+            //Camera.main.transform.localPosition = new Vector3(0f, 1.68f, 0f);
         }
 
         if (Input.GetKeyUp(crouchKey))
@@ -186,7 +186,7 @@ public class playerController : MonoBehaviour, IDamage
             // Capsule Collider Height
             capsuleCollider.height = capsuleCollider.height * 2;
             // Main Camera Position
-            Camera.main.transform.localPosition = new Vector3(0f, 0.75f, 0f);
+            //Camera.main.transform.localPosition = new Vector3(0f, 1.68f, 0f);
         }
         
         playerVelocity.y -= gravityValue * Time.deltaTime;
