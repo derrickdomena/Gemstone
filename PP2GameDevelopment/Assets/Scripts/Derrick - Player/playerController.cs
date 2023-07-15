@@ -28,7 +28,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
-    [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject gunModel; 
     [SerializeField] GameObject gunModelAimPos;
     [SerializeField] GameObject rifleModelAimPos;
     [SerializeField] GameObject smgModelAimPos;
