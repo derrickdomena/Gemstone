@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int roamDist;
     [SerializeField] GameObject enemyHPBar;
     [SerializeField] float enemyHPBarTimer;
+    [SerializeField] bool meleeOrRange;
 
     [Header("----- Gun stuff -----")]
     [SerializeField] float shootRate;
@@ -33,9 +34,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     bool destinationChosen;
     float angleToPlayer;
     bool isShooting;
+    bool isMelee;
+    bool inMeleeRange;
     float stoppingDistanceOrig;
     Vector3 playerDir;
     int hpOrig;
+
 
     // Awake is called when the script instance is loaded, before Start()
     public void Awake()
@@ -53,6 +57,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         healthBar.UpdateHealthBar(hp, hpOrig);
         model = GetComponentsInChildren<Renderer>();
         enemyHPBar.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -70,11 +75,21 @@ public class EnemyAI : MonoBehaviour, IDamage
             if (agent.remainingDistance < agent.stoppingDistance)
             {
                 FacePlayer();
-            }
-
-            if (!isShooting)
-            {
-                StartCoroutine(Shoot());
+                if(shootRange <= agent.remainingDistance)
+                {
+                    if (!isShooting && meleeOrRange)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                    else if (!isMelee && !meleeOrRange)
+                    {
+                        StartCoroutine(Melee());
+                    }
+                }
+                else if(shootRange >= agent.remainingDistance){
+                    StopCoroutine(Shoot());
+                    StopCoroutine(Melee());
+                }
             }
         }
     }
@@ -114,6 +129,19 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+
+    IEnumerator Melee()
+    {
+        isMelee = true;
+        IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
+        if(playerDam != null)
+        {
+            playerDam.TakeDamage(shootDamage);
+        }
+        yield return new WaitForSeconds(shootRate);
+        isMelee = false;
+        
     }
 
     void OnTriggerEnter(Collider other)

@@ -63,11 +63,12 @@ MonoBehaviour:
   roamDist: 50
   enemyHPBar: {fileID: 2570638884768151746}
   enemyHPBarTimer: 0.1
+  meleeOrRange: 0
   shootRate: 1
   shootPos: {fileID: 5767662781205970382}
   bullet: {fileID: 8656626538203290646}
-  shootRange: 0
-  shootDamage: 0
+  shootRange: 0.25
+  shootDamage: 1
   enemyPrefab: {fileID: 0}
 --- !u!195 &4748368956599593178
 NavMeshAgent:
