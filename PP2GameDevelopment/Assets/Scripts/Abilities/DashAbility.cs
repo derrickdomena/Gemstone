@@ -45,22 +45,22 @@ public class DashAbility : MonoBehaviour
     // Updates the Dash ability UI image fill amount
     void UpdateDashUI()
     {
-        // When the dashKey is pressed and canDash is true, startcoroutine Dash() and set canDash to true
+        // When the dashKey is pressed and canDash is true, set dash ability UI to zero and start the startcoroutine Dash() and set canDash to true
         if (Input.GetKeyDown(dashKey) && !canDash)
         {
-            StartCoroutine(Dash());          
+            gameManager.instance.dashCooldownFill.fillAmount = 0;
+            StartCoroutine(Dash());
             canDash = true;
         }
 
-        // When canDash is true, start decrementing the dash ability image fill amount
+        // When canDash is true, start incrementing the dash ability image fill amount
         if (canDash)
         {
-            gameManager.instance.dashCooldownFill.fillAmount -= 1 / dashCooldownTime * Time.deltaTime;
+            gameManager.instance.dashCooldownFill.fillAmount += 1 / dashCooldownTime * Time.deltaTime;
 
-            // When image fill amount is less than or equal zero, refill the dash ability and set canThrow to false
-            if (gameManager.instance.dashCooldownFill.fillAmount <= 0)
-            {
-                gameManager.instance.dashCooldownFill.fillAmount = 1;
+            // When image fill amount is equal to one, set canThrow to false
+            if (gameManager.instance.dashCooldownFill.fillAmount == 1)
+            {                
                 canDash = false;
             }
         }

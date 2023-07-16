@@ -50,19 +50,19 @@ public class GrenadeAbility : MonoBehaviour
         // When grenadeKey is pressed and canThrow is true, you can throw a grenade
         if (Input.GetKeyDown(grenadeKey) && !canThrow)
         {
+            gameManager.instance.grenadeCooldownFill.fillAmount = 0;
             ThrowGrenade();
             canThrow = true;          
         }
 
-        // When canThrow is true, start decrementing the grenade ability image fill amount
+        // When canThrow is true, start incrementing the grenade ability image fill amount
         if (canThrow)
         {
-            gameManager.instance.grenadeCooldownFill.fillAmount -= 1 / throwCooldownTime * Time.deltaTime;
+            gameManager.instance.grenadeCooldownFill.fillAmount += 1 / throwCooldownTime * Time.deltaTime;
 
-            // When image fill amount is less than or equal zero, refill the grenade ability and set canThrow to false
-            if (gameManager.instance.grenadeCooldownFill.fillAmount <= 0)
-            {
-                gameManager.instance.grenadeCooldownFill.fillAmount = 1;
+            // When image fill amount is equal to one, set canThrow to false
+            if (gameManager.instance.grenadeCooldownFill.fillAmount == 1)
+            {          
                 canThrow = false;
             }
         }
