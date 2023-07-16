@@ -28,7 +28,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
-    [SerializeField] GameObject gunModel; 
+    [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject proj;
+    [SerializeField] float projSpeed;
+
     [SerializeField] GameObject gunModelAimPos;
     [SerializeField] GameObject rifleModelAimPos;
     [SerializeField] GameObject smgModelAimPos;
@@ -281,12 +284,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             {
                 IDamage damagable = hit.collider.GetComponent<IDamage>();
 
-                GameObject projectile = Instantiate(gunList[selectedGun].projectile, sarMuzzleFlashPOS.transform.position, Quaternion.identity);
+                GameObject projectile = Instantiate(proj, sarMuzzleFlashPOS.transform.position, Quaternion.identity);
 
                 Vector3 direction = (hit.point - sarMuzzleFlashPOS.transform.position).normalized;
 
                 Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
-                projectileRigidbody.velocity = direction * gunList[selectedGun].projectileSpeed;
+                projectileRigidbody.velocity = direction * projSpeed;
 
                 projectile.transform.forward = -direction;
 
@@ -322,6 +325,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDamage = gunstat.shootDamage;
         shootDistance = gunstat.shootDist;
         shootRate = gunstat.shootRate;
+        projSpeed = gunstat.projectileSpeed;
         SetMuzzlePOS();
 
         gunModel.GetComponent<MeshFilter>().mesh = gunstat.model.GetComponent<MeshFilter>().sharedMesh;
@@ -353,6 +357,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDamage = gunList[selectedGun].shootDamage;
         shootDistance = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
+        projSpeed = gunList[selectedGun].projectileSpeed;
 
         SetMuzzlePOS();
     
