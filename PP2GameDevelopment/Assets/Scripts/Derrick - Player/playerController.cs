@@ -281,6 +281,15 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             {
                 IDamage damagable = hit.collider.GetComponent<IDamage>();
 
+                GameObject projectile = Instantiate(gunList[selectedGun].projectile, sarMuzzleFlashPOS.transform.position, Quaternion.identity);
+
+                Vector3 direction = (hit.point - sarMuzzleFlashPOS.transform.position).normalized;
+
+                Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
+                projectileRigidbody.velocity = direction * gunList[selectedGun].projectileSpeed;
+
+                projectile.transform.forward = -direction;
+
                 if (damagable != null && !hit.collider.CompareTag("Player"))
                 {
                     damagable.TakeDamage(shootDamage);

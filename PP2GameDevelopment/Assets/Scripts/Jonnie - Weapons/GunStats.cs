@@ -16,7 +16,8 @@ public class GunStats : ScriptableObject
 
 
     public bool auto;
-
+    public GameObject projectile;
+    public float projectileSpeed;
     public GameObject model;
     public ParticleSystem hitEffect;
 
