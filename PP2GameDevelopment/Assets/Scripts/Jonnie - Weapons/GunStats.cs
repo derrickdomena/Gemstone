@@ -16,10 +16,9 @@ public class GunStats : ScriptableObject
 
 
     public bool auto;
-
+    public float projectileSpeed;
     public GameObject model;
     public ParticleSystem hitEffect;
 
     AudioSource shoot;
-
 }
