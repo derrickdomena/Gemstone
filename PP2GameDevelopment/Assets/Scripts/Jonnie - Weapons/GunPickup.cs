@@ -17,7 +17,6 @@ public class GunPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Picked up a weapon");
             gameManager.instance.playerScript.GunPickup(gun);
             Destroy(gameObject);
         }

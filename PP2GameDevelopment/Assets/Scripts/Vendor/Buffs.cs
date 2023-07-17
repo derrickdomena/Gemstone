@@ -10,6 +10,7 @@ public class Buffs : PowerupEffect
     public int cost;
     [SerializeField] public float amount;
     public Items.ItemType itemType;
+    [SerializeField] Rigidbody body;
     
     public override void Apply()
     {
