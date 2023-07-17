@@ -79,13 +79,9 @@ public class BossAI : MonoBehaviour, IDamage
         {
             agent.SetDestination(gameManager.instance.transform.position);
             
-            if (phaseCounter == 1) {
-                //melee only
-                animator.SetBool("isRun", true);
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    animator.SetBool("isRun", false);
-                }
+            FacePlayer();
+            if(phaseCounter == 1) {
+               //melee only
             }
             if(phaseCounter == 3)
             {
