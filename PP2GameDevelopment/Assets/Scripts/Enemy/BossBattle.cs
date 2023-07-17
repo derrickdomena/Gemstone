@@ -90,6 +90,7 @@ public class BossBattle : MonoBehaviour
         Debug.Log("StartBattle");
         StartNextStage();
         stage = Stage.Stage1;
+        spider.PhaseOne();
         //Spawn enemies
     }
 }
