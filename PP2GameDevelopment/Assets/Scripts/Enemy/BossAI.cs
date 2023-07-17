@@ -11,8 +11,9 @@ public class BossAI : MonoBehaviour, IDamage
     public event EventHandler OnDead;
     [Header("Components")]
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] Animator animator;
+    [SerializeField] public Animator animator;
     [SerializeField] Transform headPos;
+    [SerializeField] private ColliderTrigger1 DamageTrigger;
 
     [Header("Boss Stats")]
     [SerializeField] int moveSpeed;
@@ -37,7 +38,6 @@ public class BossAI : MonoBehaviour, IDamage
     private Material Material;
 
 
-    GameObject player;
     Vector3 playerDir;
     bool isMelee;
     bool isShoot;
@@ -45,6 +45,8 @@ public class BossAI : MonoBehaviour, IDamage
     float stoppingDistanceOrig;
     float angleToPlayer;
     bool immuneToDamage;
+    bool playerInRange;
+    bool isDead;
     
 
     private void Awake()
@@ -60,36 +62,37 @@ public class BossAI : MonoBehaviour, IDamage
     {
         stoppingDistanceOrig = agent.stoppingDistance;
         agent = GetComponent<NavMeshAgent>();
-        player = gameManager.instance.player;
         m_Renderer = bossPrefab.GetComponent<Renderer>();
     }
     // Update is called once per frame
     void Update()
     {
-        
+        CanSeePlayer();
+        if(!isDead)
+        {
+            pursuePlayer();
+        }
     }
     void pursuePlayer()
     {
-        agent.SetDestination(gameManager.instance.transform.position);
-        animator.SetBool("isRun", true);
         if(phaseCounter > 0)
         {
+            agent.SetDestination(gameManager.instance.transform.position);
             
-            FacePlayer();
-            if(phaseCounter == 1) {
-               //melee only
-               if()
+            if (phaseCounter == 1) {
+                //melee only
+                animator.SetBool("isRun", true);
+                if (agent.remainingDistance <= agent.stoppingDistance)
                 {
-
+                    animator.SetBool("isRun", false);
                 }
-            }
-            if(phaseCounter == 2)
-            {
-                //range only
             }
             if(phaseCounter == 3)
             {
-                //both? jumping spider?
+                agent.stoppingDistance = 0;
+                animator.SetBool("jump", true );
+
+                //JumpingSpider
             }
         }
     }
@@ -97,22 +100,22 @@ public class BossAI : MonoBehaviour, IDamage
     bool CanSeePlayer()
     {
         agent.stoppingDistance = stoppingDistanceOrig;
-
-        playerDir = gameManager.instance.player.transform.position = headPos.position;
+        playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-
-        Debug.DrawRay(headPos.position,playerDir);
-
+        Debug.DrawRay(headPos.position, playerDir);
+        Debug.Log(angleToPlayer);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer < viewAngle)
             {
+                FacePlayer();
                 return true;
             }
         }
         return false;
     }
+
     void FacePlayer()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
@@ -120,12 +123,17 @@ public class BossAI : MonoBehaviour, IDamage
     }
     public void PhaseOne()
     {
+        animator.SetBool("startBoss", false);
         phaseCounter++;
+        StartCoroutine(Melee());
+        
     }
     public void PhaseTwo()
     {
         phaseCounter++;
+        animator.SetBool("HitToP2", true);
         m_Renderer.material.SetTexture("_MainTex", PhaseTwoTexture);
+        animator.SetBool("HitToP2", false);
         
     }
     public void PhaseThree()
@@ -141,6 +149,7 @@ public class BossAI : MonoBehaviour, IDamage
     private void HealthSystem_OnDead(object sender, EventArgs e)
     {
         //It died destroy it
+        isDead = true;
         if(OnDead != null) OnDead(this, EventArgs.Empty);
         Destroy(gameObject);
     }
@@ -155,7 +164,8 @@ public class BossAI : MonoBehaviour, IDamage
         isMelee = true;
         animator.SetBool("isAttack", true);
         yield return new WaitForSeconds(meleeTimer);
-        isMelee=false;
+        DamageTrigger.OnPlayerEnterTrigger += ColliderTrigger_OnPlayerEnterTrigger;
+        isMelee =false;
         animator.SetBool("isAttack", false);
     }
     //IEnumerator Shoot()
@@ -181,5 +191,9 @@ public class BossAI : MonoBehaviour, IDamage
                 playerD.TakeDamage(Phase3Damage);
             }
         }
+    }
+    private void ColliderTrigger_OnPlayerEnterTrigger(object sender, System.EventArgs e)
+    {
+        doDamage();
     }
 }

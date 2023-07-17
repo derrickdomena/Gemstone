@@ -20,6 +20,7 @@ public class BossBattle : MonoBehaviour
     {
         stage = Stage.WaitingToStart;
         
+        
     }
 
     public void Start()
@@ -88,6 +89,7 @@ public class BossBattle : MonoBehaviour
     private void StartBattle()
     {
         Debug.Log("StartBattle");
+        spider.animator.SetBool("startBoss", true);
         StartNextStage();
         stage = Stage.Stage1;
         spider.PhaseOne();
