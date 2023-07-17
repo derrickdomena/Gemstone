@@ -32,7 +32,8 @@ public class gameManager : MonoBehaviour
     public int gemCount;
     public GameObject shop;
     public GameObject ShopMask;
-
+    public Image BossHPBar;
+    public GameObject bossHP;
     public Image grenadeCooldownFill;
     public Image dashCooldownFill;
 
@@ -131,9 +132,9 @@ public class gameManager : MonoBehaviour
 
         if (enemiesRemaining <= 0 && wave >= maxWaves)
         {
-            activeMenu = winMenu;
-            activeMenu.SetActive(true);
-            statePaused();
+            //activeMenu = winMenu;
+            //activeMenu.SetActive(true);
+            //statePaused();
         }
         //flashes text on screen to tell player when the next wave will be.
         else if(enemiesRemaining <= 0 && wave < maxWaves)
