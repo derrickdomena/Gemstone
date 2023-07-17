@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
     [SerializeField] floatingHealthBar healthBar;
+    [SerializeField] Animator animator;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
@@ -40,6 +41,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     Vector3 playerDir;
     int hpOrig;
 
+    bool isDead = false;
 
     // Awake is called when the script instance is loaded, before Start()
     public void Awake()
@@ -63,33 +65,45 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        pursuePlayer();
-    }
+        CanSeePlayer();
 
-    void pursuePlayer()
-    {
-        agent.SetDestination(gameManager.instance.player.transform.position);
-
-        if (CanSeePlayer())
+        if (!isDead) 
         {
-            if (agent.remainingDistance < agent.stoppingDistance)
+            PursuePlayer();
+        }
+
+    }
+    bool CanSeePlayer()
+    {
+        agent.stoppingDistance = stoppingDistanceOrig; 
+        playerDir = gameManager.instance.player.transform.position - headPos.position; 
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward); 
+        Debug.DrawRay(headPos.position, playerDir);         
+        Debug.Log(angleToPlayer);          
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDir, out hit))         
+        {             
+            if (hit.collider.CompareTag("Player") && angleToPlayer < viewAngle)             
             {
                 FacePlayer();
-                if(shootRange <= agent.remainingDistance)
-                {
-                    if (!isShooting && meleeOrRange)
-                    {
-                        StartCoroutine(Shoot());
-                    }
-                    else if (!isMelee && !meleeOrRange)
-                    {
-                        StartCoroutine(Melee());
-                    }
-                }
-                else if(shootRange >= agent.remainingDistance){
-                    StopCoroutine(Shoot());
-                    StopCoroutine(Melee());
-                }
+                return true;            
+            }        
+        }         
+        return false;     
+    }
+
+    void PursuePlayer()
+    {
+        agent.SetDestination(gameManager.instance.player.transform.position);
+        animator.SetBool("isWalking", true);
+
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            animator.SetBool("isWalking", false);
+            FacePlayer();
+            if (playerInRange)
+            {
+                StartCoroutine(Melee());
             }
         }
     }
@@ -100,48 +114,20 @@ public class EnemyAI : MonoBehaviour, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
 
-    bool CanSeePlayer()
-    {
-        agent.stoppingDistance = stoppingDistanceOrig;
-
-        playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-
-        Debug.DrawRay(headPos.position, playerDir);
-        //Debug.Log(angleToPlayer);
-
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
-        {
-            if (hit.collider.CompareTag("Player") && angleToPlayer < viewAngle)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    IEnumerator Shoot()
-    {
-        isShooting = true;
-
-        Instantiate(bullet, shootPos.position, transform.rotation).SetActive(true);
-
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
-    }
-
     IEnumerator Melee()
     {
-        isMelee = true;
+        animator.SetBool("isAttack", true);
+        yield return new WaitForSeconds(shootRate);
+        animator.SetBool("isAttack", false);   
+    }
+
+    void DoDamage()
+    {
         IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
-        if(playerDam != null)
+        if (playerDam != null)
         {
             playerDam.TakeDamage(shootDamage);
         }
-        yield return new WaitForSeconds(shootRate);
-        isMelee = false;
-        
     }
 
     void OnTriggerEnter(Collider other)
@@ -163,19 +149,31 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
-        agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(FlashDamage());
         healthBar.UpdateHealthBar((float)hp, hpOrig);
+
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing
         StartCoroutine(showTempHp());
 
         if (hp <= 0)
         {
-            gameManager.instance.enemyCheckOut();
-            Destroy(gameObject);
-            enemyHPBar.SetActive(false);
+            //agent.SetDestination(agent.transform.position);
+            isDead = true;
+            animator.SetBool("isDead", true);
         }
+    }
+
+    private void StopMoving()
+    {
+        agent.SetDestination(agent.transform.position);
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
+        enemyHPBar.SetActive(false);
+        gameManager.instance.enemyCheckOut();
     }
 
     IEnumerator FlashDamage()
@@ -184,24 +182,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         foreach (Renderer i in model) i.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         foreach (Renderer i in model) i.material.color = orig;
-    }
-
-    IEnumerator roam()
-    {
-        if (agent.remainingDistance < 0.5f && !destinationChosen)
-        {
-            destinationChosen = true;
-            agent.stoppingDistance = 0;
-            yield return new WaitForSeconds(roamTimer);
-
-            Vector3 randomPos = Random.insideUnitSphere * roamDist;
-            randomPos += gameObject.transform.position;
-
-            NavMeshHit hit;
-            NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
-            agent.SetDestination(hit.position);
-            destinationChosen = false;
-        }
     }
 
     //enables the enemy hpbar to show up for a fraction of a second.

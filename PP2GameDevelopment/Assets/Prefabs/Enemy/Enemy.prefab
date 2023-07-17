@@ -167,7 +167,7 @@ Transform:
   - {fileID: 6988304973907930524}
   - {fileID: 6965792083222877502}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6818974330737578008
 MonoBehaviour:
@@ -313,8 +313,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 1.23}
 --- !u!1 &1535385572891328097
 GameObject:
   m_ObjectHideFlags: 0
