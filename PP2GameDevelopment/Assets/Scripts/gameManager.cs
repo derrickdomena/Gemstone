@@ -56,15 +56,16 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerScript = player.GetComponent<playerController>();
+        timescaleOrig = Time.timeScale;
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
-        timescaleOrig = Time.timeScale;
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+
         enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
         updateGameGoal(wave * enemiesPerWave);
     }
