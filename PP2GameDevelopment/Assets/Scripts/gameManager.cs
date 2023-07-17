@@ -52,10 +52,6 @@ public class gameManager : MonoBehaviour
     bool isPaused;
     float timescaleOrig;
     
-
-
-  
-
     //Awake is called before Start
     void Awake()
     {

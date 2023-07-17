@@ -102,22 +102,26 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             // Checks if player is aiming or not
             bool isAimButtonPressed = Input.GetButton("Aim");
 
-            // if player is aiming then transform position of weapon, else put weapon pos back to original
-            if (isAimButtonPressed && !isAiming)
-            {
-                gunModel.transform.position = gunModelAimPos.transform.position;
-                isAiming = true;
-            }
-            else if (!isAimButtonPressed && isAiming)
-            {
-                gunModel.transform.localPosition = gunModelOrig;
-                isAiming = false;
-            }
+
 
             if (gunList.Count > 0)
             {
-                ScrollGuns();
+                // if player is aiming then transform position of weapon, else put weapon pos back to original
+                if (isAimButtonPressed && !isAiming)
+                {
+                    gunModel.transform.position = gunModelAimPos.transform.position;
+                    isAiming = true;
+                }
+                else if (!isAimButtonPressed && isAiming)
+                {
+                    gunModel.transform.localPosition = gunModelOrig;
+                    isAiming = false;
+                }
 
+                if (!isAiming)
+                {
+                    ScrollGuns();
+                }
                 // Switch between Automatic shooting and Semi Automatic shooting
                 if (gunList[selectedGun].auto && Input.GetButton("Shoot") && !isShooting)
                 {
@@ -292,10 +296,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 }
                 else
                 {
-
-
                     Instantiate(gunList[selectedGun].hitEffect, hit.point, Quaternion.identity);
-
                 }
             }
 
@@ -322,10 +323,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDistance = gunstat.shootDist;
         shootRate = gunstat.shootRate;
 
-        SetMuzzlePOS();
-
-            gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
 
         SetMuzzlePOS();
 
@@ -354,8 +353,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDamage = gunList[selectedGun].shootDamage;
         shootDistance = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
-
-        SetMuzzlePOS();
 
             gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
             gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;

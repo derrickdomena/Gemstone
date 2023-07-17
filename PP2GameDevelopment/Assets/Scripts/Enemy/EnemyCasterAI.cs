@@ -21,9 +21,8 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     [Range(1, 10)][SerializeField] int playerFaceSpeed;
 
     [Header("----- Navigation Stats -----")]
-    [SerializeField] int maxAttackDistance; //enemy will not attack if player is farther than this
-    [SerializeField] int retreatDistance; //enemy will retreat if player is closer than this
-
+    [SerializeField] float innerCircleRadius;
+    [SerializeField] float outerCircleRadius;
 
     GameObject player;
     Vector3 directionToPlayer;
@@ -31,9 +30,12 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     bool isCasting;
     int hpOrig;
 
+    private Vector3 circleCenter;
+
+
     bool isDead;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         player = gameManager.instance.player;
@@ -44,18 +46,30 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         healthBar.UpdateHealthBar(hp, hpOrig);
         enemyHPBar.SetActive(false);
     }
+    void Start()
+    {
+
+    }
 
     // Update is called once per frame
     void Update()
     {
+        circleCenter = player.transform.position;
+
         if (CanHitPlayerFromHere() && !IsPlayerTooClose())
         {
-            agent.destination = transform.position;
-            StartCasting();
+            // Stop walking if the enemy can hit the player
+            animator.SetBool("isWalking", false);
+
+            // Check if the enemy is within attack range to start casting
+            if (Vector3.Distance(transform.position, player.transform.position) <= outerCircleRadius)
+            {
+                StartCasting();
+            }
         }
         else if (!isCasting)
         {
-            animator.SetBool("isAttack" , false);
+            animator.SetBool("isAttack", false);
             ChooseNewDestination();
         }
     }
@@ -64,7 +78,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     {
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
 
-        if (playerDistance < retreatDistance)
+        if (playerDistance < innerCircleRadius)
         {
             Debug.Log("Player is too close");
             return true;
@@ -72,38 +86,65 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         return false;
     }
+    Vector3 GetRandomPointInCircle(Vector3 center, float innerRadius, float outerRadius)
+    {
+        Vector2 randomCirclePoint = Random.insideUnitCircle.normalized * (outerRadius - innerRadius);
+        Vector3 randomPoint = center + new Vector3(randomCirclePoint.x, 0f, randomCirclePoint.y);
 
+        return randomPoint;
+    }
     void ChooseNewDestination()
     {
         Debug.Log("Choose new Destination");
         Vector3 directionToPlayer = transform.position - player.transform.position;
         Vector3 newDestination;
 
-        //choose a destination within max attack distance and outside of retreat distance
+        // Choose a destination within the max attack distance and outside of the retreat distance
         if (IsPlayerTooClose())
         {
-            //move away from player
+            // Move away from player
             agent.stoppingDistance = 0;
-            newDestination = transform.position + directionToPlayer / 2;
-            Debug.Log("moving away from player");
+            newDestination = transform.position + directionToPlayer.normalized * outerCircleRadius;
+            Debug.Log("Moving away from player");
         }
         else
         {
-            //move toward player
+            // Move toward player
             agent.stoppingDistance = stoppingDistOrig;
-            newDestination = transform.position - directionToPlayer / 2;
-            Debug.Log("moving toward player");
+
+            // Calculate a random point in the donut area
+            newDestination = GetRandomPointInCircle(player.transform.position, innerCircleRadius, outerCircleRadius);
+            Debug.Log("Moving toward player");
+        }
+
+        // Make sure the new destination is not the current position of the agent
+        if (Vector3.Distance(newDestination, transform.position) <= agent.radius)
+        {
+            // If the new destination is too close to the agent, choose a new one
+            ChooseNewDestination();
+            return;
         }
 
         agent.SetDestination(newDestination);
         animator.SetBool("isWalking", true);
+    }
+    // Draws the circles in the Scene view for visualization
+    void OnDrawGizmos()
+    {
+        // Draw the inner circle
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(player.transform.position, innerCircleRadius);
+
+        // Draw the outer circle
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(player.transform.position, outerCircleRadius);
     }
 
     bool CanHitPlayerFromHere()
     {
         directionToPlayer = player.transform.position - transform.position;
 
-        if (Vector3.Distance(transform.position, player.transform.position) < maxAttackDistance)
+        if (Vector3.Distance(transform.position, player.transform.position) < outerCircleRadius)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, directionToPlayer, out hit))
@@ -117,6 +158,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         }
 
         Debug.Log("can't hit player from here");
+        ChooseNewDestination();
         return false;
     }
 
@@ -125,15 +167,24 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         Instantiate(magicShot, staffTip.transform.position, transform.rotation);
     }
 
-    void StartCasting() //todo: StartCasting()
+    void StartCasting()
     {
-        animator.SetBool("isWalking", false);
+        // Face the player
         directionToPlayer = player.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * 50);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
         Debug.DrawRay(directionToPlayer, transform.position);
 
+        // Start the casting animation
         animator.SetBool("isAttack", true);
+        isCasting = true;
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
+        enemyHPBar.SetActive(false);
+        gameManager.instance.enemyCheckOut();
     }
 
     void FinishCasting() //todo: FinishCasting()
