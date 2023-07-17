@@ -203,6 +203,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             destinationChosen = false;
         }
     }
+
     //enables the enemy hpbar to show up for a fraction of a second.
     //will probably get changed with testing
     IEnumerator showTempHp()

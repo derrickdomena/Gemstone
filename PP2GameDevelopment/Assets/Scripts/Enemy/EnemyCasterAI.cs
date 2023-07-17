@@ -9,7 +9,7 @@ public class EnemyCasterAI : MonoBehaviour
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
     [SerializeField] GameObject magicShot;
-    [SerializeField] Vector3 staffTip;
+    [SerializeField] GameObject staffTip;
 
     [Header("----- Navigation Stats -----")]
     [SerializeField] int maxAttackDistance; //enemy will not attack if player is farther than this
@@ -103,7 +103,7 @@ public class EnemyCasterAI : MonoBehaviour
 
     public void InstantiateMagicShot()
     {
-        Instantiate(magicShot, staffTip, transform.rotation);
+        Instantiate(magicShot, staffTip.transform.position, transform.rotation);
     }
 
     void StartCasting() //todo: StartCasting()
