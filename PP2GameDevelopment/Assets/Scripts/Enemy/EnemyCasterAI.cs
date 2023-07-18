@@ -48,7 +48,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     {
         player = gameManager.instance.player;
         stoppingDistOrig = agent.stoppingDistance;
-        gameManager.instance.enemyCheckIn();
         hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);
         enemyHPBar.SetActive(false);

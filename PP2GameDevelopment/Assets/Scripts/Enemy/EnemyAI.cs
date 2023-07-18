@@ -50,7 +50,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         hpOrig = hp;
-        gameManager.instance.enemyCheckIn();
         stoppingDistanceOrig = agent.stoppingDistance;
         healthBar.UpdateHealthBar(hp, hpOrig);
         enemyHPBar.SetActive(false);

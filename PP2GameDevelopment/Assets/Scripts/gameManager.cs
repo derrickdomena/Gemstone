@@ -38,14 +38,13 @@ public class gameManager : MonoBehaviour
     public Image dashCooldownFill;
 
     [Header("----- Spawner Stuff -----")]
-    [SerializeField] List<EnemySpawner> spawnerList = new List<EnemySpawner>();
-    float waveTimer;
+    public float waveTimer;
     public int enemiesPerWave;
     public int maxWaves;
     public int maxEnemies;
 
-    int enemiesRemaining;
-    int enemiesInScene;
+    public int enemiesRemaining;
+    public int enemiesInScene;
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
@@ -63,7 +62,6 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        spawnEnemies(5);
         updateGameGoal(wave * enemiesPerWave);
     }
 
@@ -76,13 +74,6 @@ public class gameManager : MonoBehaviour
             statePaused();
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
-        }
-        //ammo.text = Weapon.instance.ammo.ToString("F0");
-        //mags.text = Weapon.instance.magazines.ToString("F0");
-
-        if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
-        {
-            spawnEnemies(Mathf.Min(maxEnemies - enemiesInScene, enemiesRemaining - enemiesInScene));
         }
     }
 
@@ -126,15 +117,7 @@ public class gameManager : MonoBehaviour
 
         if (enemiesRemaining <= 0 && wave >= maxWaves)
         {
-            //activeMenu = winMenu;
-            //activeMenu.SetActive(true);
-            //statePaused();
-        }
-        //flashes text on screen to tell player when the next wave will be.
-        else if(enemiesRemaining <= 0 && wave < maxWaves)
-        {
-            wave++;
-            StartCoroutine(NextWave());                   
+
         }
     }
 
@@ -162,25 +145,6 @@ public class gameManager : MonoBehaviour
         playerFlashDamageScreen.SetActive(false);
     }
 
-    int randomSpawnLoc;
-    int randomEnemyType;
-    void spawnEnemies(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            randomSpawnLoc = Random.Range(0, spawnerList.Count - 1);          
-
-            for (int j = 0; j < spawnerList.Count; j++)
-            {
-                randomEnemyType = Random.Range(0, spawnerList[j].enemyTypes.Length - 1);
-                Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
-
-                Instantiate(spawnerList[randomSpawnLoc].enemyTypes[randomEnemyType]);
-            }
-            //Debug.Log("Enemies in scene: " + enemiesInScene);
-        }
-    }
-
     //flashes the nextWave game object on screen for 4 seconds
     public IEnumerator NextWave()
     {
@@ -193,7 +157,6 @@ public class gameManager : MonoBehaviour
     IEnumerator Countdown()
     {
         yield return new WaitForSeconds(waveTimer);
-        updateGameGoal(wave * enemiesPerWave);
     }
 
     //updates the gem amount

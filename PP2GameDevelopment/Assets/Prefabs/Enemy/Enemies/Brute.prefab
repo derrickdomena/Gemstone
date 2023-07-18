@@ -2160,7 +2160,7 @@ MonoBehaviour:
   headPos: {fileID: 5820668543530955683}
   healthBar: {fileID: 4170802308510753105}
   animator: {fileID: 1227089305119913711}
-  hp: 10
+  hp: 40
   moveSpeed: 2
   viewAngle: 0
   playerFaceSpeed: 0
@@ -2170,11 +2170,7 @@ MonoBehaviour:
   enemyHPBarTimer: 0.25
   meleeOrRange: 0
   shootRate: 1.1
-  shootPos: {fileID: 0}
-  bullet: {fileID: 0}
-  shootRange: 0
   shootDamage: 1
-  enemyPrefab: {fileID: 0}
 --- !u!195 &8723190148525063157
 NavMeshAgent:
   m_ObjectHideFlags: 0

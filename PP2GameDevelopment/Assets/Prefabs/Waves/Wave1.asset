@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a29698387211ea4bbb5b97cbd27fa20, type: 3}
-  m_Name: SpiderSpawner
+  m_Script: {fileID: 11500000, guid: e13516c516e242f4a92784f42ab8ebf8, type: 3}
+  m_Name: Wave1
   m_EditorClassIdentifier: 
-  enemyTypes:
-  - {fileID: 1517199874240306511, guid: 43d958a84aa3fc346998fab8f872db8e, type: 3}
+  <EnemiesInWave>k__BackingField:
+  - {fileID: 3864443442893648251, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
+  <TimeBeforeThisWave>k__BackingField: 5
+  <NumberToSpawn>k__BackingField: 3

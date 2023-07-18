@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a29698387211ea4bbb5b97cbd27fa20, type: 3}
-  m_Name: EnemySpawner1
+  m_Script: {fileID: 11500000, guid: e13516c516e242f4a92784f42ab8ebf8, type: 3}
+  m_Name: Wave2
   m_EditorClassIdentifier: 
-  enemyTypes:
-  - {fileID: 4345883182556506763, guid: 4f6ff031e5623104e81a45223f85a592, type: 3}
+  <EnemiesInWave>k__BackingField:
   - {fileID: 3864443442893648251, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
   - {fileID: 1936007673852321471, guid: 5f3d439eea88f0f47a0e483bb4604cc7, type: 3}
+  <TimeBeforeThisWave>k__BackingField: 5
+  <NumberToSpawn>k__BackingField: 5
