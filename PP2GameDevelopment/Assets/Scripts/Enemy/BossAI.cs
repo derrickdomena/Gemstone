@@ -162,7 +162,7 @@ public class BossAI : MonoBehaviour, IDamage
         if (agent.transform.position != phase2Platform.transform.position)
         {
             agent.transform.position = phase2Platform.transform.position;
-            moveSpeed = 0;
+            agent.speed = 0;
 
             StartCoroutine(immunityPhase());
             m_Renderer.material.SetTexture("_MainTex", PhaseTwoTexture);
@@ -175,7 +175,7 @@ public class BossAI : MonoBehaviour, IDamage
         agent.SetDestination(gameManager.instance.player.transform.position);
        
         StartCoroutine(immunityPhase());
-        moveSpeed = 4;
+        agent.speed = 10;
         m_Renderer.material.SetTexture("_MainTex", PhaseThreeTexture);
        
 
