@@ -169,10 +169,21 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
     }
 
+    private void Death()
+    {
+        Destroy(gameObject);
+        gameManager.instance.enemyCheckOut();
+    }
+
+    private void StopMoving()
+    {
+        agent.SetDestination(agent.transform.position);
+    }
+
     public void TakeDamage(int amount)
     {
         hp -= amount;
-        healthBar.UpdateHealthBar((float)hp, hpOrig);
+        healthBar.UpdateHealthBar(hp, (float)hpOrig);
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing
         StartCoroutine(showTempHp());

@@ -360,10 +360,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mage
       objectReference: {fileID: 0}
-    - target: {fileID: 1936007673852321471, guid: 5f3d439eea88f0f47a0e483bb4604cc7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2971287554806140405, guid: 5f3d439eea88f0f47a0e483bb4604cc7, type: 3}
       propertyPath: cameraPos
       value: 
@@ -374,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5934099784272779572, guid: 5f3d439eea88f0f47a0e483bb4604cc7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.885239
+      value: -17.64
       objectReference: {fileID: 0}
     - target: {fileID: 5934099784272779572, guid: 5f3d439eea88f0f47a0e483bb4604cc7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -439,7 +435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7398118979494493683, guid: 4f6ff031e5623104e81a45223f85a592, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.630249
+      value: -7.24
       objectReference: {fileID: 0}
     - target: {fileID: 7398118979494493683, guid: 4f6ff031e5623104e81a45223f85a592, type: 3}
       propertyPath: m_LocalPosition.y
@@ -447,7 +443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7398118979494493683, guid: 4f6ff031e5623104e81a45223f85a592, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.967804
+      value: -16.47
       objectReference: {fileID: 0}
     - target: {fileID: 7398118979494493683, guid: 4f6ff031e5623104e81a45223f85a592, type: 3}
       propertyPath: m_LocalRotation.w
@@ -599,18 +595,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Javelin
       objectReference: {fileID: 0}
-    - target: {fileID: 3864443442893648251, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7061308945187729345, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
-      propertyPath: shootDamage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7061308945187729345, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
-      propertyPath: playerFaceSpeed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7224377348420158317, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
       propertyPath: cameraPos
       value: 
@@ -629,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664718859408822251, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.74733
+      value: -15.26
       objectReference: {fileID: 0}
     - target: {fileID: 8664718859408822251, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
       propertyPath: m_LocalRotation.w
@@ -659,9 +643,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4865081425794649197, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
-    - {fileID: 6745274942482498341, guid: fd5a5f7694687d4479dfcfa9a3f93048, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

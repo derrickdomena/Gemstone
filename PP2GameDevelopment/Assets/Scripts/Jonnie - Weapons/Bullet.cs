@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
 
 
         // Damage target if Damagable
-        if (damagable != null)
+        if (other.CompareTag("Player"))
         {
             damagable.TakeDamage(damage);
             // Destroy bullet
