@@ -143,7 +143,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
-        healthBar.UpdateHealthBar(hp, hpOrig);
+        healthBar.UpdateHealthBar(hp, (float)hpOrig);
 
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing

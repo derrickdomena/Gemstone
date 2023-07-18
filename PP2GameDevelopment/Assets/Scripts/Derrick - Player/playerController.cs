@@ -116,7 +116,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     isAiming = false;
                 }
 
-                // Only 
                 if (!isAiming)
                 {
                     ScrollGuns();
@@ -136,7 +135,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 if (reloadTutorial == true && gunList[selectedGun].ammoCurr <= 0 && gunList[selectedGun].ammoReserve > 0 && gameManager.instance.activeMenu == null)
                 {
                     reloadTutorial = false;
-                    StartCoroutine(gameManager.instance.outOfAmmo());
+                    StartCoroutine(gameManager.instance.OutOfAmmo());
                 }
 
                 //reload
@@ -300,6 +299,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
             yield return new WaitForSeconds(shootRate);
             isShooting = false;
+
         }
     }
     // Set muzzleFlash to active on timer and turn off
@@ -322,9 +322,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
 
-        SetMuzzlePOS();
-
         selectedGun = gunList.Count - 1;
+        SetMuzzlePOS();
         UpdatePlayerUI();
     }
 

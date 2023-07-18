@@ -37,15 +37,13 @@ public class gameManager : MonoBehaviour
     public Image grenadeCooldownFill;
     public Image dashCooldownFill;
 
+    [Header("----- Spawner Stuff -----")]
+    [SerializeField] List<EnemySpawner> spawnerList = new List<EnemySpawner>();
+    float waveTimer;
+    public int enemiesPerWave;
+    public int maxWaves;
+    public int maxEnemies;
 
-    [Header("----- Enemy Stuff -----")]
-    [SerializeField] public int enemiesPerWave;
-    [SerializeField] public int maxWaves;
-    [SerializeField] public GameObject[] enemyTypes;
-    [SerializeField] public int maxEnemies;
-    [SerializeField] float waveTimer;
-
-    GameObject[] enemySpawnLocs;
     int enemiesRemaining;
     int enemiesInScene;
     public int wave = 1;
@@ -60,12 +58,12 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-        enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
     }
 
     // Start is called before the first frame update
     private void Start()
     {
+        spawnEnemies(5);
         updateGameGoal(wave * enemiesPerWave);
     }
 
@@ -149,7 +147,7 @@ public class gameManager : MonoBehaviour
     }
 
     //first time ammo is 0
-    public IEnumerator outOfAmmo()
+    public IEnumerator OutOfAmmo()
     {
         reload.SetActive(true);
         yield return new WaitForSeconds(1);
@@ -164,20 +162,21 @@ public class gameManager : MonoBehaviour
         playerFlashDamageScreen.SetActive(false);
     }
 
+    int randomSpawnLoc;
+    int randomEnemyType;
     void spawnEnemies(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            int randomSpawnLoc = Random.Range(0, enemySpawnLocs.Length);
-            int randomEnemyType = Random.Range(0, enemyTypes.Length);
+            randomSpawnLoc = Random.Range(0, spawnerList.Count - 1);          
 
-            //Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
+            for (int j = 0; j < spawnerList.Count; j++)
+            {
+                randomEnemyType = Random.Range(0, spawnerList[j].enemyTypes.Length - 1);
+                Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
 
-            Instantiate( 
-                enemyTypes[randomEnemyType], 
-                enemySpawnLocs[randomSpawnLoc].transform.position, 
-                enemySpawnLocs[randomSpawnLoc].transform.rotation);
-
+                Instantiate(spawnerList[randomSpawnLoc].enemyTypes[randomEnemyType]);
+            }
             //Debug.Log("Enemies in scene: " + enemiesInScene);
         }
     }
