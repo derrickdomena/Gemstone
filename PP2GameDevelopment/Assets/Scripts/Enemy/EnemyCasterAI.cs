@@ -21,6 +21,9 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     [Range(1, 10)][SerializeField] int playerFaceSpeed;
 
     [Header("----- Navigation Stats -----")]
+    [SerializeField] int maxAttackDistance; //enemy will not attack if player is farther than this
+    [SerializeField] int retreatDistance; //enemy will retreat if player is closer than this
+
     [SerializeField] float innerCircleRadius;
     [SerializeField] float outerCircleRadius;
 
@@ -32,23 +35,23 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
     private Vector3 circleCenter;
 
-
     bool isDead;
-    // Start is called before the first frame update
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        healthBar = GetComponentInChildren<floatingHealthBar>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         player = gameManager.instance.player;
         stoppingDistOrig = agent.stoppingDistance;
-        healthBar = GetComponentInChildren<floatingHealthBar>();
         gameManager.instance.enemyCheckIn();
         hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);
         enemyHPBar.SetActive(false);
-    }
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -58,18 +61,12 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         if (CanHitPlayerFromHere() && !IsPlayerTooClose())
         {
-            // Stop walking if the enemy can hit the player
-            animator.SetBool("isWalking", false);
-
-            // Check if the enemy is within attack range to start casting
-            if (Vector3.Distance(transform.position, player.transform.position) <= outerCircleRadius)
-            {
-                StartCasting();
-            }
+            agent.destination = transform.position;
+            StartCasting();
         }
         else if (!isCasting)
         {
-            animator.SetBool("isAttack", false);
+            animator.SetBool("isAttack" , false);
             ChooseNewDestination();
         }
     }
@@ -78,7 +75,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     {
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
 
-        if (playerDistance < innerCircleRadius)
+        if (playerDistance < retreatDistance)
         {
             Debug.Log("Player is too close");
             return true;
@@ -104,7 +101,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         {
             // Move away from player
             agent.stoppingDistance = 0;
-            newDestination = transform.position + directionToPlayer.normalized * outerCircleRadius;
+            newDestination = transform.position + directionToPlayer.normalized * maxAttackDistance;
             Debug.Log("Moving away from player");
         }
         else
@@ -128,23 +125,12 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         agent.SetDestination(newDestination);
         animator.SetBool("isWalking", true);
     }
-    // Draws the circles in the Scene view for visualization
-    void OnDrawGizmos()
-    {
-        // Draw the inner circle
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(player.transform.position, innerCircleRadius);
-
-        // Draw the outer circle
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(player.transform.position, outerCircleRadius);
-    }
 
     bool CanHitPlayerFromHere()
     {
         directionToPlayer = player.transform.position - transform.position;
 
-        if (Vector3.Distance(transform.position, player.transform.position) < outerCircleRadius)
+        if (Vector3.Distance(transform.position, player.transform.position) < maxAttackDistance)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, directionToPlayer, out hit))
@@ -167,24 +153,15 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         Instantiate(magicShot, staffTip.transform.position, transform.rotation);
     }
 
-    void StartCasting()
+    void StartCasting() //todo: StartCasting()
     {
-        // Face the player
+        animator.SetBool("isWalking", false);
         directionToPlayer = player.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * 50);
         Debug.DrawRay(directionToPlayer, transform.position);
 
-        // Start the casting animation
         animator.SetBool("isAttack", true);
-        isCasting = true;
-    }
-
-    private void Death()
-    {
-        Destroy(gameObject);
-        enemyHPBar.SetActive(false);
-        gameManager.instance.enemyCheckOut();
     }
 
     void FinishCasting() //todo: FinishCasting()
@@ -195,7 +172,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
-        StartCoroutine(FlashDamage());
         healthBar.UpdateHealthBar((float)hp, hpOrig);
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing
@@ -209,10 +185,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         }
     }
 
-    IEnumerator FlashDamage()
-    {
-        yield return new WaitForSeconds(0.1f);
-    }
     IEnumerator showTempHp()
     {
         enemyHPBar.SetActive(true);

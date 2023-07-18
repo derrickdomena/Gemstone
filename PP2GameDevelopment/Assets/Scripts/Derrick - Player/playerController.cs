@@ -102,8 +102,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             // Checks if player is aiming or not
             bool isAimButtonPressed = Input.GetButton("Aim");
 
-
-
             if (gunList.Count > 0)
             {
                 // if player is aiming then transform position of weapon, else put weapon pos back to original
@@ -118,10 +116,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     isAiming = false;
                 }
 
+                // Only 
                 if (!isAiming)
                 {
                     ScrollGuns();
                 }
+
                 // Switch between Automatic shooting and Semi Automatic shooting
                 if (gunList[selectedGun].auto && Input.GetButton("Shoot") && !isShooting)
                 {
@@ -132,7 +132,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     StartCoroutine(Shoot());
                 }
 
-                //If ammo reaches 0 and mags are full display reload text
+                //If ammo reaches 0 and reserve ammo are full display reload text
                 if (reloadTutorial == true && gunList[selectedGun].ammoCurr <= 0 && gunList[selectedGun].ammoReserve > 0 && gameManager.instance.activeMenu == null)
                 {
                     reloadTutorial = false;
@@ -145,7 +145,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     Debug.Log("reloaded");
                     reloadTutorial = false;
                     ReloadWeapon();
-
                 }
 
                 UpdatePlayerUI();
@@ -158,6 +157,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         controller.enabled = true;
         groundedPlayer = controller.isGrounded;
+
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
@@ -282,8 +282,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     break;
             }
 
-            UpdatePlayerUI();
-
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
             {
@@ -303,9 +301,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             yield return new WaitForSeconds(shootRate);
             isShooting = false;
         }
-
     }
-
     // Set muzzleFlash to active on timer and turn off
     IEnumerator muzzleFlashTimer()
     {
@@ -354,8 +350,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDistance = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
 
-            gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
 
         SetMuzzlePOS();
 

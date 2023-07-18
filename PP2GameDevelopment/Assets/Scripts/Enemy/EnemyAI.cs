@@ -24,13 +24,9 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     [Header("----- Gun stuff -----")]
     [SerializeField] float shootRate;
-    [SerializeField] Transform shootPos;
-    [SerializeField] GameObject bullet;
-    [SerializeField] float shootRange;
     [SerializeField] int shootDamage;
 
     private Renderer[] model;
-    public GameObject enemyPrefab;
     bool playerInRange;
     bool destinationChosen;
     float angleToPlayer;
@@ -46,20 +42,18 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Awake is called when the script instance is loaded, before Start()
     public void Awake()
     {
-        
+        healthBar = GetComponentInChildren<floatingHealthBar>();
+        model = GetComponentsInChildren<Renderer>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        healthBar = GetComponentInChildren<floatingHealthBar>();
+        hpOrig = hp;
         gameManager.instance.enemyCheckIn();
         stoppingDistanceOrig = agent.stoppingDistance;
-        hpOrig = hp;
         healthBar.UpdateHealthBar(hp, hpOrig);
-        model = GetComponentsInChildren<Renderer>();
         enemyHPBar.SetActive(false);
-
     }
 
     // Update is called once per frame
@@ -149,8 +143,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
-        StartCoroutine(FlashDamage());
-        healthBar.UpdateHealthBar((float)hp, hpOrig);
+        healthBar.UpdateHealthBar(hp, hpOrig);
 
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing
@@ -172,16 +165,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     private void Death()
     {
         Destroy(gameObject);
-        enemyHPBar.SetActive(false);
         gameManager.instance.enemyCheckOut();
-    }
-
-    IEnumerator FlashDamage()
-    {
-        Color orig = model[0].material.color;
-        foreach (Renderer i in model) i.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        foreach (Renderer i in model) i.material.color = orig;
     }
 
     //enables the enemy hpbar to show up for a fraction of a second.

@@ -60,13 +60,12 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-
-        enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
         updateGameGoal(wave * enemiesPerWave);
     }
 
