@@ -15,7 +15,7 @@ public class BossAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] private ColliderTrigger1 DamageTrigger;
     [SerializeField] GameObject phase2Platform;
-    
+
 
     [Header("Boss Stats")]
     [SerializeField] int moveSpeed;
@@ -29,7 +29,7 @@ public class BossAI : MonoBehaviour, IDamage
     [SerializeField] int slamTimer;
     [SerializeField] int deathTimer;
     public HealthSystem HealthSystem { get; private set; }
- 
+
     [Header("Attack stuff")]
     [SerializeField] float range;
     [SerializeField] int meleeTimer;
@@ -62,11 +62,7 @@ public class BossAI : MonoBehaviour, IDamage
     {
         HealthSystem = new HealthSystem(hpAmount);
     }
-    //private void Setup(HealthSystem healthSystem)
-    //{
-    //    this.HealthSystem = healthSystem;
-    //    healthSystem.OnDead += HealthSystem_OnDead;
-    //}
+
     private void Start()
     {
         stoppingDistanceOrig = agent.stoppingDistance;
@@ -103,6 +99,7 @@ public class BossAI : MonoBehaviour, IDamage
             {
                 StartCoroutine(Slam());
             }
+
         }
         else
         {
@@ -112,17 +109,17 @@ public class BossAI : MonoBehaviour, IDamage
     //walk to the player only on phase 1 and 2
     void pursuePlayer()
     {
-        if(phaseCounter != 3)
+        if (phaseCounter != 3)
         {
             agent.SetDestination(gameManager.instance.player.transform.position);
             animator.SetBool("isRun", true);
 
-            if (agent.remainingDistance <= agent.stoppingDistance +2)
+            if (agent.remainingDistance <= agent.stoppingDistance + 2)
             {
                 animator.SetBool("isRun", false);
                 //agent.SetDestination(agent.)
                 playerInRange = true;
-                
+
             }
             else
             {
@@ -130,7 +127,6 @@ public class BossAI : MonoBehaviour, IDamage
             }
         }
     }
-
     //if you cant see the player and he enters your View angle turn to the player
     bool CanSeePlayer()
     {
@@ -149,68 +145,50 @@ public class BossAI : MonoBehaviour, IDamage
         }
         return false;
     }
-
+    //if you cant see the player and he enters your View angle turn to the player
     void FacePlayer()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
-
     public void PhaseOne()
     {
         animator.SetBool("startBoss", false);
-        
+
     }
     public void PhaseTwo()
     {
         animator.SetBool("isRun", false);
         if (agent.transform.position != phase2Platform.transform.position)
         {
-            animator.SetBool("isRunP2", true);
-            //agent.SetDestination(phase2Platform.transform.position);
-
             agent.transform.position = phase2Platform.transform.position;
             moveSpeed = 0;
-            
+
             StartCoroutine(immunityPhase());
             m_Renderer.material.SetTexture("_MainTex", PhaseTwoTexture);
             playerFaceSpeed = 100;
         }
     }
-
-    //final phase 
+    //final phase
     public void PhaseThree()
     {
-        animator.SetBool("isRunP2", false);
-        animator.SetBool("isAttackP2", false);
         agent.SetDestination(gameManager.instance.player.transform.position);
-        
-        moveSpeed = 10;
-        immunityPhase();
+       
+        StartCoroutine(immunityPhase());
+        moveSpeed = 4;
         m_Renderer.material.SetTexture("_MainTex", PhaseThreeTexture);
-
+       
 
     }
-
     //Allows other functions to call the health system for the boss
     public HealthSystem GetHealthSystem()
     {
         return HealthSystem;
     }
-    //dont think this works?
-   // private void HealthSystem_OnDead(object sender, EventArgs e)
-   // {
-   //     //It died destroy it
-   //     isDead = true;
-   //     animator.SetBool("isDead", true);
-   //     if(OnDead != null) OnDead(this, EventArgs.Empty);
-   //     Destroy(gameObject);
-   // }
 
-    //take damage unless you are immune. then heal that damage taken
     public void TakeDamage(int amount)
     {
-        if(immuneToDamage == true)
+        if (immuneToDamage == true)
         {
             HealthSystem.Heal(amount);
         }
@@ -219,7 +197,7 @@ public class BossAI : MonoBehaviour, IDamage
             HealthSystem.Damage(amount);
         }
     }
-    //boi go jump
+
     IEnumerator Slam()
     {
         isSlam = true;
@@ -227,27 +205,23 @@ public class BossAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(slamTimer);
         animator.SetBool("isAttackP3", false);
     }
-    //the player is in range attack it with a melee
     IEnumerator Melee()
     {
         isMelee = true;
         animator.SetBool("isAttack", true);
         yield return new WaitForSeconds(meleeTimer);
-        isMelee =false;
+        isMelee = false;
         animator.SetBool("isAttack", false);
     }
-    //shoots at the player
     IEnumerator Shoot()
     {
         isShoot = true;
         animator.SetBool("isAttackP2", true);
         Instantiate(poison, shootPos.position, transform.rotation);
         yield return new WaitForSeconds(rangeTimer);
-        animator.SetBool("isAttackP2", false);
         isShoot = false;
     }
 
-    //does damage to the player based on what phase it is
     public void doDamage()
     {
         IDamage playerD = gameManager.instance.player.GetComponent<IDamage>();
@@ -257,7 +231,7 @@ public class BossAI : MonoBehaviour, IDamage
             {
                 playerD.TakeDamage(Phase1Damage);
             }
-            if(phaseCounter == 2)
+            if (phaseCounter == 2)
             {
                 playerD.TakeDamage(Phase2Damage);
             }
@@ -267,10 +241,10 @@ public class BossAI : MonoBehaviour, IDamage
             }
         }
     }
-    //plays a hit effect and sets the enemy Immune to damage
     IEnumerator immunityPhase()
     {
-        if (phaseCounter == 2) {
+        if (phaseCounter == 2)
+        {
             animator.SetBool("isAttack", false);
             immuneToDamage = true;
 
@@ -282,7 +256,7 @@ public class BossAI : MonoBehaviour, IDamage
             animator.SetBool("HitToP2", false);
             immuneToDamage = false;
         }
-        else if(phaseCounter == 3)
+        else if (phaseCounter == 3)
         {
             animator.SetBool("isAttackP2", false);
             immuneToDamage = true;
@@ -295,7 +269,6 @@ public class BossAI : MonoBehaviour, IDamage
             immuneToDamage = false;
         }
     }
-
     IEnumerator Dead()
     {
         //play a effect here at some point
@@ -305,7 +278,7 @@ public class BossAI : MonoBehaviour, IDamage
 
     void Attack()
     {
-        if(agent.remainingDistance<= agent.stoppingDistance)
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
             doDamage();
         }
