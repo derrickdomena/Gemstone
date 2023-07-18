@@ -323,10 +323,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDistance = gunstat.shootDist;
         shootRate = gunstat.shootRate;
 
+        selectedGun = gunList.Count - 1;
+
         gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
 
-        selectedGun = gunList.Count - 1;
         SetMuzzlePOS();
         UpdatePlayerUI();
     }
