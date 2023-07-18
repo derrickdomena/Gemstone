@@ -34,6 +34,7 @@ public class BossBattle : MonoBehaviour
         //Boss is dead
         gameManager.instance.bossHP.SetActive(false);
         Debug.Log("Boss Battle is over!");
+        spider.animator.SetBool("isDead", true);
     }
 
     private void BossBattle_OnDamaged(object sender, System.EventArgs e)
