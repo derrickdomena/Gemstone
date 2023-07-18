@@ -81,10 +81,14 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
 
     private RaycastHit target;
+    private void Awake()
+    {
+        gunModelOrig = gunModel.transform.localPosition;
+    }
     // Start is called before the first frame update
     private void Start()
     {
-        gunModelOrig = gunModel.transform.localPosition;
+        
 
         reloadTutorial = true;
         hpOrig = hp; 

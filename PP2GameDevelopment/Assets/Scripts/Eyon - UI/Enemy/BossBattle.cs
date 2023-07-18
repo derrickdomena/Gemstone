@@ -43,14 +43,14 @@ public class BossBattle : MonoBehaviour
             default:
             case Stage.Stage1:
                 //if enemy hp reaches a certain threshold do something
-                if(spider.GetHealthSystem().GetHealthPercent() == .5f) {
+                if(spider.GetHealthSystem().GetHealthPercent() <= .5f && spider.GetHealthSystem().GetHealthPercent() > .25f) {
                     //75%
                     StartNextStage();
                     spider.PhaseTwo();
                 }
                 break;
             case Stage.Stage2:
-                if (spider.GetHealthSystem().GetHealthPercent() == .25f)
+                if (spider.GetHealthSystem().GetHealthPercent() <= .25f && spider.GetHealthSystem().GetHealthPercent() > 0)
                 {
                     //50%
                     StartNextStage();
@@ -67,14 +67,17 @@ public class BossBattle : MonoBehaviour
             default:
             case Stage.WaitingToStart:
                 stage = Stage.Stage1;
+                spider.phaseCounter++;
                 Debug.Log("Stage 1 started");
                 break;
             case Stage.Stage1:
                 stage = Stage.Stage2;
+                spider.phaseCounter++;
                 Debug.Log("Stage 2 started");
                 break;
             case Stage.Stage2:
                 stage = Stage.Stage3;
+                spider.phaseCounter++;
                 Debug.Log("Stage 3 started");
                 break;
         }

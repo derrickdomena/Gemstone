@@ -14,6 +14,8 @@ public class BossAI : MonoBehaviour, IDamage
     [SerializeField] public Animator animator;
     [SerializeField] Transform headPos;
     [SerializeField] private ColliderTrigger1 DamageTrigger;
+    [SerializeField] GameObject phase2Platform;
+    
 
     [Header("Boss Stats")]
     [SerializeField] int moveSpeed;
@@ -23,12 +25,16 @@ public class BossAI : MonoBehaviour, IDamage
     [SerializeField] int Phase2Damage;
     [SerializeField] int Phase3Damage;
     [SerializeField] int playerFaceSpeed;
+    [SerializeField] int immuneTimer;
+    [SerializeField] int slamTimer;
     public HealthSystem HealthSystem { get; private set; }
  
     [Header("Attack stuff")]
     [SerializeField] float range;
     [SerializeField] int meleeTimer;
-    [SerializeField] int rangeTimer;
+    [SerializeField] float rangeTimer;
+    [SerializeField] GameObject poison;
+    [SerializeField] Transform shootPos;
 
 
     [Header("Boss Phase stuff")]
@@ -41,13 +47,15 @@ public class BossAI : MonoBehaviour, IDamage
     Vector3 playerDir;
     bool isMelee;
     bool isShoot;
-    int phaseCounter = 0;
+    public int phaseCounter = 0;
     float stoppingDistanceOrig;
     float angleToPlayer;
     bool immuneToDamage;
     bool playerInRange;
     bool isDead;
-    
+    bool isSlam;
+
+
 
     private void Awake()
     {
@@ -63,32 +71,56 @@ public class BossAI : MonoBehaviour, IDamage
         stoppingDistanceOrig = agent.stoppingDistance;
         agent = GetComponent<NavMeshAgent>();
         m_Renderer = bossPrefab.GetComponent<Renderer>();
+
     }
     // Update is called once per frame
     void Update()
     {
-        CanSeePlayer();
-        if(!isDead)
+        if (!isDead)
         {
-            pursuePlayer();
+
+
+            if (phaseCounter == 1)
+            {
+                if (CanSeePlayer())
+                {
+                    pursuePlayer();
+                }
+                if (playerInRange)
+                {
+                    StartCoroutine(Melee());
+                }
+            }
+            if (phaseCounter == 2)
+            {
+                if (CanSeePlayer() && !isShoot)
+                {
+                    StartCoroutine(Shoot());
+                }
+            }
+            if (phaseCounter == 3)
+            {
+                StartCoroutine(Slam());
+            }
         }
     }
     void pursuePlayer()
     {
-        if(phaseCounter > 0)
+        if(phaseCounter != 3)
         {
-            agent.SetDestination(gameManager.instance.transform.position);
-            
-            FacePlayer();
-            if(phaseCounter == 1) {
-               //melee only
-            }
-            if(phaseCounter == 3)
-            {
-                agent.stoppingDistance = 0;
-                animator.SetBool("jump", true );
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            animator.SetBool("isRun", true);
 
-                //JumpingSpider
+            if (agent.remainingDistance <= agent.stoppingDistance +2)
+            {
+                animator.SetBool("isRun", false);
+                //agent.SetDestination(agent.)
+                playerInRange = true;
+                
+            }
+            else
+            {
+                playerInRange = false;
             }
         }
     }
@@ -99,7 +131,6 @@ public class BossAI : MonoBehaviour, IDamage
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
-        Debug.Log(angleToPlayer);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
@@ -120,23 +151,34 @@ public class BossAI : MonoBehaviour, IDamage
     public void PhaseOne()
     {
         animator.SetBool("startBoss", false);
-        phaseCounter++;
-        StartCoroutine(Melee());
         
     }
     public void PhaseTwo()
     {
-        phaseCounter++;
-        animator.SetBool("HitToP2", true);
-        m_Renderer.material.SetTexture("_MainTex", PhaseTwoTexture);
-        animator.SetBool("HitToP2", false);
-        
+        animator.SetBool("isRun", false);
+        if (agent.transform.position != phase2Platform.transform.position)
+        {
+            animator.SetBool("isRunP2", true);
+            //agent.SetDestination(phase2Platform.transform.position);
+
+            agent.transform.position = phase2Platform.transform.position;
+            moveSpeed = 0;
+            
+            StartCoroutine(immunityPhase());
+            m_Renderer.material.SetTexture("_MainTex", PhaseTwoTexture);
+            playerFaceSpeed = 100;
+        }
     }
     public void PhaseThree()
     {
-        phaseCounter++;
+        animator.SetBool("isRunP2", false);
+        agent.SetDestination(gameManager.instance.player.transform.position);
+        animator.SetBool("HitToP3", true);
+
+        moveSpeed = 4;
         m_Renderer.material.SetTexture("_MainTex", PhaseThreeTexture);
-        
+        animator.SetBool("HitToP3", false);
+
     }
     public HealthSystem GetHealthSystem()
     {
@@ -146,28 +188,46 @@ public class BossAI : MonoBehaviour, IDamage
     {
         //It died destroy it
         isDead = true;
+        animator.SetBool("isDead", true);
         if(OnDead != null) OnDead(this, EventArgs.Empty);
         Destroy(gameObject);
     }
 
     public void TakeDamage(int amount)
     {
-        HealthSystem.Damage(amount);
+        if(immuneToDamage == true)
+        {
+            HealthSystem.Heal(amount);
+        }
+        else
+        {
+            HealthSystem.Damage(amount);
+        }
     }
 
+    IEnumerator Slam()
+    {
+        isSlam = true;
+        animator.SetBool("isAttackP3", true);
+        yield return new WaitForSeconds(slamTimer);
+        animator.SetBool("isAttackP3", false);
+    }
     IEnumerator Melee()
     {
         isMelee = true;
         animator.SetBool("isAttack", true);
         yield return new WaitForSeconds(meleeTimer);
-        DamageTrigger.OnPlayerEnterTrigger += ColliderTrigger_OnPlayerEnterTrigger;
         isMelee =false;
         animator.SetBool("isAttack", false);
     }
-    //IEnumerator Shoot()
-    //{
-    //    isShoot = true;
-    //}
+    IEnumerator Shoot()
+    {
+        isShoot = true;
+        animator.SetBool("isAttackP2", true);
+        Instantiate(poison, shootPos.position, transform.rotation);
+        yield return new WaitForSeconds(rangeTimer);
+        isShoot = false;
+    }
 
     public void doDamage()
     {
@@ -188,8 +248,23 @@ public class BossAI : MonoBehaviour, IDamage
             }
         }
     }
-    private void ColliderTrigger_OnPlayerEnterTrigger(object sender, System.EventArgs e)
+    IEnumerator immunityPhase()
     {
-        doDamage();
+        if (phaseCounter == 2) {
+            immuneToDamage = true;
+            animator.SetBool("HitToP2", true);
+            yield return new WaitForSeconds(immuneTimer);
+            animator.SetBool("HitToP2", false);
+            immuneToDamage = false;
+        }
+        else
+        {
+            immuneToDamage = true;
+            animator.SetBool("HitToP3", true);
+            yield return new WaitForSeconds(immuneTimer);
+            animator.SetBool("HitToP3", true);
+            immuneToDamage = false;
+        }
     }
+    
 }
