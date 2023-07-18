@@ -11,7 +11,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Character Controller
     [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
-    //allows for camera shake
 
     [Header("----- Player Stats -----")]
     // Health

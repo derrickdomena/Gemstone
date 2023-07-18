@@ -27,7 +27,6 @@ public class BossAI : MonoBehaviour, IDamage
     [SerializeField] int playerFaceSpeed;
     [SerializeField] int immuneTimer;
     [SerializeField] int slamTimer;
-    [SerializeField] int deathTimer;
     public HealthSystem HealthSystem { get; private set; }
  
     [Header("Attack stuff")]
@@ -104,12 +103,7 @@ public class BossAI : MonoBehaviour, IDamage
                 StartCoroutine(Slam());
             }
         }
-        else
-        {
-            isDead = true;
-        }
     }
-    //walk to the player only on phase 1 and 2
     void pursuePlayer()
     {
         if(phaseCounter != 3)
@@ -131,7 +125,6 @@ public class BossAI : MonoBehaviour, IDamage
         }
     }
 
-    //if you cant see the player and he enters your View angle turn to the player
     bool CanSeePlayer()
     {
         agent.stoppingDistance = stoppingDistanceOrig;
@@ -155,7 +148,6 @@ public class BossAI : MonoBehaviour, IDamage
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
-
     public void PhaseOne()
     {
         animator.SetBool("startBoss", false);
@@ -177,37 +169,30 @@ public class BossAI : MonoBehaviour, IDamage
             playerFaceSpeed = 100;
         }
     }
-
-    //final phase 
     public void PhaseThree()
     {
         animator.SetBool("isRunP2", false);
-        animator.SetBool("isAttackP2", false);
         agent.SetDestination(gameManager.instance.player.transform.position);
-        
-        moveSpeed = 10;
-        immunityPhase();
-        m_Renderer.material.SetTexture("_MainTex", PhaseThreeTexture);
+        animator.SetBool("HitToP3", true);
 
+        moveSpeed = 4;
+        m_Renderer.material.SetTexture("_MainTex", PhaseThreeTexture);
+        animator.SetBool("HitToP3", false);
 
     }
-
-    //Allows other functions to call the health system for the boss
     public HealthSystem GetHealthSystem()
     {
         return HealthSystem;
     }
-    //dont think this works?
-   // private void HealthSystem_OnDead(object sender, EventArgs e)
-   // {
-   //     //It died destroy it
-   //     isDead = true;
-   //     animator.SetBool("isDead", true);
-   //     if(OnDead != null) OnDead(this, EventArgs.Empty);
-   //     Destroy(gameObject);
-   // }
+    private void HealthSystem_OnDead(object sender, EventArgs e)
+    {
+        //It died destroy it
+        isDead = true;
+        animator.SetBool("isDead", true);
+        if(OnDead != null) OnDead(this, EventArgs.Empty);
+        Destroy(gameObject);
+    }
 
-    //take damage unless you are immune. then heal that damage taken
     public void TakeDamage(int amount)
     {
         if(immuneToDamage == true)
@@ -219,7 +204,7 @@ public class BossAI : MonoBehaviour, IDamage
             HealthSystem.Damage(amount);
         }
     }
-    //boi go jump
+
     IEnumerator Slam()
     {
         isSlam = true;
@@ -227,7 +212,6 @@ public class BossAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(slamTimer);
         animator.SetBool("isAttackP3", false);
     }
-    //the player is in range attack it with a melee
     IEnumerator Melee()
     {
         isMelee = true;
@@ -236,18 +220,15 @@ public class BossAI : MonoBehaviour, IDamage
         isMelee =false;
         animator.SetBool("isAttack", false);
     }
-    //shoots at the player
     IEnumerator Shoot()
     {
         isShoot = true;
         animator.SetBool("isAttackP2", true);
         Instantiate(poison, shootPos.position, transform.rotation);
         yield return new WaitForSeconds(rangeTimer);
-        animator.SetBool("isAttackP2", false);
         isShoot = false;
     }
 
-    //does damage to the player based on what phase it is
     public void doDamage()
     {
         IDamage playerD = gameManager.instance.player.GetComponent<IDamage>();
@@ -267,47 +248,22 @@ public class BossAI : MonoBehaviour, IDamage
             }
         }
     }
-    //plays a hit effect and sets the enemy Immune to damage
     IEnumerator immunityPhase()
     {
         if (phaseCounter == 2) {
-            animator.SetBool("isAttack", false);
             immuneToDamage = true;
-
             animator.SetBool("HitToP2", true);
-            //uncomment this when we have spider waves
-            //Boss will be immune until all enemies are dead
-            //agent.GetComponent<SphereCollider>().enabled = false;    
             yield return new WaitForSeconds(immuneTimer);
             animator.SetBool("HitToP2", false);
             immuneToDamage = false;
         }
-        else if(phaseCounter == 3)
+        else
         {
-            animator.SetBool("isAttackP2", false);
             immuneToDamage = true;
             animator.SetBool("HitToP3", true);
-            //uncomment this when we have spider waves
-            //Boss will be immune until all enemies are dead
-            //agent.GetComponent<SphereCollider>().enabled = false;    
             yield return new WaitForSeconds(immuneTimer);
-            animator.SetBool("HitToP3", false);
+            animator.SetBool("HitToP3", true);
             immuneToDamage = false;
-        }
-    }
-
-    IEnumerator Dead()
-    {
-        //play a effect here at some point
-        yield return new WaitForSeconds(deathTimer);
-        Destroy(gameObject);
-    }
-
-    void Attack()
-    {
-        if(agent.remainingDistance<= agent.stoppingDistance)
-        {
-            doDamage();
         }
     }
     
