@@ -6,16 +6,25 @@ using UnityEngine;
 public class CollectibleDrops : ScriptableObject
 {
     public Collect.CollectibleTypes drops;
-
-    public void Drops()
+    public int value;
+    public string prefabName;
+    public int numberOfPrefabsToCreate;
+    
+    public Collect.CollectibleTypes Drop(int select)
     {
-        switch(drops)
+        switch (select)
         {
             default:
-            case Collect.CollectibleTypes.HealthPack:
-                //Do something
+            case 0:
+                drops = Collect.CollectibleTypes.Ammo;
                 break;
-
+            case 1:
+                drops = Collect.CollectibleTypes.Gem;
+                break;
+            case 2:
+                drops = Collect.CollectibleTypes.HealthPack;
+                break;
         }
+        return drops;
     }
 }

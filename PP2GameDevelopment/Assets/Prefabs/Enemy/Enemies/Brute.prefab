@@ -2142,7 +2142,7 @@ Transform:
   - {fileID: 4230316242870359424}
   - {fileID: 5820668543530955683}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9075038084888749008
 MonoBehaviour:
@@ -2160,6 +2160,10 @@ MonoBehaviour:
   headPos: {fileID: 5820668543530955683}
   healthBar: {fileID: 4170802308510753105}
   animator: {fileID: 1227089305119913711}
+  drops:
+  - {fileID: 2685133655712183838, guid: 936862d260eaa714ab6fb16ab36e587e, type: 3}
+  - {fileID: 5033486770486681005, guid: 6d93f7977ff49464b944c4e46c66b11c, type: 3}
+  - {fileID: 3755314475148394898, guid: 4be3acef86282f74d801d0ab79374ffe, type: 3}
   hp: 40
   moveSpeed: 2
   viewAngle: 0
@@ -2169,6 +2173,7 @@ MonoBehaviour:
   enemyHPBar: {fileID: 8054806671143653823}
   enemyHPBarTimer: 0.25
   meleeOrRange: 0
+  itemDropRate: 50
   shootRate: 1.1
   shootDamage: 1
 --- !u!195 &8723190148525063157

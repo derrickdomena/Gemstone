@@ -14,6 +14,7 @@ public class Collect : MonoBehaviour, ICollectible
     [SerializeField] public int ammoAmount;
     [SerializeField] public int healingAmount ;
     [SerializeField] public int gemAmount;
+    [SerializeField] CollectibleDrops dropItem;
 
     public GameObject collectEffect;
 
@@ -38,24 +39,48 @@ public class Collect : MonoBehaviour, ICollectible
         if (collectEffect)
             Instantiate(collectEffect, transform.position, Quaternion.identity);
 
-        if (CollectibleType == CollectibleTypes.Gem)
+            #region old code
+            //if (CollectibleType == CollectibleTypes.Gem)
+            //{
+            //    GiveGem(gemAmount);
+            //}
+            //if (CollectibleType == CollectibleTypes.HealthPack)
+            //{
+            //    //checks to see if the player already has full hp
+            //    if (gameManager.instance.playerScript.hp >= gameManager.instance.playerScript.hpOrig)
+            //    {
+            //        return;
+            //    }
+            //    GiveHP(healingAmount);
+            //}
+            //if(CollectibleType == CollectibleTypes.Ammo)
+            //{
+            //    GiveAmmo(ammoAmount);
+            //}
+            #endregion
+        switch ((int)CollectibleType)
         {
-            GiveGem(gemAmount);
-        }
-        if (CollectibleType == CollectibleTypes.HealthPack)
-        {
-            //checks to see if the player already has full hp
-            if (gameManager.instance.playerScript.hp >= gameManager.instance.playerScript.hpOrig)
-            {
-                return;
-            }
-            GiveHP(healingAmount);
-        }
-        if(CollectibleType == CollectibleTypes.Ammo)
-        {
-            GiveAmmo(ammoAmount);
+            default:
+            case 0:
+                GiveAmmo(ammoAmount);
+                break;
+            case 1:
+                GiveGem(gemAmount);
+                break;
+            case 2:
+                if (gameManager.instance.playerScript.hp >= gameManager.instance.playerScript.hpOrig)
+                {
+                    return;
+                }
+                else
+                {
+                    GiveHP(healingAmount);
+                }
+                break;
         }
         Destroy(gameObject);
+
+
     }
     // When ammo pack is picked up, increases ammoReserve
     public void GiveAmmo(int amount)

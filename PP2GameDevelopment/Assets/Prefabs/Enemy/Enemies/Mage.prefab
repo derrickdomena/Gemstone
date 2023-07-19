@@ -5736,10 +5736,15 @@ MonoBehaviour:
   enemyHPBar: {fileID: 6983845716121015434}
   healthBar: {fileID: 2971287554806140405}
   enemyHPBarTimer: 0.25
+  drops:
+  - {fileID: 2685133655712183838, guid: 936862d260eaa714ab6fb16ab36e587e, type: 3}
+  - {fileID: 5033486770486681005, guid: 6d93f7977ff49464b944c4e46c66b11c, type: 3}
+  - {fileID: 3755314475148394898, guid: 4be3acef86282f74d801d0ab79374ffe, type: 3}
   hp: 10
   moveSpeed: 0
   viewAngle: 0
   playerFaceSpeed: 0
+  itemDropRate: 50
   maxAttackDistance: 15
   retreatDistance: 10
   innerCircleRadius: 10

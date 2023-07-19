@@ -13,12 +13,14 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     [SerializeField] GameObject enemyHPBar;
     [SerializeField] floatingHealthBar healthBar;
     [SerializeField] float enemyHPBarTimer;
+    [SerializeField] private Collect[] drops;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
     [Range(1, 20)][SerializeField] int moveSpeed;
     [Range(1, 180)][SerializeField] int viewAngle;
     [Range(1, 10)][SerializeField] int playerFaceSpeed;
+    [SerializeField] int itemDropRate;
 
     [Header("----- Navigation Stats -----")]
     [SerializeField] int maxAttackDistance; //enemy will not attack if player is farther than this
@@ -170,6 +172,12 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
     private void Death()
     {
+        int selectedChance = Random.Range(1, 100);
+        if (selectedChance <= itemDropRate)
+        {
+            int itemToDrop = Random.Range(0, 3);
+            Collect droppedItem = Instantiate(drops[itemToDrop], new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
+        }
         Destroy(gameObject);
         gameManager.instance.enemyCheckOut();
     }
@@ -192,6 +200,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
             //agent.SetDestination(agent.transform.position);
             isDead = true;
             animator.SetBool("isDead", true);
+
         }
     }
 

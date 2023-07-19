@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] floatingHealthBar healthBar;
     [SerializeField] Animator animator;
+    [SerializeField] private Collect[] drops;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
@@ -21,6 +22,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject enemyHPBar;
     [SerializeField] float enemyHPBarTimer;
     [SerializeField] bool meleeOrRange;
+    [SerializeField] int itemDropRate;
 
     [Header("----- Gun stuff -----")]
     [SerializeField] float shootRate;
@@ -153,6 +155,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             //agent.SetDestination(agent.transform.position);
             isDead = true;
             animator.SetBool("isDead", true);
+
         }
     }
 
@@ -163,8 +166,15 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private void Death()
     {
+        int selectedChance = Random.Range(1, 100);
+        if (selectedChance <= itemDropRate)
+        {
+            int itemToDrop = Random.Range(0, 3);
+            Collect droppedItem = Instantiate(drops[itemToDrop], new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
+        }
         Destroy(gameObject);
         gameManager.instance.enemyCheckOut();
+
     }
 
     //enables the enemy hpbar to show up for a fraction of a second.
@@ -175,4 +185,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(enemyHPBarTimer);
         enemyHPBar.SetActive(false);
     }
+
+
+
 }
