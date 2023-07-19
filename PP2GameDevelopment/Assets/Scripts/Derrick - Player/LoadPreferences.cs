@@ -6,25 +6,27 @@ using TMPro;
 
 public class LoadPreferences : MonoBehaviour
 {
-    [SerializeField] cameraControls mainCamera;
-
     [Header("Components")]
-    [SerializeField] private bool isAvailable;
-    [SerializeField] private mainMenu menuSettings;
+    [SerializeField] bool isAvailable;
+    [SerializeField] cameraControls mainCamera;
+    [SerializeField] OptionsScript optionsMenuScript;
 
     [Header("Volume Setting")]
-    [SerializeField] private TMP_Text volumeTextValue;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] TMP_Text volumeTextValue;
+    [SerializeField] Slider volumeSlider;
 
     [Header("Gameplay Setting")]
-    [SerializeField] private TMP_Text sensitivityTextValue;
-    [SerializeField] private Slider sensitivitySlider;
+    [SerializeField] TMP_Text sensitivityTextValue;
+    [SerializeField] Slider sensitivitySlider;
 
     [Header("Invert Y Setting")]
-    [SerializeField] private Toggle invertY;
+    [SerializeField] Toggle invertY;
 
+    // Loads the previous saved settings if availble is true
     private void Awake()
     {
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraControls>();
+
         if (isAvailable)
         {
             if (PlayerPrefs.HasKey("masterVolume"))
@@ -36,7 +38,7 @@ public class LoadPreferences : MonoBehaviour
             }
             else
             {
-                menuSettings.DefaultSettings("Audio");
+                optionsMenuScript.DefaultSettings("Audio");
             }
 
             if (PlayerPrefs.HasKey("masterSensitivity"))
@@ -48,7 +50,7 @@ public class LoadPreferences : MonoBehaviour
             }
             else
             {
-                menuSettings.DefaultSettings("Gameplay");
+                optionsMenuScript.DefaultSettings("Gameplay");
             }
 
             if (PlayerPrefs.HasKey("masterInvertY"))
@@ -66,7 +68,7 @@ public class LoadPreferences : MonoBehaviour
             }
             else
             {
-                menuSettings.DefaultSettings("Gameplay");
+                optionsMenuScript.DefaultSettings("Gameplay");
             }
         }
     }
