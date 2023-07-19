@@ -26,4 +26,14 @@ public class buttonFunctions : MonoBehaviour
     {
         Application.Quit();
     }
+    public void WIN()
+    {
+        gameManager.instance.stateUnpaused();
+
+        if (true) //make this false to bring back the player dupe bug :D
+        {
+            Destroy(gameManager.instance.player);
+        }
+        SceneManager.LoadScene(1);
+    }
 }

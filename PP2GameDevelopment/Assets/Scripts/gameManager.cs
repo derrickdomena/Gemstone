@@ -58,7 +58,7 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-
+        //DontDestroyOnLoad(gameObject);
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         timescaleOrig = Time.timeScale;
@@ -68,7 +68,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        updateGameGoal(wave * enemiesPerWave);
+        //updateGameGoal(wave * enemiesPerWave);
     }
 
     // Update is called once per frame
@@ -106,6 +106,7 @@ public class gameManager : MonoBehaviour
     public void enemyCheckIn()
     {
         enemiesInScene++;
+        updateGameGoal(1);
     }
 
     public void enemyCheckOut()

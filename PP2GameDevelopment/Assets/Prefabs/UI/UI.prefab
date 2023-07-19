@@ -456,7 +456,7 @@ RectTransform:
   - {fileID: 3419377252489014307}
   - {fileID: 6099066501008647653}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2222,7 +2222,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 22571992518456786}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: restart
+        m_MethodName: WIN
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6444,8 +6444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657421b727903e94c857cd2cff740297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   isAvailable: 1
+  mainCamera: {fileID: 0}
   optionsMenuScript: {fileID: 2177522395463849675}
   volumeTextValue: {fileID: 5826191517521800094}
   volumeSlider: {fileID: 350937226665732874}
