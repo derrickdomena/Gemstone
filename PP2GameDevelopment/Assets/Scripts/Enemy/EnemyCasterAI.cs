@@ -14,6 +14,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     [SerializeField] floatingHealthBar healthBar;
     [SerializeField] float enemyHPBarTimer;
     [SerializeField] private Collect[] drops;
+    [SerializeField] private Collect gem;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] int hp;
@@ -170,9 +171,10 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         int selectedChance = Random.Range(1, 100);
         if (selectedChance <= itemDropRate)
         {
-            int itemToDrop = Random.Range(0, 3);
-            Collect droppedItem = Instantiate(drops[itemToDrop], new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
+            int itemToDrop = Random.Range(0, drops.Length);
+            Instantiate(drops[itemToDrop], new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
         }
+        Instantiate(gem, new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
         Destroy(gameObject);
         gameManager.instance.enemyCheckOut();
     }
