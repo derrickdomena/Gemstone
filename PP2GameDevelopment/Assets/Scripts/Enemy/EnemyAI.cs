@@ -119,7 +119,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     void DoDamage()
     {
         IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
-        if (playerDam != null)
+        if (playerDam != null && playerInRange == true)
         {
             playerDam.TakeDamage(shootDamage);
         }
