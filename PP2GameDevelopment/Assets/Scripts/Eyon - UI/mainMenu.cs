@@ -22,8 +22,8 @@ public class mainMenu : MonoBehaviour
     [Header("Toggle Setting")]
     [SerializeField] private Toggle invertY; 
 
-    [Header("Confirmation")]
-    [SerializeField] private GameObject confirmationPrompt;
+    //[Header("Confirmation")]
+    //[SerializeField] private GameObject confirmationPrompt;
 
     //Load the game scene
     public void Play()
