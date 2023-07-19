@@ -8,6 +8,8 @@ public class PlayerSpawnPoints : MonoBehaviour
     void Start()
     {
         gameManager.instance.player.transform.position = transform.position;
+        gameManager.instance.gemCount = gameManager.instance.playerScript.gems;
+        gameManager.instance.gemText.text = gameManager.instance.gemCount.ToString(); 
     }
 
 }
