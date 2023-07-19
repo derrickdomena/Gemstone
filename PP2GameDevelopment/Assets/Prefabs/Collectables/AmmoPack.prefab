@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6345012273606525751}
   - component: {fileID: 5946545195592993497}
-  - component: {fileID: 802095448801519350}
   - component: {fileID: 2685133655712183838}
+  - component: {fileID: 802095448801519350}
   - component: {fileID: 8304726331022398038}
   - component: {fileID: 3954534162653307465}
   m_Layer: 0
   m_Name: AmmoPack
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,6 +44,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3148287255011188091}
   m_Mesh: {fileID: 4300006, guid: e121965519da8964eb443caa891ca78c, type: 3}
+--- !u!114 &2685133655712183838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3148287255011188091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bad041a47a8f7a449bd8bad8dfef44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollectibleType: 0
+  rotate: 0
+  rotationSpeed: 100
+  ammoAmount: 10
+  healingAmount: 0
+  gemAmount: 0
+  dropItem: {fileID: 11400000, guid: d113bc1e3df7c624eb4d3662d997c963, type: 2}
+  collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f, type: 3}
 --- !u!23 &802095448801519350
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86,25 +106,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2685133655712183838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3148287255011188091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bad041a47a8f7a449bd8bad8dfef44e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollectibleType: 0
-  rotate: 1
-  rotationSpeed: 100
-  ammoAmount: 10
-  healingAmount: 0
-  gemAmount: 0
-  collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f, type: 3}
 --- !u!82 &8304726331022398038
 AudioSource:
   m_ObjectHideFlags: 0

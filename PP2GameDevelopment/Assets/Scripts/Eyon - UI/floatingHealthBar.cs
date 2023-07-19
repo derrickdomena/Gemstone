@@ -9,7 +9,7 @@ public class floatingHealthBar : MonoBehaviour
     public Transform cameraPos;
     [SerializeField] private Transform target;
 
-    public void UpdateHealthBar(float currentValue, float maxValue)
+    public void UpdateHealthBar(int currentValue, float maxValue)
     {
         //decrements value depending on the damage taken
         enemyHPBar.fillAmount = currentValue/maxValue; 

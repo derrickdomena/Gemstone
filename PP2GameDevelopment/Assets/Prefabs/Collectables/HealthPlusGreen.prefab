@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3497032883863358613}
   m_Layer: 0
   m_Name: HealthPlusGreen
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   ammoAmount: 0
   healingAmount: 10
   gemAmount: 0
+  dropItem: {fileID: 11400000, guid: ab06a309e8c822042904abfa89f00cb1, type: 2}
   collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f, type: 3}
 --- !u!82 &6513936331713912243
 AudioSource:

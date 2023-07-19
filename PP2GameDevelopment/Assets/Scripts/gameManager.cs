@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class gameManager : MonoBehaviour
 {
@@ -32,43 +34,49 @@ public class gameManager : MonoBehaviour
     public int gemCount;
     public GameObject shop;
     public GameObject ShopMask;
-
+    public Image BossHPBar;
+    public GameObject bossHP;
     public Image grenadeCooldownFill;
     public Image dashCooldownFill;
 
+    [Header("----- Spawner Stuff -----")]
+    public float waveTimer;
+    public int enemiesPerWave;
+    public int maxWaves;
+    public int maxEnemies;
 
-    [Header("----- Enemy Stuff -----")]
-    [SerializeField] public int enemiesPerWave;
-    [SerializeField] public int maxWaves;
-    [SerializeField] public GameObject[] enemyTypes;
-    [SerializeField] public int maxEnemies;
-    [SerializeField] float waveTimer;
-
-    GameObject[] enemySpawnLocs;
-    int enemiesRemaining;
-    int enemiesInScene;
+    public int enemiesRemaining;
+    public int enemiesInScene;
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
-    
 
 
-  
-
+    [Header("----SceneStuff----")]
+    [SerializeField] int timer;
     //Awake is called before Start
     void Awake()
     {
+        //singleton
+        //if (instance != null)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
         instance = this;
+
+        //persist between scenes
+        DontDestroyOnLoad(gameObject);
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerScript = player.GetComponent<playerController>();
+        timescaleOrig = Time.timeScale;
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
-        timescaleOrig = Time.timeScale;
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-        enemySpawnLocs = GameObject.FindGameObjectsWithTag("Enemy Spawn");
         updateGameGoal(wave * enemiesPerWave);
     }
 
@@ -81,13 +89,6 @@ public class gameManager : MonoBehaviour
             statePaused();
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
-        }
-        //ammo.text = Weapon.instance.ammo.ToString("F0");
-        //mags.text = Weapon.instance.magazines.ToString("F0");
-
-        if (enemiesInScene < maxEnemies && enemiesInScene < enemiesRemaining && enemiesRemaining > 0)
-        {
-            spawnEnemies(Mathf.Min(maxEnemies - enemiesInScene, enemiesRemaining - enemiesInScene));
         }
     }
 
@@ -129,17 +130,17 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
 
-        if (enemiesRemaining <= 0 && wave >= maxWaves)
+        if(NextScene())
         {
-            activeMenu = winMenu;
-            activeMenu.SetActive(true);
-            statePaused();
-        }
-        //flashes text on screen to tell player when the next wave will be.
-        else if(enemiesRemaining <= 0 && wave < maxWaves)
-        {
-            wave++;
-            StartCoroutine(NextWave());                   
+            if(SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                SceneManager.LoadScene(2);
+            }
+            else
+            {
+                SceneManager.LoadScene(3);
+            }
+            
         }
     }
 
@@ -152,7 +153,7 @@ public class gameManager : MonoBehaviour
     }
 
     //first time ammo is 0
-    public IEnumerator outOfAmmo()
+    public IEnumerator OutOfAmmo()
     {
         reload.SetActive(true);
         yield return new WaitForSeconds(1);
@@ -167,24 +168,6 @@ public class gameManager : MonoBehaviour
         playerFlashDamageScreen.SetActive(false);
     }
 
-    void spawnEnemies(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            int randomSpawnLoc = Random.Range(0, enemySpawnLocs.Length);
-            int randomEnemyType = Random.Range(0, enemyTypes.Length);
-
-            Debug.Log("Spawning enemy type: " + randomEnemyType + " at spawner: " + randomSpawnLoc);
-
-            Instantiate( 
-                enemyTypes[randomEnemyType], 
-                enemySpawnLocs[randomSpawnLoc].transform.position, 
-                enemySpawnLocs[randomSpawnLoc].transform.rotation);
-
-            Debug.Log("Enemies in scene: " + enemiesInScene);
-        }
-    }
-
     //flashes the nextWave game object on screen for 4 seconds
     public IEnumerator NextWave()
     {
@@ -197,7 +180,6 @@ public class gameManager : MonoBehaviour
     IEnumerator Countdown()
     {
         yield return new WaitForSeconds(waveTimer);
-        updateGameGoal(wave * enemiesPerWave);
     }
 
     //updates the gem amount
@@ -214,5 +196,27 @@ public class gameManager : MonoBehaviour
         ShopMask.SetActive(true);
         activeMenu = shop;
         activeMenu.SetActive(true);
+    }
+
+    IEnumerator NextSceneTimer()
+    {
+        yield return new WaitForSeconds(timer);
+    }
+    public bool NextScene()
+    {
+        if(enemiesRemaining <= 0 && wave >= maxWaves)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public IEnumerator YouWin()
+    {
+        yield return new WaitForSeconds(5);
+        activeMenu = winMenu;
+        activeMenu.SetActive(true);
+        statePaused();
     }
 }

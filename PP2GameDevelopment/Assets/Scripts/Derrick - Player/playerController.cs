@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Pool;
 
 public class playerController : MonoBehaviour, IDamage, ShopCustomer
 {
@@ -10,6 +11,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Character Controller
     [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
+    static Transform Level2Spawn;
+    //allows for camera shake
 
     [Header("----- Player Stats -----")]
     // Health
@@ -30,16 +33,14 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     [Header("----- Gun Components -----")]
     [SerializeField] GameObject gunModel;
-    [SerializeField] GameObject wandModelH;
-    [SerializeField] GameObject staffModelH;
-    [SerializeField] List<GameObject> proj = new List<GameObject>();
-    [SerializeField] GameObject projectile;
-    [SerializeField] float projSpeed;
 
+    // Aiming Positions
     [SerializeField] GameObject gunModelAimPos;
     [SerializeField] GameObject rifleModelAimPos;
     [SerializeField] GameObject smgModelAimPos;
     [SerializeField] GameObject sarModelAimPos;
+
+    // MuzzlePositions
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] GameObject smgMuzzleFlashPOS;
     [SerializeField] GameObject rifleMuzzleFlashPOS;
@@ -80,18 +81,17 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Aiming bool
     private bool isAiming = false;
 
-    // Model Switch for weapons
-    private bool isGun = false;
-    private bool isWand = false;
-    private bool isStaff = false;
 
-    private bool isGunPickup = false;
-    private bool isWandPickup = false;
-    private bool isStaffPickup = false;
+    private RaycastHit target;
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        gunModelOrig = gunModel.transform.localPosition;
+    }
     // Start is called before the first frame update
     private void Start()
     {
-        gunModelOrig = gunModel.transform.localPosition;
+        
 
         reloadTutorial = true;
         hpOrig = hp; 
@@ -109,23 +109,24 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             // Checks if player is aiming or not
             bool isAimButtonPressed = Input.GetButton("Aim");
 
-            // if player is aiming then transform position of weapon, else put weapon pos back to original
-            if (isAimButtonPressed && !isAiming)
-            {
-                Debug.Log("aimed");
-                gunModel.transform.position = gunModelAimPos.transform.position;
-                isAiming = true;
-            }
-            else if (!isAimButtonPressed && isAiming)
-            {
-                Debug.Log("un-aimed");
-                gunModel.transform.localPosition = gunModelOrig;
-                isAiming = false;
-            }
-
             if (gunList.Count > 0)
             {
-                ScrollGuns();
+                // if player is aiming then transform position of weapon, else put weapon pos back to original
+                if (isAimButtonPressed && !isAiming)
+                {
+                    gunModel.transform.position = gunModelAimPos.transform.position;
+                    isAiming = true;
+                }
+                else if (!isAimButtonPressed && isAiming)
+                {
+                    gunModel.transform.localPosition = gunModelOrig;
+                    isAiming = false;
+                }
+
+                if (!isAiming)
+                {
+                    ScrollGuns();
+                }
 
                 // Switch between Automatic shooting and Semi Automatic shooting
                 if (gunList[selectedGun].auto && Input.GetButton("Shoot") && !isShooting)
@@ -137,11 +138,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     StartCoroutine(Shoot());
                 }
 
-                //If ammo reaches 0 and mags are full display reload text
+                //If ammo reaches 0 and reserve ammo are full display reload text
                 if (reloadTutorial == true && gunList[selectedGun].ammoCurr <= 0 && gunList[selectedGun].ammoReserve > 0 && gameManager.instance.activeMenu == null)
                 {
                     reloadTutorial = false;
-                    StartCoroutine(gameManager.instance.outOfAmmo());
+                    StartCoroutine(gameManager.instance.OutOfAmmo());
                 }
 
                 //reload
@@ -150,7 +151,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     Debug.Log("reloaded");
                     reloadTutorial = false;
                     ReloadWeapon();
-
                 }
 
                 UpdatePlayerUI();
@@ -163,6 +163,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         controller.enabled = true;
         groundedPlayer = controller.isGrounded;
+
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
@@ -283,27 +284,15 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     audioSource.PlayOneShot(semiAudioClip, .7f);
                     break;
                 default:
-                    Debug.Log("Error - playerController: SetMuzzlePOS()");
+                    Debug.Log("Audio Error - playerController: SetMuzzlePOS() - NO AUDIO FOR WEAPON");
                     break;
             }
-
-
-
-            UpdatePlayerUI();
 
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
             {
+                target = hit;
                 IDamage damagable = hit.collider.GetComponent<IDamage>();
-
-                GameObject projectileTMP = Instantiate(projectile, sarMuzzleFlashPOS.transform.position, Quaternion.identity);
-
-                Vector3 direction = (hit.point - sarMuzzleFlashPOS.transform.position).normalized;
-
-                Rigidbody projectileRigidbody = projectileTMP.GetComponent<Rigidbody>();
-                projectileRigidbody.velocity = direction * projSpeed;
-
-                projectileTMP.transform.forward = -direction;
 
                 if (damagable != null && !hit.collider.CompareTag("Player"))
                 {
@@ -317,10 +306,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
             yield return new WaitForSeconds(shootRate);
             isShooting = false;
+
         }
-
     }
-
     // Set muzzleFlash to active on timer and turn off
     IEnumerator muzzleFlashTimer()
     {
@@ -337,26 +325,13 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDamage = gunstat.shootDamage;
         shootDistance = gunstat.shootDist;
         shootRate = gunstat.shootRate;
-        projSpeed = gunstat.projectileSpeed;
-        SetMuzzlePOS();
-
-        if (isGunPickup)
-        {
-            gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
-        else if (isWandPickup)
-        {
-            wandModelH.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            wandModelH.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
-        else if (isStaffPickup)
-        {
-            staffModelH.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            staffModelH.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
 
         selectedGun = gunList.Count - 1;
+
+        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        SetMuzzlePOS();
         UpdatePlayerUI();
     }
 
@@ -373,7 +348,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             selectedGun--;
             ChangeGunStats();
         }
-        SetMuzzlePOS();
     }
 
     // Method for changing weapon stats
@@ -382,24 +356,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         shootDamage = gunList[selectedGun].shootDamage;
         shootDistance = gunList[selectedGun].shootDist;
         shootRate = gunList[selectedGun].shootRate;
-        projSpeed = gunList[selectedGun].projectileSpeed;
+
+        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
 
         SetMuzzlePOS();
-        if(isGunPickup)
-        {
-            gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
-        else if (isWandPickup)
-        {
-            wandModelH.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            wandModelH.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
-        else if (isStaffPickup)
-        {
-            staffModelH.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            staffModelH.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
 
         UpdatePlayerUI();
     }
@@ -435,85 +396,16 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             case "Rifle":
                 muzzleFlash.transform.position = rifleMuzzleFlashPOS.transform.position;
                 gunModelAimPos.transform.position = rifleModelAimPos.transform.position;
-                projectile = proj[1];
-                isGun = true;
-                SwitchModel();
-                    break;
+
+                break;
             case "SMG":
                 muzzleFlash.transform.position = smgMuzzleFlashPOS.transform.position;
                 gunModelAimPos.transform.position = smgModelAimPos.transform.position;
-                projectile = proj[1];
-                isGun = true;
-                SwitchModel();
                 break;
             case "SAR":
                 muzzleFlash.transform.position = sarMuzzleFlashPOS.transform.position;
                 gunModelAimPos.transform.position = sarModelAimPos.transform.position;
-                projectile = proj[1];
-                isGun = true;
-                SwitchModel();
                 break;
-            case "WandLevel1":
-                isWand = true;
-                SwitchModel();
-                break;
-            case "WandLevel2":
-                isWand = true;
-                SwitchModel();
-                break;
-            case "WandLevel3":
-                isWand = true;
-                SwitchModel();
-                break;
-            case "StaffLevel1":
-                isStaff = true;
-                SwitchModel();
-                break;
-            case "StaffLevel2":
-                isStaff = true;
-                SwitchModel();
-                break;
-            case "StaffLevel3":
-                isStaff = true;
-                SwitchModel();
-                break;
-            default:
-                Debug.Log("Error - playerController: SetMuzzlePOS()");
-                break;
-        }
-    }
-
-    private void SwitchModel()
-    {
-        if(isGun == true)
-        {
-            gunModel.SetActive(true);
-            staffModelH.SetActive(false);
-            wandModelH.SetActive(false);
-            isGunPickup = true;
-            isWandPickup = false;
-            isStaffPickup = false;
-            isGun = false;
-        }
-        if(isWand == true)
-        {
-            wandModelH.SetActive(true);
-            gunModel.SetActive(false);
-            staffModelH.SetActive(false);
-            isWandPickup = true;
-            isGunPickup = false;
-            isStaffPickup = false;
-            isWand = false;
-        }
-        if (isStaff == true)
-        {
-            staffModelH.SetActive(true);
-            gunModel.SetActive(false);
-            wandModelH.SetActive(false);
-            isStaffPickup = true;
-            isWandPickup = false;
-            isGunPickup = false;
-            isStaff = false;
         }
     }
 
