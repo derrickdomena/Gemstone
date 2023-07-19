@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class cameraControls : MonoBehaviour
 {
@@ -45,7 +46,10 @@ public class cameraControls : MonoBehaviour
         // Rotate the camera on the X-axis
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
-        // Rotate the player on the Y-axis
-        transform.parent.Rotate(Vector3.up * mouseX);
+        // Rotate the player on the Y-axis\
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            transform.parent.Rotate(Vector3.up * mouseX);
+        }
     }
 }
