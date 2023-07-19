@@ -57,7 +57,17 @@ public class gameManager : MonoBehaviour
     //Awake is called before Start
     void Awake()
     {
+        //singleton
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
+
+        //persist between scenes
+        DontDestroyOnLoad(gameObject);
+
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         timescaleOrig = Time.timeScale;
