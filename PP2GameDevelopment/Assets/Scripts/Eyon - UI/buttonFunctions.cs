@@ -11,6 +11,8 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.stateUnpaused();
     }
 
+    //this will be used next build for now when trying to reload scene it tries to get a player that isnt there 
+    //unless its level 1 because thats where the player lives 
     public void restart()
     {
         gameManager.instance.stateUnpaused();
@@ -26,6 +28,8 @@ public class buttonFunctions : MonoBehaviour
     {
         Application.Quit();
     }
+
+    
     public void WIN()
     {
         gameManager.instance.stateUnpaused();

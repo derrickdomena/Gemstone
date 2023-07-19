@@ -65,7 +65,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Health
     public int hpOrig;
-
+    public int gems;
     // Movement
     [HideInInspector]
     public Vector3 move;

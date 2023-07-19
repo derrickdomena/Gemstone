@@ -181,7 +181,8 @@ public class gameManager : MonoBehaviour
     //updates the gem amount
     public void updateGemCount(int amount)
     {
-        gemCount += amount;
+        playerScript.gems += amount;
+        gemCount = playerScript.gems;
         gemText.text = gemCount.ToString("F0");
     }
     
