@@ -14,13 +14,17 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] Spawner spawner;
 
     private int i = 0;
-
+    
     private bool stopSpawning = false;
     private void Awake()
     {
         currentWave = waves[i];
+      
     }
-
+    void Start()
+    {
+        gameManager.instance.maxWaves = waves.Length;
+    }
     private void Update()
     {
         if(stopSpawning)
@@ -62,6 +66,7 @@ public class WaveSpawner : MonoBehaviour
         if (gameManager.instance.enemiesRemaining == 0)
         {
             SpawnWave();
+            gameManager.instance.wave++;
             IncWave();
         }
         gameManager.instance.nextWave.SetActive(false);
