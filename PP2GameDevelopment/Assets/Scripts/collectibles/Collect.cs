@@ -91,9 +91,8 @@ public class Collect : MonoBehaviour, ICollectible
 
     // Receive health when picking up a health pack
     public void GiveHP(int amount)
-    {
-        //hp += amount; Future use, when health packs vary in healing ammount.
-        gameManager.instance.playerScript.hp = amount;
+    {      
+        gameManager.instance.playerScript.hp += amount;
         gameManager.instance.playerScript.UpdatePlayerUI();
     }
 

@@ -69,6 +69,10 @@ public class gameManager : MonoBehaviour
     private void Start()
     {
         //updateGameGoal(wave * enemiesPerWave);
+        if (player == null) 
+        {
+            Instantiate(player);
+        }
     }
 
     // Update is called once per frame

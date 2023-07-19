@@ -146,8 +146,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
+      - m_Target: {fileID: 5544567189132119917}
+        m_TargetAssemblyTypeName: OptionsScript, Assembly-CSharp
         m_MethodName: GameplayCancel
         m_Mode: 1
         m_Arguments:
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 8031081419099992652}
   m_Layer: 5
   m_Name: VolumeSlider
-  m_TagString: Untagged
+  m_TagString: VolumeSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -386,8 +386,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
+      - m_Target: {fileID: 5544567189132119917}
+        m_TargetAssemblyTypeName: OptionsScript, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
@@ -677,9 +677,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962673162879137125}
+  - component: {fileID: 851967978941445129}
+  - component: {fileID: 5544567189132119917}
   m_Layer: 5
   m_Name: Settings
-  m_TagString: Untagged
+  m_TagString: Settings
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -706,6 +708,46 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &851967978941445129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732735525975140211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657421b727903e94c857cd2cff740297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAvailable: 1
+  mainCamera: {fileID: 0}
+  optionsMenuScript: {fileID: 5544567189132119917}
+  volumeTextValue: {fileID: 4282975873023947480}
+  volumeSlider: {fileID: 8031081419099992652}
+  sensitivityTextValue: {fileID: 5189925059078931171}
+  sensitivitySlider: {fileID: 803028666708550654}
+  invertY: {fileID: 7133516495984853574}
+--- !u!114 &5544567189132119917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732735525975140211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd69c0f54274e4449a773059015039e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  volumeTextValue: {fileID: 4282975873023947480}
+  volumeSlider: {fileID: 8031081419099992652}
+  defaultVolume: 0.5
+  sensitivityTextValue: {fileID: 5189925059078931171}
+  sensitivitySlider: {fileID: 803028666708550654}
+  defaultSensitivity: 4
+  invertY: {fileID: 7133516495984853574}
 --- !u!1 &770220087645968349
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +760,7 @@ GameObject:
   - component: {fileID: 803028666708550654}
   m_Layer: 5
   m_Name: SensitiviySlider
-  m_TagString: Untagged
+  m_TagString: SensitivitySlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -799,8 +841,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
+      - m_Target: {fileID: 5544567189132119917}
+        m_TargetAssemblyTypeName: OptionsScript, Assembly-CSharp
         m_MethodName: SetSensitivity
         m_Mode: 0
         m_Arguments:
@@ -900,7 +942,7 @@ GameObject:
   - component: {fileID: 4282975873023947480}
   m_Layer: 5
   m_Name: VolumeSliderValue
-  m_TagString: Untagged
+  m_TagString: VolumeSliderValue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1499,7 +1541,7 @@ GameObject:
   - component: {fileID: 5189925059078931171}
   m_Layer: 5
   m_Name: SensSliderValue
-  m_TagString: Untagged
+  m_TagString: SensitivitySliderValue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2322,8 +2364,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
+      - m_Target: {fileID: 5544567189132119917}
+        m_TargetAssemblyTypeName: OptionsScript, Assembly-CSharp
         m_MethodName: GameplayApply
         m_Mode: 1
         m_Arguments:
@@ -2456,8 +2498,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
+      - m_Target: {fileID: 5544567189132119917}
+        m_TargetAssemblyTypeName: OptionsScript, Assembly-CSharp
         m_MethodName: VolumeApply
         m_Mode: 1
         m_Arguments:
@@ -2691,7 +2733,7 @@ GameObject:
   - component: {fileID: 7133516495984853574}
   m_Layer: 5
   m_Name: Invert Y Toggle
-  m_TagString: Untagged
+  m_TagString: InvertYToggle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3175,8 +3217,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
+      - m_Target: {fileID: 5544567189132119917}
+        m_TargetAssemblyTypeName: OptionsScript, Assembly-CSharp
         m_MethodName: VolumeCancel
         m_Mode: 1
         m_Arguments:
