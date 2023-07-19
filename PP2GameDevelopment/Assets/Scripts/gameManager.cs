@@ -58,11 +58,11 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         //singleton
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (instance != null)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
         instance = this;
 
         //persist between scenes
@@ -132,7 +132,15 @@ public class gameManager : MonoBehaviour
 
         if(NextScene())
         {
-            SceneManager.LoadScene(2);
+            if(SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                SceneManager.LoadScene(2);
+            }
+            else
+            {
+                SceneManager.LoadScene(3);
+            }
+            
         }
     }
 
@@ -202,5 +210,13 @@ public class gameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public IEnumerator YouWin()
+    {
+        yield return new WaitForSeconds(5);
+        activeMenu = winMenu;
+        activeMenu.SetActive(true);
+        statePaused();
     }
 }

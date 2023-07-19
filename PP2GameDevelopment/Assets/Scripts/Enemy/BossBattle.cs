@@ -35,6 +35,7 @@ public class BossBattle : MonoBehaviour
         gameManager.instance.bossHP.SetActive(false);
         Debug.Log("Boss Battle is over!");
         spider.animator.SetBool("isDead", true);
+        StartCoroutine(gameManager.instance.YouWin());
     }
 
     private void BossBattle_OnDamaged(object sender, System.EventArgs e)
@@ -56,6 +57,11 @@ public class BossBattle : MonoBehaviour
                     //50%
                     StartNextStage();
                     spider.PhaseThree();
+                }
+                break;
+                case Stage.Stage3:
+                if(spider.GetHealthSystem().GetHealthPercent() <=0) {
+                    spider.GetHealthSystem().health = 0;
                 }
                 break;
         }

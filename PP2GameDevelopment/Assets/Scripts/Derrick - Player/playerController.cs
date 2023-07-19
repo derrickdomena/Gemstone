@@ -11,6 +11,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Character Controller
     [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
+    static Transform Level2Spawn;
     //allows for camera shake
 
     [Header("----- Player Stats -----")]
@@ -84,6 +85,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     private RaycastHit target;
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         gunModelOrig = gunModel.transform.localPosition;
     }
     // Start is called before the first frame update

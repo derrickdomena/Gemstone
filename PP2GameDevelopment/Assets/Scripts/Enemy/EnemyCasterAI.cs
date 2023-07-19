@@ -76,7 +76,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         if (playerDistance < retreatDistance)
         {
-            Debug.Log("Player is too close");
+            //Debug.Log("Player is too close");
             return true;
         }
 
@@ -136,7 +136,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    Debug.Log("player is in range");
+                    //Debug.Log("player is in range");
                     return true;
                 }
             }
