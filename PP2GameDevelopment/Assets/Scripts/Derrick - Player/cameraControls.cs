@@ -6,7 +6,7 @@ public class cameraControls : MonoBehaviour
 {
     [Header("----- Component -----")]
     // Mouse Sensitivity
-    [SerializeField] int sensitivity;
+    [SerializeField] public int sensitivity;
 
     // Lock Vertical Mouse Movement
     // Purpose: Avoid tilting camera to far forward or behind the Player.
@@ -14,7 +14,7 @@ public class cameraControls : MonoBehaviour
     [SerializeField] int lockVerMax;
 
     // Invert Mouse Y
-    [SerializeField] bool invertY;
+    [SerializeField] public bool invertY;
 
     float xRotation;
 
