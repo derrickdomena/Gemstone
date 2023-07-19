@@ -48,7 +48,7 @@ public class mainMenu : MonoBehaviour
     public void VolumeApply()
     {
         PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
-        StartCoroutine(ConfirmationPopup());
+        //StartCoroutine(ConfirmationPopup());
     }
 
     // Function works by not saving the modified changes (if apply wasn't clicked) and setting the values to the currently applied settings
@@ -81,7 +81,7 @@ public class mainMenu : MonoBehaviour
 
         PlayerPrefs.SetFloat("masterSensitivity", defaultSensitivity);
         mainCamera.sensitivity = defaultSensitivity * 100;
-        StartCoroutine(ConfirmationPopup());
+        //StartCoroutine(ConfirmationPopup());
     }
 
     public void GameplayCancel()
@@ -101,12 +101,12 @@ public class mainMenu : MonoBehaviour
     }
 
     // Image pop up gives feedback to player that settings have been applied
-    public IEnumerator ConfirmationPopup()
-    {
-        confirmationPrompt.SetActive(true);
-        yield return new WaitForSeconds(2);
-        confirmationPrompt.SetActive(false);
-    }
+    //public IEnumerator ConfirmationPopup()
+    //{
+    //    confirmationPrompt.SetActive(true);
+    //    yield return new WaitForSeconds(2);
+    //    confirmationPrompt.SetActive(false);
+    //}
 
     public void DefaultSettings(string settingMenu)
     {
