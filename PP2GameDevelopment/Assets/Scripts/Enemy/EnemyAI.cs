@@ -143,20 +143,20 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void TakeDamage(int amount)
     {
+        if (hp <= 0)
+        {
+            //agent.SetDestination(agent.transform.position);
+            isDead = true;
+            animator.SetBool("isDead", true);
+            GetComponent<Collider>().enabled = false;
+        }
+
         hp -= amount;
         healthBar.UpdateHealthBar(hp, (float)hpOrig);
 
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing
         StartCoroutine(showTempHp());
-
-        if (hp <= 0)
-        {
-            //agent.SetDestination(agent.transform.position);
-            isDead = true;
-            animator.SetBool("isDead", true);
-
-        }
     }
 
     private void StopMoving()
