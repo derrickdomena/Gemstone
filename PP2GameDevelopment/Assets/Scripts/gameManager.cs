@@ -38,6 +38,8 @@ public class gameManager : MonoBehaviour
     public GameObject bossHP;
     public Image grenadeCooldownFill;
     public Image dashCooldownFill;
+    public Animator anim;
+    public GameObject cutscene;
 
     [Header("----- Spawner Stuff -----")]
     public float waveTimer;
@@ -128,21 +130,17 @@ public class gameManager : MonoBehaviour
 
         if(NextScene())
         {
-            if(SceneManager.GetActiveScene().buildIndex == 1)
-            {
-                SceneManager.LoadScene(2);
-            }
-            else
-            {
-                SceneManager.LoadScene(3);
-            }
-            
+            StartCoroutine(NextSceneTimer());
         }
     }
 
     //Sets active menu to loseMenu
     public void youLose()
     {
+        if(bossHP.activeInHierarchy == true)
+        {
+            bossHP.SetActive(false);
+        }
         statePaused();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
@@ -198,6 +196,15 @@ public class gameManager : MonoBehaviour
     IEnumerator NextSceneTimer()
     {
         yield return new WaitForSeconds(timer);
+        anim.SetTrigger("FadeOut");
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            SceneManager.LoadScene(2);
+        }
+        else
+        {
+            SceneManager.LoadScene(3);
+        }
     }
     public bool NextScene()
     {
@@ -215,5 +222,17 @@ public class gameManager : MonoBehaviour
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         statePaused();
+    }
+    public void FirstDeath()
+    {
+        anim.SetTrigger("FadeIn");
+        cutscene.SetActive(true);
+        StartCoroutine(FirstDeathTimer());
+    }
+
+    IEnumerator FirstDeathTimer()
+    {
+        yield return new WaitForSeconds(4);
+        youLose();
     }
 }

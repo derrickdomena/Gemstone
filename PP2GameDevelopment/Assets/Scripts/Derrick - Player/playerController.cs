@@ -11,8 +11,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Character Controller
     [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
-    static Transform Level2Spawn;
-    //allows for camera shake
+    static int death = 0;
+    private string deathCounter;
+
 
     [Header("----- Player Stats -----")]
     // Health
@@ -86,13 +87,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        PlayerPrefs.SetInt(deathCounter, death);
         gunModelOrig = gunModel.transform.localPosition;
     }
     // Start is called before the first frame update
     private void Start()
     {
-        
-
         reloadTutorial = true;
         hpOrig = hp; 
         SpawnPlayer();
@@ -234,7 +234,16 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         if (hp <= 0)
         {
-            gameManager.instance.youLose();
+            if(PlayerPrefs.GetInt(deathCounter)  == 0)
+            {
+                death++;
+                gameManager.instance.FirstDeath();
+            }
+            else
+            {
+                gameManager.instance.youLose();
+            }
+            
         }
     }
 

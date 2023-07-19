@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
-    
     public void resume()
     {
         gameManager.instance.stateUnpaused();
@@ -37,6 +36,11 @@ public class buttonFunctions : MonoBehaviour
         if (true) //make this false to bring back the player dupe bug :D
         {
             Destroy(gameManager.instance.player);
+        }
+
+        if(gameManager.instance.bossHP.activeInHierarchy)
+        {
+            gameManager.instance.bossHP.SetActive(false);
         }
         SceneManager.LoadScene(1);
     }
