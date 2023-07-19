@@ -5741,7 +5741,7 @@ MonoBehaviour:
   - {fileID: 5033486770486681005, guid: 6d93f7977ff49464b944c4e46c66b11c, type: 3}
   - {fileID: 3755314475148394898, guid: 4be3acef86282f74d801d0ab79374ffe, type: 3}
   hp: 10
-  moveSpeed: 0
+  speedMod: 1.1
   viewAngle: 0
   playerFaceSpeed: 0
   itemDropRate: 50
@@ -5760,7 +5760,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.1
   m_Speed: 15
-  m_Acceleration: 8
+  m_Acceleration: 60
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 10
