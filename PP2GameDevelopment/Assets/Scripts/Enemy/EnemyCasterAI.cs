@@ -76,7 +76,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         if (playerDistance < retreatDistance)
         {
-            Debug.Log("Player is too close");
             return true;
         }
 
@@ -91,7 +90,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     }
     void ChooseNewDestination()
     {
-        Debug.Log("Choose new Destination");
         Vector3 directionToPlayer = transform.position - player.transform.position;
         Vector3 newDestination;
 
@@ -101,7 +99,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
             // Move away from player
             agent.stoppingDistance = 0;
             newDestination = transform.position + directionToPlayer.normalized * maxAttackDistance;
-            Debug.Log("Moving away from player");
         }
         else
         {
@@ -110,7 +107,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
             // Calculate a random point in the donut area
             newDestination = GetRandomPointInCircle(player.transform.position, innerCircleRadius, outerCircleRadius);
-            Debug.Log("Moving toward player");
         }
 
         // Make sure the new destination is not the current position of the agent
@@ -136,13 +132,11 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    Debug.Log("player is in range");
                     return true;
                 }
             }
         }
 
-        Debug.Log("can't hit player from here");
         ChooseNewDestination();
         return false;
     }
@@ -158,7 +152,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         directionToPlayer = player.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * 50);
-        Debug.DrawRay(directionToPlayer, transform.position);
 
         animator.SetBool("isAttack", true);
     }
