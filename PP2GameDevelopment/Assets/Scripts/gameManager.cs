@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class gameManager : MonoBehaviour
 {
@@ -48,7 +50,10 @@ public class gameManager : MonoBehaviour
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
-    
+
+
+    [Header("----SceneStuff----")]
+    [SerializeField] int timer;
     //Awake is called before Start
     void Awake()
     {
@@ -115,9 +120,9 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
 
-        if (enemiesRemaining <= 0 && wave >= maxWaves)
+        if(NextScene())
         {
-
+            SceneManager.LoadScene(2);
         }
     }
 
@@ -173,5 +178,19 @@ public class gameManager : MonoBehaviour
         ShopMask.SetActive(true);
         activeMenu = shop;
         activeMenu.SetActive(true);
+    }
+
+    IEnumerator NextSceneTimer()
+    {
+        yield return new WaitForSeconds(timer);
+    }
+    public bool NextScene()
+    {
+        if(enemiesRemaining <= 0 && wave >= maxWaves)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
