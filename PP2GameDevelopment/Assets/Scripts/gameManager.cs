@@ -56,8 +56,7 @@ public class gameManager : MonoBehaviour
     bool isPaused;
     float timescaleOrig;
 
-    Audio audioMusic;
-
+    
 
     [Header("----SceneStuff----")]
     [SerializeField] int timer;
@@ -69,7 +68,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         timescaleOrig = Time.timeScale;
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");      
     }
 
     // Start is called before the first frame update
@@ -194,8 +193,7 @@ public class gameManager : MonoBehaviour
     {
         statePaused();
         ShopMask.SetActive(true);
-        audioMusic.SwitchMusic();
-        activeMenu = shop;
+        activeMenu = shop;    
         activeMenu.SetActive(true);
     }
 

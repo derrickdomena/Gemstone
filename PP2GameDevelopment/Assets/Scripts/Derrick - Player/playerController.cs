@@ -52,6 +52,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] AudioClip semiAudioClip;
     [SerializeField] AudioClip rifleAudioClip;
 
+    Audio audioManager;
+
     Vector3 gunModelOrig;
 
     public int selectedGun;
@@ -89,6 +91,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         DontDestroyOnLoad(gameObject);
         PlayerPrefs.SetInt(deathCounter, death);
         gunModelOrig = gunModel.transform.localPosition;
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<Audio>();
     }
     // Start is called before the first frame update
     private void Start()
@@ -234,7 +237,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         if (hp <= 0)
         {
-            if(PlayerPrefs.GetInt(deathCounter)  == 0)
+            audioManager.musicSource.Stop();
+            if (PlayerPrefs.GetInt(deathCounter)  == 0)
             {
                 death++;
                 gameManager.instance.FirstDeath();
