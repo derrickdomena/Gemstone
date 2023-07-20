@@ -74,7 +74,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        player.transform.position = playerSpawnPos.transform.position;
+        playerScript.SpawnPlayer();
         //updateGameGoal(wave * enemiesPerWave);
         if (player == null) 
         {
