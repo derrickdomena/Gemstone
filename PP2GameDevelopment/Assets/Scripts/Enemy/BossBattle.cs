@@ -33,7 +33,7 @@ public class BossBattle : MonoBehaviour
     {
         //Boss is dead
         gameManager.instance.bossHP.SetActive(false);
-        Debug.Log("Boss Battle is over!");
+        //Debug.Log("Boss Battle is over!");
         spider.animator.SetBool("isDead", true);
         StartCoroutine(gameManager.instance.YouWin());
     }
@@ -75,17 +75,17 @@ public class BossBattle : MonoBehaviour
             case Stage.WaitingToStart:
                 stage = Stage.Stage1;
                 spider.phaseCounter++;
-                Debug.Log("Stage 1 started");
+               // Debug.Log("Stage 1 started");
                 break;
             case Stage.Stage1:
                 stage = Stage.Stage2;
                 spider.phaseCounter++;
-                Debug.Log("Stage 2 started");
+               // Debug.Log("Stage 2 started");
                 break;
             case Stage.Stage2:
                 stage = Stage.Stage3;
                 spider.phaseCounter++;
-                Debug.Log("Stage 3 started");
+               // Debug.Log("Stage 3 started");
                 break;
         }
     }
@@ -98,7 +98,7 @@ public class BossBattle : MonoBehaviour
     }
     private void StartBattle()
     {
-        Debug.Log("StartBattle");
+        //Debug.Log("StartBattle");
         spider.animator.SetBool("startBoss", true);
         StartNextStage();
         stage = Stage.Stage1;

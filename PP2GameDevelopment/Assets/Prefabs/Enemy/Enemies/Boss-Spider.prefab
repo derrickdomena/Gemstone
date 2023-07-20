@@ -1123,10 +1123,10 @@ MonoBehaviour:
   DamageTrigger: {fileID: 1612165276499654789}
   phase2Platform: {fileID: 2202362063517101697}
   moveSpeed: 10
-  hpAmount: 100
+  hpAmount: 300
   viewAngle: 180
   Phase1Damage: 1
-  Phase2Damage: 2
+  Phase2Damage: 3
   Phase3Damage: 3
   playerFaceSpeed: 30
   immuneTimer: 2
@@ -1134,7 +1134,7 @@ MonoBehaviour:
   deathTimer: 0
   range: 2
   meleeTimer: 4
-  rangeTimer: 2
+  rangeTimer: 0.5
   poison: {fileID: 1809338187032940363, guid: 7ec04507bcb97d04784178f1ba63d86f, type: 3}
   shootPos: {fileID: 6796472282156359639}
   m_MainTexture: {fileID: 2800000, guid: d7f1b466d8e3d3c46bfe1c0f90070e5e, type: 3}

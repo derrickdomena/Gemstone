@@ -148,7 +148,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 //reload
                 if (Input.GetKeyDown(reloadKey))
                 {
-                    Debug.Log("reloaded");
+                    //Debug.Log("reloaded");
                     reloadTutorial = false;
                     ReloadWeapon();
                 }
