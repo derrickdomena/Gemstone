@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerSpawnPoints : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        gameManager.instance.player.transform.position = transform.position;
+    public void Start()
+    {  
         gameManager.instance.gemCount = gameManager.instance.playerScript.gems;
-        gameManager.instance.gemText.text = gameManager.instance.gemCount.ToString(); 
+        gameManager.instance.gemText.text = gameManager.instance.gemCount.ToString();
+        //gameManager.instance.player.transform.position = transform.position.normalized;
     }
 
 }

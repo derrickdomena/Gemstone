@@ -74,6 +74,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        player.transform.position = playerSpawnPos.transform.position;
         //updateGameGoal(wave * enemiesPerWave);
         if (player == null) 
         {
@@ -90,6 +91,14 @@ public class gameManager : MonoBehaviour
             statePaused();
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
+        }
+        if(Input.GetButtonDown("Skip"))
+        {
+            StartCoroutine(NextSceneTimer());
+        }
+        if (Input.GetButtonDown("MoveToSpawn"))
+        {
+            player.transform.position = playerSpawnPos.transform.position;
         }
     }
 
@@ -205,10 +214,12 @@ public class gameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             nextLevelCounter.SetActive(false);
+            player.transform.position = Vector3.zero;
             SceneManager.LoadScene(2);
         }
         else
         {
+            player.transform.position = Vector3.zero;
             nextLevelCounter.SetActive(false);
             SceneManager.LoadScene(3);
         }
