@@ -40,6 +40,9 @@ public class gameManager : MonoBehaviour
     public Image dashCooldownFill;
     public Animator anim;
     public GameObject cutscene;
+    public GameObject nextLevelCounter;
+    public GameObject wavesLeftCounter;
+    public TextMeshProUGUI wavesLeftText;
 
     [Header("----- Spawner Stuff -----")]
     public float waveTimer;
@@ -164,7 +167,7 @@ public class gameManager : MonoBehaviour
 
     //flashes the nextWave game object on screen for 4 seconds
     public IEnumerator NextWave()
-    {
+    { 
         nextWave.SetActive(true);
         StartCoroutine(Countdown());
         yield return new WaitForSeconds(4);
@@ -195,14 +198,17 @@ public class gameManager : MonoBehaviour
 
     IEnumerator NextSceneTimer()
     {
+        nextLevelCounter.SetActive(true);
         yield return new WaitForSeconds(timer);
         anim.SetTrigger("FadeOut");
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
+            nextLevelCounter.SetActive(false);
             SceneManager.LoadScene(2);
         }
         else
         {
+            nextLevelCounter.SetActive(false);
             SceneManager.LoadScene(3);
         }
     }
@@ -226,12 +232,12 @@ public class gameManager : MonoBehaviour
     public void FirstDeath()
     {
         anim.SetTrigger("FadeIn");
-        cutscene.SetActive(true);
         StartCoroutine(FirstDeathTimer());
     }
 
     IEnumerator FirstDeathTimer()
     {
+        cutscene.SetActive(true);
         yield return new WaitForSeconds(4);
         youLose();
     }

@@ -14,7 +14,9 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] Spawner spawner;
 
     private int i = 0;
-    
+    int wavesLeft;
+
+
     private bool stopSpawning = false;
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class WaveSpawner : MonoBehaviour
     }
     void Start()
     {
+        
         gameManager.instance.maxWaves = waves.Length;
     }
     private void Update()
@@ -62,10 +65,12 @@ public class WaveSpawner : MonoBehaviour
     IEnumerator Countdown()
     {
         gameManager.instance.nextWave.SetActive(true);
+        wavesLeft = waves.Length - 1 - i;
         yield return new WaitForSeconds(waveTimer);
         if (gameManager.instance.enemiesRemaining == 0)
         {
             SpawnWave();
+            gameManager.instance.wavesLeftText.text = wavesLeft.ToString();
             gameManager.instance.wave++;
             IncWave();
         }
