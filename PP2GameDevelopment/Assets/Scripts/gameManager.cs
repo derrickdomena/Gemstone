@@ -53,6 +53,8 @@ public class gameManager : MonoBehaviour
     bool isPaused;
     float timescaleOrig;
 
+    Audio audioMusic;
+
 
     [Header("----SceneStuff----")]
     [SerializeField] int timer;
@@ -189,6 +191,7 @@ public class gameManager : MonoBehaviour
     {
         statePaused();
         ShopMask.SetActive(true);
+        audioMusic.SwitchMusic();
         activeMenu = shop;
         activeMenu.SetActive(true);
     }
