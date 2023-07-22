@@ -8,6 +8,8 @@ public class CreateLevel : MonoBehaviour
     [SerializeField] List<GameObject> rooms = new List<GameObject>();
     [SerializeField] private List<GameObject> nodePositions = new List<GameObject>();
 
+    public GameObject[,] roomsGrid;
+
     private void Start()
     {
         Generate();
@@ -19,6 +21,7 @@ public class CreateLevel : MonoBehaviour
         for (int i = 0; i < nodePositions.Count; i++)
         {
             int randomRoom = Random.Range(0, rooms.Count);
+
 
             if (nodePositions[i].name == "RoomPOSNorth")
             {

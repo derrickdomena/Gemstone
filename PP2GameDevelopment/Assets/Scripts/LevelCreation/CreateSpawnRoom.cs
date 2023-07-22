@@ -7,7 +7,6 @@ public class CreateSpawnRoom : MonoBehaviour
 {
     [SerializeField] List<GameObject> spawnRooms = new List<GameObject>();
 
-    // Start is called before the first frame update
     void Start()
     {
         Generate();
@@ -16,7 +15,7 @@ public class CreateSpawnRoom : MonoBehaviour
     private void Generate()
     {
         int randomRoom = Random.Range(0, spawnRooms.Count);
-
+        
         Instantiate(spawnRooms[randomRoom], transform.position , transform.rotation);
 
     }
