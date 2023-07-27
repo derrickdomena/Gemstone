@@ -461,7 +461,7 @@ RectTransform:
   - {fileID: 3419377252489014307}
   - {fileID: 6099066501008647653}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -508,6 +508,33 @@ MonoBehaviour:
   nextLevelCounter: {fileID: 3996968272386308776}
   wavesLeftCounter: {fileID: 7786090458794894791}
   wavesLeftText: {fileID: 1019857073854227727}
+  rooms:
+  - {fileID: 1368601557080989639, guid: df1cb5e54769e3b4c90ea9fd12c2542b, type: 3}
+  - {fileID: 8070990603104739222, guid: 7a4d8192eea522d4daec40ee77175111, type: 3}
+  - {fileID: 8255708922202648051, guid: b0302d51f6a7f244ba44a6a72554cab6, type: 3}
+  - {fileID: 3115188453861446831, guid: 3febbe120bc43054f87bb28f459ee849, type: 3}
+  - {fileID: 860237983774673102, guid: ba2753e6c6d55aa42ad8a3c93cab43b3, type: 3}
+  - {fileID: 1756853682891660288, guid: e79466024502aca48b042074d169fa70, type: 3}
+  - {fileID: 5317154510865705230, guid: 076e62084095cd646b9a2197ff71abd1, type: 3}
+  - {fileID: 5154142424455551027, guid: 08bd26fc73e7d6648a27aac0f2a392bb, type: 3}
+  - {fileID: 6130002340403820727, guid: 45ac73aab0ddf354cbdeb574ad1713b7, type: 3}
+  - {fileID: 5021274436662192015, guid: e0c1565e6a4fff845baeec44f2e569e0, type: 3}
+  - {fileID: 8584413944926809430, guid: ef253815b5da7084a9f31c0df319fa33, type: 3}
+  - {fileID: 1705909452271358298, guid: 80e818c1538fc534ea22698958d861c7, type: 3}
+  - {fileID: 3634119281202641366, guid: b2db9a5d06ab5b3498a617485389981f, type: 3}
+  - {fileID: 682049385142361470, guid: f7aa496aef0553040996c4e2a41d4877, type: 3}
+  - {fileID: 6495867683396999387, guid: bd149d6a412707140a5aa0c909f29eeb, type: 3}
+  roomsGenerated: 0
+  maxRooms: 6
+  capRooms:
+  - {fileID: 1368601557080989639, guid: df1cb5e54769e3b4c90ea9fd12c2542b, type: 3}
+  - {fileID: 860237983774673102, guid: ba2753e6c6d55aa42ad8a3c93cab43b3, type: 3}
+  - {fileID: 3634119281202641366, guid: b2db9a5d06ab5b3498a617485389981f, type: 3}
+  - {fileID: 6495867683396999387, guid: bd149d6a412707140a5aa0c909f29eeb, type: 3}
+  - {fileID: 8070990603104739222, guid: 7a4d8192eea522d4daec40ee77175111, type: 3}
+  - {fileID: 1756853682891660288, guid: e79466024502aca48b042074d169fa70, type: 3}
+  - {fileID: 1705909452271358298, guid: 80e818c1538fc534ea22698958d861c7, type: 3}
+  - {fileID: 682049385142361470, guid: f7aa496aef0553040996c4e2a41d4877, type: 3}
   waveTimer: 0
   enemiesPerWave: 5
   maxWaves: 2

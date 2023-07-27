@@ -44,6 +44,13 @@ public class gameManager : MonoBehaviour
     public GameObject wavesLeftCounter;
     public TextMeshProUGUI wavesLeftText;
 
+    [Header("----- Level Stuff -----")]
+    public List<GameObject> rooms = new List<GameObject>();
+    public GameObject[,] level;
+    public int roomsGenerated = 0;
+    public int maxRooms = 10;
+    public List<GameObject> capRooms = new List<GameObject>();
+
     [Header("----- Spawner Stuff -----")]
     public float waveTimer;
     public int enemiesPerWave;
@@ -64,6 +71,7 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        level = new GameObject[50, 50];
         //DontDestroyOnLoad(gameObject);
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
