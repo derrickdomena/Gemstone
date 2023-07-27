@@ -12,6 +12,7 @@ public class CreateLevel : MonoBehaviour
     private List<GameObject> nodes = new List<GameObject>();
     private List<GameObject> neighborNodes = new List<GameObject>();
     private List<String> noNeighbors = new List<String>();
+    public  List<GameObject> bobShop = new List<GameObject>();
 
     //Nodes to find
     private string nodeN = "NodeN";
@@ -211,8 +212,11 @@ public class CreateLevel : MonoBehaviour
             qualifiedRooms.Clear();
             bool roomQualifies = false;
             bool hasNeeded = false;
-
-            if (roomCount < maxRooms)
+            if(roomCount ==1)
+            {
+                qualifiedRooms = bobShop;
+            }
+            else if (roomCount < maxRooms)
             {
 
                 foreach (GameObject room in gameManager.instance.rooms)
