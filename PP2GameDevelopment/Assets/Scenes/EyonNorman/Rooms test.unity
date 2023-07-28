@@ -272,6 +272,10 @@ PrefabInstance:
       value: SpawnRoomGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
+      propertyPath: maxRooms
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
       propertyPath: bobShop.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -292,6 +296,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 863138360269387781, guid: d118c16f0e097e041bb2f42ce6e0a114, type: 3}
+      propertyPath: rooms.Array.size
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 863138360269387781, guid: d118c16f0e097e041bb2f42ce6e0a114, type: 3}
+      propertyPath: rooms.Array.data[15]
+      value: 
+      objectReference: {fileID: 7446153335569657455, guid: 58754dcbb14049c4eab2a8558f28f975, type: 3}
+    - target: {fileID: 863138360269387781, guid: d118c16f0e097e041bb2f42ce6e0a114, type: 3}
+      propertyPath: rooms.Array.data[16]
+      value: 
+      objectReference: {fileID: 7543194604303649636, guid: 23f3f6883568f6d4abd8cd7a0e94532f, type: 3}
+    - target: {fileID: 863138360269387781, guid: d118c16f0e097e041bb2f42ce6e0a114, type: 3}
+      propertyPath: rooms.Array.data[17]
+      value: 
+      objectReference: {fileID: 7500710499382392714, guid: a291534e4a037e642ab4f1977a9aca29, type: 3}
+    - target: {fileID: 863138360269387781, guid: d118c16f0e097e041bb2f42ce6e0a114, type: 3}
+      propertyPath: rooms.Array.data[18]
+      value: 
+      objectReference: {fileID: 48158281634993489, guid: 588c7fb890b52b748be32f5b5c408d6e, type: 3}
     - target: {fileID: 939597384476420768, guid: d118c16f0e097e041bb2f42ce6e0a114, type: 3}
       propertyPath: m_Name
       value: UI

@@ -36,10 +36,10 @@ public class CreateLevel : MonoBehaviour
 
     private void Awake()
     {
-        StartCoroutine(SpawnSpawn());
     }
     private void Start()
     {
+        StartCoroutine(SpawnSpawn());
 
     }
     private void Update()
