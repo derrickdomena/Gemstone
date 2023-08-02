@@ -11,6 +11,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Character Controller
     [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
+    [SerializeField] public GameObject midMass;
     static int death = 0;
     private string deathCounter;
 
