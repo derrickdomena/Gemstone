@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 5786035758213042297}
   - component: {fileID: 9195866347761419942}
   - component: {fileID: 1874331995497391645}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5208502052678611382}
   - component: {fileID: 3841256684673673117}
   - component: {fileID: 541726770592296821}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 5735528907027760524}
   - component: {fileID: 8780732267153704103}
   - component: {fileID: 3334087384771461751}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1097,7 +1097,7 @@ GameObject:
   - component: {fileID: 8037706375215685465}
   - component: {fileID: 3233719444364740700}
   - component: {fileID: 7925259850856228868}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1307,7 +1307,7 @@ GameObject:
   - component: {fileID: 7121935680856149575}
   - component: {fileID: 4933414765968727845}
   - component: {fileID: 2501984120537656332}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1517,7 +1517,7 @@ GameObject:
   - component: {fileID: 3450630893058049388}
   - component: {fileID: 7594841941291179324}
   - component: {fileID: 6164862420014571736}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1622,7 +1622,7 @@ GameObject:
   - component: {fileID: 5223611243318352710}
   - component: {fileID: 7383674559427030072}
   - component: {fileID: 8690339650328409482}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,7 +1727,7 @@ GameObject:
   - component: {fileID: 5731705961989656557}
   - component: {fileID: 5019767002844455449}
   - component: {fileID: 1304821552964839076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1829,6 +1829,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7434599819845328213}
+  - component: {fileID: 354277315490883334}
+  - component: {fileID: 6965558652831642982}
+  - component: {fileID: 6718378513993338143}
   m_Layer: 0
   m_Name: RoomE
   m_TagString: Untagged
@@ -1856,8 +1859,140 @@ Transform:
   - {fileID: 1083674312917276718}
   - {fileID: 5231243395936720401}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &354277315490883334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368601557080989639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb6ac9956e80cb94e92ef32a0da456c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorSpeed: 1
+  shakeDuration: 0.5
+  shakeMagnitude: 0.7
+--- !u!65 &6965558652831642982
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368601557080989639}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 34.814144, y: 7.1325083, z: 34.541016}
+  m_Center: {x: 0.0027866364, y: 3.0662541, z: -0.08691406}
+--- !u!82 &6718378513993338143
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368601557080989639}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a98a08ad7d1b4564eba2d6878df47ae1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 142
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1595504013357387924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,7 +2228,7 @@ GameObject:
   - component: {fileID: 7604194691227763645}
   - component: {fileID: 9213181132129657201}
   - component: {fileID: 1294791787210897088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2198,7 +2333,7 @@ GameObject:
   - component: {fileID: 7949998040026138554}
   - component: {fileID: 602811275843649153}
   - component: {fileID: 6954912630949358252}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2598,7 +2733,7 @@ GameObject:
   - component: {fileID: 1566353251920236211}
   - component: {fileID: 8491726013730612528}
   - component: {fileID: 537268309920942767}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3493,7 +3628,7 @@ GameObject:
   - component: {fileID: 1051439929250623438}
   - component: {fileID: 5202331205250755770}
   - component: {fileID: 4905449722699112698}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4123,7 +4258,7 @@ GameObject:
   - component: {fileID: 323363402638051639}
   - component: {fileID: 207670854916825398}
   - component: {fileID: 5460777201141169174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4312,7 +4447,7 @@ GameObject:
   - component: {fileID: 3689849026431176492}
   - component: {fileID: 5601151576760497259}
   - component: {fileID: 6915436016833169290}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4522,7 +4657,7 @@ GameObject:
   - component: {fileID: 6913634788109448219}
   - component: {fileID: 1026249367709096685}
   - component: {fileID: 2266178227408882268}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4732,7 +4867,7 @@ GameObject:
   - component: {fileID: 3490895816546893586}
   - component: {fileID: 2032086048667872747}
   - component: {fileID: 1174164982523729298}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5468,7 +5603,7 @@ GameObject:
   - component: {fileID: 8467973917232072347}
   - component: {fileID: 879639590965128483}
   - component: {fileID: 7489381772651283278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5877,7 +6012,7 @@ GameObject:
   - component: {fileID: 22707998834441379}
   - component: {fileID: 8026017150932876644}
   - component: {fileID: 5880957963607550281}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6087,7 +6222,7 @@ GameObject:
   - component: {fileID: 6305275089398876425}
   - component: {fileID: 8318833596149484210}
   - component: {fileID: 5138201903116374209}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6486,7 +6621,7 @@ GameObject:
   - component: {fileID: 6885265161346517103}
   - component: {fileID: 6315673838568053576}
   - component: {fileID: 8154747597879138418}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6591,7 +6726,7 @@ GameObject:
   - component: {fileID: 2625058210465740821}
   - component: {fileID: 6399096551649170270}
   - component: {fileID: 3557600853682027300}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6833,7 +6968,7 @@ GameObject:
   - component: {fileID: 5155556898282948371}
   - component: {fileID: 4491581211456642449}
   - component: {fileID: 4655203032672543007}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6938,7 +7073,7 @@ GameObject:
   - component: {fileID: 3290297527759266050}
   - component: {fileID: 3701662523453157687}
   - component: {fileID: 8814377687148074393}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7477,7 +7612,7 @@ GameObject:
   - component: {fileID: 7776744205576051913}
   - component: {fileID: 3900867210207185174}
   - component: {fileID: 2188759945319573182}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7687,7 +7822,7 @@ GameObject:
   - component: {fileID: 2719148984432390792}
   - component: {fileID: 5873560239624487632}
   - component: {fileID: 4706592224626130956}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Stones Tile 2x2 (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

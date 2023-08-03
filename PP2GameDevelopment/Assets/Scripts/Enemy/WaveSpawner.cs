@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -11,47 +10,48 @@ public class WaveSpawner : MonoBehaviour
 
     [SerializeField] float waveTimer;
 
-    [SerializeField] Spawner spawner;
-
     private int i = 0;
     int wavesLeft;
 
-
     private bool stopSpawning = false;
+
     private void Awake()
     {
         currentWave = waves[i];
-      
     }
+
     void Start()
     {
-        
         gameManager.instance.maxWaves = waves.Length;
     }
+
     private void Update()
     {
-        if(stopSpawning)
+        if (stopSpawning || gameManager.instance.enemiesRemaining != 0)
         {
             return;
         }
-        if(gameManager.instance.enemiesRemaining == 0)
-        {
-            StartCoroutine(Countdown());
-        }
 
-
+        StartCoroutine(Countdown());
     }
+
     private void SpawnWave()
     {
-        for(int i = 0; i < currentWave.NumberToSpawn; i++)
+        /*if (Spawner.ActiveSpawners.Count > 0)
         {
-            int num = Random.Range(0, currentWave.EnemiesInWave.Length);          
-            spawner.SpawnSingleEnemy(currentWave.EnemiesInWave[num]);
-        }
+            Spawner spawner = Spawner.ActiveSpawners[Random.Range(0, Spawner.ActiveSpawners.Count)];
+
+            for (int i = 0; i < currentWave.NumberToSpawn; i++)
+            {
+                int num = Random.Range(0, currentWave.EnemiesInWave.Length);
+                spawner.SpawnSingleEnemy(currentWave.EnemiesInWave[num]);
+            }
+        }*/
     }
+
     private void IncWave()
     {
-        if(i + 1 < waves.Length)
+        if (i + 1 < waves.Length)
         {
             i++;
             currentWave = waves[i];
@@ -67,6 +67,7 @@ public class WaveSpawner : MonoBehaviour
         gameManager.instance.nextWave.SetActive(true);
         wavesLeft = waves.Length - 1 - i;
         yield return new WaitForSeconds(waveTimer);
+
         if (gameManager.instance.enemiesRemaining == 0)
         {
             SpawnWave();
@@ -74,6 +75,7 @@ public class WaveSpawner : MonoBehaviour
             gameManager.instance.wave++;
             IncWave();
         }
+
         gameManager.instance.nextWave.SetActive(false);
     }
 }
