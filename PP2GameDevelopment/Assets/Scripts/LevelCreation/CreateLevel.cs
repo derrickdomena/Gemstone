@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.AI.Navigation;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -30,6 +32,7 @@ public class CreateLevel : MonoBehaviour
     GameObject neighbor;
     int roomCount;
 
+
     private Vector2Int index;
     bool generating = false;
     bool isRequired = false;
@@ -41,6 +44,8 @@ public class CreateLevel : MonoBehaviour
     {
         StartCoroutine(SpawnSpawn());
 
+        // Set the layer mask to only include the "Floor" layer.
+
     }
     private void Update()
     {
@@ -51,6 +56,10 @@ public class CreateLevel : MonoBehaviour
         else if (nodes.Count <= 0 && !generating)
         {
             Debug.Log("No nodes");
+        }
+        else if (nodes.Count <= 0 && generating)
+        {
+            gameManager.instance.generated = true;
         }
     }
 
@@ -75,7 +84,7 @@ public class CreateLevel : MonoBehaviour
         {
             Debug.LogWarning("No rooms to instantiate.");
         }
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
         generating = false;
 
     }
@@ -110,7 +119,7 @@ public class CreateLevel : MonoBehaviour
             Debug.Log("No qualified rooms to instantiate.");
         }
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
         generating = false;
     }
 
@@ -142,6 +151,7 @@ public class CreateLevel : MonoBehaviour
 
             neededNodes.Add(GetOppositeNode(currentNode.name));
             noNeighbors.Clear();
+            List<string> neighborsWithoutNode = new List<string>();
 
             foreach (Vector2Int dir in directionsToCheck)
             {
@@ -155,30 +165,51 @@ public class CreateLevel : MonoBehaviour
                     {
                         getNodesInNeighbor(neighbor);
 
+                        // Create a flag to track whether the neighbor has a corresponding node
+                        bool neighborHasNode = false;
+
                         foreach (GameObject node in neighborNodes)
                         {
-                            if (!neededNodes.Contains(node.name))
+                            if (dir == Vector2Int.up && node.name == nodeS)
                             {
-                                if (dir == Vector2Int.up && node.name == nodeS)
-                                {
-                                    neededNodes.Add(GetOppositeNode(node.name));
-                                }
-                                else if (dir == Vector2Int.right && node.name == nodeW)
-                                {
-                                    neededNodes.Add(GetOppositeNode(node.name));
-                                }
-                                else if (dir == Vector2Int.down && node.name == nodeN)
-                                {
-                                    neededNodes.Add(GetOppositeNode(node.name));
-                                }
-                                else if (dir == Vector2Int.left && node.name == nodeE)
-                                {
-                                    neededNodes.Add(GetOppositeNode(node.name));
-                                }
-                                else
-                                {
-                                    continue;
-                                }
+                                neededNodes.Add(GetOppositeNode(node.name));
+                                neighborHasNode = true;
+                            }
+                            else if (dir == Vector2Int.right && node.name == nodeW)
+                            {
+                                neededNodes.Add(GetOppositeNode(node.name));
+                                neighborHasNode = true;
+                            }
+                            else if (dir == Vector2Int.down && node.name == nodeN)
+                            {
+                                neededNodes.Add(GetOppositeNode(node.name));
+                                neighborHasNode = true;
+                            }
+                            else if (dir == Vector2Int.left && node.name == nodeE)
+                            {
+                                neededNodes.Add(GetOppositeNode(node.name));
+                                neighborHasNode = true;
+                            }
+                        }
+
+                        // If the neighbor exists but has no corresponding node, add the node facing it to the list
+                        if (!neighborHasNode)
+                        {
+                            if (dir == Vector2Int.up)
+                            {
+                                neighborsWithoutNode.Add(nodeN);
+                            }
+                            else if (dir == Vector2Int.right)
+                            {
+                                neighborsWithoutNode.Add(nodeE);
+                            }
+                            else if (dir == Vector2Int.down)
+                            {
+                                neighborsWithoutNode.Add(nodeS);
+                            }
+                            else if (dir == Vector2Int.left)
+                            {
+                                neighborsWithoutNode.Add(nodeW);
                             }
                         }
                     }
@@ -211,8 +242,8 @@ public class CreateLevel : MonoBehaviour
             // Clear qualifiedRooms to prepare for new calculation
             qualifiedRooms.Clear();
             bool roomQualifies = false;
-            bool hasNeeded = false;
-            if(roomCount ==1)
+
+            if(roomCount == 1)
             {
                 qualifiedRooms = bobShop;
             }
@@ -221,54 +252,32 @@ public class CreateLevel : MonoBehaviour
 
                 foreach (GameObject room in gameManager.instance.rooms)
                 {
-
                     // Check if the new position is empty in the level array
                     if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
                     {
                         List<String> nodesInRoom = new List<String>();
-                        List<bool> qualifies = new List<bool>();
 
                         foreach (Transform child in room.transform)
                         {
                             if (child.name == nodeN || child.name == nodeE || child.name == nodeS || child.name == nodeW)
                             {
                                 nodesInRoom.Add(child.name);
-
                             }
                         }
 
-                        for(int i = 0; i < neededNodes.Count; i++)
-                        {
-                            for(int j = 0;  j < nodesInRoom.Count; j++)
-                            {
-                                roomQualifies = false;
-                                if (neededNodes[i] == nodesInRoom[j])
-                                {
-                                    roomQualifies = true;
-                                }
-                                qualifies.Add(roomQualifies);
-                            }
-                        }
+                        // The room qualifies if all needed nodes are present in the room
+                        roomQualifies = neededNodes.All(node => nodesInRoom.Contains(node));
 
-                        for(int i = 0; i < qualifies.Count; i++)
-                        {
-                            if (qualifies[i] == false)
-                            {
-                                roomQualifies = false;
-                                continue;
-                            }
-                            else
-                            {
-                                roomQualifies = true;
-                                break;
-                            }
-                        }
+                        // The room does not qualify if it has a node where a neighbor exists but has no node facing the room
+                        roomQualifies &= !neighborsWithoutNode.Any(node => nodesInRoom.Contains(node));
                     }
+
                     if (roomQualifies)
                     {
                         qualifiedRooms.Add(room);
                     }
                 }
+
             }
             else
             {
@@ -277,49 +286,41 @@ public class CreateLevel : MonoBehaviour
                     // Check if the new position is empty in the level array
                     if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
                     {
+                        List<String> nodesInRoom = new List<String>();
+                        List<bool> qualifies = new List<bool>();
+
                         foreach (Transform child in room.transform)
                         {
-                            if (child.name == nodeN && neededNodes.Contains(nodeN))
+
+                            if (child.name == nodeN || child.name == nodeE || child.name == nodeS || child.name == nodeW)
                             {
-                                roomQualifies = true;
-                                continue;
+                                nodesInRoom.Add(child.name);
                             }
-                            else if (child.name == nodeN && !neededNodes.Contains(nodeN))
-                            {
-                                roomQualifies = false;
-                                break;
-                            }
-                            if (child.name == nodeE && neededNodes.Contains(nodeE))
-                            {
-                                roomQualifies = true;
-                                continue;
-                            }
-                            else if (child.name == nodeE && !neededNodes.Contains(nodeE))
-                            {
-                                roomQualifies = false;
-                                break;
-                            }
-                            if (child.name == nodeS && neededNodes.Contains(nodeS))
-                            {
-                                roomQualifies = true;
-                                continue;
-                            }
-                            else if (child.name == nodeS && !neededNodes.Contains(nodeS))
-                            {
-                                roomQualifies = false;
-                                break;
-                            }
-                            if (child.name == nodeW && neededNodes.Contains(nodeW))
-                            {
-                                roomQualifies = true;
-                                continue;
-                            }
-                            else if (child.name == nodeW && !neededNodes.Contains(nodeW))
+                        }
+                        for (int i = 0; i < neededNodes.Count; i++)
+                        {
+                            roomQualifies = nodesInRoom.Contains(neededNodes[i]);
+                            qualifies.Add(roomQualifies);
+                        }
+
+                        roomQualifies = qualifies.All(q => q);
+
+                        foreach (string nodeInRoom in nodesInRoom)
+                        {
+                            if (neighborsWithoutNode.Contains(nodeInRoom))
                             {
                                 roomQualifies = false;
                                 break;
                             }
                         }
+                        // Create copies and sort them
+                        List<string> sortedNeededNodes = new List<string>(neededNodes);
+                        sortedNeededNodes.Sort();
+                        List<string> sortedNodesInRoom = new List<string>(nodesInRoom);
+                        sortedNodesInRoom.Sort();
+
+                        // Compare sorted lists
+                        roomQualifies = sortedNeededNodes.SequenceEqual(sortedNodesInRoom);
                     }
                     if (roomQualifies)
                     {
