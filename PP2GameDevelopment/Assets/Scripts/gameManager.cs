@@ -44,6 +44,9 @@ public class gameManager : MonoBehaviour
     public GameObject wavesLeftCounter;
     public TextMeshProUGUI wavesLeftText;
 
+    public GameObject miniMap;
+    public GameObject fullMap;
+
     [Header("----- Level Stuff -----")]
     public List<GameObject> rooms = new List<GameObject>();
     public GameObject[,] level;
@@ -62,8 +65,9 @@ public class gameManager : MonoBehaviour
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
+    bool isMiniMap;
 
-    
+    KeyCode mapKey = KeyCode.M;
 
     [Header("----SceneStuff----")]
     [SerializeField] int timer;
@@ -109,6 +113,7 @@ public class gameManager : MonoBehaviour
         {
             player.transform.position = playerSpawnPos.transform.position;
         }
+        ShowMap();
     }
 
     //Pause game instance and unlocks cursor to the area of the game
@@ -261,5 +266,22 @@ public class gameManager : MonoBehaviour
         cutscene.SetActive(true);
         yield return new WaitForSeconds(4);
         youLose();
+    }
+
+    // Toggles between the mini-map and the fullsize map
+    void ShowMap()
+    {
+        if (Input.GetKeyDown(mapKey) && !isMiniMap)
+        {
+            miniMap.SetActive(false);
+            fullMap.SetActive(true);
+            isMiniMap = true;
+        }
+        else if (Input.GetKeyDown(mapKey) && isMiniMap)
+        {           
+            miniMap.SetActive(true);
+            fullMap.SetActive(false);
+            isMiniMap = false;
+        }
     }
 }
