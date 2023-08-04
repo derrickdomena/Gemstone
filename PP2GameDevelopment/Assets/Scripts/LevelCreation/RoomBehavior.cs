@@ -9,6 +9,7 @@ public class RoomBehavior : MonoBehaviour
 {
     public float doorSpeed = 1.5f;
     private bool shouldMove = false;
+    public GameObject hiddenRoomIcon;
     AudioSource doorAudioSource;
 
     GameObject doors;
@@ -32,6 +33,7 @@ public class RoomBehavior : MonoBehaviour
         GetDoorsPositions();
         GetSpawner();
         doorAudioSource = GetComponent<AudioSource>();
+        GetHiddenRoomIcon();
     }
 
     void Update()
@@ -162,11 +164,23 @@ public class RoomBehavior : MonoBehaviour
         Camera.main.transform.localPosition = originalPos;
     }
 
+    private void GetHiddenRoomIcon()
+    {
+        foreach (Transform child in gameObject.transform)
+        {
+            if (child.name == "RoomIcon")
+            {
+                hiddenRoomIcon = child.gameObject;
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             shouldMove = true;
+            hiddenRoomIcon.SetActive(false);
         }
     }
 }
