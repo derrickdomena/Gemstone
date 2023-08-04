@@ -17,6 +17,8 @@ public class BossAI : MonoBehaviour, IDamage
     [SerializeField]public GameObject shoot;
     [SerializeField] Collider Phase3Slam;
     [SerializeField] ParticleSystem slam;
+    GameObject spawner;
+    
     
     [Header("Boss Stats")]
     [SerializeField] int moveSpeed;
@@ -51,7 +53,7 @@ public class BossAI : MonoBehaviour, IDamage
     public int phaseCounter = 0;
     float stoppingDistanceOrig;
     float angleToPlayer;
-    bool immuneToDamage;
+    bool immuneToDamage = false;
     bool playerInRange;
     bool isDead;
     bool isSlam;
@@ -69,14 +71,13 @@ public class BossAI : MonoBehaviour, IDamage
         agent = GetComponent<NavMeshAgent>();
         player = gameManager.instance.player;
         m_Renderer = bossPrefab.GetComponent<Renderer>();
+        GetSpawner();
     }
     // Update is called once per frame
     void Update()
     {
         if (!isDead)
         {
-
-
             if (phaseCounter == 1)
             {
                 if (CanSeePlayer())
@@ -90,6 +91,11 @@ public class BossAI : MonoBehaviour, IDamage
             }
             if (phaseCounter == 2)
             {
+                if(gameManager.instance.enemiesRemaining <=0)
+                {
+                    immuneToDamage = false;
+                    agent.GetComponent<SphereCollider>().enabled = true;
+                }
                 if (CanSeePlayer() && !isShoot)
                 {
                     StartCasting();
@@ -160,7 +166,7 @@ public class BossAI : MonoBehaviour, IDamage
         animator.SetBool("isRun", false);
         if (agent.transform.position != phase2Platform.transform.position)
         {
-            agent.transform.position = phase2Platform.transform.position;
+            //agent.transform.position = phase2Platform.transform.position;
             agent.speed = 0;
 
             StartCoroutine(immunityPhase());
@@ -188,9 +194,10 @@ public class BossAI : MonoBehaviour, IDamage
 
     public void TakeDamage(int amount)
     {
-        if (immuneToDamage == true)
+        if(immuneToDamage == true)
         {
-            HealthSystem.Heal(amount);
+            //hes immune
+            return;
         }
         else
         {
@@ -262,22 +269,22 @@ public class BossAI : MonoBehaviour, IDamage
             animator.SetBool("HitToP2", true);
             //uncomment this when we have spider waves
             //Boss will be immune until all enemies are dead
-            //agent.GetComponent<SphereCollider>().enabled = false;    
+            agent.GetComponent<SphereCollider>().enabled = false;
+            spawner.SetActive(true);
             yield return new WaitForSeconds(immuneTimer);
             animator.SetBool("HitToP2", false);
-            immuneToDamage = false;
+            
         }
         else if (phaseCounter == 3)
         {
             animator.SetBool("isAttackP2", false);
-            immuneToDamage = true;
             animator.SetBool("HitToP3", true);
             //uncomment this when we have spider waves
             //Boss will be immune until all enemies are dead
             //agent.GetComponent<SphereCollider>().enabled = false;    
             yield return new WaitForSeconds(immuneTimer);
             animator.SetBool("HitToP3", false);
-            immuneToDamage = false;
+            
         }
     }
     IEnumerator Dead()
@@ -287,18 +294,14 @@ public class BossAI : MonoBehaviour, IDamage
         Destroy(gameObject);
     }
 
-    void Attack()
-    {
-        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            
-            //doDamage();
-        }
-    }
     void Emit()
     {
         Phase3Slam.enabled = true;
         slam.Emit(100);
+    }
+    void colliderEnd()
+    {
+        Phase3Slam.enabled = false;
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -306,7 +309,16 @@ public class BossAI : MonoBehaviour, IDamage
         {
             doDamage();
         }
-        Phase3Slam.enabled = false;
+    }
+    private void GetSpawner()
+    {
+        foreach (Transform child in gameObject.transform)
+        {
+            if (child.name == "Spawner")
+            {
+                spawner = child.gameObject;
+            }
+        }
     }
 
 }
