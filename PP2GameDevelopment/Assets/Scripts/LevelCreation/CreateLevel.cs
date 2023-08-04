@@ -35,7 +35,6 @@ public class CreateLevel : MonoBehaviour
 
     private Vector2Int index;
     bool generating = false;
-    bool isRequired = false;
 
     private void Awake()
     {
@@ -43,8 +42,6 @@ public class CreateLevel : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnSpawn());
-
-        // Set the layer mask to only include the "Floor" layer.
 
     }
     private void Update()

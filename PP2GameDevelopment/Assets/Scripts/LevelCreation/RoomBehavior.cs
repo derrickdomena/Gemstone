@@ -129,13 +129,6 @@ public class RoomBehavior : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            shouldMove = true;
-        }
-    }
 
     public float shakeDuration = 2f; // Duration of the shake in seconds
     public float shakeMagnitude = 0.1f; // Magnitude of the shake
@@ -169,5 +162,11 @@ public class RoomBehavior : MonoBehaviour
         Camera.main.transform.localPosition = originalPos;
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            shouldMove = true;
+        }
+    }
 }
