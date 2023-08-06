@@ -26,6 +26,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
+    [SerializeField] public float dashCooldown;
+    [SerializeField] public float grenadeCooldown;
 
     [Header("----- Gun Stats -----")]
     [SerializeField] public List<GunStats> gunList = new List<GunStats>();
@@ -439,5 +441,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             return false;
         }
     }
+
 }
 

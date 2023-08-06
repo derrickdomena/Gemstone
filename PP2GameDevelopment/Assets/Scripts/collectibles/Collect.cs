@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collect : MonoBehaviour, ICollectible
 {
-    public enum CollectibleTypes { Ammo, Gem, HealthPack}
+    public enum CollectibleTypes { Ammo, Gem, HealthPack, CooldownE, CooldownQ}
 
     public CollectibleTypes CollectibleType;
 
@@ -14,6 +14,8 @@ public class Collect : MonoBehaviour, ICollectible
     [SerializeField] public int ammoAmount;
     [SerializeField] public int healingAmount ;
     [SerializeField] public int gemAmount;
+    [SerializeField] public float cooldownQAmount;
+    [SerializeField] public float cooldownEAmount;
     [SerializeField] CollectibleDrops dropItem;
 
     public GameObject collectEffect;
@@ -77,6 +79,12 @@ public class Collect : MonoBehaviour, ICollectible
                     GiveHP(healingAmount);
                 }
                 break;
+            case 3:
+                ReduceECooldown(cooldownEAmount);
+                break;
+            case 4:
+                ReduceQCooldown(cooldownQAmount);
+                break;
         }
         Destroy(gameObject);
 
@@ -100,5 +108,15 @@ public class Collect : MonoBehaviour, ICollectible
     public void GiveGem(int amount)
     {
         gameManager.instance.updateGemCount(amount);
-    }    
+    }
+
+    public void ReduceECooldown(float amount)
+    {
+        gameManager.instance.player.GetComponent<DashAbility>().UpdateCooldownDash(amount);
+    }
+
+    public void ReduceQCooldown(float amount)
+    {
+        gameManager.instance.player.GetComponent<GrenadeAbility>().UpdateCooldownGrenade(amount);
+    }
 }

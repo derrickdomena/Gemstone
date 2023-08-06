@@ -12,4 +12,10 @@ public interface ICollectible
     void GiveAmmo(int amount1);
     //hp
     void GiveHP(int amount2);
+    //E Cooldown
+    public void ReduceECooldown(float amount);
+    //Q Cooldown
+    public void ReduceQCooldown(float amount);
+
+
 }

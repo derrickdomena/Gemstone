@@ -11,7 +11,7 @@ public class DashAbility : MonoBehaviour
     [Header("----- Dash Stats -----")]
     [SerializeField] float dashSpeed;
     [SerializeField] float dashTime;
-    [SerializeField] float dashCooldownTime;
+    //[SerializeField] public float dashCooldownTime;
 
     public KeyCode dashKey = KeyCode.E;
 
@@ -56,7 +56,7 @@ public class DashAbility : MonoBehaviour
         // When canDash is true, start incrementing the dash ability image fill amount
         if (canDash)
         {
-            gameManager.instance.dashCooldownFill.fillAmount += 1 / dashCooldownTime * Time.deltaTime;
+            gameManager.instance.dashCooldownFill.fillAmount += 1 / gameManager.instance.playerScript.dashCooldown * Time.deltaTime;
 
             // When image fill amount is equal to one, set canThrow to false
             if (gameManager.instance.dashCooldownFill.fillAmount == 1)
@@ -64,5 +64,12 @@ public class DashAbility : MonoBehaviour
                 canDash = false;
             }
         }
+    }
+
+    public void UpdateCooldownDash(float time)
+    {
+        gameManager.instance.playerScript.dashCooldown = gameManager.instance.playerScript.dashCooldown - time;
+        canDash = true;
+        UpdateDashUI();
     }
 }

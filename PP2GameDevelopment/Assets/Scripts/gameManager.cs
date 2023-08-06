@@ -210,6 +210,7 @@ public class gameManager : MonoBehaviour
         gemCount = playerScript.gems;
         gemText.text = gemCount.ToString("F0");
     }
+
     
     //sets active menu to shop
     public void Vendor()

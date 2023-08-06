@@ -24,6 +24,12 @@ public class CollectibleDrops : ScriptableObject
             case 2:
                 drops = Collect.CollectibleTypes.HealthPack;
                 break;
+            case 3:
+                drops = Collect.CollectibleTypes.CooldownE;
+                break;
+            case 4:
+                drops = Collect.CollectibleTypes.CooldownQ;
+                break;
         }
         return drops;
     }

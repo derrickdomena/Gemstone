@@ -11,7 +11,7 @@ public class GrenadeAbility : MonoBehaviour
     [Header("----- Throw Stats -----")]
     [SerializeField] float throwForce;
     [SerializeField] float throwUpwardForce;
-    [SerializeField] float throwCooldownTime;
+    //[SerializeField] public float throwCooldownTime;
 
     public KeyCode grenadeKey = KeyCode.Q;
     bool canThrow;
@@ -58,7 +58,7 @@ public class GrenadeAbility : MonoBehaviour
         // When canThrow is true, start incrementing the grenade ability image fill amount
         if (canThrow)
         {
-            gameManager.instance.grenadeCooldownFill.fillAmount += 1 / throwCooldownTime * Time.deltaTime;
+            gameManager.instance.grenadeCooldownFill.fillAmount += 1 / gameManager.instance.playerScript.grenadeCooldown * Time.deltaTime;
 
             // When image fill amount is equal to one, set canThrow to false
             if (gameManager.instance.grenadeCooldownFill.fillAmount == 1)
@@ -66,5 +66,12 @@ public class GrenadeAbility : MonoBehaviour
                 canThrow = false;
             }
         }
+    }
+
+    public void UpdateCooldownGrenade(float time)
+    {
+        gameManager.instance.playerScript.grenadeCooldown = gameManager.instance.playerScript.grenadeCooldown - time;
+        canThrow = true;
+        UpdateGrenadeUI();
     }
 }
