@@ -133,7 +133,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = !isPaused;
         activeMenu.SetActive(false);
-        activeMenu = null;
+        StartCoroutine(WaitForFrame());    
     }
 
     public void enemyCheckIn()
@@ -284,5 +284,10 @@ public class gameManager : MonoBehaviour
             fullMap.SetActive(false);
             isMiniMap = false;
         }
+    }
+    IEnumerator WaitForFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        activeMenu = null;
     }
 }

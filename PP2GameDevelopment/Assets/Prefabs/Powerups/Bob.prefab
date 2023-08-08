@@ -580,8 +580,8 @@ GameObject:
   - component: {fileID: 3604491109016248374}
   - component: {fileID: 4705542557516738745}
   - component: {fileID: 6144029732060793694}
-  - component: {fileID: 1669509721326033123}
   - component: {fileID: 7147919088510489225}
+  - component: {fileID: 3942844819628613596}
   m_Layer: 0
   m_Name: Bob
   m_TagString: Untagged
@@ -604,7 +604,7 @@ Transform:
   - {fileID: 3887204466506389009}
   - {fileID: 8406290992267142921}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4705542557516738745
 MonoBehaviour:
@@ -639,27 +639,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &1669509721326033123
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6022385691603583392}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4, y: 4, z: 4}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &7147919088510489225
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -683,6 +662,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3942844819628613596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022385691603583392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21250d14ac04885498f909d715cf098b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6931768182847811848
 GameObject:
   m_ObjectHideFlags: 0
