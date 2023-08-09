@@ -101,6 +101,7 @@ public class Collect : MonoBehaviour, ICollectible
     public void GiveHP(int amount)
     {      
         gameManager.instance.playerScript.hp += amount;
+        gameManager.instance.playerScript.hpOrig += amount;       
         gameManager.instance.playerScript.UpdatePlayerUI();
     }
 

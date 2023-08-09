@@ -100,7 +100,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     private void Start()
     {
         reloadTutorial = true;
-        hpOrig = hp; 
+        hpOrig = hp;        
         SpawnPlayer();
         gameManager.instance.Health.text = hp.ToString();
         gameManager.instance.HealthMax.text = hpOrig.ToString();
@@ -258,7 +258,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Updates the Player UI health
     public void UpdatePlayerUI()
-    {
+    {       
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
         gameManager.instance.Health.text = hp.ToString();
         gameManager.instance.HealthMax.text = hpOrig.ToString();
