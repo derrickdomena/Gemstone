@@ -72,6 +72,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Health
     public int hpOrig;
     public int gems;
+    public bool immune;
     // Movement
     [HideInInspector]
     public Vector3 move;
@@ -236,6 +237,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Apply Damage done by Enemies
     public void TakeDamage(int amount)
     {
+        if (immune == true) { return; }
         hp -= amount;
         StartCoroutine(gameManager.instance.playerFlashDamage());
         UpdatePlayerUI();
@@ -446,6 +448,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             return false;
         }
     }
-
+    public void Immune(bool var)
+    {
+        immune = var;
+    }
 }
 

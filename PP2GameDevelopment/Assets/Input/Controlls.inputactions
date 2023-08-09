@@ -1,0 +1,34 @@
+{
+    "name": "Controlls",
+    "maps": [
+        {
+            "name": "Developer",
+            "id": "c2f7b5b1-4187-4291-a668-fc501a4f1839",
+            "actions": [
+                {
+                    "name": "Toggle Canvas",
+                    "type": "Button",
+                    "id": "452f000d-1ccd-4828-820f-c5fd8578b8ae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1a8c4dd6-3107-442f-93f5-fb77d9a64e10",
+                    "path": "<Keyboard>/#(])",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Canvas",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

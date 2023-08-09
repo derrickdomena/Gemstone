@@ -48,7 +48,6 @@ public class BossAI : MonoBehaviour, IDamage
 
     Vector3 playerDir;
     GameObject player;
-    bool isMelee;
     bool isShoot;
     public int phaseCounter = 0;
     float stoppingDistanceOrig;
@@ -56,7 +55,7 @@ public class BossAI : MonoBehaviour, IDamage
     bool immuneToDamage = false;
     bool playerInRange;
     bool isDead;
-    bool isSlam;
+   
 
 
 
@@ -207,7 +206,7 @@ public class BossAI : MonoBehaviour, IDamage
 
     IEnumerator Slam()
     {
-        isSlam = true;
+       
         animator.SetBool("isAttackP3", true);
         yield return new WaitForSeconds(slamTimer);
         animator.SetBool("isAttackP3", false);
@@ -215,10 +214,8 @@ public class BossAI : MonoBehaviour, IDamage
     }
     IEnumerator Melee()
     {
-        isMelee = true;
         animator.SetBool("isAttack", true);
         yield return new WaitForSeconds(meleeTimer);
-        isMelee = false;
         animator.SetBool("isAttack", false);
     }
     public void InstantiateMagicShot()

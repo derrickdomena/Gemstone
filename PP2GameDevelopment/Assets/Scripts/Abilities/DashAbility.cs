@@ -46,7 +46,8 @@ public class DashAbility : MonoBehaviour
     void UpdateDashUI()
     {
         // When the dashKey is pressed and canDash is true, set dash ability UI to zero and start the startcoroutine Dash() and set canDash to true
-        if (Input.GetKeyDown(dashKey) && !canDash)
+        // also checks to see if the game is paused
+        if (Input.GetKeyDown(dashKey) && !canDash && Time.timeScale != 0)
         {
             gameManager.instance.dashCooldownFill.fillAmount = 0;
             StartCoroutine(Dash());
