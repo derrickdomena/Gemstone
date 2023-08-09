@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
 
     private Renderer[] model;
-    bool playerInRange;
+    public bool playerInRange;
     bool destinationChosen;
     float angleToPlayer;
     bool isShooting;
@@ -112,6 +112,8 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     IEnumerator Melee()
     {
+        //added trigger for spider. much easier then bool. didnt touch the bool because that would break all of the enemies
+        animator.SetTrigger("isAttack");
         animator.SetBool("isAttack", true);
         yield return new WaitForSeconds(shootRate);
         animator.SetBool("isAttack", false);   
