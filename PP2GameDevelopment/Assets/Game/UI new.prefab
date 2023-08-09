@@ -10439,7 +10439,7 @@ RectTransform:
   - {fileID: 1129483497082278296}
   - {fileID: 7451660462757441798}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10528,6 +10528,7 @@ MonoBehaviour:
   enemiesRemaining: 0
   enemiesInScene: 0
   wave: 0
+  isMiniMap: 0
   timer: 10
 --- !u!114 &4390557557170179374
 MonoBehaviour:

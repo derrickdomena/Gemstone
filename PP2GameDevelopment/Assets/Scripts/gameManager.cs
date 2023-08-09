@@ -67,7 +67,7 @@ public class gameManager : MonoBehaviour
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
-    bool isMiniMap;
+    public bool isMiniMap;
 
     KeyCode mapKey = KeyCode.M;
 
