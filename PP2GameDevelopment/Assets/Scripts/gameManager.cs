@@ -27,6 +27,8 @@ public class gameManager : MonoBehaviour
     public GameObject playerFlashDamageScreen;
     public TextMeshProUGUI ammoCur;
     public TextMeshProUGUI ammoReserve;
+    public TextMeshProUGUI HealthMax;
+    public TextMeshProUGUI Health;
     public GameObject reload;
     public GameObject nextWave;
     public Image gem;
@@ -65,7 +67,7 @@ public class gameManager : MonoBehaviour
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
-    bool isMiniMap;
+    public bool isMiniMap;
 
     KeyCode mapKey = KeyCode.M;
 

@@ -5,10 +5,23 @@ using UnityEngine;
 public class Minimap : MonoBehaviour
 {
     Transform player;
+    public Camera cam;
 
     private void Start()
     {
         player = gameManager.instance.player.transform;
+    }
+
+    private void Update()
+    {
+        if (gameManager.instance.isMiniMap)
+        {
+            cam.orthographicSize = 100;
+        }
+        else
+        {
+            cam.orthographicSize = 25;
+        } 
     }
 
     private void LateUpdate()

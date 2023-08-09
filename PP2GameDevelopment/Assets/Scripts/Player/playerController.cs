@@ -103,6 +103,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         reloadTutorial = true;
         hpOrig = hp; 
         SpawnPlayer();
+        gameManager.instance.Health.text = hp.ToString();
+        gameManager.instance.HealthMax.text = hpOrig.ToString();
     }
 
     // Update is called once per frame
@@ -260,6 +262,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     public void UpdatePlayerUI()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
+        gameManager.instance.Health.text = hp.ToString();
+        gameManager.instance.HealthMax.text = hpOrig.ToString();
+
         if (gunList.Count > 0)
         {
             gameManager.instance.ammoCur.text = gunList[selectedGun].ammoCurr.ToString("f0");
