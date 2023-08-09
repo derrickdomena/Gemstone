@@ -48,7 +48,8 @@ public class GrenadeAbility : MonoBehaviour
     void UpdateGrenadeUI()
     {
         // When grenadeKey is pressed and canThrow is true, you can throw a grenade
-        if (Input.GetKeyDown(grenadeKey) && !canThrow)
+        // also checks to see if the game is paused
+        if (Input.GetKeyDown(grenadeKey) && !canThrow && Time.timeScale != 0)
         {
             gameManager.instance.grenadeCooldownFill.fillAmount = 0;
             ThrowGrenade();
