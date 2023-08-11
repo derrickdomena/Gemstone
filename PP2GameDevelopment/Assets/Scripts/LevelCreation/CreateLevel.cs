@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.AI.Navigation;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CreateLevel : MonoBehaviour
@@ -35,7 +33,7 @@ public class CreateLevel : MonoBehaviour
 
     private Vector2Int index;
     bool generating = false;
-
+    bool bossRoom = false;
     private void Awake()
     {
     }
@@ -275,6 +273,56 @@ public class CreateLevel : MonoBehaviour
                     }
                 }
 
+            }
+            else if (roomCount >= maxRooms && !bossRoom)
+            {
+                bossRoom = true;
+                foreach (GameObject room in gameManager.instance.BossRooms)
+                {
+                    // Check if the new position is empty in the level array
+                    if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
+                    {
+                        List<String> nodesInRoom = new List<String>();
+                        List<bool> qualifies = new List<bool>();
+
+                        foreach (Transform child in room.transform)
+                        {
+
+                            if (child.name == nodeN || child.name == nodeE || child.name == nodeS || child.name == nodeW)
+                            {
+                                nodesInRoom.Add(child.name);
+                            }
+                        }
+                        for (int i = 0; i < neededNodes.Count; i++)
+                        {
+                            roomQualifies = nodesInRoom.Contains(neededNodes[i]);
+                            qualifies.Add(roomQualifies);
+                        }
+
+                        roomQualifies = qualifies.All(q => q);
+
+                        foreach (string nodeInRoom in nodesInRoom)
+                        {
+                            if (neighborsWithoutNode.Contains(nodeInRoom))
+                            {
+                                roomQualifies = false;
+                                break;
+                            }
+                        }
+                        // Create copies and sort them
+                        List<string> sortedNeededNodes = new List<string>(neededNodes);
+                        sortedNeededNodes.Sort();
+                        List<string> sortedNodesInRoom = new List<string>(nodesInRoom);
+                        sortedNodesInRoom.Sort();
+
+                        // Compare sorted lists
+                        roomQualifies = sortedNeededNodes.SequenceEqual(sortedNodesInRoom);
+                    }
+                    if (roomQualifies)
+                    {
+                        qualifiedRooms.Add(room);
+                    }
+                }
             }
             else
             {
