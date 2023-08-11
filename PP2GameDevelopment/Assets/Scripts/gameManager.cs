@@ -54,6 +54,7 @@ public class gameManager : MonoBehaviour
     public GameObject[,] level;
     public int maxRooms = 10;
     public List<GameObject> capRooms = new List<GameObject>();
+    public List<GameObject> BossRooms = new List<GameObject>();
     public bool generated = false;
 
     [Header("----- Spawner Stuff -----")]

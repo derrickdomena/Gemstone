@@ -22,9 +22,10 @@ public class RoomBehavior : MonoBehaviour
     bool played = false;
     bool enemiesTriggered = false;
     bool eventDone = false;
-
+    bool doorsClosed = false;
     private void Awake()
     {
+
     }
     void Start()
     {
@@ -43,7 +44,7 @@ public class RoomBehavior : MonoBehaviour
              
             doors.SetActive(true);
             dust.SetActive(true);
-            StartCoroutine(Shake());
+
             doors.transform.position = Vector3.Lerp(doors.transform.position, doorClosePOS, Time.deltaTime * doorSpeed);
             if (!doorAudioSource.isPlaying && !played)
             {
@@ -63,10 +64,11 @@ public class RoomBehavior : MonoBehaviour
             }
         }
 
-        if (enemiesTriggered && gameManager.instance.enemiesRemaining == 0)
-        {           
+        if (enemiesTriggered && gameManager.instance.enemiesRemaining == 0 && !doorsClosed)
+        {
+
             dust.SetActive(true);
-            StartCoroutine(Shake());
+
             doors.transform.position = Vector3.Lerp(doors.transform.position, doorOpenPOS, Time.deltaTime * doorSpeed);
             if (!doorAudioSource.isPlaying && !played)
             {
@@ -81,6 +83,7 @@ public class RoomBehavior : MonoBehaviour
             {
                 doors.SetActive(false);
                 enemiesTriggered = false;
+                doorsClosed = true;
             }           
         }
     }
@@ -129,39 +132,6 @@ public class RoomBehavior : MonoBehaviour
                 dust = child.gameObject;
             }
         }
-    }
-
-
-    public float shakeDuration = 2f; // Duration of the shake in seconds
-    public float shakeMagnitude = 0.1f; // Magnitude of the shake
-
-    public IEnumerator Shake()
-    {
-        Vector3 originalPos = Camera.main.transform.localPosition;
-
-        float totalDistanceToTravel = Vector3.Distance(doors.transform.position, doorClosePOS);
-        float currentShakeMagnitude = shakeMagnitude;
-
-        while (shouldMove)
-        {
-            float x = UnityEngine.Random.Range(-1f, 1f) * currentShakeMagnitude;
-            float y = UnityEngine.Random.Range(-1f, 1f) * currentShakeMagnitude;
-
-            Camera.main.transform.localPosition = originalPos + new Vector3(x, y, 0);
-
-            // Calculate the remaining distance to travel
-            float remainingDistance = Vector3.Distance(doors.transform.position, doorClosePOS);
-
-            // Use remaining distance to total distance ratio to calculate dampening
-            float dampeningFactor = remainingDistance / totalDistanceToTravel;
-
-            // Apply the dampening factor using smooth step interpolation
-            currentShakeMagnitude = Mathf.Lerp(0, shakeMagnitude, dampeningFactor * dampeningFactor * (3.0f - 2.0f * dampeningFactor));
-
-            yield return null;
-        }
-
-        Camera.main.transform.localPosition = originalPos;
     }
 
     private void GetHiddenRoomIcon()
