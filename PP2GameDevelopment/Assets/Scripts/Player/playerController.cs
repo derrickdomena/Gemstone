@@ -22,17 +22,23 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Movement
     [SerializeField] public float walkSpeed;
-    [SerializeField] float sprintSpeed;
+    [SerializeField] public float sprintSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
     [SerializeField] public float dashCooldown;
     [SerializeField] public float grenadeCooldown;
 
+    // Other Stats
+    [SerializeField] public float critChance;
+    [SerializeField] public int dashCount;
+
+
     [Header("----- Gun Stats -----")]
     [SerializeField] public List<GunStats> gunList = new List<GunStats>();
     [SerializeField] float shootRate;
     [SerializeField] public int shootDamage;
+    [SerializeField] public int shootDamageOrig;
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
@@ -71,6 +77,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Health
     public int hpOrig;
+    public int hpMax;
     public int gems;
     public bool immune;
     // Movement
@@ -101,10 +108,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     private void Start()
     {
         reloadTutorial = true;
-        hpOrig = hp;        
+        hpOrig = hp;
+        shootDamageOrig = shootDamage;
         SpawnPlayer();
         gameManager.instance.Health.text = hp.ToString();
         gameManager.instance.HealthMax.text = hpOrig.ToString();
+        dashCount = 1;
     }
 
     // Update is called once per frame
@@ -452,5 +461,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         immune = var;
     }
+
 }
 

@@ -11,10 +11,12 @@ public class DashAbility : MonoBehaviour
     [Header("----- Dash Stats -----")]
     [SerializeField] float dashSpeed;
     [SerializeField] float dashTime;
+    
     //[SerializeField] public float dashCooldownTime;
 
     public KeyCode dashKey = KeyCode.E;
 
+    public int remainingDashes;
     bool canDash;
 
     // Start is called before the first frame update
@@ -22,6 +24,7 @@ public class DashAbility : MonoBehaviour
     {
         playerScript = GetComponent<playerController>();
         gameManager.instance.dashCooldownFill.fillAmount = 1;
+        remainingDashes = 1;
     }
 
     // Update is called once per frame
@@ -42,16 +45,31 @@ public class DashAbility : MonoBehaviour
         }
     }
 
+    IEnumerator DashCooldown()
+    {
+        yield return new WaitForSeconds(gameManager.instance.playerScript.dashCooldown);
+        remainingDashes++;
+    }
+
     // Updates the Dash ability UI image fill amount
     void UpdateDashUI()
     {
         // When the dashKey is pressed and canDash is true, set dash ability UI to zero and start the startcoroutine Dash() and set canDash to true
         // also checks to see if the game is paused
-        if (Input.GetKeyDown(dashKey) && !canDash && Time.timeScale != 0)
+        if (Input.GetKeyDown(dashKey) && !canDash && Time.timeScale != 0 && remainingDashes != 0)
         {
-            gameManager.instance.dashCooldownFill.fillAmount = 0;
             StartCoroutine(Dash());
-            canDash = true;
+            remainingDashes--;
+
+            if (remainingDashes < gameManager.instance.playerScript.dashCount && canDash == false)
+            {
+                StartCoroutine(DashCooldown());
+            }
+            if (remainingDashes == 0)
+            {
+                gameManager.instance.dashCooldownFill.fillAmount = 0;
+                canDash = true;
+            }
         }
 
         // When canDash is true, start incrementing the dash ability image fill amount
@@ -69,8 +87,16 @@ public class DashAbility : MonoBehaviour
 
     public void UpdateCooldownDash(float time)
     {
-        gameManager.instance.playerScript.dashCooldown = gameManager.instance.playerScript.dashCooldown - time;
-        canDash = true;
+        if(gameManager.instance.playerScript.dashCooldown != 0)
+        {
+            gameManager.instance.playerScript.dashCooldown = gameManager.instance.playerScript.dashCooldown - time;
+            canDash = true;
+        }
         UpdateDashUI();
+    }
+
+    public void IncreaseDashDistance(float time)
+    {
+        dashTime += time;
     }
 }

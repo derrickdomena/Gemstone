@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collect : MonoBehaviour, ICollectible
 {
-    public enum CollectibleTypes { Ammo, Gem, HealthPack, CooldownE, CooldownQ}
+    public enum CollectibleTypes { Ammo, Gem, HealthPack, CooldownE, CooldownQ, MaxHPUp, MaxSpeedUp, CritUp, DashUp}
 
     public CollectibleTypes CollectibleType;
 
@@ -12,10 +12,18 @@ public class Collect : MonoBehaviour, ICollectible
     public float rotationSpeed;
 
     [SerializeField] public int ammoAmount;
-    [SerializeField] public int healingAmount ;
+    [SerializeField] public float healingAmount;
     [SerializeField] public int gemAmount;
     [SerializeField] public float cooldownQAmount;
     [SerializeField] public float cooldownEAmount;
+    [SerializeField] public float maxHPAddition;
+    [SerializeField] public float walkSpeedUp;
+    [SerializeField] public float sprintSpeedUp;
+    [SerializeField] public float critChance;
+    [SerializeField] public float critDam;
+    [SerializeField] public int addDashes;
+    [SerializeField] public float dashTime;
+
     [SerializeField] CollectibleDrops dropItem;
 
     public GameObject collectEffect;
@@ -76,7 +84,7 @@ public class Collect : MonoBehaviour, ICollectible
                 }
                 else
                 {
-                    GiveHP(healingAmount);
+                    GiveHP((int)healingAmount);
                 }
                 break;
             case 3:
@@ -85,10 +93,20 @@ public class Collect : MonoBehaviour, ICollectible
             case 4:
                 ReduceQCooldown(cooldownQAmount);
                 break;
+            case 5:
+                MaxHPUp(maxHPAddition, healingAmount);
+                break;
+            case 6:
+                PlayerSpeedUp(walkSpeedUp, sprintSpeedUp); 
+                break;
+            case 7:
+                CritChanceUp(critChance, critDam);
+                break;
+            case 8:
+                DashUp(addDashes, dashTime);
+                break;
         }
         Destroy(gameObject);
-
-
     }
     // When ammo pack is picked up, increases ammoReserve
     public void GiveAmmo(int amount)
@@ -118,6 +136,37 @@ public class Collect : MonoBehaviour, ICollectible
 
     public void ReduceQCooldown(float amount)
     {
-        gameManager.instance.player.GetComponent<GrenadeAbility>().UpdateCooldownGrenade(amount);
+        gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownGrenade(amount);
+    }
+
+    public void MaxHPUp(float increase, float heal)
+    {
+        float temp = gameManager.instance.playerScript.hpMax * increase;
+        gameManager.instance.playerScript.hpMax = (int)temp;
+        gameManager.instance.playerScript.hp += (int)(gameManager.instance.playerScript.hpMax * heal);
+        gameManager.instance.playerScript.UpdatePlayerUI();
+    }
+
+    public void PlayerSpeedUp(float speed, float sprint)
+    {
+        float tempSpd = gameManager.instance.playerScript.walkSpeed * speed;
+        float tempSpt = gameManager.instance.playerScript.sprintSpeed * sprint;
+        gameManager.instance.playerScript.walkSpeed = (int)tempSpd;
+        gameManager.instance.playerScript.sprintSpeed = (int)tempSpt;
+    }
+
+    public void CritChanceUp(float chance, float dam)
+    {
+        gameManager.instance.playerScript.critChance += chance;
+        float tempDam = Mathf.Pow(gameManager.instance.playerScript.shootDamageOrig, (1 + dam));
+        gameManager.instance.playerScript.shootDamage = (int)tempDam;
+
+    }
+
+    public void DashUp(int uses, float time)
+    {
+        gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(time);
+        gameManager.instance.playerScript.dashCount += uses;
+        gameManager.instance.player.GetComponent<DashAbility>().remainingDashes += uses;
     }
 }

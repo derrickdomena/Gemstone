@@ -30,6 +30,18 @@ public class CollectibleDrops : ScriptableObject
             case 4:
                 drops = Collect.CollectibleTypes.CooldownQ;
                 break;
+            case 5:
+                drops = Collect.CollectibleTypes.MaxHPUp;
+                break;
+            case 6:
+                drops = Collect.CollectibleTypes.MaxSpeedUp;
+                break;
+            case 7:
+                drops = Collect.CollectibleTypes.CritUp;
+                break;
+            case 8:
+                drops = Collect.CollectibleTypes.DashUp;
+                break;
         }
         return drops;
     }
