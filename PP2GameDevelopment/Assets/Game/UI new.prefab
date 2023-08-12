@@ -59,7 +59,7 @@ RectTransform:
   - {fileID: 6263932213904284847}
   - {fileID: 2145035252864108719}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   - {fileID: 7669669440044474057, guid: b2db9a5d06ab5b3498a617485389981f, type: 3}
   - {fileID: 2242103425272116653, guid: f7aa496aef0553040996c4e2a41d4877, type: 3}
   - {fileID: 1129272615379042386, guid: bd149d6a412707140a5aa0c909f29eeb, type: 3}
-  maxRooms: 6
+  maxRooms: 2
   capRooms:
   - {fileID: 3728709022863105342, guid: df1cb5e54769e3b4c90ea9fd12c2542b, type: 3}
   - {fileID: 3350449616178979540, guid: ba2753e6c6d55aa42ad8a3c93cab43b3, type: 3}
@@ -141,6 +141,7 @@ MonoBehaviour:
   - {fileID: 1392044972996809283, guid: 59753fd6d6e6ad44d96c123a5c0f398d, type: 3}
   - {fileID: 1669683493361281052, guid: 61a6f9c507310784e9b2db5d89882952, type: 3}
   - {fileID: 3127914071226717813, guid: 34cc363a08d33da46b057ab098e0e096, type: 3}
+  roomCount: 0
   generated: 0
   waveTimer: 0
   enemiesPerWave: 5

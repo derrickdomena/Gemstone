@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ public class CreateLevel : MonoBehaviour
     private List<GameObject> qualifiedRooms = new List<GameObject>();
     private List<GameObject> nodes = new List<GameObject>();
     private List<GameObject> neighborNodes = new List<GameObject>();
-    private List<String> noNeighbors = new List<String>();
+    private List<string> noNeighbors = new List<string>();
     public  List<GameObject> bobShop = new List<GameObject>();
 
     //Nodes to find
@@ -30,9 +31,9 @@ public class CreateLevel : MonoBehaviour
     GameObject neighbor;
     int roomCount;
 
-
     private Vector2Int index;
     bool generating = false;
+    bool roomCountSet = false;
     bool bossRoom = false;
     private void Awake()
     {
@@ -44,6 +45,12 @@ public class CreateLevel : MonoBehaviour
     }
     private void Update()
     {
+        if(gameManager.instance.generated == true && !roomCountSet)
+        {
+            roomCountSet = true;
+            gameManager.instance.roomCount = roomCount;
+        }
+
         if (nodes.Count > 0 && !generating)
         {
             StartCoroutine(Generate());
@@ -242,47 +249,14 @@ public class CreateLevel : MonoBehaviour
             {
                 qualifiedRooms = bobShop;
             }
-            else if (roomCount < maxRooms)
+            else if (roomCount == 2)
             {
-
-                foreach (GameObject room in gameManager.instance.rooms)
-                {
-                    // Check if the new position is empty in the level array
-                    if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
-                    {
-                        List<String> nodesInRoom = new List<String>();
-
-                        foreach (Transform child in room.transform)
-                        {
-                            if (child.name == nodeN || child.name == nodeE || child.name == nodeS || child.name == nodeW)
-                            {
-                                nodesInRoom.Add(child.name);
-                            }
-                        }
-
-                        // The room qualifies if all needed nodes are present in the room
-                        roomQualifies = neededNodes.All(node => nodesInRoom.Contains(node));
-
-                        // The room does not qualify if it has a node where a neighbor exists but has no node facing the room
-                        roomQualifies &= !neighborsWithoutNode.Any(node => nodesInRoom.Contains(node));
-                    }
-
-                    if (roomQualifies)
-                    {
-                        qualifiedRooms.Add(room);
-                    }
-                }
-
-            }
-            else if (roomCount >= maxRooms && !bossRoom)
-            {
-                bossRoom = true;
                 foreach (GameObject room in gameManager.instance.BossRooms)
                 {
                     // Check if the new position is empty in the level array
                     if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
                     {
-                        List<String> nodesInRoom = new List<String>();
+                        List<string> nodesInRoom = new List<string>();
                         List<bool> qualifies = new List<bool>();
 
                         foreach (Transform child in room.transform)
@@ -324,6 +298,38 @@ public class CreateLevel : MonoBehaviour
                     }
                 }
             }
+            else if (roomCount < maxRooms)
+            {
+
+                foreach (GameObject room in gameManager.instance.rooms)
+                {
+                    // Check if the new position is empty in the level array
+                    if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
+                    {
+                        List<string> nodesInRoom = new List<string>();
+
+                        foreach (Transform child in room.transform)
+                        {
+                            if (child.name == nodeN || child.name == nodeE || child.name == nodeS || child.name == nodeW)
+                            {
+                                nodesInRoom.Add(child.name);
+                            }
+                        }
+
+                        // The room qualifies if all needed nodes are present in the room
+                        roomQualifies = neededNodes.All(node => nodesInRoom.Contains(node));
+
+                        // The room does not qualify if it has a node where a neighbor exists but has no node facing the room
+                        roomQualifies &= !neighborsWithoutNode.Any(node => nodesInRoom.Contains(node));
+                    }
+
+                    if (roomQualifies)
+                    {
+                        qualifiedRooms.Add(room);
+                    }
+                }
+
+            }
             else
             {
                 foreach (GameObject room in gameManager.instance.capRooms)
@@ -331,7 +337,7 @@ public class CreateLevel : MonoBehaviour
                     // Check if the new position is empty in the level array
                     if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
                     {
-                        List<String> nodesInRoom = new List<String>();
+                        List<string> nodesInRoom = new List<String>();
                         List<bool> qualifies = new List<bool>();
 
                         foreach (Transform child in room.transform)
@@ -393,6 +399,8 @@ public class CreateLevel : MonoBehaviour
             }
         }
     }
+
+
     private Vector2Int GetOppositeDirection(Vector2Int direction)
     {
         if (direction == Vector2Int.up) return Vector2Int.down;
