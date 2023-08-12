@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7074247712644089510
 MonoBehaviour:
@@ -46,7 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRooms: 5
   spawnRooms:
-  - {fileID: 1368601557080989639, guid: df1cb5e54769e3b4c90ea9fd12c2542b, type: 3}
+  - {fileID: 3216794082578013418, guid: 71bff847cfe4dc5499f5c59af7fa4f77, type: 3}
+  bobShop:
+  - {fileID: 8895215920565237165, guid: aec5e8cc4e3547d40bf70055335538b6, type: 3}
   hasDoorN: 0
   hasDoorE: 0
   hasDoorS: 0
