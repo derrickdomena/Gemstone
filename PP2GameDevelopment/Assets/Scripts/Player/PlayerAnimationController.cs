@@ -41,6 +41,7 @@ public class PlayerAnimationController : MonoBehaviour
         bool strafeRight = Input.GetKey(KeyCode.D);
         bool walkingBackward = Input.GetKey(KeyCode.S);
 
+        /////////////////////////////////////////////////////////
         // Forward Walk
         if (!isWalkingForward && walkingForward)
         {
@@ -53,27 +54,28 @@ public class PlayerAnimationController : MonoBehaviour
         }
 
         // Forward Left Walk
-        if (!isWalkingForwardLeft && strafeLeft)
-        {
-            animator.SetBool("isWalkingForwardLeft", true);
+        if (!isWalkingForwardLeft && walkingForward && strafeLeft)
+        {                     
+            animator.SetBool("isWalkingForwardLeft", true);        
         }
 
-        if (isWalkingForwardLeft && !strafeLeft)
+        if (isWalkingForwardLeft && !walkingForward || !strafeLeft)
         {
             animator.SetBool("isWalkingForwardLeft", false);
         }
 
         // Forward Right Walk
-        if (!isWalkingForwardRight && strafeRight)
+        if (!isWalkingForwardRight && walkingForward && strafeRight)
         {
             animator.SetBool("isWalkingForwardRight", true);
         }
 
-        if (isWalkingForwardRight && !strafeRight)
+        if (isWalkingForwardRight && !walkingForward || !strafeRight)
         {
             animator.SetBool("isWalkingForwardRight", false);
         }
 
+        /////////////////////////////////////////////////////////
         // Backward Walk
         if (!isWalkingBackward && walkingBackward)
         {
@@ -86,45 +88,46 @@ public class PlayerAnimationController : MonoBehaviour
         }
 
         // Backward Walk Left
-        if (!isWalkingBackwardLeft && strafeLeft)
+        if (!isWalkingBackwardLeft && walkingBackward && strafeLeft)
         {
             animator.SetBool("isWalkingBackwardLeft", true);
         }
 
-        if (isWalkingBackwardLeft && !strafeLeft)
+        if (isWalkingBackwardLeft && !walkingBackward || !strafeLeft)
         {
             animator.SetBool("isWalkingBackwardLeft", false);
         }
 
         // Backward Walk Right
-        if (!isWalkingBackwardRight && strafeRight)
+        if (!isWalkingBackwardRight && walkingBackward && strafeRight)
         {
             animator.SetBool("isWalkingBackwardRight", true);
         }
 
-        if (isWalkingBackwardRight && !strafeRight)
+        if (isWalkingBackwardRight && !walkingBackward || !strafeRight)
         {
             animator.SetBool("isWalkingBackwardRight", false);
         }
 
+        /////////////////////////////////////////////////////////
         // Strafe Left
         if (!isStrafeLeft && strafeLeft)
         {
             animator.SetBool("isStrafeLeft", true);
         }
 
-        if (isStrafeLeft && !strafeLeft)
+        if (isStrafeLeft && walkingBackward || !strafeLeft || walkingForward)
         {
             animator.SetBool("isStrafeLeft", false);
         }
 
         // Strafe Right
-        if (!isStrafeRight && strafeRight && !walkingForward)
+        if (!isStrafeRight && strafeRight)
         {
             animator.SetBool("isStrafeRight", true);
         }
 
-        if (isStrafeRight && !strafeRight && !walkingForward)
+        if (isStrafeRight && walkingBackward || !strafeRight || walkingForward)
         {
             animator.SetBool("isStrafeRight", false);
         }
