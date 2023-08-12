@@ -53,7 +53,10 @@ public class RoomBehavior : MonoBehaviour
             if (Vector3.Distance(doors.transform.position, doorClosePOS) < 0.252f)
             {
                 dust.SetActive(false);
-                spawner.SetActive(true);
+                if (spawner != null)
+                {
+                    spawner.SetActive(true);
+                }
                 enemiesTriggered = true;
             }
             if (Vector3.Distance(doors.transform.position, doorClosePOS) < 0.001f)

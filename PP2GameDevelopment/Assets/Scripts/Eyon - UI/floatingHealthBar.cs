@@ -17,7 +17,6 @@ public class floatingHealthBar : MonoBehaviour
     private void Start()
     {
         //sets the way the healthbar faces to the main camera
-        //cameraPos = FindObjectOfType<Camera>(Camera.main).transform;
         cameraPos = gameManager.instance.player.GetComponentInChildren<Camera>().transform;
 
     }
