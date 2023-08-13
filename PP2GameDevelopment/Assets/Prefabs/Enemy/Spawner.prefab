@@ -107,9 +107,10 @@ MonoBehaviour:
   - {fileID: 547089583170048697}
   - {fileID: 7011333067186913087}
   - {fileID: 3572066814760540223}
-  timeBetweenSpawns: 10
-  maxObjects: 20
+  particleEffectPrefab: {fileID: 1755478770823732995, guid: d400f7e31ec2caa46a9ffbc8504a5366, type: 3}
+  particleEffectDuration: 1
   isSpawning: 0
+  waves: []
 --- !u!135 &2367792572324048603
 SphereCollider:
   m_ObjectHideFlags: 0

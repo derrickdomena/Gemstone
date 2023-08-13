@@ -58,13 +58,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollectibleType: 4
-  rotate: 0
+  rotate: 1
   rotationSpeed: 100
   ammoAmount: 0
   healingAmount: 0
   gemAmount: 0
   cooldownQAmount: 1
   cooldownEAmount: 0
+  maxHPAddition: 0
+  walkSpeedUp: 0
+  sprintSpeedUp: 0
+  critChance: 0
+  critDam: 0
+  addDashes: 0
+  dashTime: 0
   dropItem: {fileID: 11400000, guid: 1764a636a2d74a7428664b0edaf2b426, type: 2}
   collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f, type: 3}
 --- !u!23 &841569778256893437

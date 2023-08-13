@@ -2355,7 +2355,7 @@ Transform:
   - {fileID: 5650889366485522808}
   - {fileID: 8750464339648859778}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1153756462266752143
 MonoBehaviour:
@@ -2371,8 +2371,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorSpeed: 1
   hiddenRoomIcon: {fileID: 0}
-  shakeDuration: 0.5
-  shakeMagnitude: 0.7
 --- !u!65 &6007757840229963104
 BoxCollider:
   m_ObjectHideFlags: 0

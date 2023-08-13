@@ -19,10 +19,13 @@ public class RoomBehavior : MonoBehaviour
     Vector3 doorClosePOS;
     Vector3 doorOpenPOS;
 
+    float openDoorThreshold = 0.05f;
+
     bool played = false;
     bool enemiesTriggered = false;
     bool eventDone = false;
-    bool doorsClosed = false;
+    bool doorsOpened = false;
+    bool roomDecremented = false;
     private void Awake()
     {
 
@@ -60,34 +63,45 @@ public class RoomBehavior : MonoBehaviour
                 }
                 enemiesTriggered = true;
             }
-            if (Vector3.Distance(doors.transform.position, doorClosePOS) < 0.001f)
+            if (Vector3.Distance(doors.transform.position, doorClosePOS) < openDoorThreshold)
             {
+                doors.transform.position = doorClosePOS;
                 shouldMove = false;
                 eventDone = true;
+                played = false;
             }
         }
 
-        if (enemiesTriggered && gameManager.instance.enemiesRemaining == 0 && !doorsClosed)
+        if (enemiesTriggered && gameManager.instance.enemiesRemaining == 0 && !doorsOpened)
         {
+            if (!roomDecremented)
+            {
+                roomDecremented = true;
+                gameManager.instance.roomCount--;
+            }
 
             dust.SetActive(true);
-
             doors.transform.position = Vector3.Lerp(doors.transform.position, doorOpenPOS, Time.deltaTime * doorSpeed);
+
             if (!doorAudioSource.isPlaying && !played)
             {
                 doorAudioSource.Play();
                 played = true;
             }
+
             if (Vector3.Distance(doors.transform.position, doorOpenPOS) < 0.252f)
             {
                 dust.SetActive(false);
             }
-            if (Vector3.Distance(doors.transform.position, doorOpenPOS) < 0.001f)
+
+            if (Vector3.Distance(doors.transform.position, doorOpenPOS) < openDoorThreshold)
             {
+                doors.transform.position = doorOpenPOS;
                 doors.SetActive(false);
                 enemiesTriggered = false;
-                doorsClosed = true;
-            }           
+                doorsOpened = true;
+                played = false;
+            }
         }
     }
 

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] Transform[] spawnPOS;
+    [SerializeField] GameObject particleEffectPrefab;  // Particle effect to play before spawning enemy.
+    [SerializeField] float particleEffectDuration = 1f;  // Duration to play the particle effect.
 
     public bool isSpawning;
 
@@ -33,7 +35,23 @@ public class Spawner : MonoBehaviour
         isSpawning = true;
         gameManager.instance.updateGameGoal(1);
 
-        Instantiate(objectToSpawn, spawnPOS[Random.Range(0, spawnPOS.Length)].position, transform.rotation);
+        // Determine the spawn position.
+        Transform spawnPoint = spawnPOS[Random.Range(0, spawnPOS.Length)];
+
+        // Play the particle effect.
+        GameObject particleInstance = Instantiate(particleEffectPrefab, spawnPoint.position, transform.rotation);
+        Destroy(particleInstance, particleEffectDuration);  // Destroy the particle effect after the set duration.
+
+        // Start the SpawnAfterDelay coroutine.
+        StartCoroutine(SpawnAfterDelay(objectToSpawn, spawnPoint));
+    }
+
+    private IEnumerator SpawnAfterDelay(GameObject objectToSpawn, Transform spawnPoint)
+    {
+        yield return new WaitForSeconds(1f);  // Wait for 0.5 seconds.
+
+        // Spawn the enemy.
+        Instantiate(objectToSpawn, spawnPoint.position, transform.rotation);
 
         isSpawning = false;
     }

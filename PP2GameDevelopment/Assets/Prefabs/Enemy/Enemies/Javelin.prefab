@@ -1883,6 +1883,9 @@ MonoBehaviour:
   - {fileID: 3755314475148394898, guid: 4be3acef86282f74d801d0ab79374ffe, type: 3}
   - {fileID: 7513212385680743088, guid: d8d390e50a15adb4faa7c3265f9fdb3c, type: 3}
   - {fileID: 7513212385680743088, guid: 578118dee9f9e7c46a46d51c0654c50b, type: 3}
+  - {fileID: -8368461300958708764, guid: 88c881df7db59644887f3895698cc381, type: 3}
+  - {fileID: 4038024080578927672, guid: e55d1a8180028564ea1c046c1510bb9e, type: 3}
+  - {fileID: 3628774141104762168, guid: b0fa1e2e22ab2af4c844fbae654f23fb, type: 3}
   gem: {fileID: 5033486770486681005, guid: 6d93f7977ff49464b944c4e46c66b11c, type: 3}
   hp: 13
   moveSpeed: 0
@@ -1896,6 +1899,8 @@ MonoBehaviour:
   itemDropRate: 50
   shootRate: 3
   shootDamage: 1
+  damageText: {fileID: 9119225394715413976, guid: 970ec032c67ee60498476849dfb7c82a, type: 3}
+  playerInRange: 0
 --- !u!195 &2478597532953484550
 NavMeshAgent:
   m_ObjectHideFlags: 0
