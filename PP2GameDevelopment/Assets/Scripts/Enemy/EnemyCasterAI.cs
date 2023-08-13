@@ -38,6 +38,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
     private Vector3 circleCenter;
 
+    public GameObject damageText;
     bool isDead;
 
     void Awake()
@@ -196,6 +197,8 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         hp -= amount;
         healthBar.UpdateHealthBar(hp, (float)hpOrig);
+        DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
+        indicator.SetDamageText(amount);
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing
         StartCoroutine(showTempHp());

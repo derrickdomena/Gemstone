@@ -29,6 +29,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
 
+    public GameObject damageText;
+
     private Renderer[] model;
     public bool playerInRange;
     bool destinationChosen;
@@ -156,7 +158,8 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         hp -= amount;
         healthBar.UpdateHealthBar(hp, (float)hpOrig);
-
+        DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
+        indicator.SetDamageText(amount);
         //flashes the enemy hp bar above their heads for a fraction of a second.
         //will probably be changed with testing
         StartCoroutine(showTempHp());

@@ -24,7 +24,7 @@ public class RoomBehavior : MonoBehaviour
     bool played = false;
     bool enemiesTriggered = false;
     bool eventDone = false;
-    bool doorsClosed = false;
+    bool doorsOpened = false;
     bool roomDecremented = false;
     private void Awake()
     {
@@ -72,7 +72,7 @@ public class RoomBehavior : MonoBehaviour
             }
         }
 
-        if (enemiesTriggered && gameManager.instance.enemiesRemaining == 0 && !doorsClosed)
+        if (enemiesTriggered && gameManager.instance.enemiesRemaining == 0 && !doorsOpened)
         {
             if (!roomDecremented)
             {
@@ -99,7 +99,7 @@ public class RoomBehavior : MonoBehaviour
                 doors.transform.position = doorOpenPOS;
                 doors.SetActive(false);
                 enemiesTriggered = false;
-                doorsClosed = true;
+                doorsOpened = true;
                 played = false;
             }
         }
