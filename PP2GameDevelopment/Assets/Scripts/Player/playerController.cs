@@ -120,6 +120,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
 
     private RaycastHit target;
+
+    public AudioSource walkingSound, runningSound, jumpSound;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -206,6 +208,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 }           
             }           
         }
+        else
+        {
+            walkingSound.enabled = false;
+            runningSound.enabled = false;
+            jumpSound.enabled = false;
+        }
     }
 
     // Movement
@@ -225,13 +233,49 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         controller.Move(playerSpeed * Time.deltaTime * move);
 
+        // Audio
+        if(hp > 0)
+        {
+            if (move != Vector3.zero)
+            {
+                walkingSound.enabled = true;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    walkingSound.enabled = false;
+                    runningSound.enabled = true;
+                }
+                else
+                {
+                    walkingSound.enabled = true;
+                    runningSound.enabled = false;
+                }
+            }
+            else
+            {
+                walkingSound.enabled = false;
+                runningSound.enabled = false;
+            }
+            // Seperate jump check, due to the conditions on the if statement below dont play audio 
+            if (Input.GetKey(KeyCode.Space))
+            {
+                jumpSound.enabled = true;
+                walkingSound.enabled = false;
+                runningSound.enabled = false;
+            }
+            else
+            {
+                jumpSound.enabled = false;
+            }
+        }
+        
+
         // Jump
         // Allows for single consecutive jumps when grounded without needing to press jumpKey again
         // or double jump while in the air if jumpsCount is less than jumpsMax
         if (Input.GetKeyDown(jumpKey) && jumpCount < jumpsMax || groundedPlayer && Input.GetKey(jumpKey))
         {
-            playerVelocity.y = jumpHeight;
-            jumpCount++;
+            playerVelocity.y = jumpHeight;          
+            jumpCount++;          
         }
 
         // Crouch
@@ -285,7 +329,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         if (hp <= 0)
         {
-            audioManager.musicSource.Stop();
+            audioManager.musicSource.Stop();          
             if (PlayerPrefs.GetInt(deathCounter)  == 0)
             {
                 death++;
