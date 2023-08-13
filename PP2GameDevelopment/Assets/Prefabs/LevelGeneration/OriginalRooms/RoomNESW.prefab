@@ -16793,7 +16793,7 @@ Transform:
   - {fileID: 3570944270410877256}
   - {fileID: 3625827288772933947}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5177922569668921965
 MonoBehaviour:
@@ -16809,8 +16809,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorSpeed: 1
   hiddenRoomIcon: {fileID: 0}
-  shakeDuration: 0.5
-  shakeMagnitude: 0.7
 --- !u!65 &5312246805072548607
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17297,6 +17295,8 @@ MonoBehaviour:
   - {fileID: 6997040003572902203}
   - {fileID: 8108929366156852330}
   - {fileID: 7253464342200903827}
+  particleEffectPrefab: {fileID: 1755478770823732995, guid: d400f7e31ec2caa46a9ffbc8504a5366, type: 3}
+  particleEffectDuration: 1
   isSpawning: 0
   waves:
   - {fileID: 11400000, guid: 27d5e03c54f8c744ea67f65c1df15510, type: 2}

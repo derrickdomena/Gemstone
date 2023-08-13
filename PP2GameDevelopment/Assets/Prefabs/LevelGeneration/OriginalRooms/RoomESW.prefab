@@ -22895,6 +22895,8 @@ MonoBehaviour:
   - {fileID: 2238764582082244265}
   - {fileID: 5906237260787247723}
   - {fileID: 2758993422883250806}
+  particleEffectPrefab: {fileID: 1755478770823732995, guid: d400f7e31ec2caa46a9ffbc8504a5366, type: 3}
+  particleEffectDuration: 1
   isSpawning: 0
   waves:
   - {fileID: 11400000, guid: 27d5e03c54f8c744ea67f65c1df15510, type: 2}
@@ -36266,7 +36268,7 @@ Transform:
   - {fileID: 5158783914635801070}
   - {fileID: 6007952353893144139}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6950559538237386813
 MonoBehaviour:
@@ -36282,8 +36284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorSpeed: 1
   hiddenRoomIcon: {fileID: 0}
-  shakeDuration: 0.5
-  shakeMagnitude: 0.7
 --- !u!65 &5623138978329129734
 BoxCollider:
   m_ObjectHideFlags: 0

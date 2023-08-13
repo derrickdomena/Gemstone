@@ -977,6 +977,8 @@ MonoBehaviour:
   - {fileID: 293138179847625438}
   - {fileID: 475779983498797136}
   - {fileID: 589443527376324765}
+  particleEffectPrefab: {fileID: 1755478770823732995, guid: d400f7e31ec2caa46a9ffbc8504a5366, type: 3}
+  particleEffectDuration: 1
   isSpawning: 0
   waves:
   - {fileID: 11400000, guid: 01ce65b420739f84d9b6417c7d903ae5, type: 2}
@@ -1517,7 +1519,7 @@ Transform:
   - {fileID: 8087672015461111399}
   - {fileID: 8758719780157951997}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1477539263775924664
 MonoBehaviour:
@@ -1574,7 +1576,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 3.491127
   MaxDistance: 142
   Pan2D: 0
   rolloffMode: 0

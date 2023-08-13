@@ -3307,7 +3307,7 @@ Transform:
   - {fileID: 1806656433650413280}
   - {fileID: 2170378015318176405}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8005101951343863842
 MonoBehaviour:
@@ -11255,6 +11255,8 @@ MonoBehaviour:
   - {fileID: 6890274923891527798}
   - {fileID: 4660387581555415806}
   - {fileID: 7404468859904094329}
+  particleEffectPrefab: {fileID: 1755478770823732995, guid: d400f7e31ec2caa46a9ffbc8504a5366, type: 3}
+  particleEffectDuration: 1
   isSpawning: 0
   waves:
   - {fileID: 11400000, guid: 01ce65b420739f84d9b6417c7d903ae5, type: 2}
