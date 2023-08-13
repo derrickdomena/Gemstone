@@ -6,7 +6,6 @@ public class SpikeDamage : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        gameManager.instance.playerScript.TakeDamage(2);
-
+        gameManager.instance.playerScript.TakeDamage((gameManager.instance.playerScript.hpMax / 10) * 2);
     }
 }

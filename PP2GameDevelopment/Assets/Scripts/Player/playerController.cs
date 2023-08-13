@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Pool;
@@ -32,6 +33,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Other Stats
     [SerializeField] public float critChance;
     [SerializeField] public int dashCount;
+
+    // Poison Effect stats
+    
 
 
     [Header("----- Gun Stats -----")]
@@ -204,7 +208,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 {
                     StartCoroutine(MeleeAttack());
                 }           
-            }           
+            }
         }
     }
 
@@ -280,7 +284,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         if (immune == true) { return; }
         hp -= amount;
-        StartCoroutine(gameManager.instance.playerFlashDamage());
+        StartCoroutine(gameManager.instance.PlayerFlashDamage());
         UpdatePlayerUI();
 
         if (hp <= 0)
@@ -295,7 +299,29 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             {
                 gameManager.instance.youLose();
             }
-            
+        }
+    }
+
+    //Apply Poison Damage to player
+    public void TakePoisonDamage(int amount)
+    {
+        if (immune == true) { return; }
+        hp -= amount;
+        StartCoroutine(gameManager.instance.PoisonFlashDamage());
+        UpdatePlayerUI();
+
+        if (hp <= 0)
+        {
+            audioManager.musicSource.Stop();
+            if (PlayerPrefs.GetInt(deathCounter) == 0)
+            {
+                death++;
+                gameManager.instance.FirstDeath();
+            }
+            else
+            {
+                gameManager.instance.youLose();
+            }
         }
     }
 
