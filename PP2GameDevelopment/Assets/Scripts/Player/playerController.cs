@@ -85,7 +85,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     public int selectedMelee;
 
-    bool isAttacking = false;
+    bool isAttacking;
 
     [Header("----- Keybinds -----")]
     // Keybinds
@@ -197,7 +197,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
             if (meleeList.Count > 0)
             {
-                if (Input.GetMouseButton(0))
+                ScrollMelee();
+                if (Input.GetMouseButtonDown(0) && !isAttacking)
                 {
                     StartCoroutine(MeleeAttack());
                 }           
@@ -408,6 +409,18 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         {
             selectedGun--;
             ChangeGunStats();
+        }
+    }
+
+    void ScrollMelee()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedMelee < meleeList.Count - 1)
+        {
+            selectedMelee++;           
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedMelee > 0)
+        {
+            selectedMelee--;
         }
     }
 

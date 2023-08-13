@@ -189,7 +189,8 @@ public class PlayerAnimationController : MonoBehaviour
         bool isAttacking = animator.GetBool("isAttacking");
         bool attackKey = Input.GetMouseButtonDown(0);
 
-        if (!isAttacking && attackKey)
+        // Changing the gamemanager section to be when melee is equipped.
+        if (!isAttacking && attackKey && gameManager.instance.playerScript.meleeList.Count >= 1)
         {
             animator.SetBool("isAttacking", true);
         }
