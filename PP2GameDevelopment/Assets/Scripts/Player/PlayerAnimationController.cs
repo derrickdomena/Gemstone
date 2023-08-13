@@ -19,6 +19,7 @@ public class PlayerAnimationController : MonoBehaviour
         //RunningAnimation();
         //JumpingAnimation();
         FireballAnimation();
+        MeleeAnimation();
     }
 
     //void WalkingAnimation()
@@ -180,6 +181,22 @@ public class PlayerAnimationController : MonoBehaviour
         if (isFireball && !abilityQ)
         {
             animator.SetBool("isFireball", false);
+        }
+    }
+
+    void MeleeAnimation()
+    {
+        bool isAttacking = animator.GetBool("isAttacking");
+        bool attackKey = Input.GetMouseButtonDown(0);
+
+        if (!isAttacking && attackKey)
+        {
+            animator.SetBool("isAttacking", true);
+        }
+
+        if(isAttacking && !attackKey)
+        {
+            animator.SetBool("isAttacking", false);
         }
     }
 }

@@ -67,6 +67,27 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     public int selectedGun;
 
+    [Header("----- Melee Stats -----")]
+    [SerializeField] public List<MeleeStats> meleeList = new List<MeleeStats>();
+
+    public float attackDistance;
+    public float attackDelay;
+    public float attackSpeed;
+    public int attackDamage;
+
+    [Header("----- Melee Components -----")]
+    [SerializeField] GameObject meleeModel;
+    public LayerMask attackLayer;
+
+    public GameObject hitEffect;
+    public AudioClip swordSwing;
+    public AudioClip hitSound;
+
+    public int selectedMelee;
+
+    bool isAttacking = false;
+
+    [Header("----- Keybinds -----")]
     // Keybinds
     // Movement
     public KeyCode jumpKey = KeyCode.Space;
@@ -172,6 +193,14 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 }
 
                 UpdatePlayerUI();
+            }
+
+            if (meleeList.Count > 0)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    StartCoroutine(MeleeAttack());
+                }           
             }
         }
     }
@@ -439,6 +468,41 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 gunModelAimPos.transform.position = sarModelAimPos.transform.position;
                 break;
         }
+    }
+
+    // Handles picking up melee
+    public void MeleePickup(MeleeStats meleestat)
+    {
+        meleeList.Add(meleestat);
+
+        attackDamage = meleestat.attackDamage;
+        attackSpeed = meleestat.attackSpeed;
+        attackDelay = meleestat.attackDelay;
+        attackDistance = meleestat.attackDistance;
+
+        selectedMelee = meleeList.Count - 1;
+
+        meleeModel.GetComponent<MeshFilter>().mesh = meleeList[selectedMelee].model.GetComponent<MeshFilter>().sharedMesh;
+        meleeModel.GetComponent<MeshRenderer>().material = meleeList[selectedMelee].model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    // Melee attacks
+    IEnumerator MeleeAttack()
+    {
+        isAttacking = true;
+       
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, attackDistance))
+        {      
+            IDamage damagable = hit.collider.GetComponent<IDamage>();
+
+            if (damagable != null && !hit.collider.CompareTag("Player"))
+            {
+                damagable.TakeDamage(attackDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(attackDelay);
+        isAttacking = false;
     }
 
     public int getGemAmount()
