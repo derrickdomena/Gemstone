@@ -48,6 +48,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject miniMap;
     public GameObject fullMap;
+    public Transform chatBubble;
 
     [Header("----- Level Stuff -----")]
     public List<GameObject> rooms = new List<GameObject>();
