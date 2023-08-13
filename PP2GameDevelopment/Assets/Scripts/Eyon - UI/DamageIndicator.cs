@@ -31,6 +31,8 @@ public class DamageIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(2 * transform.position - Camera.main.transform.position);
+
         timer += Time.deltaTime;
 
         float fraction = lifetime / 2f;
