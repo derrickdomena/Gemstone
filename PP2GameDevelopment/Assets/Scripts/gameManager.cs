@@ -65,7 +65,7 @@ public class gameManager : MonoBehaviour
     public int maxEnemies;
 
     public int enemiesRemaining;
-    public int enemiesInScene;
+    public int enemiesKilled;
     public int wave = 1;
     bool isPaused;
     float timescaleOrig;
@@ -78,6 +78,7 @@ public class gameManager : MonoBehaviour
     //Awake is called before Start
     void Awake()
     {
+        enemiesKilled = 0;
         instance = this;
         level = new GameObject[50, 50];
         generated = false;
@@ -142,13 +143,11 @@ public class gameManager : MonoBehaviour
 
     public void enemyCheckIn()
     {
-        enemiesInScene++;
         updateGameGoal(1);
     }
 
     public void enemyCheckOut()
     {
-        enemiesInScene--;
         updateGameGoal(-1);
     }
 
