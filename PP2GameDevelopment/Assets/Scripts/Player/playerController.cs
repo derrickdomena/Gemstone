@@ -19,7 +19,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [Header("----- Player Stats -----")]
     // Health
     [SerializeField] public int hp;
-
+    [SerializeField] public int totalDamage;
     // Movement
     [SerializeField] public float walkSpeed;
     [SerializeField] public float sprintSpeed;
@@ -43,6 +43,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     [Header("----- Gun Components -----")]
     [SerializeField] GameObject gunModel;
+    public PlayerStats playerStats;
 
     // Aiming Positions
     [SerializeField] GameObject gunModelAimPos;
@@ -142,9 +143,14 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Update is called once per frame
     void Update()
     {
+        playerStats.TotalDamage = totalDamage;
         if (gameManager.instance.activeMenu == null)
         {
-            Movement();
+            if(!gameManager.instance.dontMove)
+            {
+                Movement();
+
+            }
             StateHandler();
 
             // Checks if player is aiming or not
@@ -361,6 +367,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 if (damagable != null && !hit.collider.CompareTag("Player"))
                 {
                     damagable.TakeDamage(shootDamage);
+                    totalDamage += shootDamage;
                 }
                 else
                 {
@@ -515,6 +522,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             if (damagable != null && !hit.collider.CompareTag("Player"))
             {
                 damagable.TakeDamage(attackDamage);
+                totalDamage += attackDamage;
             }
         }
 

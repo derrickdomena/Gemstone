@@ -9,8 +9,5 @@ public class PlayerStats : ScriptableObject
     public int NumberOfKills;
 
     [field: SerializeField]
-    public float CritChance { get; private set; }
-
-    [field: SerializeField]
-    public float NumberToSpawn { get; private set; }
+    public int TotalDamage;
 }

@@ -53,6 +53,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         player = gameManager.instance.player;
         stoppingDistOrig = agent.stoppingDistance;
         hpOrig = hp;
+        hp = hp * (int)gameManager.instance.difficulty;
         healthBar.UpdateHealthBar(hp, hpOrig);
         enemyHPBar.SetActive(false);
         agent.speed = gameManager.instance.playerScript.walkSpeed * speedMod;

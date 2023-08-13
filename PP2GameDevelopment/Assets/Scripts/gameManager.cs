@@ -16,11 +16,14 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     public GameObject playerSpawnPos;
+    public PlayerStats playerStats;
+    public bool dontMove;
 
     [Header("----- UI Stuff -----")]
     public GameObject activeMenu = null;
     public GameObject pauseMenu;
     public GameObject winMenu;
+    public GameObject levelClearedMenu;
     public GameObject loseMenu;
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
@@ -49,6 +52,9 @@ public class gameManager : MonoBehaviour
     public GameObject miniMap;
     public GameObject fullMap;
     public Transform chatBubble;
+
+    [Header("----- UI Stuff Difficulty -----")]
+    public float difficulty;
 
     [Header("----- Level Stuff -----")]
     public List<GameObject> rooms = new List<GameObject>();
@@ -79,6 +85,7 @@ public class gameManager : MonoBehaviour
     //Awake is called before Start
     void Awake()
     {
+        dontMove = false;
         enemiesKilled = 0;
         instance = this;
         level = new GameObject[50, 50];
@@ -104,6 +111,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerStats.NumberOfKills = enemiesKilled;
         //pressing ESC pauses the game
         if(Input.GetButtonDown("Cancel") && activeMenu == null) 
         {
@@ -120,6 +128,7 @@ public class gameManager : MonoBehaviour
             player.transform.position = playerSpawnPos.transform.position;
         }
         ShowMap();
+
     }
 
     //Pause game instance and unlocks cursor to the area of the game
@@ -144,11 +153,13 @@ public class gameManager : MonoBehaviour
 
     public void enemyCheckIn()
     {
+       
         updateGameGoal(1);
     }
 
     public void enemyCheckOut()
     {
+        enemiesKilled++;
         updateGameGoal(-1);
     }
 
@@ -201,7 +212,15 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(4);
         nextWave.SetActive(false);
     }
-
+    public IEnumerator LevelCleared()
+    {
+        yield return new WaitForSeconds(5f);
+        dontMove = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        activeMenu = levelClearedMenu;
+        activeMenu.SetActive(true);
+    }
     IEnumerator Countdown()
     {
         yield return new WaitForSeconds(waveTimer);

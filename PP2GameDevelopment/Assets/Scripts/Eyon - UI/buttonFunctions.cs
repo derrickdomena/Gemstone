@@ -23,6 +23,16 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void Return()
+    {
+        gameManager.instance.stateUnpaused();
+        if (true) //make this false to bring back the player dupe bug :D
+        {
+            Destroy(gameManager.instance.player);
+        }
+        SceneManager.LoadScene(1);
+    }
+
     public void quit()
     {
         Application.Quit();

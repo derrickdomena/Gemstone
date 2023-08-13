@@ -70,6 +70,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         hpOrig = hp;
+        hp = hp * (int)gameManager.instance.difficulty;
         stoppingDistanceOrig = agent.stoppingDistance;
         healthBar.UpdateHealthBar(hp, hpOrig);
         enemyHPBar.SetActive(false);
@@ -176,7 +177,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
         if (playerDam != null && playerInRange == true)
         {
-            playerDam.TakeDamage(shootDamage);
+            playerDam.TakeDamage(shootDamage * (int)gameManager.instance.difficulty);
         }
     }
 
