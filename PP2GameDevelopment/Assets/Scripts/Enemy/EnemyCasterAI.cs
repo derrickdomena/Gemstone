@@ -61,9 +61,11 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+        FacePlayer();
+
         circleCenter = player.transform.position;
 
-        if (CanHitPlayerFromHere() && !IsPlayerTooClose())
+        if (CanHitPlayerFromHere()/* && !IsPlayerTooClose()*/)
         {
             agent.destination = transform.position;
             StartCasting();
@@ -95,6 +97,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     }
     void ChooseNewDestination()
     {
+        StartCasting();
         Vector3 directionToPlayer = transform.position - player.transform.position;
         Vector3 newDestination;
 
@@ -124,6 +127,12 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         agent.SetDestination(newDestination);
         animator.SetBool("isWalking", true);
+    }
+    void FacePlayer()
+    {
+        directionToPlayer = player.transform.position - transform.position;
+        Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
 
     bool CanHitPlayerFromHere()
@@ -170,14 +179,25 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     private void Death()
     {
         int selectedChance = Random.Range(1, 100);
+        float maxDropOffset = 1f;  // Adjust this value based on the size of your drops and how far apart you want them
+
         if (selectedChance <= itemDropRate)
         {
             int itemToDrop = Random.Range(0, drops.Length);
-            Instantiate(drops[itemToDrop], new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
+            Vector3 dropPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
+            Instantiate(drops[itemToDrop], dropPosition, Quaternion.identity);
         }
-        Instantiate(gem, new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
         Destroy(gameObject);
+
+        Vector3 gemPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
+        Instantiate(gem, gemPosition, Quaternion.identity);
+
         gameManager.instance.enemyCheckOut();
+
+    }
+    Vector3 GetRandomOffset(float maxOffset)
+    {
+        return new Vector3(Random.Range(-maxOffset, maxOffset), 0, Random.Range(-maxOffset, maxOffset));
     }
 
     private void StopMoving()

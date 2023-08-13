@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,6 +29,20 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("----- Gun stuff -----")]
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
+
+    [Header("----- Enemy Type -----")]
+    [SerializeField] string enemyType = "default"; // Change in inspector to "javelin" for javelin enemies
+
+    [Header("----- Dash Mechanics -----")]
+    [SerializeField] float dashSpeed = 40f;
+    [SerializeField] float dashTriggerDistance = 10f; // The distance at which the enemy decides to dash
+    [SerializeField] float dashDistance = 5f;
+    bool isDashing = false;
+
+    [Header("----- Dash Cooldown Mechanics -----")]
+    [SerializeField] float dashCooldown = 10f; // Cooldown duration
+    float lastDashTime = -10f; // Initialize with a value that allows dashing at the start.
+
 
     public GameObject damageText;
 
@@ -92,10 +107,22 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void PursuePlayer()
     {
+        float distanceToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+
+        // Check if enough time has elapsed since the last dash
+        bool canDash = Time.time - lastDashTime >= dashCooldown;
+
+        if (enemyType == "javelin" && distanceToPlayer > dashTriggerDistance && !isDashing && canDash)
+        {
+            StartCoroutine(DashTowardsPlayer());
+            lastDashTime = Time.time; // Update the time of the last dash
+            return; // Exit the method since we're dashing.
+        }
+
         agent.SetDestination(gameManager.instance.player.transform.position);
         animator.SetBool("isWalking", true);
 
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (agent.remainingDistance <= agent.stoppingDistance && !isDashing)
         {
             animator.SetBool("isWalking", false);
             FacePlayer();
@@ -105,6 +132,9 @@ public class EnemyAI : MonoBehaviour, IDamage
             }
         }
     }
+
+
+
 
     void FacePlayer()
     {
@@ -120,6 +150,26 @@ public class EnemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate);
         animator.SetBool("isAttack", false);   
     }
+
+    IEnumerator DashTowardsPlayer()
+    {
+        isDashing = true;
+        Vector3 startPos = transform.position;
+        Vector3 dashTarget = transform.position + (gameManager.instance.player.transform.position - transform.position).normalized * dashDistance;
+        float dashTime = 0.5f; // Duration for the dash. Adjust as required.
+        float elapsedTime = 0;
+
+        while (elapsedTime < dashTime)
+        {
+            transform.position = Vector3.Lerp(startPos, dashTarget, elapsedTime / dashTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = dashTarget; // Set final position after dash
+        isDashing = false;
+    }
+
 
     void DoDamage()
     {
@@ -150,7 +200,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         if (hp <= 0)
         {
-            //agent.SetDestination(agent.transform.position);
             isDead = true;
             animator.SetBool("isDead", true);
             GetComponent<Collider>().enabled = false;
@@ -173,15 +222,25 @@ public class EnemyAI : MonoBehaviour, IDamage
     private void Death()
     {
         int selectedChance = Random.Range(1, 100);
+        float maxDropOffset = 1f;  // Adjust this value based on the size of your drops and how far apart you want them
+
         if (selectedChance <= itemDropRate)
         {
             int itemToDrop = Random.Range(0, drops.Length);
-            Instantiate(drops[itemToDrop], new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
+            Vector3 dropPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
+            Instantiate(drops[itemToDrop], dropPosition, Quaternion.identity);
         }
         Destroy(gameObject);
-        Instantiate(gem, new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z), Quaternion.identity);
+
+        Vector3 gemPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
+        Instantiate(gem, gemPosition, Quaternion.identity);
+
         gameManager.instance.enemyCheckOut();
 
+    }
+    Vector3 GetRandomOffset(float maxOffset)
+    {
+        return new Vector3(Random.Range(-maxOffset, maxOffset), 0, Random.Range(-maxOffset, maxOffset));
     }
 
     //enables the enemy hpbar to show up for a fraction of a second.
