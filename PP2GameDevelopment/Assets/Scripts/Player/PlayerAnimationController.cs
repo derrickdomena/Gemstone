@@ -20,6 +20,9 @@ public class PlayerAnimationController : MonoBehaviour
         //JumpingAnimation();
         FireballAnimation();
         MeleeAnimation();
+        //ReloadingAnimation();
+        //ShootingAnimation();
+        //DeathAnimation();
     }
 
     //void WalkingAnimation()
@@ -200,4 +203,44 @@ public class PlayerAnimationController : MonoBehaviour
             animator.SetBool("isAttacking", false);
         }
     }
+
+    //void ReloadingAnimation()
+    //{
+    //    bool isReloading = animator.GetBool("isReloading");
+    //    bool reloadKey = Input.GetKey(KeyCode.R);
+
+    //    if (!isReloading && reloadKey)
+    //    {
+    //        animator.SetBool("isReloading", true);
+    //    }
+    //    if (isReloading && !reloadKey)
+    //    {
+    //        animator.SetBool("isReloading", false);
+    //    }
+    //}
+
+    //void ShootingAnimation()
+    //{
+    //    bool isShooting = animator.GetBool("isShooting");
+    //    bool shootingKey = Input.GetMouseButton(0);
+
+    //    if (!isShooting && shootingKey)
+    //    {
+    //        animator.SetBool("isShooting", true);
+    //    }
+    //    if (isShooting && !shootingKey)
+    //    {
+    //        animator.SetBool("isShooting", false);
+    //    }
+    //}
+
+    //void DeathAnimation()
+    //{
+    //    bool isDead = animator.GetBool("isDead");
+
+    //    if (!isDead && gameManager.instance.playerScript.hp <= 0)
+    //    {
+    //        animator.SetBool("isDead", true);
+    //    }
+    //}
 }

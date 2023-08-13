@@ -7,6 +7,7 @@ public class FireballAbility : MonoBehaviour
     [Header("----- Fireball Components -----")]
     public GameObject fireballProjectile;
     public Transform fireballPosition;
+    public AudioClip fireballSound;
 
     [Header("----- Fireball Stats -----")]
     public float fireballSpeed;
@@ -32,6 +33,8 @@ public class FireballAbility : MonoBehaviour
 
         // Instantiae fireball object
         GameObject fireballObj = Instantiate(fireballProjectile, fireballPosition.transform.position, fireballPosition.transform.rotation);
+
+        gameManager.instance.playerScript.audioSource.PlayOneShot(fireballSound);
 
         // Get rigidbody component from fireball
         Rigidbody rb = fireballObj.GetComponent<Rigidbody>();

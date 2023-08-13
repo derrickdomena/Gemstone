@@ -87,6 +87,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     bool isAttacking;
 
+    public AudioClip explosionSound;
+
     [Header("----- Keybinds -----")]
     // Keybinds
     // Movement
@@ -202,7 +204,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 {
                     StartCoroutine(MeleeAttack());
                 }           
-            }
+            }           
         }
     }
 
@@ -503,6 +505,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     IEnumerator MeleeAttack()
     {
         isAttacking = true;
+
+        audioSource.PlayOneShot(swordSwing);
        
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, attackDistance))
         {      

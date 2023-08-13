@@ -6,7 +6,7 @@ public class Fireball : MonoBehaviour
 {
     [Header("----- Fireball Components -----")]
     [SerializeField] GameObject explosionEffect;
-
+    
     [Header("----- Fireball Stats -----")]
     [SerializeField] float blastRadius;
     [SerializeField] float blastForce;
@@ -22,6 +22,8 @@ public class Fireball : MonoBehaviour
     {
         // Particle Effect
         Instantiate(explosionEffect, transform.position, transform.rotation);
+
+        gameManager.instance.playerScript.audioSource.PlayOneShot(gameManager.instance.playerScript.explosionSound);
 
         // Add force to nearby objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);
