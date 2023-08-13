@@ -16,15 +16,19 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     public GameObject playerSpawnPos;
+    public PlayerStats playerStats;
+    public bool dontMove;
 
     [Header("----- UI Stuff -----")]
     public GameObject activeMenu = null;
     public GameObject pauseMenu;
     public GameObject winMenu;
+    public GameObject levelClearedMenu;
     public GameObject loseMenu;
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
     public GameObject playerFlashDamageScreen;
+    public GameObject poisonFlashDamageScreen;
     public TextMeshProUGUI ammoCur;
     public TextMeshProUGUI ammoReserve;
     public TextMeshProUGUI HealthMax;
@@ -46,9 +50,16 @@ public class gameManager : MonoBehaviour
     public GameObject wavesLeftCounter;
     public TextMeshProUGUI wavesLeftText;
 
+    [SerializeField] public float poisonEffectDuration;
+    [SerializeField] public float poisonTimer = 0.0f;
+    [SerializeField] public bool isPoisoned = false;
+
     public GameObject miniMap;
     public GameObject fullMap;
     public Transform chatBubble;
+
+    [Header("----- UI Stuff Difficulty -----")]
+    public float difficulty;
 
     [Header("----- Level Stuff -----")]
     public List<GameObject> rooms = new List<GameObject>();
@@ -79,6 +90,7 @@ public class gameManager : MonoBehaviour
     //Awake is called before Start
     void Awake()
     {
+        dontMove = false;
         enemiesKilled = 0;
         instance = this;
         level = new GameObject[50, 50];
@@ -104,6 +116,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerStats.NumberOfKills = enemiesKilled;
         //pressing ESC pauses the game
         if(Input.GetButtonDown("Cancel") && activeMenu == null) 
         {
@@ -119,7 +132,25 @@ public class gameManager : MonoBehaviour
         {
             player.transform.position = playerSpawnPos.transform.position;
         }
-        ShowMap();
+        ShowMap();    
+
+        if (isPoisoned)
+        {
+            poisonTimer += Time.deltaTime;
+            float poisonDurOrig = poisonEffectDuration;
+            if (poisonTimer >= 2 && poisonEffectDuration != 0)
+            {
+                poisonEffectDuration--;
+                playerScript.TakePoisonDamage(1);
+                poisonTimer = 0;
+            }
+            else if (poisonEffectDuration == 0)
+            {
+                poisonEffectDuration = poisonDurOrig;
+                poisonTimer = 0;
+                isPoisoned = false;
+            }
+        }
     }
 
     //Pause game instance and unlocks cursor to the area of the game
@@ -144,11 +175,13 @@ public class gameManager : MonoBehaviour
 
     public void enemyCheckIn()
     {
+       
         updateGameGoal(1);
     }
 
     public void enemyCheckOut()
     {
+        enemiesKilled++;
         updateGameGoal(-1);
     }
 
@@ -186,11 +219,19 @@ public class gameManager : MonoBehaviour
     }
 
     //when a player is damaged Flash the screen for .01 seconds
-    public IEnumerator playerFlashDamage()
+    public IEnumerator PlayerFlashDamage()
     {
         playerFlashDamageScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         playerFlashDamageScreen.SetActive(false);
+    }
+
+    //when a player is damaged by Poison effect flash the screen for .01 seconds
+    public IEnumerator PoisonFlashDamage()
+    {
+        poisonFlashDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        poisonFlashDamageScreen.SetActive(false);
     }
 
     //flashes the nextWave game object on screen for 4 seconds
@@ -201,7 +242,15 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(4);
         nextWave.SetActive(false);
     }
-
+    public IEnumerator LevelCleared()
+    {
+        yield return new WaitForSeconds(5f);
+        dontMove = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        activeMenu = levelClearedMenu;
+        activeMenu.SetActive(true);
+    }
     IEnumerator Countdown()
     {
         yield return new WaitForSeconds(waveTimer);

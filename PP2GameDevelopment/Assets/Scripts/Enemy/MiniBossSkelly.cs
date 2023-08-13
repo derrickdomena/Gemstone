@@ -167,6 +167,9 @@ public class MiniBossSkelly : MonoBehaviour, IDamage
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
         yield return new WaitForSeconds(deathTimer);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        StartCoroutine(gameManager.instance.LevelCleared());
     }
+
+
 }

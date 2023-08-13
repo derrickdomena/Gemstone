@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Pool;
@@ -19,7 +20,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [Header("----- Player Stats -----")]
     // Health
     [SerializeField] public int hp;
-
+    [SerializeField] public int totalDamage;
     // Movement
     [SerializeField] public float walkSpeed;
     [SerializeField] public float sprintSpeed;
@@ -33,6 +34,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] public float critChance;
     [SerializeField] public int dashCount;
 
+    // Poison Effect stats
+    
+
 
     [Header("----- Gun Stats -----")]
     [SerializeField] public List<GunStats> gunList = new List<GunStats>();
@@ -43,6 +47,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     [Header("----- Gun Components -----")]
     [SerializeField] GameObject gunModel;
+    public PlayerStats playerStats;
 
     // Aiming Positions
     [SerializeField] GameObject gunModelAimPos;
@@ -144,9 +149,14 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Update is called once per frame
     void Update()
     {
+        playerStats.TotalDamage = totalDamage;
         if (gameManager.instance.activeMenu == null)
         {
-            Movement();
+            if(!gameManager.instance.dontMove)
+            {
+                Movement();
+
+            }
             StateHandler();
 
             // Checks if player is aiming or not
@@ -206,7 +216,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 {
                     StartCoroutine(MeleeAttack());
                 }           
-            }           
+            }
         }
         else
         {
@@ -324,7 +334,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         if (immune == true) { return; }
         hp -= amount;
-        StartCoroutine(gameManager.instance.playerFlashDamage());
+        StartCoroutine(gameManager.instance.PlayerFlashDamage());
         UpdatePlayerUI();
 
         if (hp <= 0)
@@ -339,7 +349,29 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             {
                 gameManager.instance.youLose();
             }
-            
+        }
+    }
+
+    //Apply Poison Damage to player
+    public void TakePoisonDamage(int amount)
+    {
+        if (immune == true) { return; }
+        hp -= amount;
+        StartCoroutine(gameManager.instance.PoisonFlashDamage());
+        UpdatePlayerUI();
+
+        if (hp <= 0)
+        {
+            audioManager.musicSource.Stop();
+            if (PlayerPrefs.GetInt(deathCounter) == 0)
+            {
+                death++;
+                gameManager.instance.FirstDeath();
+            }
+            else
+            {
+                gameManager.instance.youLose();
+            }
         }
     }
 
@@ -405,6 +437,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 if (damagable != null && !hit.collider.CompareTag("Player"))
                 {
                     damagable.TakeDamage(shootDamage);
+                    totalDamage += shootDamage;
                 }
                 else
                 {
@@ -559,6 +592,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             if (damagable != null && !hit.collider.CompareTag("Player"))
             {
                 damagable.TakeDamage(attackDamage);
+                totalDamage += attackDamage;
             }
         }
 

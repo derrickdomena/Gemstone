@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4434539573161314245}
+  - component: {fileID: -256147830148688323}
   - component: {fileID: -5309503249693492440}
   - component: {fileID: 528861905962761196}
   - component: {fileID: -6689261980960282821}
@@ -16,7 +17,7 @@ GameObject:
   - component: {fileID: 166889626220155048}
   m_Layer: 0
   m_Name: MagicProjectileGreen
-  m_TagString: Untagged
+  m_TagString: PoisonPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,6 +37,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+--- !u!114 &-256147830148688323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809338187032940363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536f1f0abf1d95c478c52633da640e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-5309503249693492440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 528861905962761196}
-  damage: 1
+  damage: 0
   speed: 12
   destroyTime: 3
 --- !u!54 &528861905962761196

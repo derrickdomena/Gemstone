@@ -39,12 +39,14 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
-    public void Toggle(CallbackContext context)
+    private void Update()
     {
-        //did you press the button?
-        if(!context.action.triggered) { return; }
-
+        if(Input.GetKeyDown(KeyCode.RightBracket)) {
+            Toggle();
+        }
+    }
+    public void Toggle()
+    {
         //is the uiCanvas already open?
         if(uiCanvas.activeSelf)
         {
