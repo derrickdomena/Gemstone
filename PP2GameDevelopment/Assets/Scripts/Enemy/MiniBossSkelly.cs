@@ -19,6 +19,8 @@ public class MiniBossSkelly : MonoBehaviour, IDamage
     [SerializeField] float attack2Timer;
     [SerializeField] float deathTimer;
 
+    public GameObject damageText;
+
     public bool playerInRange;
     Vector3 playerDir;
     float angleToPlayer;
@@ -71,6 +73,8 @@ public class MiniBossSkelly : MonoBehaviour, IDamage
         {
             UpdateHP();
         }
+        DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
+        indicator.SetDamageText(amount);
     }
 
     void UpdateHP()
