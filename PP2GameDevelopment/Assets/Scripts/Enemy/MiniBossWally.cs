@@ -181,6 +181,7 @@ public class MiniBossWally : MonoBehaviour, IDamage
         agent.velocity = Vector3.zero;
         yield return new WaitForSeconds(deathTimer);
         Destroy(gameObject);
+        //StartCoroutine(gameManager.instance.LevelCleared());
     }
 
     public void TakeDamage(int amount)
