@@ -211,7 +211,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 UpdatePlayerUI();
             }
 
-            if (meleeList.Count > 0)
+            if (meleeList.Count > 0 && gunList.Count <= 0)
             {
                 ScrollMelee();
                 if (Input.GetMouseButtonDown(0) && !isAttacking)
