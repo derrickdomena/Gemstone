@@ -32,10 +32,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Other Stats
     [SerializeField] public float critChance;
+    [SerializeField] public float critChanceOrig;
     [SerializeField] public int dashCount;
 
     // Poison Effect stats
-    
+
 
 
     [Header("----- Gun Stats -----")]
@@ -43,6 +44,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] float shootRate;
     [SerializeField] public int shootDamage;
     [SerializeField] public int shootDamageOrig;
+    [SerializeField] public float critDam;
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
@@ -436,8 +438,15 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
                 if (damagable != null && !hit.collider.CompareTag("Player"))
                 {
-                    damagable.TakeDamage(shootDamage);
-                    totalDamage += shootDamage;
+                    int critCheck = Random.Range(0, 100);
+                    if (critCheck <= critChance)
+                    {
+                        damagable.TakeDamage((int)(shootDamage + critDam));
+                    }
+                    else
+                    {
+                        damagable.TakeDamage(shootDamage);
+                    }
                 }
                 else
                 {
