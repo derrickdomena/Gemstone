@@ -54,4 +54,10 @@ public class buttonFunctions : MonoBehaviour
         }
         SceneManager.LoadScene(1);
     }
+
+    public void NextScene()
+    {
+        gameManager.instance.stateUnpaused();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
 }
