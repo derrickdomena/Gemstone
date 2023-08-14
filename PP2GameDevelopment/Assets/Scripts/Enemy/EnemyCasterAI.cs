@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class EnemyCasterAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] Animator animator;
+    [SerializeField] public NavMeshAgent agent;
+    [SerializeField] public Animator animator;
     [SerializeField] GameObject magicShot;
     [SerializeField] GameObject staffTip;
     [SerializeField] GameObject enemyHPBar;
