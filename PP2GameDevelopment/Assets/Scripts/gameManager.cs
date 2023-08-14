@@ -43,6 +43,7 @@ public class gameManager : MonoBehaviour
     public Image BossHPBar;
     public GameObject bossHP;
     public Image grenadeCooldownFill;
+    public Image stasisCooldownFill;
     public Image dashCooldownFill;
     public Animator anim;
     public GameObject cutscene;

@@ -7,10 +7,10 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField] public NavMeshAgent agent;
     [SerializeField] Transform headPos;
     [SerializeField] floatingHealthBar healthBar;
-    [SerializeField] Animator animator;
+    [SerializeField] public Animator animator;
     [SerializeField] private Collect[] drops;
     [SerializeField] private Collect gem;
 
