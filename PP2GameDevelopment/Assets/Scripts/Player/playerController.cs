@@ -32,10 +32,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Other Stats
     [SerializeField] public float critChance;
+    [SerializeField] public float critChanceOrig;
     [SerializeField] public int dashCount;
 
     // Poison Effect stats
-    
+
 
 
     [Header("----- Gun Stats -----")]
@@ -43,6 +44,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] float shootRate;
     [SerializeField] public int shootDamage;
     [SerializeField] public int shootDamageOrig;
+    [SerializeField] public float critDam;
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
@@ -125,6 +127,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
 
     private RaycastHit target;
+
+    public AudioSource walkingSound, runningSound, jumpSound;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -207,7 +211,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 UpdatePlayerUI();
             }
 
-            if (meleeList.Count > 0)
+            if (meleeList.Count > 0 && gunList.Count <= 0)
             {
                 ScrollMelee();
                 if (Input.GetMouseButtonDown(0) && !isAttacking)
@@ -215,6 +219,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     StartCoroutine(MeleeAttack());
                 }           
             }
+        }
+        else
+        {
+            walkingSound.enabled = false;
+            runningSound.enabled = false;
+            jumpSound.enabled = false;
         }
     }
 
@@ -235,13 +245,49 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         controller.Move(playerSpeed * Time.deltaTime * move);
 
+        // Audio
+        if(hp > 0)
+        {
+            if (move != Vector3.zero)
+            {
+                walkingSound.enabled = true;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    walkingSound.enabled = false;
+                    runningSound.enabled = true;
+                }
+                else
+                {
+                    walkingSound.enabled = true;
+                    runningSound.enabled = false;
+                }
+            }
+            else
+            {
+                walkingSound.enabled = false;
+                runningSound.enabled = false;
+            }
+            // Seperate jump check, due to the conditions on the if statement below dont play audio 
+            if (Input.GetKey(KeyCode.Space))
+            {
+                jumpSound.enabled = true;
+                walkingSound.enabled = false;
+                runningSound.enabled = false;
+            }
+            else
+            {
+                jumpSound.enabled = false;
+            }
+        }
+        
+
         // Jump
         // Allows for single consecutive jumps when grounded without needing to press jumpKey again
         // or double jump while in the air if jumpsCount is less than jumpsMax
         if (Input.GetKeyDown(jumpKey) && jumpCount < jumpsMax || groundedPlayer && Input.GetKey(jumpKey))
         {
-            playerVelocity.y = jumpHeight;
-            jumpCount++;
+            playerVelocity.y = jumpHeight;          
+            jumpCount++;          
         }
 
         // Crouch
@@ -295,7 +341,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         if (hp <= 0)
         {
-            audioManager.musicSource.Stop();
+            audioManager.musicSource.Stop();          
             if (PlayerPrefs.GetInt(deathCounter)  == 0)
             {
                 death++;
@@ -392,8 +438,15 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
                 if (damagable != null && !hit.collider.CompareTag("Player"))
                 {
-                    damagable.TakeDamage(shootDamage);
-                    totalDamage += shootDamage;
+                    int critCheck = Random.Range(0, 100);
+                    if (critCheck <= critChance)
+                    {
+                        damagable.TakeDamage((int)(shootDamage + critDam));
+                    }
+                    else
+                    {
+                        damagable.TakeDamage(shootDamage);
+                    }
                 }
                 else
                 {

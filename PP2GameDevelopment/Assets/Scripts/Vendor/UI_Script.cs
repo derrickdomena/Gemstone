@@ -10,6 +10,7 @@ public class UI_Script : MonoBehaviour
     [SerializeField] private Transform container;
     [SerializeField] private GameObject shopItemTemplate;
     [SerializeField] private Buffs[] buff;
+    [SerializeField] private ShopEffects[] shopEff;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class UI_Script : MonoBehaviour
     private void PopulateShop()
     {
         //loops through the buff array creating buttons
-        for(int i = 0; i < buff.Length; i++)
+        for (int i = 0; i < buff.Length; i++)
         {
             Buffs shopItem = buff[i];
             GameObject itemObject = Instantiate(shopItemTemplate, container);
@@ -34,14 +35,14 @@ public class UI_Script : MonoBehaviour
             itemObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = shopItem.itemName;
             //changes the price on the button
             itemObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = shopItem.cost.ToString();
-            
+
         }
     }
     //when player clicks on the button it will check to see
     //if the player has enough gems to buy the item
     private void OnButtonClick(Buffs shopItem)
     {
-        if(gameManager.instance.playerScript.TrySpendGemAmount(shopItem.cost) == true)
+        if (gameManager.instance.playerScript.TrySpendGemAmount(shopItem.cost) == true)
         {
             shopItem.Apply();
             gameManager.instance.updateGemCount(-shopItem.cost);
@@ -51,5 +52,43 @@ public class UI_Script : MonoBehaviour
             return;
         }
     }
+
+
+
+
+
+
+    //private void PopulateShop()
+    //{
+    //    //loops through the buff array creating buttons
+    //    for (int i = 0; i < shopEff.Length; i++)
+    //    {
+    //        ShopEffects shopItem = shopEff[i];
+    //        GameObject itemObject = Instantiate(shopItemTemplate, container);
+    //        itemObject.SetActive(true);
+
+    //        //creates an onClick event
+    //        itemObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(shopItem));
+    //        //accesses prefabs to change it based of items in shop
+    //        //changes the name on the button
+    //        itemObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = shopItem.itemName;
+    //        //changes the price on the button
+    //        itemObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = shopItem.cost.ToString();
+
+    //    }
+    //}
+
+    //private void OnButtonClick(ShopEffects shopItem)
+    //{
+    //    if (gameManager.instance.playerScript.TrySpendGemAmount(shopItem.cost) == true)
+    //    {
+    //        shopItem.Apply();
+    //        gameManager.instance.updateGemCount(-shopItem.cost);
+    //    }
+    //    else
+    //    {
+    //        return;
+    //    }
+    //}
 
 }

@@ -20,10 +20,17 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(int level)
     {
+
         mainMenu.SetActive(false);
         loadingScreen.SetActive(true);
-
-        StartCoroutine(LoadLevelASync(level));
+        if (level == 3)
+        {
+            StartCoroutine(CutsceneTimer());
+        }
+        else
+        {
+            StartCoroutine(LoadLevelASync(level));
+        }
     }
 
     IEnumerator LoadLevelASync(int level)
@@ -36,5 +43,10 @@ public class LevelLoader : MonoBehaviour
             loadingSlider.value = progressValue;
             yield return null;
         }
+    }
+    IEnumerator CutsceneTimer()
+    {
+        yield return new WaitForSeconds(2);
+        LoadLevel(4);
     }
 }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Collect : MonoBehaviour, ICollectible
 {
-    public enum CollectibleTypes { Ammo, Gem, HealthPack, CooldownE, CooldownQ, MaxHPUp, MaxSpeedUp, CritUp, DashUp}
+    public enum CollectibleTypes { Ammo, Gem, HealthPack, CooldownE, CooldownQ, MaxHPUp, MaxSpeedUp, CritUp, DashUp }
 
     public CollectibleTypes CollectibleType;
 
+    public int cost;
     public bool rotate;
     public float rotationSpeed;
 
@@ -19,13 +20,14 @@ public class Collect : MonoBehaviour, ICollectible
     [SerializeField] public float maxHPAddition;
     [SerializeField] public float walkSpeedUp;
     [SerializeField] public float sprintSpeedUp;
-    [SerializeField] public float critChance;
-    [SerializeField] public float critDam;
+    [SerializeField] public int critChance;
+    [SerializeField] public float critPercent;
     [SerializeField] public int addDashes;
     [SerializeField] public float dashTime;
 
     [SerializeField] CollectibleDrops dropItem;
 
+    public GameObject collectText;
     public GameObject collectEffect;
 
     // Update is called once per frame
@@ -37,11 +39,12 @@ public class Collect : MonoBehaviour, ICollectible
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             CollectItem();
+
         }
-        
+
     }
 
     public void CollectItem()
@@ -49,61 +52,56 @@ public class Collect : MonoBehaviour, ICollectible
         if (collectEffect)
             Instantiate(collectEffect, transform.position, Quaternion.identity);
 
-            #region old code
-            //if (CollectibleType == CollectibleTypes.Gem)
-            //{
-            //    GiveGem(gemAmount);
-            //}
-            //if (CollectibleType == CollectibleTypes.HealthPack)
-            //{
-            //    //checks to see if the player already has full hp
-            //    if (gameManager.instance.playerScript.hp >= gameManager.instance.playerScript.hpOrig)
-            //    {
-            //        return;
-            //    }
-            //    GiveHP(healingAmount);
-            //}
-            //if(CollectibleType == CollectibleTypes.Ammo)
-            //{
-            //    GiveAmmo(ammoAmount);
-            //}
-            #endregion
+        CollectibleText indicator = Instantiate(collectText, transform.position, Quaternion.identity).GetComponent<CollectibleText>(); // need to modify where
+
+
         switch ((int)CollectibleType)
         {
             default:
             case 0:
                 GiveAmmo(ammoAmount);
+                indicator.SetCollecibleText("");
                 break;
             case 1:
                 GiveGem(gemAmount);
+                indicator.SetCollecibleText("");
                 break;
             case 2:
                 if (gameManager.instance.playerScript.hp >= gameManager.instance.playerScript.hpOrig)
                 {
+                    indicator.SetCollecibleText("");
                     return;
                 }
                 else
                 {
                     GiveHP((int)healingAmount);
+                    indicator.SetCollecibleText("");
                 }
                 break;
             case 3:
                 ReduceECooldown(cooldownEAmount);
+                indicator.SetCollecibleText("Dash time down");
                 break;
             case 4:
                 ReduceQCooldown(cooldownQAmount);
+                indicator.SetCollecibleText("Fireball time down");
                 break;
             case 5:
                 MaxHPUp(maxHPAddition, healingAmount);
+                indicator.SetCollecibleText("Max HP up");
                 break;
             case 6:
-                PlayerSpeedUp(walkSpeedUp, sprintSpeedUp); 
+                PlayerSpeedUp(walkSpeedUp, sprintSpeedUp);
+                indicator.SetCollecibleText("Player Speed up");
                 break;
             case 7:
-                CritChanceUp(critChance, critDam);
+                CritChanceUp(critChance, critPercent);
+                indicator.SetCollecibleText("Crit up");
                 break;
             case 8:
                 DashUp(addDashes, dashTime);
+                indicator.SetCollecibleText("Dash up");
+
                 break;
         }
         Destroy(gameObject);
@@ -113,14 +111,25 @@ public class Collect : MonoBehaviour, ICollectible
     {
         //IMPORTANT: kinda... This doesnt seem efficient.. is there a better way to increase that number?
         gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoReserve += amount;
+
     }
 
     // Receive health when picking up a health pack
     public void GiveHP(int amount)
-    {      
-        gameManager.instance.playerScript.hp += amount;
-        gameManager.instance.playerScript.hpOrig += amount;       
+    {
+        //gameManager.instance.playerScript.hpOrig += amount;
+        if (gameManager.instance.playerScript.hp + amount > gameManager.instance.playerScript.hpOrig)
+        {
+            gameManager.instance.playerScript.hp = gameManager.instance.playerScript.hpOrig;
+        }
+        else
+        {
+            gameManager.instance.playerScript.hp += amount;
+
+        }
+
         gameManager.instance.playerScript.UpdatePlayerUI();
+
     }
 
     //give player a gem ammount
@@ -141,9 +150,9 @@ public class Collect : MonoBehaviour, ICollectible
 
     public void MaxHPUp(float increase, float heal)
     {
-        float temp = gameManager.instance.playerScript.hpMax * increase;
-        gameManager.instance.playerScript.hpMax = (int)temp;
-        gameManager.instance.playerScript.hp += (int)(gameManager.instance.playerScript.hpMax * heal);
+        float temp = gameManager.instance.playerScript.hpOrig * increase;
+        gameManager.instance.playerScript.hpOrig = (int)temp;
+        gameManager.instance.playerScript.hp += (int)(gameManager.instance.playerScript.hpOrig * heal);
         gameManager.instance.playerScript.UpdatePlayerUI();
     }
 
@@ -155,12 +164,10 @@ public class Collect : MonoBehaviour, ICollectible
         gameManager.instance.playerScript.sprintSpeed = (int)tempSpt;
     }
 
-    public void CritChanceUp(float chance, float dam)
+    public void CritChanceUp(int chance, float critMul)
     {
         gameManager.instance.playerScript.critChance += chance;
-        float tempDam = Mathf.Pow(gameManager.instance.playerScript.shootDamageOrig, (1 + dam));
-        gameManager.instance.playerScript.shootDamage = (int)tempDam;
-
+        gameManager.instance.playerScript.critDam += gameManager.instance.playerScript.shootDamage * critMul;
     }
 
     public void DashUp(int uses, float time)
@@ -169,4 +176,6 @@ public class Collect : MonoBehaviour, ICollectible
         gameManager.instance.playerScript.dashCount += uses;
         gameManager.instance.player.GetComponent<DashAbility>().remainingDashes += uses;
     }
+
+
 }

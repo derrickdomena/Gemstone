@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollectibleType: 7
+  cost: 0
   rotate: 1
   rotationSpeed: 100
   ammoAmount: 0
@@ -109,9 +110,12 @@ MonoBehaviour:
   maxHPAddition: 0
   walkSpeedUp: 0
   sprintSpeedUp: 0
-  critChance: 0.1
-  critDam: 0.05
+  critChance: 10
+  critPercent: 0.1
+  addDashes: 0
+  dashTime: 0
   dropItem: {fileID: 11400000, guid: 76ccb961124cebb46af09f2e65526181, type: 2}
+  collectText: {fileID: 8649639951408189901, guid: 6b3ccf8802125a5439c8f96100d60ecb, type: 3}
   collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f, type: 3}
 --- !u!135 &759370786150170458
 SphereCollider:
@@ -143,9 +147,9 @@ AudioSource:
   m_GameObject: {fileID: 7168815052554179834}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 2022140872301531787, guid: 000edcabf691a214ea53f779d29d72a9, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

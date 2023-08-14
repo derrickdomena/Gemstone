@@ -311,14 +311,15 @@ public class gameManager : MonoBehaviour
     }
     public void FirstDeath()
     {
+        gameManager.instance.playerScript.Immune(true);
         anim.SetTrigger("FadeIn");
-        StartCoroutine(FirstDeathTimer());
+        StartCoroutine(FirstDeathTimer());       
     }
 
     IEnumerator FirstDeathTimer()
     {
-        cutscene.SetActive(true);
-        yield return new WaitForSeconds(4);
+        cutscene.SetActive(true);     
+        yield return new WaitForSeconds(4);        
         youLose();
     }
 
