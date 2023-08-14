@@ -342,7 +342,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         if (hp <= 0)
         {
-            audioManager.musicSource.Stop();          
+            //audioManager.musicSource.Stop();          
             if (PlayerPrefs.GetInt(deathCounter)  == 0)
             {
                 death++;
