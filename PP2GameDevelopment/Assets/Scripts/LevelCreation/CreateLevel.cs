@@ -58,7 +58,7 @@ public class CreateLevel : MonoBehaviour
         }
         else if (nodes.Count <= 0 && !generating)
         {
-            Debug.Log("No nodes");
+            //Debug.Log("No nodes");
         }
         else if (nodes.Count <= 0 && generating)
         {
@@ -85,7 +85,7 @@ public class CreateLevel : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No rooms to instantiate.");
+            //Debug.LogWarning("No rooms to instantiate.");
         }
         yield return new WaitForSeconds(.3f);
         generating = false;
@@ -106,7 +106,7 @@ public class CreateLevel : MonoBehaviour
         roomCheck();
         if(qualifiedRooms.Count <= 0)
         {
-            Debug.Log(" no qualified rooms");
+            //Debug.Log(" no qualified rooms");
         }
 
         if (qualifiedRooms.Count > 0)
@@ -119,7 +119,7 @@ public class CreateLevel : MonoBehaviour
         }
         else
         {
-            Debug.Log("No qualified rooms to instantiate.");
+            //Debug.Log("No qualified rooms to instantiate.");
         }
 
         yield return new WaitForSeconds(.3f);
