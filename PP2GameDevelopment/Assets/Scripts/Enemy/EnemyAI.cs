@@ -54,6 +54,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     bool isMelee;
     bool inMeleeRange;
     float stoppingDistanceOrig;
+
     Vector3 playerDir;
     int hpOrig;
 
@@ -199,6 +200,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void TakeDamage(int amount)
     {
+        hp -= amount;
         if (hp <= 0)
         {
             isDead = true;
@@ -206,8 +208,8 @@ public class EnemyAI : MonoBehaviour, IDamage
             GetComponent<Collider>().enabled = false;
         }
 
-        hp -= amount;
         healthBar.UpdateHealthBar(hp, (float)hpOrig);
+
         DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
         indicator.SetDamageText(amount);
         //flashes the enemy hp bar above their heads for a fraction of a second.

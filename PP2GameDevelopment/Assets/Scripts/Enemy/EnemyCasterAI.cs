@@ -208,6 +208,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
     public void TakeDamage(int amount)
     {
+        hp -= amount;
         if (hp <= 0)
         {
             //agent.SetDestination(agent.transform.position);
@@ -216,7 +217,6 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
             GetComponent<Collider>().enabled = false;
         }
 
-        hp -= amount;
         healthBar.UpdateHealthBar(hp, (float)hpOrig);
         DamageIndicator indicator = Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageIndicator>();
         indicator.SetDamageText(amount);

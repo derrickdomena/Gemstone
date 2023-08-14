@@ -1182,12 +1182,16 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 8421084349996836213, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421084349996836213, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: Priority
-      value: 50
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 8421084349996836213, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: m_Volume
-      value: 0.2
+      value: 0.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
