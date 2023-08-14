@@ -68,6 +68,7 @@ public class gameManager : MonoBehaviour
     public int maxRooms = 10;
     public List<GameObject> capRooms = new List<GameObject>();
     public List<GameObject> BossRooms = new List<GameObject>();
+    public List<GameObject> BossRoomsTwo = new List<GameObject>();
     public int roomCount;
     public bool generated = false;
 
