@@ -21,7 +21,7 @@ public class EnterExitGate : MonoBehaviour
         else
         {
             dungeonCount++;
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
 }

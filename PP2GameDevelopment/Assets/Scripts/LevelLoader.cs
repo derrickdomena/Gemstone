@@ -23,14 +23,11 @@ public class LevelLoader : MonoBehaviour
 
         mainMenu.SetActive(false);
         loadingScreen.SetActive(true);
-        if (level == 3)
-        {
-            StartCoroutine(CutsceneTimer());
-        }
-        else
-        {
+        //if (level == 3)
+        //{
+        //    StartCoroutine(CutsceneTimer());
+        //}
             StartCoroutine(LoadLevelASync(level));
-        }
     }
 
     IEnumerator LoadLevelASync(int level)
@@ -43,10 +40,11 @@ public class LevelLoader : MonoBehaviour
             loadingSlider.value = progressValue;
             yield return null;
         }
+        loadingScreen.SetActive(false);
     }
-    IEnumerator CutsceneTimer()
-    {
-        yield return new WaitForSeconds(2);
-        LoadLevel(4);
-    }
+   //IEnumerator CutsceneTimer()
+   //{
+   //    yield return new WaitForSeconds(2);
+   //    LoadLevel(4);
+   //}
 }
