@@ -143,8 +143,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         hpOrig = hp;
         shootDamageOrig = shootDamage;
         SpawnPlayer();
-        gameManager.instance.Health.text = hp.ToString();
-        gameManager.instance.HealthMax.text = hpOrig.ToString();
         dashCount = 1;
     }
 
@@ -160,6 +158,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
             }
             StateHandler();
+
+            gameManager.instance.Health.text = hp.ToString();
+            gameManager.instance.HealthMax.text = hpOrig.ToString();
 
             // Checks if player is aiming or not
             bool isAimButtonPressed = Input.GetButton("Aim");
