@@ -33,9 +33,15 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    // Take the player back to the main menu
     public void quit()
     {
-        Application.Quit();
+        gameManager.instance.stateUnpaused();
+        if (true) //make this false to bring back the player dupe bug :D
+        {
+            Destroy(gameManager.instance.player);
+        }
+        SceneManager.LoadScene(0);
     }
 
     
