@@ -102,6 +102,7 @@ public class BossRoomBehavior : MonoBehaviour
         {
             dust.SetActive(true);
             MoveDoorTowards(doors.transform.position, doorOpenPOS);
+            gameManager.instance.StartCoroutine(gameManager.instance.MiniBossRoomTextTimer());
 
             if (Vector3.Distance(doors.transform.position, doorOpenPOS) < openDoorThreshold)
             {
