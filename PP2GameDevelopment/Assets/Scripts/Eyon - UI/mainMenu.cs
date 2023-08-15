@@ -20,6 +20,14 @@ public class mainMenu : MonoBehaviour
     //Quit the game
     public void Quit()
     {
-        Application.Quit();
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
+        
     }
 }
