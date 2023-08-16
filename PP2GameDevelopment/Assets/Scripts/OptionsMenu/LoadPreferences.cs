@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
 public class LoadPreferences : MonoBehaviour
 {
@@ -12,8 +13,11 @@ public class LoadPreferences : MonoBehaviour
     [SerializeField] OptionsScript optionsMenuScript;
 
     [Header("Volume Setting")]
-    [SerializeField] TMP_Text volumeTextValue;
-    [SerializeField] Slider volumeSlider;
+    [SerializeField] TMP_Text musicTextValue;
+    [SerializeField] Slider musicSlider;
+
+    [SerializeField] TMP_Text sfxTextValue;
+    [SerializeField] Slider sfxSlider;
 
     [Header("Gameplay Setting")]
     [SerializeField] TMP_Text sensitivityTextValue;
@@ -29,12 +33,17 @@ public class LoadPreferences : MonoBehaviour
 
         if (isAvailable)
         {
-            if (PlayerPrefs.HasKey("masterVolume"))
+            if (PlayerPrefs.HasKey("masterMusic") && PlayerPrefs.HasKey("masterSFX"))
             {
-                float localVolume = PlayerPrefs.GetFloat("masterVolume");
-                volumeTextValue.text = localVolume.ToString("0.0");
-                volumeSlider.value = localVolume;
-                AudioListener.volume = localVolume;
+                float localMusic = PlayerPrefs.GetFloat("masterMusic");              
+                musicTextValue.text = localMusic.ToString("0.0");             
+                musicSlider.value = localMusic;
+                optionsMenuScript.audioMixer.SetFloat("Music", Mathf.Log10(localMusic) * 20);
+
+                float localSFX = PlayerPrefs.GetFloat("masterSFX");
+                sfxTextValue.text = localSFX.ToString("0.0");
+                sfxSlider.value = localSFX;
+                optionsMenuScript.audioMixer.SetFloat("SFX", Mathf.Log10(localSFX) * 20);
             }
             else
             {

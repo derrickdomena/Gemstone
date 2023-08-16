@@ -68,7 +68,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] AudioClip semiAudioClip;
     [SerializeField] AudioClip rifleAudioClip;
 
-    Audio audioManager;
+    AudioManager audioManager;
 
     Vector3 gunModelOrig;
 
@@ -127,14 +127,13 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
 
     private RaycastHit target;
-
-    public AudioSource walkingSound, runningSound, jumpSound;
+    
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         PlayerPrefs.SetInt(deathCounter, death);
         gunModelOrig = gunModel.transform.localPosition;
-        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<Audio>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     // Start is called before the first frame update
     private void Start()
@@ -223,9 +222,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         }
         else
         {
-            walkingSound.enabled = false;
-            runningSound.enabled = false;
-            jumpSound.enabled = false;
+            audioManager.sfxSource.Stop();
         }
     }
 
@@ -246,41 +243,14 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         controller.Move(playerSpeed * Time.deltaTime * move);
 
-        // Audio
-        if(hp > 0)
-        {
-            if (move != Vector3.zero)
-            {
-                walkingSound.enabled = true;
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    walkingSound.enabled = false;
-                    runningSound.enabled = true;
-                }
-                else
-                {
-                    walkingSound.enabled = true;
-                    runningSound.enabled = false;
-                }
-            }
+        // Plays Movement Audio
+        if (move != Vector3.zero && !audioManager.sfxSource.isPlaying)
+        {        
+            if (Input.GetKey(KeyCode.LeftShift))
+                audioManager.PlaySFX(audioManager.runningSound); // Plays the running sound
             else
-            {
-                walkingSound.enabled = false;
-                runningSound.enabled = false;
-            }
-            // Seperate jump check, due to the conditions on the if statement below dont play audio 
-            if (Input.GetKey(KeyCode.Space))
-            {
-                jumpSound.enabled = true;
-                walkingSound.enabled = false;
-                runningSound.enabled = false;
-            }
-            else
-            {
-                jumpSound.enabled = false;
-            }
-        }
-        
+                audioManager.PlaySFX(audioManager.walkingSound); // Plays the walking sound
+        }  
 
         // Jump
         // Allows for single consecutive jumps when grounded without needing to press jumpKey again
@@ -288,7 +258,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         if (Input.GetKeyDown(jumpKey) && jumpCount < jumpsMax || groundedPlayer && Input.GetKey(jumpKey))
         {
             playerVelocity.y = jumpHeight;          
-            jumpCount++;          
+            jumpCount++;
+            audioManager.sfxSource.Stop(); // Stops other audios like walking or running
+            audioManager.PlaySFX(audioManager.jumpingSound); // Plays the jumping sound
         }
 
         // Crouch
@@ -328,7 +300,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         // Movement - Walking
         else if (groundedPlayer)
         {
-            playerSpeed = walkSpeed;
+            playerSpeed = walkSpeed;          
         }
     }
 

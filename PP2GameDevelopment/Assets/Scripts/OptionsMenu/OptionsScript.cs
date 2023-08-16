@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class OptionsScript : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] cameraControls mainCamera;
+    [SerializeField] public AudioMixer audioMixer;
 
     [Header("Volume Setting")]
-    [SerializeField] TMP_Text volumeTextValue;
-    [SerializeField] Slider volumeSlider;
-    [SerializeField] float defaultVolume = 0.5f;
+    [SerializeField] TMP_Text musicTextValue;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] float defaultMusicVolume = 0.5f;
+    [SerializeField] TMP_Text sfxTextValue;
+    [SerializeField] Slider sfxSlider;
+    [SerializeField] float defaultSFXVolume = 0.5f;
 
     [Header("Gameplay Setting")]
     [SerializeField] TMP_Text sensitivityTextValue;
@@ -22,9 +27,6 @@ public class OptionsScript : MonoBehaviour
     [Header("Invert Y Setting")]
     [SerializeField] Toggle invertY;
 
-    //[Header("Confirmation")]
-    //[SerializeField] private GameObject confirmationPrompt; 
-
     // Gets main camera
     private void Awake()
     {
@@ -32,26 +34,39 @@ public class OptionsScript : MonoBehaviour
     }
 
     // Sets the volume
-    public void SetVolume(float volume)
+    public void SetMusicVolume()
     {
-        AudioListener.volume = volume;
-        volumeTextValue.text = volume.ToString("0.0");
+        float volume = musicSlider.value;
+        audioMixer.SetFloat("Music", Mathf.Log10(volume)*20);
+        musicTextValue.text = volume.ToString("0.0");
+    }
+
+    public void SetSFXVolume()
+    {
+        float volume = sfxSlider.value;
+        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        sfxTextValue.text = volume.ToString("0.0");
     }
 
     // Applied the selected values for volume and saves them to a playerpreferences called masterVolume
     public void VolumeApply()
-    {
-        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
-        //StartCoroutine(ConfirmationPopup());
+    {      
+        PlayerPrefs.SetFloat("masterMusic", musicSlider.value);
+        PlayerPrefs.SetFloat("masterSFX", sfxSlider.value);      
     }
 
     // Function works by not saving the modified changes (if apply wasn't clicked) and setting the values to the currently applied settings
     public void VolumeCancel()
     {
-        defaultVolume = PlayerPrefs.GetFloat("masterVolume");
-        volumeTextValue.text = defaultVolume.ToString("0.0");
-        volumeSlider.value = defaultVolume;
-        AudioListener.volume = defaultVolume;
+        defaultMusicVolume = PlayerPrefs.GetFloat("masterMusic");
+        musicTextValue.text = defaultMusicVolume.ToString("0.0");
+        musicSlider.value = defaultMusicVolume;
+        audioMixer.SetFloat("Music", Mathf.Log10(defaultMusicVolume) * 20);
+
+        defaultSFXVolume = PlayerPrefs.GetFloat("masterSFX");
+        sfxTextValue.text = defaultSFXVolume.ToString("0.0");
+        sfxSlider.value = defaultSFXVolume;
+        audioMixer.SetFloat("SFX", Mathf.Log10(defaultSFXVolume) * 20);
     }
 
     // Sets the sensitivity
@@ -97,22 +112,17 @@ public class OptionsScript : MonoBehaviour
         sensitivitySlider.value = defaultSensitivity;
     }
 
-    // Image pop up gives feedback to player that settings have been applied
-    //public IEnumerator ConfirmationPopup()
-    //{
-    //    confirmationPrompt.SetActive(true);
-    //    yield return new WaitForSeconds(2);
-    //    confirmationPrompt.SetActive(false);
-    //}
-
     // Default settings for Auido, Gameplay, and invertY
     public void DefaultSettings(string settingMenu)
     {
         if (settingMenu == "Audio")
         {
-            AudioListener.volume = defaultVolume;
-            volumeSlider.value = defaultVolume;
-            volumeTextValue.text = defaultVolume.ToString("0.0");
+            audioMixer.SetFloat("Music", Mathf.Log10(defaultMusicVolume) * 20);
+            musicSlider.value = defaultMusicVolume;
+            musicTextValue.text = defaultMusicVolume.ToString("0.0");
+            audioMixer.SetFloat("SFX", Mathf.Log10(defaultSFXVolume) * 20);
+            sfxSlider.value = defaultSFXVolume;
+            sfxTextValue.text = defaultSFXVolume.ToString("0.0");
             VolumeApply();
         }
 
