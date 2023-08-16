@@ -8,7 +8,7 @@ public class PlayerInteractDungeon : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            float interactRange = 6f;
+            float interactRange = 3f;
             Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
             foreach (Collider collider in colliderArray)
             {
@@ -22,7 +22,7 @@ public class PlayerInteractDungeon : MonoBehaviour
     //Allows other classes to check to see if there is a gate nearby to interact with
     public EnterExitGate GetInteractableObject()
     {
-        float interactRange = 6f;
+        float interactRange = 3f;
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
         foreach (Collider collider in colliderArray)
         {

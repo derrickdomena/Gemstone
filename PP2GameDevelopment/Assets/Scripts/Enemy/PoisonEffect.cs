@@ -9,7 +9,12 @@ public class PoisonEffect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gameManager.instance.isPoisoned = true;
+            if (!gameManager.instance.playerScript.isPoisoned) 
+            {
+                gameManager.instance.playerScript.poisonEffectDuration = gameManager.instance.playerScript.poisonDurOrig;
+                gameManager.instance.playerScript.poisonTimer = 0;
+                gameManager.instance.playerScript.isPoisoned = true;
+            }
         }
     }
 }

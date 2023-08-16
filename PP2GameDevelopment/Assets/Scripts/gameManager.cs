@@ -52,10 +52,6 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI wavesLeftText;
     public GameObject MiniBossRoomText;
 
-    [SerializeField] public float poisonEffectDuration;
-    [SerializeField] public float poisonTimer = 0.0f;
-    [SerializeField] public bool isPoisoned = false;
-
     public GameObject miniMap;
     public GameObject fullMap;
     public Transform chatBubble;
@@ -137,23 +133,7 @@ public class gameManager : MonoBehaviour
         }
         ShowMap();    
 
-        if (isPoisoned)
-        {
-            poisonTimer += Time.deltaTime;
-            float poisonDurOrig = poisonEffectDuration;
-            if (poisonTimer >= 2 && poisonEffectDuration != 0)
-            {
-                poisonEffectDuration--;
-                playerScript.TakePoisonDamage(1);
-                poisonTimer = 0;
-            }
-            else if (poisonEffectDuration == 0)
-            {
-                poisonEffectDuration = poisonDurOrig;
-                poisonTimer = 0;
-                isPoisoned = false;
-            }
-        }
+        
     }
 
     //Pause game instance and unlocks cursor to the area of the game

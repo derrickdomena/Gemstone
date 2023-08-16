@@ -63,7 +63,7 @@ RectTransform:
   - {fileID: 930036759232019863}
   - {fileID: 2552483166201428188}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -118,9 +118,6 @@ MonoBehaviour:
   wavesLeftCounter: {fileID: 0}
   wavesLeftText: {fileID: 0}
   MiniBossRoomText: {fileID: 8914660943819920102}
-  poisonEffectDuration: 8
-  poisonTimer: 0
-  isPoisoned: 0
   miniMap: {fileID: 2496269992083318591}
   fullMap: {fileID: 5442519864569565735}
   chatBubble: {fileID: 2220258406418758887, guid: fb37728a9a2d95c4a9a59d2a44fad6ff, type: 3}
@@ -11959,7 +11956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.32955217, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.4648342, g: 1, b: 0, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

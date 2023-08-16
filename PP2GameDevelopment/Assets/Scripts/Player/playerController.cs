@@ -36,7 +36,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] public int dashCount;
 
     // Poison Effect stats
-
+    [SerializeField] public float poisonEffectDuration;
+    [SerializeField] public float poisonTimer = 0.0f;
+    [SerializeField] public bool isPoisoned = false;
+    public float poisonDurOrig = 0.0f;
 
 
     [Header("----- Gun Stats -----")]
@@ -140,6 +143,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         reloadTutorial = true;
         hpOrig = hp;
+        poisonDurOrig = poisonEffectDuration;
         shootDamageOrig = shootDamage;
         SpawnPlayer();
         dashCount = 1;
@@ -223,6 +227,21 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         else
         {
             audioManager.sfxSource.Stop();
+        }
+
+        if (isPoisoned)
+        {
+            poisonTimer += Time.deltaTime;
+            if (poisonTimer >= 2 && poisonEffectDuration != 0)
+            {
+                poisonEffectDuration--;
+                TakePoisonDamage();
+                poisonTimer = 0;
+            }
+            else if (poisonEffectDuration == 0)
+            {
+                isPoisoned = false;
+            }
         }
     }
 
@@ -328,10 +347,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     }
 
     //Apply Poison Damage to player
-    public void TakePoisonDamage(int amount)
+    public void TakePoisonDamage()
     {
         if (immune == true) { return; }
-        hp -= amount;
+        int poison = hpOrig / 10;
+        hp -= poison;
         StartCoroutine(gameManager.instance.PoisonFlashDamage());
         UpdatePlayerUI();
 
