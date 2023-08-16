@@ -50,6 +50,7 @@ public class gameManager : MonoBehaviour
     public GameObject nextLevelCounter;
     public GameObject wavesLeftCounter;
     public TextMeshProUGUI wavesLeftText;
+    public GameObject MiniBossRoomText;
 
     [SerializeField] public float poisonEffectDuration;
     [SerializeField] public float poisonTimer = 0.0f;
@@ -345,5 +346,11 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         activeMenu = null;
+    }
+    public IEnumerator MiniBossRoomTextTimer()
+    {
+        MiniBossRoomText.SetActive(true);
+        yield return new WaitForSeconds(4);
+        MiniBossRoomText.SetActive(false);
     }
 }

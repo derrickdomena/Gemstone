@@ -2388,7 +2388,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5100105600318911286}
-  m_LocalRotation: {x: -0, y: -0.5214145, z: -0, w: 0.8533036}
+  m_LocalRotation: {x: 0, y: -0.5214117, z: 0, w: 0.8533053}
   m_LocalPosition: {x: 8.823642, y: 0.000014305115, z: -0.87795895}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
@@ -2402,7 +2402,7 @@ Transform:
   - {fileID: 6610556877772037188}
   - {fileID: 7467119484329621674}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -62.854, z: 0}
 --- !u!195 &5047666237371822940
 NavMeshAgent:
@@ -2523,7 +2523,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 131072
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
