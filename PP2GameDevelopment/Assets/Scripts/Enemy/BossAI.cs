@@ -119,16 +119,11 @@ public class BossAI : MonoBehaviour, IDamage
             agent.SetDestination(gameManager.instance.player.transform.position);
             animator.SetBool("isRun", true);
 
-            if (agent.remainingDistance <= agent.stoppingDistance + 2)
+            if (agent.remainingDistance <= agent.stoppingDistance)
             {
                 animator.SetBool("isRun", false);
                 //agent.SetDestination(agent.)
-                playerInRange = true;
 
-            }
-            else
-            {
-                playerInRange = false;
             }
         }
     }
@@ -242,7 +237,7 @@ public class BossAI : MonoBehaviour, IDamage
     public void doDamage()
     {
         IDamage playerD = gameManager.instance.player.GetComponent<IDamage>();
-        if (playerD != null)
+        if (playerD != null && playerInRange)
         {
             if (phaseCounter == 1)
             {
@@ -304,7 +299,14 @@ public class BossAI : MonoBehaviour, IDamage
     {
         if(other.CompareTag("Player"))
         {
-            doDamage();
+            playerInRange = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
         }
     }
     private void GetSpawner()
