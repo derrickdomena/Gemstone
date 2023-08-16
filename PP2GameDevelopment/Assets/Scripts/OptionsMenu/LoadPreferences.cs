@@ -15,9 +15,11 @@ public class LoadPreferences : MonoBehaviour
     [Header("Volume Setting")]
     [SerializeField] TMP_Text musicTextValue;
     [SerializeField] Slider musicSlider;
+    [SerializeField] float playerPrefsMusic;
 
     [SerializeField] TMP_Text sfxTextValue;
     [SerializeField] Slider sfxSlider;
+    [SerializeField] float playerPrefsSFX;
 
     [Header("Gameplay Setting")]
     [SerializeField] TMP_Text sensitivityTextValue;
@@ -30,6 +32,8 @@ public class LoadPreferences : MonoBehaviour
     private void Awake()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraControls>();
+        playerPrefsMusic = PlayerPrefs.GetFloat("masterMusic");
+        playerPrefsSFX = PlayerPrefs.GetFloat("masterSFX");
 
         if (isAvailable)
         {

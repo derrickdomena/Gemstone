@@ -39,23 +39,6 @@ public class AudioManager : MonoBehaviour
     {
         BackgroundMusic();
     }
-
-    //public void PlayMusic()
-    //{
-    //    if (gameManager.instance.activeMenu != gameManager.instance.shop)
-    //    {
-    //        musicSource.Stop();
-    //        BackgroundMusic();
-    //    }
-    //    else
-    //    {
-    //        musicSource.Stop();
-    //        musicSource.clip = vendor;
-    //        musicSource.Play();
-    //    }
-        
-    //}
-
     
     public void BackgroundMusic()
     {    

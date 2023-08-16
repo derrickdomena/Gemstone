@@ -30,10 +30,16 @@ public class OptionsScript : MonoBehaviour
     // Gets main camera
     private void Awake()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraControls>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraControls>();        
     }
 
-    // Sets the volume
+    private void Start()
+    {
+        SetMusicVolume(); // Calls SetMusicVolume to update the slider and slider text value
+        SetSFXVolume(); // Calls SetSFXVolume to update the slider and slider text value
+    }
+
+    // Sets the music volume
     public void SetMusicVolume()
     {
         float volume = musicSlider.value;
@@ -41,6 +47,7 @@ public class OptionsScript : MonoBehaviour
         musicTextValue.text = volume.ToString("0.0");
     }
 
+    // Sets the sfx volume
     public void SetSFXVolume()
     {
         float volume = sfxSlider.value;
@@ -92,7 +99,6 @@ public class OptionsScript : MonoBehaviour
 
         PlayerPrefs.SetFloat("masterSensitivity", defaultSensitivity);
         mainCamera.sensitivity = defaultSensitivity * 100;
-        //StartCoroutine(ConfirmationPopup());
     }
 
     // Makes sure when gameplay UI values change and don't get apply sets the value to the previously saved settings

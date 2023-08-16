@@ -269,7 +269,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 audioManager.PlaySFX(audioManager.runningSound); // Plays the running sound
             else
                 audioManager.PlaySFX(audioManager.walkingSound); // Plays the walking sound
-        }  
+        }     
 
         // Jump
         // Allows for single consecutive jumps when grounded without needing to press jumpKey again
