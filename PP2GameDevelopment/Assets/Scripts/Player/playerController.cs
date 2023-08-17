@@ -66,17 +66,16 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] GameObject smgMuzzleFlashPOS;
     [SerializeField] GameObject rifleMuzzleFlashPOS;
     [SerializeField] GameObject sarMuzzleFlashPOS;
+    public int selectedGun;
+    Vector3 gunModelOrig;
+
+    // Audio
+    AudioManager audioManager;
 
     //AudioSource audioSource;
     //[SerializeField] AudioClip autoAudioClip;
     //[SerializeField] AudioClip semiAudioClip;
     //[SerializeField] AudioClip rifleAudioClip;
-
-    AudioManager audioManager;
-
-    Vector3 gunModelOrig;
-
-    public int selectedGun;
 
     [Header("----- Melee Stats -----")]
     [SerializeField] public List<MeleeStats> meleeList = new List<MeleeStats>();
@@ -125,7 +124,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     private RaycastHit target;
     
     private void Awake()
-    {
+    {       
         DontDestroyOnLoad(gameObject);
         PlayerPrefs.SetInt(deathCounter, death);
         gunModelOrig = gunModel.transform.localPosition;
@@ -145,6 +144,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Update is called once per frame
     void Update()
     {
+        // Since player changes to another scene the gameobject needs to be called again to other audiomanager in the scene. 
+        if (audioManager == null)
+        {
+            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        }
+
         playerStats.TotalDamage = totalDamage;
         if (gameManager.instance.activeMenu == null)
         {

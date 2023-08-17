@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
-
     [Header("Audio Source")]
     [SerializeField] public AudioSource musicSource;
     [SerializeField] public AudioSource sfxSource;
@@ -55,21 +53,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip bobInteractSound;
     public AudioClip pickUpSound;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
-        //musicSource = GameObject.FindGameObjectWithTag("MusicSource").GetComponent<AudioSource>();
-        //sfxSource = GameObject.FindGameObjectWithTag("SFXSource").GetComponent<AudioSource>();
-    }
     private void Start()
     {
         BackgroundMusic();

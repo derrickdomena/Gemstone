@@ -30,6 +30,10 @@ public class FireballAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (audioManager == null)
+        {
+            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        }
         UpdateGrenadeUI();
     }
 
