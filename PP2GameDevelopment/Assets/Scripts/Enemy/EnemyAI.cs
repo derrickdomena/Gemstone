@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] private Collect gem;
 
     [Header("----- Stats -----")]
-    [Range(1, 50)][SerializeField] int hp;
+    [Range(1, 50)][SerializeField] public int hp;
     [Range(1, 20)][SerializeField] int moveSpeed;
     [Range(1, 180)][SerializeField] int viewAngle;
     [Range(1, 10)][SerializeField] int playerFaceSpeed;
