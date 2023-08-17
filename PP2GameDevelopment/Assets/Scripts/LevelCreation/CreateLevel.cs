@@ -248,7 +248,33 @@ public class CreateLevel : MonoBehaviour
 
             if(roomCount == 1)
             {
-                qualifiedRooms = bobShop;
+                foreach (GameObject room in bobShop)
+                {
+                    // Check if the new position is empty in the level array
+                    if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
+                    {
+                        List<string> nodesInRoom = new List<string>();
+
+                        foreach (Transform child in room.transform)
+                        {
+                            if (child.name == nodeN || child.name == nodeE || child.name == nodeS || child.name == nodeW)
+                            {
+                                nodesInRoom.Add(child.name);
+                            }
+                        }
+
+                        // The room qualifies if all needed nodes are present in the room
+                        roomQualifies = neededNodes.All(node => nodesInRoom.Contains(node));
+
+                        // The room does not qualify if it has a node where a neighbor exists but has no node facing the room
+                        roomQualifies &= !neighborsWithoutNode.Any(node => nodesInRoom.Contains(node));
+                    }
+
+                    if (roomQualifies)
+                    {
+                        qualifiedRooms.Add(room);
+                    }
+                }
             }
             else if (roomCount == 2)
             {
