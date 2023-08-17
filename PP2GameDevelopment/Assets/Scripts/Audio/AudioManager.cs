@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    //public static AudioManager instance;
+    public static AudioManager instance;
 
     [Header("Audio Source")]
     [SerializeField] public AudioSource musicSource;
@@ -57,19 +57,18 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //    return;
-        //}
-
-        //DontDestroyOnLoad(gameObject);
-        musicSource = GameObject.FindGameObjectWithTag("MusicSource").GetComponent<AudioSource>();
-        sfxSource = GameObject.FindGameObjectWithTag("SFXSource").GetComponent<AudioSource>();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+        //musicSource = GameObject.FindGameObjectWithTag("MusicSource").GetComponent<AudioSource>();
+        //sfxSource = GameObject.FindGameObjectWithTag("SFXSource").GetComponent<AudioSource>();
     }
     private void Start()
     {
