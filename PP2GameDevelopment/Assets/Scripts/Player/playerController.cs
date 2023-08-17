@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Pool;
@@ -66,7 +67,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] GameObject rifleMuzzleFlashPOS;
     [SerializeField] GameObject sarMuzzleFlashPOS;
 
-    //public AudioSource audioSource;
+    //AudioSource audioSource;
     //[SerializeField] AudioClip autoAudioClip;
     //[SerializeField] AudioClip semiAudioClip;
     //[SerializeField] AudioClip rifleAudioClip;
@@ -87,7 +88,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     [Header("----- Melee Components -----")]
     [SerializeField] GameObject meleeModel;
-    public GameObject hitEffect;
+    //public GameObject hitEffect;
     public int selectedMelee;
     bool isAttacking;
 
@@ -252,12 +253,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         // Plays Movement Audio
         if (move != Vector3.zero && !audioManager.sfxSource.isPlaying)
-        {        
+        {
             if (Input.GetKey(KeyCode.LeftShift))
                 audioManager.PlaySFX(audioManager.runningSound); // Plays the running sound
             else
                 audioManager.PlaySFX(audioManager.walkingSound); // Plays the walking sound
-        }     
+        }
 
         // Jump
         // Allows for single consecutive jumps when grounded without needing to press jumpKey again

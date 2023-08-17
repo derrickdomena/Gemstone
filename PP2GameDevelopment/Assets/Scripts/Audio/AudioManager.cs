@@ -66,8 +66,10 @@ public class AudioManager : MonoBehaviour
         //    Destroy(gameObject);
         //    return;
         //}
-        
+
         //DontDestroyOnLoad(gameObject);
+        musicSource = GameObject.FindGameObjectWithTag("MusicSource").GetComponent<AudioSource>();
+        sfxSource = GameObject.FindGameObjectWithTag("SFXSource").GetComponent<AudioSource>();
     }
     private void Start()
     {

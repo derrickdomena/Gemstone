@@ -46,7 +46,7 @@ public class FireballAbility : MonoBehaviour
         Rigidbody rb = fireballObj.GetComponent<Rigidbody>();
 
         // Add throwing force
-        Vector3 forwardForce = transform.Find("Main Camera").forward * fireballSpeed;
+        Vector3 forwardForce = GameObject.FindGameObjectWithTag("MainCamera").transform.forward * fireballSpeed;
         rb.AddForce(forwardForce, ForceMode.Impulse);
     }
 
