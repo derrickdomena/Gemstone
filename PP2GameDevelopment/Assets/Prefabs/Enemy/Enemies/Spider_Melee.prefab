@@ -597,7 +597,7 @@ Transform:
   - {fileID: 2316724037894740783}
   - {fileID: 548555535450594909}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -136.578, z: 0}
 --- !u!95 &4689853434605282268
 Animator:
@@ -654,6 +654,12 @@ MonoBehaviour:
   itemDropRate: 30
   shootRate: 6
   shootDamage: 1
+  enemyType: default
+  dashSpeed: 40
+  dashTriggerDistance: 10
+  dashDistance: 5
+  dashCooldown: 10
+  damageText: {fileID: 9119225394715413976, guid: 970ec032c67ee60498476849dfb7c82a, type: 3}
   playerInRange: 0
 --- !u!195 &6988421982370206197
 NavMeshAgent:
