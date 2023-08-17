@@ -5,35 +5,69 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    //public static AudioManager instance;
 
     [Header("Audio Source")]
     [SerializeField] public AudioSource musicSource;
     [SerializeField] public AudioSource sfxSource;
 
-    [Header("Music Clips")]
+    [Header("Music Clips")] // Will
     public AudioClip background;
     public AudioClip backgroundBoss;
     public AudioClip vendor;
 
     [Header("SFX Clips")]
+    [Header("Player Movement")]
     public AudioClip walkingSound;
     public AudioClip runningSound;
     public AudioClip jumpingSound;
 
+    [Header("Enemies")]
+    public AudioClip enemyWalkSound; 
+    public AudioClip enemySpawnSound;
+    public AudioClip enemySwingSound;
+    public AudioClip enemyProjectileSound;
+
+    [Header("Menu")]
+    public AudioClip hoverSound;
+    public AudioClip applySound;
+    public AudioClip cancelSound;
+    public AudioClip pauseSound;
+    public AudioClip unpauseSound;
+
+    [Header("Abilities")]
+    public AudioClip explosionSound;
+    public AudioClip fireballSound;
+    public AudioClip dashSound;
+    public AudioClip stasisSound;
+
+    [Header("Melee")]
+    public AudioClip swingSound;
+    public AudioClip hitSound;
+
+    [Header("Gun")]
+    public AudioClip autoSound;
+    public AudioClip semiSound;
+    public AudioClip rifleSound;
+
+    [Header("Interact Sounds")] // Josh
+    public AudioClip enterDungeonSound;
+    public AudioClip bobInteractSound;
+    public AudioClip pickUpSound;
+
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
         
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     private void Start()
     {

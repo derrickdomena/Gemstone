@@ -19,6 +19,13 @@ public class DashAbility : MonoBehaviour
     public int remainingDashes;
     bool canDash;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +66,7 @@ public class DashAbility : MonoBehaviour
         if (Input.GetKeyDown(dashKey) && !canDash && Time.timeScale != 0 && remainingDashes != 0)
         {
             StartCoroutine(Dash());
+            audioManager.PlaySFX(audioManager.dashSound);
             remainingDashes--;
 
             if (remainingDashes < gameManager.instance.playerScript.dashCount && canDash == false)

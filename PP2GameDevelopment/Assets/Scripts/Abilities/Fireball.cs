@@ -12,7 +12,12 @@ public class Fireball : MonoBehaviour
     [SerializeField] float blastForce;
     [SerializeField] int blastDamage;
 
+    AudioManager audioManager;
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         Explode();
@@ -23,7 +28,7 @@ public class Fireball : MonoBehaviour
         // Particle Effect
         Instantiate(explosionEffect, transform.position, transform.rotation);
 
-        gameManager.instance.playerScript.audioSource.PlayOneShot(gameManager.instance.playerScript.explosionSound);
+        audioManager.PlaySFX(audioManager.explosionSound);
 
         // Add force to nearby objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);

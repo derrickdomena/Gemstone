@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2022140872301531787, guid: 000edcabf691a214ea53f779d29d72a9, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -51,7 +51,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 5
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -288,7 +288,7 @@ Transform:
   - {fileID: 2092420078523710333}
   - {fileID: 3047496725386010690}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5024908899270799690
 MonoBehaviour:
@@ -310,3 +310,24 @@ MonoBehaviour:
   walkingSound: {fileID: 8300000, guid: eec53751c4e79a7469fc34e774360128, type: 3}
   runningSound: {fileID: 8300000, guid: b2c305fdeefa5194eaa2c69a95a9ae77, type: 3}
   jumpingSound: {fileID: 8300000, guid: 684d90e2defae1547a1d51bec24e6e9d, type: 3}
+  enemyWalkSound: {fileID: 0}
+  enemySpawnSound: {fileID: 0}
+  enemySwingSound: {fileID: 0}
+  enemyProjectileSound: {fileID: 0}
+  hoverSound: {fileID: 8300000, guid: 35cf7766e9e2aa542811e896fde57989, type: 3}
+  applySound: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
+  cancelSound: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
+  pauseSound: {fileID: 8300000, guid: b83bf8726a7fac349a54389f0c57cda6, type: 3}
+  unpauseSound: {fileID: 8300000, guid: e58d8bd078f188a4ba314e933b98528b, type: 3}
+  explosionSound: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
+  fireballSound: {fileID: 8300000, guid: 6b2f5e232b0be01449b826110c3ad7ec, type: 3}
+  dashSound: {fileID: 8300000, guid: 78ad99fd0a0a5144280b07bbdba84815, type: 3}
+  stasisSound: {fileID: 0}
+  swingSound: {fileID: 8300000, guid: 80151380c0f818243b66a78ef69c9fcd, type: 3}
+  hitSound: {fileID: 0}
+  autoSound: {fileID: 8300000, guid: 611f65b2aba4a4af7b4ab3d6ddb5b546, type: 3}
+  semiSound: {fileID: 8300000, guid: 1b766da7cc2d648aa84e36cb5fe8abcb, type: 3}
+  rifleSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
+  enterDungeonSound: {fileID: 0}
+  bobInteractSound: {fileID: 0}
+  pickUpSound: {fileID: 0}

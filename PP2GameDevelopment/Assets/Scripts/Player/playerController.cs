@@ -66,10 +66,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] GameObject rifleMuzzleFlashPOS;
     [SerializeField] GameObject sarMuzzleFlashPOS;
 
-    public AudioSource audioSource;
-    [SerializeField] AudioClip autoAudioClip;
-    [SerializeField] AudioClip semiAudioClip;
-    [SerializeField] AudioClip rifleAudioClip;
+    //public AudioSource audioSource;
+    //[SerializeField] AudioClip autoAudioClip;
+    //[SerializeField] AudioClip semiAudioClip;
+    //[SerializeField] AudioClip rifleAudioClip;
 
     AudioManager audioManager;
 
@@ -87,17 +87,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     [Header("----- Melee Components -----")]
     [SerializeField] GameObject meleeModel;
-    public LayerMask attackLayer;
-
     public GameObject hitEffect;
-    public AudioClip swordSwing;
-    public AudioClip hitSound;
-
     public int selectedMelee;
-
     bool isAttacking;
-
-    public AudioClip explosionSound;
 
     [Header("----- Keybinds -----")]
     // Keybinds
@@ -128,7 +120,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Aiming bool
     private bool isAiming = false;
 
-
+    bool isPlaying = false;
     private RaycastHit target;
     
     private void Awake()
@@ -223,10 +215,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     StartCoroutine(MeleeAttack());
                 }           
             }
-        }
-        else
-        {
-            audioManager.sfxSource.Stop();
         }
 
         if (isPoisoned)
@@ -410,13 +398,16 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             switch (name)
             {
                 case "Rifle":
-                    audioSource.PlayOneShot(rifleAudioClip, .7f);
+                    //audioSource.PlayOneShot(rifleAudioClip, .7f);
+                    audioManager.PlaySFX(audioManager.rifleSound);
                     break;
                 case "SMG":
-                    audioSource.PlayOneShot(autoAudioClip, .7f);
+                    //audioSource.PlayOneShot(autoAudioClip, .7f);
+                    audioManager.PlaySFX(audioManager.autoSound);
                     break;
                 case "SAR":
-                    audioSource.PlayOneShot(semiAudioClip, .7f);
+                    //audioSource.PlayOneShot(semiAudioClip, .7f);
+                    audioManager.PlaySFX(audioManager.semiSound);
                     break;
                 default:
                     Debug.Log("Audio Error - playerController: SetMuzzlePOS() - NO AUDIO FOR WEAPON");
@@ -585,7 +576,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         isAttacking = true;
 
-        audioSource.PlayOneShot(swordSwing);
+        audioManager.PlaySFX(audioManager.swingSound);
        
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, attackDistance))
         {      
