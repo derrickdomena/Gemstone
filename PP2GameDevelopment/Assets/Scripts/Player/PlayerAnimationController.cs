@@ -15,10 +15,13 @@ public class PlayerAnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Movement
         WalkingAnimation();
         RunningAnimation();
         JumpingAnimation();
-        FireballAnimation();
+        // Abilities
+        AbilityAnimation();
+        // Weapons
         MeleeAnimation();
         //ReloadingAnimation();
         //ShootingAnimation();
@@ -171,19 +174,20 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
-    void FireballAnimation()
+    void AbilityAnimation()
     {
-        bool isFireball = animator.GetBool("isFireball");
+        bool isFireball = animator.GetBool("isAbility");
         bool abilityQ = Input.GetKeyDown(KeyCode.Q);
+        bool ability1 = Input.GetKeyDown(KeyCode.Alpha1);
 
-        if (!isFireball && abilityQ)
+        if (!isFireball && (abilityQ || ability1))
         {
-            animator.SetBool("isFireball", true);
+            animator.SetBool("isAbility", true);
         }
 
-        if (isFireball && !abilityQ)
+        if (isFireball && (!abilityQ || !ability1))
         {
-            animator.SetBool("isFireball", false);
+            animator.SetBool("isAbility", false);
         }
     }
 

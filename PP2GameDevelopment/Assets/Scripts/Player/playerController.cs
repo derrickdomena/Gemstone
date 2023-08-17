@@ -128,7 +128,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         DontDestroyOnLoad(gameObject);
         PlayerPrefs.SetInt(deathCounter, death);
         gunModelOrig = gunModel.transform.localPosition;
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();     
     }
     // Start is called before the first frame update
     private void Start()
@@ -327,14 +327,14 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         if (hp <= 0)
         {
-            //audioManager.musicSource.Stop();          
+            //audioManager.musicSource.Stop();
             if (PlayerPrefs.GetInt(deathCounter)  == 0)
             {
-                death++;
+                death++;              
                 gameManager.instance.FirstDeath();
             }
             else
-            {
+            {              
                 gameManager.instance.youLose();
             }
         }
