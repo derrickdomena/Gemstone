@@ -7,13 +7,19 @@ public class FireballAbility : MonoBehaviour
     [Header("----- Fireball Components -----")]
     public GameObject fireballProjectile;
     public Transform fireballPosition;
-    public AudioClip fireballSound;
 
     [Header("----- Fireball Stats -----")]
     public float fireballSpeed;
 
     KeyCode fireballKey = KeyCode.Q;
     bool canThrow;
+
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +40,7 @@ public class FireballAbility : MonoBehaviour
         // Instantiae fireball object
         GameObject fireballObj = Instantiate(fireballProjectile, fireballPosition.transform.position, fireballPosition.transform.rotation);
 
-        gameManager.instance.playerScript.audioSource.PlayOneShot(fireballSound);
+        audioManager.PlaySFX(audioManager.fireballSound);
 
         // Get rigidbody component from fireball
         Rigidbody rb = fireballObj.GetComponent<Rigidbody>();

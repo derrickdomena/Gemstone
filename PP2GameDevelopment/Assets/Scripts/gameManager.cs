@@ -86,6 +86,8 @@ public class gameManager : MonoBehaviour
 
     [Header("----SceneStuff----")]
     [SerializeField] int timer;
+
+    AudioManager audioManager;
     //Awake is called before Start
     void Awake()
     {
@@ -98,7 +100,8 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         timescaleOrig = Time.timeScale;
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");      
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos"); 
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -118,10 +121,12 @@ public class gameManager : MonoBehaviour
         playerStats.NumberOfKills = enemiesKilled;
         //pressing ESC pauses the game
         if(Input.GetButtonDown("Cancel") && activeMenu == null) 
-        {
+        {     
             statePaused();
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
+            audioManager.sfxSource.Stop(); // Stops all sfx audio from playing when entering a menu
+            audioManager.PlaySFX(audioManager.pauseSound); // Plays pause menu sound
         }
         if(Input.GetButtonDown("Skip"))
         {
@@ -142,7 +147,7 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        isPaused = !isPaused;
+        isPaused = !isPaused; 
     }
 
     //Resumes game instance from timeScale locks cursor
