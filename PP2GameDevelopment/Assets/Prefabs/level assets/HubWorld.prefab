@@ -54,7 +54,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &554819566746378922
 Transform:
@@ -99,7 +99,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c83bbd7abad566c469868dd30febd0a7, type: 2}
+  - {fileID: 2100000, guid: c329e8431cfde2e479472025b5fa2883, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -443,7 +443,7 @@ Transform:
   - {fileID: 7558801441602487111}
   - {fileID: 4041650500306706869}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &53663323804712745
 PrefabInstance:
@@ -712,15 +712,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3736,15 +3752,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3982,12 +4014,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
+      propertyPath: m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
       propertyPath: m_Range
-      value: 25
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.807896
       objectReference: {fileID: 0}
     - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
       propertyPath: m_Intensity
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4610,15 +4654,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7398,15 +7458,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9020,15 +9096,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9876,15 +9972,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9954,15 +10066,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10304,15 +10432,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_SpotAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 30
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Intensity
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

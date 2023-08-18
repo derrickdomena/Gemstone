@@ -9,7 +9,6 @@ public class Stasis : MonoBehaviour
 
     public float stasisDuration;
 
-    // Dictionaries to store original values
     private Dictionary<GameObject, float> originalAnimationSpeeds = new Dictionary<GameObject, float>();
     private Dictionary<GameObject, Vector3> originalVelocities = new Dictionary<GameObject, Vector3>();
 
@@ -25,27 +24,23 @@ public class Stasis : MonoBehaviour
         stasisUsed = true;
         StartCoroutine(FreezeCoroutine(duration));
     }
-    // Updates the stasis UI
+
     void UpdateStasisUI()
     {
-        // When grenadeKey is pressed and canThrow is true, you can throw a grenade
-        // also checks to see if the game is paused
-        if (Input.GetKeyDown(stasisKey) && !stasisUsed&& Time.timeScale != 0)
+
+        if (Input.GetKeyDown(stasisKey) && !stasisUsed && Time.timeScale != 0)
         {
-            //change function to fireballCooldown
+
             gameManager.instance.stasisCooldownFill.fillAmount = 0;
             FreezeEnemiesForDuration(stasisDuration);
             stasisUsed = true;
         }
 
-        // When canThrow is true, start incrementing the grenade ability image fill amount
         if (stasisUsed)
         {
-            //change function to fireballCooldown
+ 
             gameManager.instance.stasisCooldownFill.fillAmount += 1 / gameManager.instance.playerScript.grenadeCooldown * Time.deltaTime;
 
-            // When image fill amount is equal to one, set canThrow to false
-            //change function to fireballCooldown
             if (gameManager.instance.stasisCooldownFill.fillAmount == 1)
             {
                 stasisUsed = false;
@@ -67,22 +62,22 @@ public class Stasis : MonoBehaviour
                 EnemyCasterAI enemyScript = enemy.GetComponent<EnemyCasterAI>();
                 enemyAgent = enemyScript.agent;
                 enemyAnimator = enemyScript.animator;
+                enemyScript.model.material.color = Color.blue;
             }
             else
             {
                 EnemyAI enemyScript = enemy.GetComponent<EnemyAI>();
                 enemyAgent = enemyScript.agent;
                 enemyAnimator = enemyScript.animator;
+                enemyScript.model.material.color = Color.blue;
             }
 
-            // Store original values in dictionaries
             originalVelocities[enemy] = enemyAgent.velocity;
             originalAnimationSpeeds[enemy] = enemyAnimator.speed;
 
-            // Freeze the enemy
             enemyAgent.velocity = Vector3.zero;
             enemyAgent.isStopped = true;
-            enemyAnimator.speed = 0;
+            enemyAnimator.speed = 0;           
         }
 
         yield return new WaitForSeconds(duration);
@@ -101,6 +96,7 @@ public class Stasis : MonoBehaviour
                     enemyScript.agent.velocity = originalVelocity;
                     enemyScript.agent.isStopped = false;
                     enemyScript.animator.speed = originalSpeed;
+                    enemyScript.model.material.color = Color.grey;
                 }
                 else
                 {
@@ -108,11 +104,11 @@ public class Stasis : MonoBehaviour
                     enemyScript.agent.velocity = originalVelocity;
                     enemyScript.agent.isStopped = false;
                     enemyScript.animator.speed = originalSpeed;
+                    enemyScript.model.material.color = Color.grey;
                 }
             }
         }
 
-        // Clear the dictionaries
         originalAnimationSpeeds.Clear();
         originalVelocities.Clear();
     }
