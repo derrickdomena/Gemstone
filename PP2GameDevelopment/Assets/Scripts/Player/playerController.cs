@@ -14,8 +14,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
     [SerializeField] public GameObject midMass;
-    static int death = 0;
-    private string deathCounter;
+    public GameObject FirstPersonCamera;
+    public GameObject CutSceneCamera;
+    public GameObject CutScenePlayerCamera;
+    public GameObject Cutscene;
 
 
     [Header("----- Player Stats -----")]
@@ -126,7 +128,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     private void Awake()
     {       
         DontDestroyOnLoad(gameObject);
-        PlayerPrefs.SetInt(deathCounter, death);
         gunModelOrig = gunModel.transform.localPosition;
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();     
     }
@@ -327,16 +328,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         if (hp <= 0)
         {
-            //audioManager.musicSource.Stop();
-            if (PlayerPrefs.GetInt(deathCounter)  == 0)
-            {
-                death++;              
-                gameManager.instance.FirstDeath();
-            }
-            else
-            {              
-                gameManager.instance.youLose();
-            }
+            //audioManager.musicSource.Stop();            
+            gameManager.instance.Death();
+            
         }
     }
 
@@ -352,15 +346,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         if (hp <= 0)
         {
             audioManager.musicSource.Stop();
-            if (PlayerPrefs.GetInt(deathCounter) == 0)
-            {
-                death++;
-                gameManager.instance.FirstDeath();
-            }
-            else
-            {
-                gameManager.instance.youLose();
-            }
+            gameManager.instance.Death();
         }
     }
 

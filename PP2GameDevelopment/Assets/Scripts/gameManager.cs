@@ -46,7 +46,6 @@ public class gameManager : MonoBehaviour
     public Image stasisCooldownFill;
     public Image dashCooldownFill;
     public Animator anim;
-    public GameObject cutscene;
     public GameObject nextLevelCounter;
     public GameObject wavesLeftCounter;
     public TextMeshProUGUI wavesLeftText;
@@ -195,6 +194,7 @@ public class gameManager : MonoBehaviour
         }
         statePaused();
         activeMenu = loseMenu;
+        Deactivate();
         activeMenu.SetActive(true);
     }
 
@@ -295,18 +295,19 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(5);
         activeMenu = winMenu;
         activeMenu.SetActive(true);
+        Deactivate();
         statePaused();
     }
-    public void FirstDeath()
+    public void Death()
     {
         gameManager.instance.playerScript.Immune(true);
-        anim.SetTrigger("FadeIn");
-        StartCoroutine(FirstDeathTimer());       
+        //anim.SetTrigger("FadeIn");
+        StartCoroutine(DeathTimer());       
     }
 
-    IEnumerator FirstDeathTimer()
+    IEnumerator DeathTimer()
     {
-        cutscene.SetActive(true);     
+        Activate();
         yield return new WaitForSeconds(4);        
         youLose();
     }
@@ -337,5 +338,19 @@ public class gameManager : MonoBehaviour
         MiniBossRoomText.SetActive(true);
         yield return new WaitForSeconds(4);
         MiniBossRoomText.SetActive(false);
+    }
+    public void Activate()
+    {
+        playerScript.Cutscene.SetActive(true);
+        playerScript.FirstPersonCamera.SetActive(false);
+        playerScript.CutSceneCamera.SetActive(true);
+        playerScript.CutScenePlayerCamera.SetActive(true);
+    }
+    public void Deactivate()
+    {
+        playerScript.Cutscene.SetActive(false);
+        playerScript.FirstPersonCamera.SetActive(true);
+        playerScript.CutSceneCamera.SetActive(false);
+        playerScript.CutScenePlayerCamera.SetActive(false);
     }
 }
