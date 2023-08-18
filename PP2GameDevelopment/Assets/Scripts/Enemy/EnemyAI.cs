@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] public Animator animator;
     [SerializeField] private Collect[] drops;
     [SerializeField] private Collect gem;
+    [SerializeField] public Renderer model;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] public int hp;
@@ -45,7 +46,6 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public GameObject damageText;
 
-    private Renderer[] model;
     public bool playerInRange;
     bool destinationChosen;
     float angleToPlayer;
@@ -63,7 +63,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void Awake()
     {
         healthBar = GetComponentInChildren<floatingHealthBar>();
-        model = GetComponentsInChildren<Renderer>();
     }
 
     // Start is called before the first frame update
@@ -200,6 +199,9 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
+
+        StartCoroutine(FlashDmg());
+
         if (hp <= 0)
         {
             isDead = true;
@@ -253,7 +255,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(enemyHPBarTimer);
         enemyHPBar.SetActive(false);
     }
-
-
+    IEnumerator FlashDmg()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(.15f);
+        model.material.color = Color.grey;
+    }
 
 }

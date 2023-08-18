@@ -15,6 +15,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     [SerializeField] float enemyHPBarTimer;
     [SerializeField] private Collect[] drops;
     [SerializeField] private Collect gem;
+    [SerializeField] public Renderer model;
 
     [Header("----- Stats -----")]
     [Range(1, 50)][SerializeField] public int hp;
@@ -209,6 +210,8 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         hp -= amount;
+        StartCoroutine(FlashDmg());
+
         if (hp <= 0)
         {
             //agent.SetDestination(agent.transform.position);
@@ -230,5 +233,12 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         enemyHPBar.SetActive(true);
         yield return new WaitForSeconds(enemyHPBarTimer);
         enemyHPBar.SetActive(false);
+    }
+
+    IEnumerator FlashDmg()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(.15f);
+        model.material.color = Color.grey;
     }
 }

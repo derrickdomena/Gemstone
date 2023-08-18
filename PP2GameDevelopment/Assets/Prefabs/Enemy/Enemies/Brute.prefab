@@ -2142,7 +2142,7 @@ Transform:
   - {fileID: 4230316242870359424}
   - {fileID: 5820668543530955683}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9075038084888749008
 MonoBehaviour:
@@ -2169,6 +2169,7 @@ MonoBehaviour:
   - {fileID: 3755314475148394898, guid: 4be3acef86282f74d801d0ab79374ffe, type: 3}
   - {fileID: 3628774141104762168, guid: b0fa1e2e22ab2af4c844fbae654f23fb, type: 3}
   gem: {fileID: 5033486770486681005, guid: 6d93f7977ff49464b944c4e46c66b11c, type: 3}
+  model: {fileID: 4404787793199645946}
   hp: 40
   moveSpeed: 2
   viewAngle: 0
@@ -2181,6 +2182,11 @@ MonoBehaviour:
   itemDropRate: 50
   shootRate: 1.1
   shootDamage: 1
+  enemyType: default
+  dashSpeed: 40
+  dashTriggerDistance: 10
+  dashDistance: 5
+  dashCooldown: 10
   damageText: {fileID: 9119225394715413976, guid: 970ec032c67ee60498476849dfb7c82a, type: 3}
   playerInRange: 0
 --- !u!195 &8723190148525063157
