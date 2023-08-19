@@ -17842,8 +17842,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.35294116, g: 0.76611584, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 50
+  m_Intensity: 4
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -20044,8 +20044,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.35294116, g: 0.76611584, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 50
+  m_Intensity: 4
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -20396,11 +20396,11 @@ Transform:
   - {fileID: 5515908436739899081}
   - {fileID: 3233233888756000005}
   - {fileID: 158996034865467430}
-  - {fileID: 3708117409732409509}
+  - {fileID: 7452644413285290887}
   - {fileID: 196914225621198401}
   - {fileID: 6322288137835260768}
   - {fileID: 234956605604819645}
-  - {fileID: 777174110006417813}
+  - {fileID: 2453610197274756660}
   - {fileID: 9200020909896949378}
   m_Father: {fileID: 6758911423145037885}
   m_RootOrder: -1
@@ -20554,8 +20554,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.35294116, g: 0.76611584, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 50
+  m_Intensity: 4
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -20950,8 +20950,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.35294116, g: 0.76611584, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 50
+  m_Intensity: 4
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -26244,7 +26244,7 @@ Transform:
   - {fileID: 6875456366024403467}
   - {fileID: 6758911423145037885}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6907011863225425021
 MonoBehaviour:
@@ -29514,7 +29514,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900bc11bd39e1af4d9ab71734e99f2e3, type: 3}
---- !u!4 &777174110006417813 stripped
+--- !u!4 &2453610197274756660 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2938012467017981856, guid: 900bc11bd39e1af4d9ab71734e99f2e3, type: 3}
   m_PrefabInstance: {fileID: 777174110006417812}
@@ -29662,7 +29662,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0072d24f8720144087dbde0f5756782, type: 3}
---- !u!4 &3708117409732409509 stripped
+--- !u!4 &7452644413285290887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8651804607845569359, guid: c0072d24f8720144087dbde0f5756782, type: 3}
   m_PrefabInstance: {fileID: 2268827848117731528}

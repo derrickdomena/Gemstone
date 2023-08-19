@@ -731,7 +731,7 @@ Transform:
   - {fileID: 8050817882683500808}
   - {fileID: 5029912863855309096}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1525831564537396213
 Animator:
@@ -776,6 +776,7 @@ MonoBehaviour:
   drops:
   - {fileID: 3755314475148394898, guid: 4be3acef86282f74d801d0ab79374ffe, type: 3}
   gem: {fileID: 5033486770486681005, guid: 6d93f7977ff49464b944c4e46c66b11c, type: 3}
+  model: {fileID: 1145767091711395069}
   hp: 20
   speedMod: 1.109
   viewAngle: 180
