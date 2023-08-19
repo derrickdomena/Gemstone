@@ -24,6 +24,12 @@ public class OptionsScript : MonoBehaviour
     [SerializeField] Slider sensitivitySlider;
     [SerializeField] int defaultSensitivity = 4;
 
+    [Header("Difficulty Setting")]
+
+    [SerializeField] TMP_Text difficultyTextValue;
+    [SerializeField] Slider difficultySlider;
+    [SerializeField] int defaultDifficulty = 1;
+
     [Header("Invert Y Setting")]
     [SerializeField] Toggle invertY;
 
@@ -39,6 +45,11 @@ public class OptionsScript : MonoBehaviour
         SetSFXVolume(); // Calls SetSFXVolume to update the slider and slider text value
     }
 
+    public void SetDifficulty()
+    {
+        defaultDifficulty = Mathf.RoundToInt(difficultySlider.value);
+        difficultyTextValue.text = difficultySlider.value.ToString();
+    }
     // Sets the music volume
     public void SetMusicVolume()
     {
@@ -99,6 +110,8 @@ public class OptionsScript : MonoBehaviour
 
         PlayerPrefs.SetFloat("masterSensitivity", defaultSensitivity);
         mainCamera.sensitivity = defaultSensitivity * 100;
+
+        PlayerPrefs.SetInt("difficulty", defaultDifficulty);        
     }
 
     // Makes sure when gameplay UI values change and don't get apply sets the value to the previously saved settings
@@ -116,6 +129,10 @@ public class OptionsScript : MonoBehaviour
         defaultSensitivity = (int)PlayerPrefs.GetFloat("masterSensitivity");
         sensitivityTextValue.text = defaultSensitivity.ToString("0");
         sensitivitySlider.value = defaultSensitivity;
+
+        defaultDifficulty = PlayerPrefs.GetInt("difficulty");
+        difficultyTextValue.text = difficultySlider.value.ToString();
+        difficultySlider.value = defaultDifficulty;
     }
 
     // Default settings for Auido, Gameplay, and invertY
@@ -137,6 +154,7 @@ public class OptionsScript : MonoBehaviour
             sensitivitySlider.value = defaultSensitivity;
             sensitivityTextValue.text = defaultSensitivity.ToString("0");
             mainCamera.sensitivity = defaultSensitivity * 100;
+
             GameplayApply();
         }
 

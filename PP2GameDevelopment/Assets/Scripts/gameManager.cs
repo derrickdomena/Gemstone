@@ -101,6 +101,7 @@ public class gameManager : MonoBehaviour
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos"); 
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        difficulty = PlayerPrefs.GetInt("difficulty");
     }
 
     // Start is called before the first frame update

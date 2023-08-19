@@ -15,6 +15,7 @@ public class CreateLevel : MonoBehaviour
     private List<GameObject> neighborNodes = new List<GameObject>();
     private List<string> noNeighbors = new List<string>();
     public  List<GameObject> bobShop = new List<GameObject>();
+    public List<GameObject> bufferRooms = new List<GameObject>();
 
     //Nodes to find
     private string nodeN = "NodeN";
@@ -374,6 +375,36 @@ public class CreateLevel : MonoBehaviour
                         {
                             qualifiedRooms.Add(room);
                         }
+                    }
+                }
+            }
+            else if (roomCount == 3)
+            {
+                foreach (GameObject room in bufferRooms)
+                {
+                    // Check if the new position is empty in the level array
+                    if (gameManager.instance.level[newPosition.x, newPosition.y] == null)
+                    {
+                        List<string> nodesInRoom = new List<string>();
+
+                        foreach (Transform child in room.transform)
+                        {
+                            if (child.name == nodeN || child.name == nodeE || child.name == nodeS || child.name == nodeW)
+                            {
+                                nodesInRoom.Add(child.name);
+                            }
+                        }
+
+                        // The room qualifies if all needed nodes are present in the room
+                        roomQualifies = neededNodes.All(node => nodesInRoom.Contains(node));
+
+                        // The room does not qualify if it has a node where a neighbor exists but has no node facing the room
+                        roomQualifies &= !neighborsWithoutNode.Any(node => nodesInRoom.Contains(node));
+                    }
+
+                    if (roomQualifies)
+                    {
+                        qualifiedRooms.Add(room);
                     }
                 }
             }
