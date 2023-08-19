@@ -28,7 +28,7 @@ public class OptionsScript : MonoBehaviour
 
     [SerializeField] TMP_Text difficultyTextValue;
     [SerializeField] Slider difficultySlider;
-    [SerializeField] int defaultDifficulty = 1;
+    [SerializeField] float defaultDifficulty = 1;
 
     [Header("Invert Y Setting")]
     [SerializeField] Toggle invertY;
@@ -36,7 +36,7 @@ public class OptionsScript : MonoBehaviour
     // Gets main camera
     private void Awake()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraControls>();        
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraControls>();      
     }
 
     private void Start()
@@ -47,7 +47,7 @@ public class OptionsScript : MonoBehaviour
 
     public void SetDifficulty()
     {
-        defaultDifficulty = Mathf.RoundToInt(difficultySlider.value);
+        defaultDifficulty = difficultySlider.value;
         difficultyTextValue.text = difficultySlider.value.ToString();
     }
     // Sets the music volume
@@ -111,7 +111,7 @@ public class OptionsScript : MonoBehaviour
         PlayerPrefs.SetFloat("masterSensitivity", defaultSensitivity);
         mainCamera.sensitivity = defaultSensitivity * 100;
 
-        PlayerPrefs.SetInt("difficulty", defaultDifficulty);        
+        PlayerPrefs.SetFloat("difficulty", defaultDifficulty);        
     }
 
     // Makes sure when gameplay UI values change and don't get apply sets the value to the previously saved settings
@@ -130,8 +130,8 @@ public class OptionsScript : MonoBehaviour
         sensitivityTextValue.text = defaultSensitivity.ToString("0");
         sensitivitySlider.value = defaultSensitivity;
 
-        defaultDifficulty = PlayerPrefs.GetInt("difficulty");
-        difficultyTextValue.text = difficultySlider.value.ToString();
+        defaultDifficulty = PlayerPrefs.GetFloat("difficulty");
+        difficultyTextValue.text = difficultySlider.value.ToString("0.0");
         difficultySlider.value = defaultDifficulty;
     }
 
@@ -162,6 +162,13 @@ public class OptionsScript : MonoBehaviour
         {
             invertY.isOn = false;
             mainCamera.invertY = false;
+            GameplayApply();
+        }
+
+        if (settingMenu == "difficulty")
+        {
+            difficultySlider.value = defaultDifficulty;
+            difficultyTextValue.text = defaultDifficulty.ToString("0.0");
             GameplayApply();
         }
     }

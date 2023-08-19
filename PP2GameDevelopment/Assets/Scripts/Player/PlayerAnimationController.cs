@@ -180,7 +180,7 @@ public class PlayerAnimationController : MonoBehaviour
         bool abilityQ = Input.GetKeyDown(KeyCode.Q);
         bool ability1 = Input.GetKeyDown(KeyCode.Alpha1);
 
-        if (!isFireball && (abilityQ || ability1))
+        if (!isFireball && (abilityQ || ability1) && gameManager.instance.playerScript.grenadeCooldown == 1)
         {
             animator.SetBool("isAbility", true);
         }

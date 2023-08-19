@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 670392078724391111}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0.63, y: -2.518, z: 20.957}
 --- !u!33 &1026597731541561321
 MeshFilter:
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollectibleType: 1
-  cost: 0
   rotate: 1
   rotationSpeed: 100
   ammoAmount: 0
@@ -262,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2935791600892504208}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 30, z: 0}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

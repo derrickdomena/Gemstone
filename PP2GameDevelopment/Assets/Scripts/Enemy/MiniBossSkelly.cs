@@ -29,6 +29,12 @@ public class MiniBossSkelly : MonoBehaviour, IDamage
     int origHP;
     Vector3 velocity;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +89,7 @@ public class MiniBossSkelly : MonoBehaviour, IDamage
     }
     void DoDamage()
     {
+        audioManager.PlaySFXEnemy(audioManager.enemyMeleeSound);
         IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
         if (playerDam != null && playerInRange == true)
         {
@@ -175,5 +182,13 @@ public class MiniBossSkelly : MonoBehaviour, IDamage
         StartCoroutine(gameManager.instance.LevelCleared());
     }
 
+    private void SkellyStep()
+    {
+        audioManager.PlaySFXEnemy(audioManager.enemyWalkSound);
+    }
 
+    private void DeathSound()
+    {
+        audioManager.PlaySFXEnemy(audioManager.enemyDeathSound);
+    }
 }

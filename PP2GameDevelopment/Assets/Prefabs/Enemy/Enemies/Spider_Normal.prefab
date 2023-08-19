@@ -731,7 +731,7 @@ Transform:
   - {fileID: 8050817882683500808}
   - {fileID: 5029912863855309096}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1525831564537396213
 Animator:
@@ -786,6 +786,7 @@ MonoBehaviour:
   retreatDistance: 10
   innerCircleRadius: 10
   outerCircleRadius: 15
+  enemyType: Spider
   damageText: {fileID: 9119225394715413976, guid: 970ec032c67ee60498476849dfb7c82a, type: 3}
 --- !u!195 &2564786258932705457
 NavMeshAgent:

@@ -44,7 +44,7 @@ public class FireballAbility : MonoBehaviour
         // Instantiae fireball object
         GameObject fireballObj = Instantiate(fireballProjectile, fireballPosition.transform.position, fireballPosition.transform.rotation);
 
-        audioManager.PlaySFX(audioManager.fireballSound);
+        audioManager.PlaySFXAbilities(audioManager.fireballSound);
 
         // Get rigidbody component from fireball
         Rigidbody rb = fireballObj.GetComponent<Rigidbody>();

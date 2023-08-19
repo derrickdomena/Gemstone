@@ -56,12 +56,12 @@ public class BossAI : MonoBehaviour, IDamage
     bool playerInRange;
     bool isDead;
    
-
-
+    AudioManager audioManager;
 
     private void Awake()
     {
         HealthSystem = new HealthSystem(hpAmount);
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -157,6 +157,7 @@ public class BossAI : MonoBehaviour, IDamage
     }
     public void PhaseTwo()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossHiss);
         animator.SetBool("isRun", false);
         if (agent.transform.position != phase2Platform.transform.position)
         {
@@ -172,6 +173,7 @@ public class BossAI : MonoBehaviour, IDamage
     //final phase
     public void PhaseThree()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossHiss);
         agent.SetDestination(gameManager.instance.player.transform.position);
        
         StartCoroutine(immunityPhase());
@@ -218,6 +220,8 @@ public class BossAI : MonoBehaviour, IDamage
         playerDir = player.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, playerDir.y, playerDir.z));
         Instantiate(shoot, shootPos.transform.position, transform.rotation);
+        //Sound
+        audioManager.PlaySFXEnemy(audioManager.spiderBossProjectile);
     }
 
     void StartCasting() //starts the casting animation
@@ -236,6 +240,7 @@ public class BossAI : MonoBehaviour, IDamage
     }
     public void doDamage()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossMelee);
         IDamage playerD = gameManager.instance.player.GetComponent<IDamage>();
         if (playerD != null && playerInRange)
         {
@@ -288,6 +293,7 @@ public class BossAI : MonoBehaviour, IDamage
 
     void Emit()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossSlam);
         Phase3Slam.enabled = true;
         slam.Emit(100);
     }
@@ -318,6 +324,21 @@ public class BossAI : MonoBehaviour, IDamage
                 spawner = child.gameObject;
             }
         }
+    }
+
+    private void BossSpiderSlam()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossSlam);
+    }
+
+    private void BossSpiderDeath()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossDeath);
+    }
+
+    private void BossSpiderWalk()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossWalk);
     }
 
 }

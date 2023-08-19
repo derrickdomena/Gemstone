@@ -28,7 +28,7 @@ public class Fireball : MonoBehaviour
         // Particle Effect
         Instantiate(explosionEffect, transform.position, transform.rotation);
 
-        audioManager.PlaySFX(audioManager.explosionSound);
+        audioManager.PlaySFXAbilities(audioManager.explosionSound);
 
         // Add force to nearby objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);

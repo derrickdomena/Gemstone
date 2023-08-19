@@ -597,7 +597,7 @@ Transform:
   - {fileID: 2316724037894740783}
   - {fileID: 548555535450594909}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -136.578, z: 0}
 --- !u!95 &4689853434605282268
 Animator:
@@ -655,7 +655,7 @@ MonoBehaviour:
   itemDropRate: 30
   shootRate: 6
   shootDamage: 1
-  enemyType: default
+  enemyType: Spider
   dashSpeed: 40
   dashTriggerDistance: 10
   dashDistance: 5

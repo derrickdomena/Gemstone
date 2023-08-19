@@ -6,8 +6,15 @@ using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour
 {
     [Header("Audio Source")]
-    [SerializeField] public AudioSource musicSource;
-    [SerializeField] public AudioSource sfxSource;
+    [SerializeField] public AudioSource musicSource; // Music Only
+    [SerializeField] public AudioSource sfxSource; // All SFX
+    [SerializeField] public AudioSource sfxPlayer; // Player SFX Only
+    [SerializeField] public AudioSource sfxEnemy; // Enemy SFX Only
+    [SerializeField] public AudioSource sfxMenu; // Menu SFX Only
+    [SerializeField] public AudioSource sfxAbilities; // Abilities SFX Only
+    [SerializeField] public AudioSource sfxMelee; // Melee SFX Only
+    [SerializeField] public AudioSource sfxGun; // Gun SFX Only
+    [SerializeField] public AudioSource sfxInteractSounds; // Interact Sounds SFX Only
 
     [Header("Music Clips")] // Will
     public AudioClip background;
@@ -17,14 +24,30 @@ public class AudioManager : MonoBehaviour
     [Header("SFX Clips")]
     [Header("Player Movement")]
     public AudioClip walkingSound;
-    public AudioClip runningSound;
-    public AudioClip jumpingSound;
+    public AudioClip landingSound;
 
     [Header("Enemies")]
-    public AudioClip enemyWalkSound; 
+    [Header("General")]
+    public AudioClip enemyWalkSound;
     public AudioClip enemySpawnSound;
-    public AudioClip enemySwingSound;
+    public AudioClip enemyMeleeSound;
     public AudioClip enemyProjectileSound;
+    public AudioClip enemyDeathSound;
+
+    [Header("Spider Minions")]
+    public AudioClip spiderWalkSound;
+    public AudioClip spiderAttackSound;
+    public AudioClip spiderProjectileSound;
+    public AudioClip spiderDeathSound;
+    public AudioClip spiderHissSound;
+
+    [Header("Boss Spider")]
+    public AudioClip spiderBossSlam;
+    public AudioClip spiderBossProjectile;
+    public AudioClip spiderBossMelee;
+    public AudioClip spiderBossWalk;
+    public AudioClip spiderBossDeath;
+    public AudioClip spiderBossHiss;
 
     [Header("Menu")]
     public AudioClip hoverSound;
@@ -71,8 +94,45 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip)
+    // Player - Movement
+    public void PlaySFXPlayer(AudioClip clip)
     {      
-        sfxSource.PlayOneShot(clip);
+        sfxPlayer.PlayOneShot(clip);
+    }
+
+    // Enemies
+    public void PlaySFXEnemy(AudioClip clip)
+    {
+        sfxEnemy.PlayOneShot(clip);
+    }
+
+    // Menu
+    public void PlaySFXMenu(AudioClip clip)
+    {
+        sfxMenu.PlayOneShot(clip);
+    }
+
+    // Abilities
+    public void PlaySFXAbilities(AudioClip clip)
+    {
+        sfxAbilities.PlayOneShot(clip);
+    }
+
+    // Gun
+    public void PlaySFXGun(AudioClip clip)
+    {
+        sfxGun.PlayOneShot(clip);
+    }
+
+    // Melee
+    public void PlaySFXMelee(AudioClip clip)
+    {
+        sfxMelee.PlayOneShot(clip);
+    }
+
+    // Interact Sounds
+    public void PlaySFXInteractSounds(AudioClip clip)
+    {
+        sfxInteractSounds.PlayOneShot(clip);
     }
 }
