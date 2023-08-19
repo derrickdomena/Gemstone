@@ -1117,25 +1117,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2015076313716594048, guid: 6ffe2c495d96cb745865c1d9f9453115, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 3803127
-      objectReference: {fileID: 0}
     - target: {fileID: 6622485722936446852, guid: 6ffe2c495d96cb745865c1d9f9453115, type: 3}
       propertyPath: m_RootOrder
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6622485722936446852, guid: 6ffe2c495d96cb745865c1d9f9453115, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6622485722936446852, guid: 6ffe2c495d96cb745865c1d9f9453115, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6622485722936446852, guid: 6ffe2c495d96cb745865c1d9f9453115, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6622485722936446852, guid: 6ffe2c495d96cb745865c1d9f9453115, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1563,30 +1547,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnRoomGenerator
       objectReference: {fileID: 0}
-    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
-      propertyPath: bufferRooms.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
-      propertyPath: bufferRooms.Array.data[0]
-      value: 
-      objectReference: {fileID: 2374231753156946345, guid: 08bd26fc73e7d6648a27aac0f2a392bb, type: 3}
-    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
-      propertyPath: bufferRooms.Array.data[1]
-      value: 
-      objectReference: {fileID: 3465994361836681340, guid: 45ac73aab0ddf354cbdeb574ad1713b7, type: 3}
-    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
-      propertyPath: bufferRooms.Array.data[2]
-      value: 
-      objectReference: {fileID: 3851666161260433491, guid: ef253815b5da7084a9f31c0df319fa33, type: 3}
-    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
-      propertyPath: bufferRooms.Array.data[3]
-      value: 
-      objectReference: {fileID: 7390196686835570967, guid: b0302d51f6a7f244ba44a6a72554cab6, type: 3}
-    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
-      propertyPath: bufferRooms.Array.data[4]
-      value: 
-      objectReference: {fileID: 5409810003965720692, guid: 076e62084095cd646b9a2197ff71abd1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
