@@ -60,7 +60,7 @@ RectTransform:
   - {fileID: 4311692899980079328}
   - {fileID: 6342974783838644016}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10661,6 +10661,14 @@ PrefabInstance:
       propertyPath: stasisSound
       value: 
       objectReference: {fileID: 8300000, guid: fa982acc365c4544f9390d79d3f5492e, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: landingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 99058f9b8d0019a408d15b690f33f01b, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: walkingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0fbcd38f8abb7ea459c8521e11345119, type: 3}
     - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: enemyWalkSound
       value: 

@@ -24,8 +24,7 @@ public class AudioManager : MonoBehaviour
     [Header("SFX Clips")]
     [Header("Player Movement")]
     public AudioClip walkingSound;
-    public AudioClip runningSound;
-    public AudioClip jumpingSound;
+    public AudioClip landingSound;
 
     [Header("Enemies")]
     [Header("General")]

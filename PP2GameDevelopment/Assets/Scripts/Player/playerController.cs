@@ -257,24 +257,13 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         controller.Move(playerSpeed * Time.deltaTime * move);
 
-        // Plays Movement Audio
-        if (move != Vector3.zero && !audioManager.sfxPlayer.isPlaying)
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-                audioManager.PlaySFXPlayer(audioManager.runningSound); // Plays the running sound
-            else
-                audioManager.PlaySFXPlayer(audioManager.walkingSound); // Plays the walking sound
-        }
-
         // Jump
         // Allows for single consecutive jumps when grounded without needing to press jumpKey again
         // or double jump while in the air if jumpsCount is less than jumpsMax
         if (Input.GetKeyDown(jumpKey) && jumpCount < jumpsMax || groundedPlayer && Input.GetKey(jumpKey))
         {
             playerVelocity.y = jumpHeight;          
-            jumpCount++;
-            audioManager.sfxPlayer.Stop(); // Stops other audios like walking or running
-            audioManager.PlaySFXPlayer(audioManager.jumpingSound); // Plays the jumping sound
+            jumpCount++;          
         }
 
         // Crouch
@@ -604,6 +593,17 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     public void Immune(bool var)
     {
         immune = var;
+    }
+
+    // Animation Events Audio
+    private void Step()
+    {
+        audioManager.PlaySFXPlayer(audioManager.walkingSound);
+    }
+
+    private void Land()
+    {
+        audioManager.PlaySFXPlayer(audioManager.landingSound);
     }
 
 }
