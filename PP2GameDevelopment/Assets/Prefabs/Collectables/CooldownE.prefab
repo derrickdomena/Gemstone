@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 841569778256893437}
   - component: {fileID: 2812614630250669333}
   - component: {fileID: 2561004768174630079}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: CooldownE
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectibleType: 3
   cost: 0
-  rotate: 0
+  rotate: 1
   rotationSpeed: 100
   ammoAmount: 0
   healingAmount: 0
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 6327790707977136770}
   - component: {fileID: 8799050403223301233}
   - component: {fileID: 4449747601808337502}
-  m_Layer: 15
+  m_Layer: 20
   m_Name: DashIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 802095448801519350}
   - component: {fileID: 8304726331022398038}
   - component: {fileID: 3954534162653307465}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: AmmoPack
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectibleType: 0
   cost: 0
-  rotate: 0
+  rotate: 1
   rotationSpeed: 100
   ammoAmount: 50
   healingAmount: 0
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 5311736911759699050}
   - component: {fileID: 884760920924245321}
   - component: {fileID: 4842772797277433603}
-  m_Layer: 16
+  m_Layer: 20
   m_Name: AmmoIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
