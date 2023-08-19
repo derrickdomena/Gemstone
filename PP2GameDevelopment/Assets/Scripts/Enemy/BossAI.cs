@@ -157,6 +157,7 @@ public class BossAI : MonoBehaviour, IDamage
     }
     public void PhaseTwo()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossHiss);
         animator.SetBool("isRun", false);
         if (agent.transform.position != phase2Platform.transform.position)
         {
@@ -172,6 +173,7 @@ public class BossAI : MonoBehaviour, IDamage
     //final phase
     public void PhaseThree()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossHiss);
         agent.SetDestination(gameManager.instance.player.transform.position);
        
         StartCoroutine(immunityPhase());
@@ -203,8 +205,6 @@ public class BossAI : MonoBehaviour, IDamage
     {
        
         animator.SetBool("isAttackP3", true);
-        //sound
-        audioManager.PlaySFXEnemy(audioManager.spiderBossSlam);
         yield return new WaitForSeconds(slamTimer);
         animator.SetBool("isAttackP3", false);
         
@@ -212,8 +212,6 @@ public class BossAI : MonoBehaviour, IDamage
     IEnumerator Melee()
     {
         animator.SetBool("isAttack", true);
-        //Sound
-        audioManager.PlaySFXEnemy(audioManager.spiderBossMelee);
         yield return new WaitForSeconds(meleeTimer);
         animator.SetBool("isAttack", false);
     }
@@ -242,6 +240,7 @@ public class BossAI : MonoBehaviour, IDamage
     }
     public void doDamage()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossMelee);
         IDamage playerD = gameManager.instance.player.GetComponent<IDamage>();
         if (playerD != null && playerInRange)
         {
@@ -294,6 +293,7 @@ public class BossAI : MonoBehaviour, IDamage
 
     void Emit()
     {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossSlam);
         Phase3Slam.enabled = true;
         slam.Emit(100);
     }
@@ -324,6 +324,11 @@ public class BossAI : MonoBehaviour, IDamage
                 spawner = child.gameObject;
             }
         }
+    }
+
+    private void BossSpiderSlam()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossSlam);
     }
 
     private void BossSpiderDeath()

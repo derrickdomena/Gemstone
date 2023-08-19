@@ -262,6 +262,11 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         audioManager.PlaySFXEnemy(audioManager.enemyDeathSound);
     }
 
+    private void SpiderWalk()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderWalkSound);
+    }
+
     private void SpiderHiss()
     {
         audioManager.PlaySFXEnemy(audioManager.spiderHissSound);

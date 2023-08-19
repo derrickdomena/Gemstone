@@ -60,7 +60,7 @@ RectTransform:
   - {fileID: 4311692899980079328}
   - {fileID: 6342974783838644016}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10666,6 +10666,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: b19b7c46385a1ed48b14c85863f9afb4, type: 3}
     - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderBossHiss
+      value: 
+      objectReference: {fileID: 8300000, guid: ea4c4e5ee79278148b07082da5b37504, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderBossSlam
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d5f4ea8e7dfe104e96874312d97b6cb, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderBossWalk
+      value: 
+      objectReference: {fileID: 8300000, guid: b4a55390174343c4983472edf1f5c118, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: enemyDeathSound
       value: 
       objectReference: {fileID: 8300000, guid: 65188bf158adbf94c9e6b92bd06d9603, type: 3}
@@ -10677,6 +10689,14 @@ PrefabInstance:
       propertyPath: enemySpawnSound
       value: 
       objectReference: {fileID: 8300000, guid: 447276c63b806c4438a7328d2524861d, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderBossDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: 6e2e3f05980665b42a5de6b0771f9337, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderBossMelee
+      value: 
+      objectReference: {fileID: 8300000, guid: fe8d6cafb53497b41b1f1a9d1994d62b, type: 3}
     - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: spiderHissSound
       value: 
@@ -10697,6 +10717,10 @@ PrefabInstance:
       propertyPath: enemyProjectileSound
       value: 
       objectReference: {fileID: 8300000, guid: 3fb07a2df6cc7514cb7821d51bd0c3b3, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderBossProjectile
+      value: 
+      objectReference: {fileID: 8300000, guid: bd63ad750a17ca9448b06d402b716551, type: 3}
     - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: spiderProjectileSound
       value: 

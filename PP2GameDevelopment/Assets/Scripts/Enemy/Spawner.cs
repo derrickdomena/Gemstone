@@ -12,6 +12,13 @@ public class Spawner : MonoBehaviour
 
     public Wave[] waves;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     private void OnEnable()
     {
         if (waves.Length > 0)
@@ -41,6 +48,9 @@ public class Spawner : MonoBehaviour
         // Play the particle effect.
         GameObject particleInstance = Instantiate(particleEffectPrefab, spawnPoint.position, transform.rotation);
         Destroy(particleInstance, particleEffectDuration);  // Destroy the particle effect after the set duration.
+
+        //Audio
+        audioManager.PlaySFXEnemy(audioManager.enemySpawnSound);
 
         // Start the SpawnAfterDelay coroutine.
         StartCoroutine(SpawnAfterDelay(objectToSpawn, spawnPoint));

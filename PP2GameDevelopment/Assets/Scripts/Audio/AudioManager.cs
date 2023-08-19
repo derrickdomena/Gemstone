@@ -48,6 +48,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip spiderBossMelee;
     public AudioClip spiderBossWalk;
     public AudioClip spiderBossDeath;
+    public AudioClip spiderBossHiss;
 
     [Header("Menu")]
     public AudioClip hoverSound;
