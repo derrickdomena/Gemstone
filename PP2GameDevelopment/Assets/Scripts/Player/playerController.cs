@@ -263,7 +263,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         if (Input.GetKeyDown(jumpKey) && jumpCount < jumpsMax || groundedPlayer && Input.GetKey(jumpKey))
         {
             playerVelocity.y = jumpHeight;          
-            jumpCount++;          
+            jumpCount++;    
         }
 
         // Crouch
