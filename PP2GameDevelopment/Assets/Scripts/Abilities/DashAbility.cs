@@ -70,7 +70,7 @@ public class DashAbility : MonoBehaviour
         if (Input.GetKeyDown(dashKey) && !canDash && Time.timeScale != 0 && remainingDashes != 0)
         {
             StartCoroutine(Dash());
-            audioManager.PlaySFX(audioManager.dashSound);
+            audioManager.PlaySFXAbilities(audioManager.dashSound);
             remainingDashes--;
 
             if (remainingDashes < gameManager.instance.playerScript.dashCount && canDash == false)

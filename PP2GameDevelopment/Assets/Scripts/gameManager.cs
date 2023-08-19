@@ -127,7 +127,7 @@ public class gameManager : MonoBehaviour
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
             audioManager.sfxSource.Stop(); // Stops all sfx audio from playing when entering a menu
-            audioManager.PlaySFX(audioManager.pauseSound); // Plays pause menu sound
+            audioManager.PlaySFXMenu(audioManager.pauseSound); // Plays pause menu sound
         }
         if(Input.GetButtonDown("Skip"))
         {

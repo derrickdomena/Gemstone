@@ -42,10 +42,13 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     public GameObject damageText;
     bool isDead;
 
+    AudioManager audioManager;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         healthBar = GetComponentInChildren<floatingHealthBar>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -160,6 +163,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         directionToPlayer = player.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, directionToPlayer.y, directionToPlayer.z));
         Instantiate(magicShot, staffTip.transform.position, rot);
+        audioManager.PlaySFXEnemy(audioManager.enemyProjectileSound);
     }
 
     void StartCasting() //starts the casting animation
@@ -240,5 +244,10 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         model.material.color = Color.red;
         yield return new WaitForSeconds(.15f);
         model.material.color = Color.grey;
+    }
+
+    private void DeathSound()
+    {
+        audioManager.PlaySFXEnemy(audioManager.enemyDeathSound);
     }
 }

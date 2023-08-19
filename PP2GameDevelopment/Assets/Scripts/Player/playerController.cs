@@ -258,12 +258,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         controller.Move(playerSpeed * Time.deltaTime * move);
 
         // Plays Movement Audio
-        if (move != Vector3.zero && !audioManager.sfxSource.isPlaying)
+        if (move != Vector3.zero && !audioManager.sfxPlayer.isPlaying)
         {
             if (Input.GetKey(KeyCode.LeftShift))
-                audioManager.PlaySFX(audioManager.runningSound); // Plays the running sound
+                audioManager.PlaySFXPlayer(audioManager.runningSound); // Plays the running sound
             else
-                audioManager.PlaySFX(audioManager.walkingSound); // Plays the walking sound
+                audioManager.PlaySFXPlayer(audioManager.walkingSound); // Plays the walking sound
         }
 
         // Jump
@@ -273,8 +273,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         {
             playerVelocity.y = jumpHeight;          
             jumpCount++;
-            audioManager.sfxSource.Stop(); // Stops other audios like walking or running
-            audioManager.PlaySFX(audioManager.jumpingSound); // Plays the jumping sound
+            audioManager.sfxPlayer.Stop(); // Stops other audios like walking or running
+            audioManager.PlaySFXPlayer(audioManager.jumpingSound); // Plays the jumping sound
         }
 
         // Crouch
@@ -391,15 +391,15 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             {
                 case "Rifle":
                     //audioSource.PlayOneShot(rifleAudioClip, .7f);
-                    audioManager.PlaySFX(audioManager.rifleSound);
+                    audioManager.PlaySFXGun(audioManager.rifleSound);
                     break;
                 case "SMG":
                     //audioSource.PlayOneShot(autoAudioClip, .7f);
-                    audioManager.PlaySFX(audioManager.autoSound);
+                    audioManager.PlaySFXGun(audioManager.autoSound);
                     break;
                 case "SAR":
                     //audioSource.PlayOneShot(semiAudioClip, .7f);
-                    audioManager.PlaySFX(audioManager.semiSound);
+                    audioManager.PlaySFXGun(audioManager.semiSound);
                     break;
                 default:
                     Debug.Log("Audio Error - playerController: SetMuzzlePOS() - NO AUDIO FOR WEAPON");
@@ -568,7 +568,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         isAttacking = true;
 
-        audioManager.PlaySFX(audioManager.swingSound);
+        audioManager.PlaySFXMelee(audioManager.swingSound);
        
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, attackDistance))
         {      

@@ -38,9 +38,12 @@ public class MiniBossWally : MonoBehaviour, IDamage
 
     bool isDead;
 
+    AudioManager audioManager;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -157,6 +160,7 @@ public class MiniBossWally : MonoBehaviour, IDamage
         directionToPlayer = player.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, directionToPlayer.y, directionToPlayer.z));
         Instantiate(magicShot, staffTip.transform.position, rot);
+        audioManager.PlaySFXEnemy(audioManager.enemyProjectileSound);
     }
 
     void StartCasting() //starts the casting animation
@@ -198,6 +202,11 @@ public class MiniBossWally : MonoBehaviour, IDamage
         {
             UpdateHP();
         }
+    }
+
+    private void DeathSound()
+    {
+        audioManager.PlaySFXEnemy(audioManager.enemyDeathSound);
     }
 
 }
