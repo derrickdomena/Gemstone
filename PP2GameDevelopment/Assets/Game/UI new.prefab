@@ -63,7 +63,7 @@ RectTransform:
   - {fileID: 2552483166201428188}
   - {fileID: 4311692899980079328}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   gem: {fileID: 5441645166095045615}
   gemText: {fileID: 7572577443540759872}
   gemCount: 0
-  shop: {fileID: 4788530535022464256}
+  shop: {fileID: 2138138334928370449}
   ShopMask: {fileID: 4198705943783293814}
   BossHPBar: {fileID: 5415747013688142769}
   bossHP: {fileID: 744194493206494641}
@@ -113,7 +113,6 @@ MonoBehaviour:
   stasisCooldownFill: {fileID: 103791869415704150}
   dashCooldownFill: {fileID: 3341672908077849033}
   anim: {fileID: 3448229684903828939}
-  cutscene: {fileID: 0}
   nextLevelCounter: {fileID: 0}
   wavesLeftCounter: {fileID: 0}
   wavesLeftText: {fileID: 0}
@@ -4391,7 +4390,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6c8a3cfd57c0215429ab12acc385e122, type: 2}
   - {fileID: 11400000, guid: 5d4481ab1be996647bc1f05674142f80, type: 2}
   - {fileID: 11400000, guid: e5c15c1e41df56249abf0aa63b66ac43, type: 2}
-  shopEff: []
+  collectDrops:
+  - {fileID: 11400000, guid: c9fe945320dd2a641a5452c4afa3ab89, type: 2}
+  - {fileID: 11400000, guid: 9477a3cbff79e744e85702f5c029b855, type: 2}
+  - {fileID: 11400000, guid: 1764a636a2d74a7428664b0edaf2b426, type: 2}
+  - {fileID: 11400000, guid: 76ccb961124cebb46af09f2e65526181, type: 2}
+  - {fileID: 11400000, guid: 0772e7843e3c0d04da1f06653a0982b1, type: 2}
+  - {fileID: 11400000, guid: 660abb29329843a4ab20f6a05107a920, type: 2}
 --- !u!1 &2167668815743596628
 GameObject:
   m_ObjectHideFlags: 0
@@ -8885,7 +8890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5385356460789090888
 RectTransform:
   m_ObjectHideFlags: 0

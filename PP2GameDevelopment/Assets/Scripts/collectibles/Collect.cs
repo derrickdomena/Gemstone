@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Collect : MonoBehaviour, ICollectible
 {
-    public enum CollectibleTypes { Ammo, Gem, HealthPack, CooldownE, CooldownQ, MaxHPUp, MaxSpeedUp, CritUp, DashUp }
+    public enum CollectibleTypes {Ammo, Gem, HealthPack, CooldownE, CooldownQ, MaxHPUp, MaxSpeedUp, CritUp, DashUp, SpeedUp}
 
     public CollectibleTypes CollectibleType;
 
-    public int cost;
     public bool rotate;
     public float rotationSpeed;
 
@@ -177,5 +176,10 @@ public class Collect : MonoBehaviour, ICollectible
         gameManager.instance.player.GetComponent<DashAbility>().remainingDashes += uses;
     }
 
+    public void SpeedUp(float speed, float sprint)
+    {
+        gameManager.instance.playerScript.walkSpeed += speed;
+        gameManager.instance.playerScript.sprintSpeed += sprint;
+    }
 
 }

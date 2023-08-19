@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopInteract : MonoBehaviour
 {
@@ -10,6 +13,9 @@ public class ShopInteract : MonoBehaviour
         {
             gameManager.instance.ShopMask.SetActive(false);
             gameManager.instance.stateUnpaused();
+
+            //gameManager.instance.shop.GetComponent<UI_Script>().destoryShop();
+
         }
     }
     private void OnTriggerEnter(Collider other)

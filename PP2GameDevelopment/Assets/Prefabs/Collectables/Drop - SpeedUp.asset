@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cb0b2a0654a2ff41ac36c3be473bd56, type: 3}
-  m_Name: Drop - CooldownQ
+  m_Name: Drop - SpeedUp
   m_EditorClassIdentifier: 
-  drops: 4
-  itemName: Fireball Cooldown
+  drops: 9
+  itemName: Speed Up
   numberOfPrefabsToCreate: 0
-  cost: 60
-  amount1: 0.2
-  amount2: 0
+  cost: 30
+  amount1: 1.1
+  amount2: 1.1

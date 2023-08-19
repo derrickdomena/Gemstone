@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
+using System.ComponentModel;
 
 public class gameManager : MonoBehaviour
 {

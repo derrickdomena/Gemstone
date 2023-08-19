@@ -24,6 +24,8 @@ public interface ICollectible
     public void CritChanceUp(int chance, float dam);
     //Adding dash uses and distance
     public void DashUp(int uses, float time);
+    //Adds speed to base speed and sprint;
+    public void SpeedUp(float speed, float sprint);
 
 
 }

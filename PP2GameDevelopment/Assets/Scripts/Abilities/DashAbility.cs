@@ -99,10 +99,14 @@ public class DashAbility : MonoBehaviour
 
     public void UpdateCooldownDash(float time)
     {
-        if(gameManager.instance.playerScript.dashCooldown != 0)
+        if(gameManager.instance.playerScript.dashCooldown > 0.5)
         {
             gameManager.instance.playerScript.dashCooldown = gameManager.instance.playerScript.dashCooldown - time;
             canDash = true;
+        }
+        else
+        {
+            gameManager.instance.playerScript.dashCooldown = (float)0.5;
         }
         UpdateDashUI();
     }
