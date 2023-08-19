@@ -176,7 +176,14 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void DoDamage()
     {
-        audioManager.PlaySFXEnemy(audioManager.enemyMeleeSound);
+        if (enemyType == "Spider")
+        {
+            audioManager.PlaySFXEnemy(audioManager.spiderAttackSound);
+        }
+        else
+        {
+            audioManager.PlaySFXEnemy(audioManager.enemyMeleeSound);
+        }  
         IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
         if (playerDam != null && playerInRange == true)
         {
@@ -281,4 +288,18 @@ public class EnemyAI : MonoBehaviour, IDamage
         audioManager.PlaySFXEnemy(audioManager.enemyDeathSound);
     }
 
+    private void SpiderWalk()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderWalkSound);
+    }
+
+    private void SpiderHiss()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderHissSound);
+    }
+
+    private void SpiderDeath()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderDeathSound);
+    }
 }

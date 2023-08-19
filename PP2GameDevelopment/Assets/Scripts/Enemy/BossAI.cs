@@ -56,12 +56,12 @@ public class BossAI : MonoBehaviour, IDamage
     bool playerInRange;
     bool isDead;
    
-
-
+    AudioManager audioManager;
 
     private void Awake()
     {
         HealthSystem = new HealthSystem(hpAmount);
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -203,6 +203,8 @@ public class BossAI : MonoBehaviour, IDamage
     {
        
         animator.SetBool("isAttackP3", true);
+        //sound
+        audioManager.PlaySFXEnemy(audioManager.spiderBossSlam);
         yield return new WaitForSeconds(slamTimer);
         animator.SetBool("isAttackP3", false);
         
@@ -210,6 +212,8 @@ public class BossAI : MonoBehaviour, IDamage
     IEnumerator Melee()
     {
         animator.SetBool("isAttack", true);
+        //Sound
+        audioManager.PlaySFXEnemy(audioManager.spiderBossMelee);
         yield return new WaitForSeconds(meleeTimer);
         animator.SetBool("isAttack", false);
     }
@@ -218,6 +222,8 @@ public class BossAI : MonoBehaviour, IDamage
         playerDir = player.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, playerDir.y, playerDir.z));
         Instantiate(shoot, shootPos.transform.position, transform.rotation);
+        //Sound
+        audioManager.PlaySFXEnemy(audioManager.spiderBossProjectile);
     }
 
     void StartCasting() //starts the casting animation
@@ -318,6 +324,16 @@ public class BossAI : MonoBehaviour, IDamage
                 spawner = child.gameObject;
             }
         }
+    }
+
+    private void BossSpiderDeath()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossDeath);
+    }
+
+    private void BossSpiderWalk()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderBossWalk);
     }
 
 }

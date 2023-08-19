@@ -10658,6 +10658,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: stasisSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fa982acc365c4544f9390d79d3f5492e, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: enemyWalkSound
       value: 
       objectReference: {fileID: 8300000, guid: b19b7c46385a1ed48b14c85863f9afb4, type: 3}
@@ -10674,9 +10678,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 447276c63b806c4438a7328d2524861d, type: 3}
     - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderHissSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 370dc7de5bcb27c4d9b10f12519f5585, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderWalkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f053a258e7b486d4d9e10ae0623ad23a, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderDeathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 12e18d9d2bf8d5543aaf4beb545002a4, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderAttackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3322268529a2d3d458e146a32a049dcf, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: enemyProjectileSound
       value: 
       objectReference: {fileID: 8300000, guid: 3fb07a2df6cc7514cb7821d51bd0c3b3, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: spiderProjectileSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 70dd92b6f5028e74a9b07978f0e1ed74, type: 3}
     - target: {fileID: 7024832426687348497, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: m_Name
       value: AudioManager

@@ -35,10 +35,19 @@ public class AudioManager : MonoBehaviour
     public AudioClip enemyProjectileSound;
     public AudioClip enemyDeathSound;
 
-    [Header("Spider")]
+    [Header("Spider Minions")]
     public AudioClip spiderWalkSound;
     public AudioClip spiderAttackSound;
     public AudioClip spiderProjectileSound;
+    public AudioClip spiderDeathSound;
+    public AudioClip spiderHissSound;
+
+    [Header("Boss Spider")]
+    public AudioClip spiderBossSlam;
+    public AudioClip spiderBossProjectile;
+    public AudioClip spiderBossMelee;
+    public AudioClip spiderBossWalk;
+    public AudioClip spiderBossDeath;
 
     [Header("Menu")]
     public AudioClip hoverSound;
