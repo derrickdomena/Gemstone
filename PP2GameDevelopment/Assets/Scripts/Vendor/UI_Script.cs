@@ -10,7 +10,6 @@ public class UI_Script : MonoBehaviour
 {
     [SerializeField] private Transform container;
     [SerializeField] private GameObject shopItemTemplate;
-    [SerializeField] private Buffs[] buff;
     [SerializeField] private CollectibleDrops[] collectDrops;
 
     private void Start()

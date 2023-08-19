@@ -24,6 +24,8 @@ public class gameManager : MonoBehaviour
     public GameObject activeMenu = null;
     public GameObject pauseMenu;
     public GameObject winMenu;
+    public PlayerStatsMenu statsMenu;
+    public GameObject statsMask;
     public GameObject levelClearedMenu;
     public GameObject loseMenu;
     public TextMeshProUGUI enemiesRemainingText;
@@ -114,6 +116,7 @@ public class gameManager : MonoBehaviour
         {
             Instantiate(player);
         }
+        statsMenu.PopulateStats();
     }
 
     // Update is called once per frame
@@ -138,7 +141,7 @@ public class gameManager : MonoBehaviour
             player.transform.position = playerSpawnPos.transform.position;
         }
         ShowMap();    
-
+        ShowStats();
         
     }
 
@@ -328,6 +331,19 @@ public class gameManager : MonoBehaviour
             miniMap.SetActive(true);
             fullMap.SetActive(false);
             isMiniMap = false;
+        }
+    }
+
+    void ShowStats()
+    {      
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            statsMenu.ShowStats();
+            statsMask.SetActive(true);
+        }
+        else
+        {
+            statsMask.SetActive(false);
         }
     }
     IEnumerator WaitForFrame()
