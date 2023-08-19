@@ -71,13 +71,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     public int selectedGun;
     Vector3 gunModelOrig;
 
+    WeaponRecoil weaponRecoil;
+
     // Audio
     AudioManager audioManager;
-
-    //AudioSource audioSource;
-    //[SerializeField] AudioClip autoAudioClip;
-    //[SerializeField] AudioClip semiAudioClip;
-    //[SerializeField] AudioClip rifleAudioClip;
 
     [Header("----- Melee Stats -----")]
     [SerializeField] public List<MeleeStats> meleeList = new List<MeleeStats>();
@@ -129,7 +126,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {       
         DontDestroyOnLoad(gameObject);
         gunModelOrig = gunModel.transform.localPosition;
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();     
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        weaponRecoil = GameObject.Find("WeaponHolder").GetComponent<WeaponRecoil>();
     }
     // Start is called before the first frame update
     private void Start()
@@ -366,6 +364,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Manages Shooting
     IEnumerator Shoot()
     {
+        weaponRecoil.Recoil();
         if (gunList[selectedGun].ammoCurr > 0)
         {
             isShooting = true;
