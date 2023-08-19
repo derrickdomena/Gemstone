@@ -16,7 +16,7 @@ public class Minimap : MonoBehaviour
     {
         if (gameManager.instance.isMiniMap)
         {
-            cam.orthographicSize = 100;
+            cam.orthographicSize = 75;
         }
         else
         {
