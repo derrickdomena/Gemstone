@@ -662,6 +662,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -726,9 +730,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -737,6 +757,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3702,6 +3726,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3766,9 +3794,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -3777,6 +3821,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4009,6 +4057,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23000012104440870, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 23000014124756176, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -4019,11 +4071,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
       propertyPath: m_Range
-      value: 40
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25640798
       objectReference: {fileID: 0}
     - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
       propertyPath: m_Color.g
-      value: 0.807896
+      value: 0.7123131
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
       objectReference: {fileID: 0}
     - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
       propertyPath: m_Intensity
@@ -4032,6 +4092,10 @@ PrefabInstance:
     - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724063462295809869, guid: 605c5179c270f51458f90168a90b72a3, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4604,6 +4668,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4668,9 +4736,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -4679,6 +4763,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5301,6 +5389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 8429992758818572795, guid: a83f5736c9d8cd945ac70128d153e401, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7408,6 +7500,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -7472,9 +7568,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -7483,6 +7595,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9046,6 +9162,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -9096,7 +9216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -9114,9 +9234,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -9125,6 +9261,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9851,6 +9991,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23000013225289584, guid: c7e59f9921ac1164fad771e9267437f5, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9922,6 +10066,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -9986,9 +10134,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -9997,6 +10161,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10016,6 +10184,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -10080,9 +10252,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -10091,6 +10279,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10382,6 +10574,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1614832476942091693}
     m_Modifications:
+    - target: {fileID: 299132693628146501, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16934bc841cd8e741bbd31fe455dcb93, type: 2}
     - target: {fileID: 3199189197681026960, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -10446,9 +10642,25 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4139367448294646138, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Range
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8117647
       objectReference: {fileID: 0}
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Intensity
@@ -10457,6 +10669,10 @@ PrefabInstance:
     - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912858667312968178, guid: d0db3091a0937dc45b47bbb5dac66050, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

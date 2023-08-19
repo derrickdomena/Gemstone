@@ -10,7 +10,6 @@ public class UI_Script : MonoBehaviour
 {
     [SerializeField] private Transform container;
     [SerializeField] private GameObject shopItemTemplate;
-    [SerializeField] private Buffs[] buff;
     [SerializeField] private CollectibleDrops[] collectDrops;
 
     private void Start()
@@ -35,9 +34,9 @@ public class UI_Script : MonoBehaviour
             itemObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(shopItem));
             //accesses prefabs to change it based of items in shop
             //changes the name on the button
-            itemObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = shopItem.itemName;
+            itemObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = shopItem.itemName;
             //changes the price on the button
-            itemObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = shopItem.cost.ToString();
+            itemObject.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = shopItem.cost.ToString();
 
         }
     }
