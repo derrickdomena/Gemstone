@@ -6028,6 +6028,7 @@ GameObject:
   - component: {fileID: 4021102069640445287}
   - component: {fileID: 7113493551191693549}
   - component: {fileID: 7339680473945841721}
+  - component: {fileID: 1688651619308434699}
   m_Layer: 10
   m_Name: Block 2x2x4 (3)
   m_TagString: Untagged
@@ -6122,6 +6123,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &1688651619308434699
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352015875829609914}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5395486027949635064
 GameObject:
   m_ObjectHideFlags: 0
@@ -12017,7 +12034,7 @@ Transform:
   - {fileID: 7915393900141349491}
   - {fileID: 7045277090379770249}
   - {fileID: 2060720261124301422}
-  - {fileID: 3303417843115297517}
+  - {fileID: 2933031938921731707}
   - {fileID: 5490454550806739463}
   - {fileID: 7695284288337461361}
   - {fileID: 2131972648544745139}
@@ -19591,7 +19608,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0072d24f8720144087dbde0f5756782, type: 3}
---- !u!4 &3303417843115297517 stripped
+--- !u!4 &2933031938921731707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8651804607845569359, guid: c0072d24f8720144087dbde0f5756782, type: 3}
   m_PrefabInstance: {fileID: 5811151438016349492}
