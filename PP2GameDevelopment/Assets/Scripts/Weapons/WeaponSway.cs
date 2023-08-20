@@ -45,14 +45,14 @@ public class WeaponSway : MonoBehaviour
 
         // Updates the bobIntensity when left shift is pressed
         // Gives a feeling of the player running
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            bobIntensity = 60;
-        }
-        else
-        {
-            bobIntensity = 35;
-        }
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    bobIntensity = 60;
+        //}
+        //else
+        //{
+        //    bobIntensity = 35;
+        //}
 
         // Get player's input
         GetInput();
