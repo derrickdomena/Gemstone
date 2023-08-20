@@ -191,8 +191,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8924429913671659065}
+  - component: {fileID: 1201234164187007821}
   - component: {fileID: 4500616142198393763}
   - component: {fileID: 5115518730468271780}
+  - component: {fileID: 3442380797357409798}
   m_Layer: 0
   m_Name: Square Hole 3x4
   m_TagString: Untagged
@@ -215,6 +217,18 @@ Transform:
   m_Father: {fileID: 7632015319727551245}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
+--- !u!114 &1201234164187007821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800299540767971448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ab150e9e747a541a9357fbba0424f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &4500616142198393763
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -265,6 +279,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3442380797357409798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800299540767971448}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 8.000009, z: 2.0000293}
+  m_Center: {x: 0.000013351398, y: 3.9999614, z: -0.000014424289}
 --- !u!1 &2683401094064977542
 GameObject:
   m_ObjectHideFlags: 0
