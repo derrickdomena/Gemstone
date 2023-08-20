@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 6754188661866947188}
   - component: {fileID: 6872360543571693749}
   - component: {fileID: 2368108634178025479}
+  - component: {fileID: 911496503724143236}
   m_Layer: 10
   m_Name: Block 2x2x4
   m_TagString: Untagged
@@ -211,6 +212,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &911496503724143236
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383129399590628933}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &446524019956490616
 GameObject:
   m_ObjectHideFlags: 0
@@ -16583,7 +16600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2588660223834064803
 Transform:
   m_ObjectHideFlags: 0
@@ -16606,7 +16623,7 @@ Transform:
   - {fileID: 4749504588007417916}
   - {fileID: 9173701871855403272}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2393999356613807794
 MonoBehaviour:
@@ -24050,6 +24067,7 @@ GameObject:
   - component: {fileID: 6232800570620019249}
   - component: {fileID: 5749612230087630669}
   - component: {fileID: 6339980222960800263}
+  - component: {fileID: 7087580702090382217}
   m_Layer: 10
   m_Name: Block 2x2x4 (3)
   m_TagString: Untagged
@@ -24144,6 +24162,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &7087580702090382217
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732188009613354781}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5885087085155371724
 GameObject:
   m_ObjectHideFlags: 0
