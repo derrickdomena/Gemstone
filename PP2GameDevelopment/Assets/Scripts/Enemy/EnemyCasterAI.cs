@@ -47,6 +47,15 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
     AudioManager audioManager;
 
+    enum State
+    {
+        Idle,
+        Pursue,
+        Attack,
+        Retreat,
+        Moving
+    }
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -66,25 +75,68 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         agent.speed = gameManager.instance.playerScript.walkSpeed * speedMod;
     }
 
+    State currentState = State.Pursue;
+
     // Update is called once per frame
     void Update()
     {
-        FacePlayer();
-
-        circleCenter = player.transform.position;
-
-        if (CanHitPlayerFromHere()/* && !IsPlayerTooClose()*/)
+        switch (currentState)
         {
-            agent.destination = transform.position;
-            StartCasting();
-        }
-        else if (!isCasting)
-        {
-            animator.SetBool("isAttack" , false);
-            ChooseNewDestination();
+            case State.Idle:
+                DoIdle();
+                break;
+            case State.Pursue:
+                PursuePlayer();
+                break;
+            case State.Attack:
+                FacePlayer();
+                StartCasting();
+                break;
+            case State.Retreat:
+                RetreatFromPlayer();
+                break;
+            case State.Moving:
+                MoveToNewDestination();
+                break;
         }
     }
 
+    void DoIdle()
+    {
+
+        agent.SetDestination(transform.position);
+        animator.SetBool("isWalking", false);
+    }
+    void PursuePlayer()
+    {
+        if (CanHitPlayerFromHere())
+        {
+            currentState = State.Attack;
+        }
+        else if (IsPlayerTooClose())
+        {
+            currentState = State.Retreat;
+        }
+        else
+        {
+            // Move towards the player
+            agent.SetDestination(player.transform.position);
+            animator.SetBool("isWalking", true);
+        }
+    }
+    void RetreatFromPlayer()
+    {
+        Vector3 retreatDirection = transform.position - player.transform.position;
+        Vector3 retreatPosition = transform.position + retreatDirection.normalized * retreatDistance;
+        agent.SetDestination(retreatPosition);
+        animator.SetBool("isWalking", true);
+
+        // Check if we've retreated far enough
+        if (Vector3.Distance(transform.position, player.transform.position) > retreatDistance)
+        {
+            currentState = State.Pursue; // You can change this to State.Idle if you want it to stop after retreating.
+        }
+    }
     bool IsPlayerTooClose()
     {
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
@@ -103,39 +155,20 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         return randomPoint;
     }
-    void ChooseNewDestination()
+    void MoveToNewDestination()
     {
-        StartCasting();
-        Vector3 directionToPlayer = transform.position - player.transform.position;
-        Vector3 newDestination;
-
-        // Choose a destination within the max attack distance and outside of the retreat distance
-        if (IsPlayerTooClose())
-        {
-            // Move away from player
-            agent.stoppingDistance = 0;
-            newDestination = transform.position + directionToPlayer.normalized * maxAttackDistance;
-        }
-        else
-        {
-            // Move toward player
-            agent.stoppingDistance = stoppingDistOrig;
-
-            // Calculate a random point in the donut area
-            newDestination = GetRandomPointInCircle(player.transform.position, innerCircleRadius, outerCircleRadius);
-        }
-
-        // Make sure the new destination is not the current position of the agent
-        if (Vector3.Distance(newDestination, transform.position) <= agent.radius)
-        {
-            // If the new destination is too close to the agent, choose a new one
-            ChooseNewDestination();
-            return;
-        }
-
+        // Move to a new random destination
+        Vector3 newDestination = GetRandomPointInCircle(player.transform.position, innerCircleRadius, outerCircleRadius);
         agent.SetDestination(newDestination);
         animator.SetBool("isWalking", true);
+
+        // Check if we've reached the destination
+        if (Vector3.Distance(transform.position, newDestination) <= agent.stoppingDistance)
+        {
+            currentState = State.Attack;  // Go back to the attack state
+        }
     }
+
     void FacePlayer()
     {
         directionToPlayer = player.transform.position - transform.position;
@@ -177,49 +210,19 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         }
     }
 
-    void StartCasting() //starts the casting animation
+    void StartCasting()
     {
         isCasting = true;
         animator.SetBool("isWalking", false);
-        directionToPlayer = player.transform.position - transform.position;
-        Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * 50);
-
         animator.SetBool("isAttack", true);
+
+        // Change the state after shooting
+        currentState = State.Moving;
     }
 
     void FinishCasting() //called at the end frame of the casting animation
     {
         isCasting = false;
-    }
-
-    private void Death()
-    {
-        int selectedChance = Random.Range(1, 100);
-        float maxDropOffset = 1f;  // Adjust this value based on the size of your drops and how far apart you want them
-
-        if (selectedChance <= itemDropRate)
-        {
-            int itemToDrop = Random.Range(0, drops.Length);
-            Vector3 dropPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
-            Instantiate(drops[itemToDrop], dropPosition, Quaternion.identity);
-        }
-        Destroy(gameObject);
-
-        Vector3 gemPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
-        Instantiate(gem, gemPosition, Quaternion.identity);
-
-        gameManager.instance.enemyCheckOut();
-
-    }
-    Vector3 GetRandomOffset(float maxOffset)
-    {
-        return new Vector3(Random.Range(-maxOffset, maxOffset), 0, Random.Range(-maxOffset, maxOffset));
-    }
-
-    private void StopMoving()
-    {
-        agent.SetDestination(agent.transform.position);
     }
 
     public void TakeDamage(int amount)
@@ -249,12 +252,38 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(enemyHPBarTimer);
         enemyHPBar.SetActive(false);
     }
+    private void Death()
+    {
+        int selectedChance = Random.Range(1, 100);
+        float maxDropOffset = 1f;  // Adjust this value based on the size of your drops and how far apart you want them
 
+        if (selectedChance <= itemDropRate)
+        {
+            int itemToDrop = Random.Range(0, drops.Length);
+            Vector3 dropPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
+            Instantiate(drops[itemToDrop], dropPosition, Quaternion.identity);
+        }
+        Destroy(gameObject);
+
+        Vector3 gemPosition = new Vector3(agent.transform.position.x, agent.transform.position.y + 1, agent.transform.position.z) + GetRandomOffset(maxDropOffset);
+        Instantiate(gem, gemPosition, Quaternion.identity);
+
+        gameManager.instance.enemyCheckOut();
+
+    }
+    Vector3 GetRandomOffset(float maxOffset)
+    {
+        return new Vector3(Random.Range(-maxOffset, maxOffset), 0, Random.Range(-maxOffset, maxOffset));
+    }
     IEnumerator FlashDmg()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(.15f);
         model.material.color = Color.grey;
+    }
+    private void StopMoving()
+    {
+        agent.SetDestination(agent.transform.position);
     }
 
     private void DeathSound()

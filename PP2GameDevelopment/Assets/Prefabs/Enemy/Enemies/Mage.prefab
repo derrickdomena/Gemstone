@@ -5704,7 +5704,7 @@ Transform:
   m_GameObject: {fileID: 1936007673852321471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.5404825, y: 0.22, z: -8.067046}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2073027364808097671}
@@ -5749,12 +5749,13 @@ MonoBehaviour:
   hp: 10
   speedMod: 1.485
   viewAngle: 0
-  playerFaceSpeed: 0
+  playerFaceSpeed: 5
   itemDropRate: 50
   maxAttackDistance: 15
   retreatDistance: 10
   innerCircleRadius: 10
   outerCircleRadius: 15
+  enemyType: default
   damageText: {fileID: 9119225394715413976, guid: 970ec032c67ee60498476849dfb7c82a, type: 3}
 --- !u!195 &6348575836648680651
 NavMeshAgent:
