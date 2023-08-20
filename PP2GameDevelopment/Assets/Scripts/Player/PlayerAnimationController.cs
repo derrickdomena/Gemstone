@@ -11,7 +11,6 @@ public class PlayerAnimationController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        fireball = GameObject.FindGameObjectWithTag("Player").GetComponent<FireballAbility>();
     }
 
     // Update is called once per frame

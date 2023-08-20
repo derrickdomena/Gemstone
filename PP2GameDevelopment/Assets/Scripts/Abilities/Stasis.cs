@@ -15,12 +15,20 @@ public class Stasis : MonoBehaviour
     KeyCode stasisKey = KeyCode.C;
     bool stasisUsed;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     private void Update()
     {
         UpdateStasisUI();
     }
     public void FreezeEnemiesForDuration(float duration)
     {
+        audioManager.PlaySFXAbilities(audioManager.stasisSound);
         stasisUsed = true;
         StartCoroutine(FreezeCoroutine(duration));
     }
