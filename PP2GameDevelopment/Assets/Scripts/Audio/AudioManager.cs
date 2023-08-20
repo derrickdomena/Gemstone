@@ -83,11 +83,11 @@ public class AudioManager : MonoBehaviour
     
     public void BackgroundMusic()
     {    
-        if (SceneManager.GetActiveScene().buildIndex >= 0 && SceneManager.GetActiveScene().buildIndex <= 3)
+        if (SceneManager.GetActiveScene().buildIndex >= 0 && SceneManager.GetActiveScene().buildIndex <= 4)
         {
             musicSource.clip = background;
         }
-        else if (SceneManager.GetActiveScene().buildIndex == 4)
+        else if (SceneManager.GetActiveScene().buildIndex == 5)
         {
             musicSource.clip = backgroundBoss;
         }
