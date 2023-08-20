@@ -37,13 +37,16 @@ public class CreateLevel : MonoBehaviour
     bool generating = false;
     bool roomCountSet = false;
     bool bossRoom = false;
+
+    AudioManager audioManager;
     private void Awake()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     private void Start()
     {
         StartCoroutine(SpawnSpawn());
-
+        audioManager.PlaySFXInteractSounds(audioManager.enterDungeonSound);
     }
     private void Update()
     {

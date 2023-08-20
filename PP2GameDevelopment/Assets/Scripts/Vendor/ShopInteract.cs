@@ -13,9 +13,6 @@ public class ShopInteract : MonoBehaviour
         {
             gameManager.instance.ShopMask.SetActive(false);
             gameManager.instance.stateUnpaused();
-
-            //gameManager.instance.shop.GetComponent<UI_Script>().destoryShop();
-
         }
     }
     private void OnTriggerEnter(Collider other)
