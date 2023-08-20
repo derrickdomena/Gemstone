@@ -26,12 +26,20 @@ public class Stasis : MonoBehaviour
 
     private void Update()
     {
+        if (audioManager == null)
+        {
+            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        }
+        if (animator == null)
+        {
+            animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        }
         UpdateStasisUI();
     }
     public void FreezeEnemiesForDuration(float duration)
-    {
-        audioManager.PlaySFXAbilities(audioManager.stasisSound);
+    {      
         stasisUsed = true;
+        audioManager.PlaySFXAbilities(audioManager.stasisSound);
         StartCoroutine(FreezeCoroutine(duration));
     }
 
@@ -39,10 +47,10 @@ public class Stasis : MonoBehaviour
     {
 
         if (Input.GetKeyDown(stasisKey) && !stasisUsed && Time.timeScale != 0)
-        {
+        {         
             animator.SetBool("isStasis", true);
             gameManager.instance.stasisCooldownFill.fillAmount = 0;
-            FreezeEnemiesForDuration(stasisDuration);
+            FreezeEnemiesForDuration(stasisDuration);          
             stasisUsed = true;
         }
         else
@@ -53,7 +61,7 @@ public class Stasis : MonoBehaviour
         if (stasisUsed)
         {
  
-            gameManager.instance.stasisCooldownFill.fillAmount += 1 / gameManager.instance.playerScript.grenadeCooldown * Time.deltaTime;
+            gameManager.instance.stasisCooldownFill.fillAmount += 1 / gameManager.instance.playerScript.stasisCooldown * Time.deltaTime;
 
             if (gameManager.instance.stasisCooldownFill.fillAmount == 1)
             {

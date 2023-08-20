@@ -151,7 +151,7 @@ public class Collect : MonoBehaviour, ICollectible
 
     public void ReduceQCooldown(float amount)
     {
-        gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownGrenade(amount);
+        gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownFireball(amount);
     }
 
     public void MaxHPUp(float increase, float heal)

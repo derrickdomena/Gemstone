@@ -31,7 +31,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] float gravityValue;
     [SerializeField] int jumpsMax;
     [SerializeField] public float dashCooldown;
-    [SerializeField] public float grenadeCooldown;
+    [SerializeField] public float fireballCooldown;
+    [SerializeField] public float stasisCooldown;
 
     // Other Stats
     [SerializeField] public float critChance;

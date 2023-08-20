@@ -41,7 +41,7 @@ public class CollectibleDrops : ShopCollectibles
                 break;
             case Collect.CollectibleTypes.CooldownQ:
                 amount1 = (float)0.10;
-                gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownGrenade(amount1);
+                gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownFireball(amount1);
                 break;
             case Collect.CollectibleTypes.MaxHPUp:
                 amount1 = 2;

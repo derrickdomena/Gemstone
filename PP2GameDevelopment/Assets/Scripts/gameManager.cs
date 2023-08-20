@@ -45,7 +45,7 @@ public class gameManager : MonoBehaviour
     public GameObject ShopMask;
     public Image BossHPBar;
     public GameObject bossHP;
-    public Image grenadeCooldownFill;
+    public Image fireballCooldownFill;
     public Image stasisCooldownFill;
     public Image dashCooldownFill;
     public Animator anim;

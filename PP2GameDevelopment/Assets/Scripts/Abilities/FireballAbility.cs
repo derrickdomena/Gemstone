@@ -26,7 +26,7 @@ public class FireballAbility : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.instance.grenadeCooldownFill.fillAmount = 1;
+        gameManager.instance.fireballCooldownFill.fillAmount = 1;
     }
 
     // Update is called once per frame
@@ -34,9 +34,13 @@ public class FireballAbility : MonoBehaviour
     {
         if (audioManager == null)
         {
-            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();          
         }
-        UpdateGrenadeUI();
+        if (animator == null)
+        {
+            animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        }
+        UpdateFireballUI();
     }
 
     void ThrowFireball()
@@ -57,7 +61,7 @@ public class FireballAbility : MonoBehaviour
     }
 
     // Updates the Fireball UI
-    void UpdateGrenadeUI()
+    void UpdateFireballUI()
     {
         // When grenadeKey is pressed and canThrow is true, you can throw a grenade
         // also checks to see if the game is paused
@@ -65,7 +69,7 @@ public class FireballAbility : MonoBehaviour
         {          
             animator.SetBool("isFireball", true);
             //change function to fireballCooldown
-            gameManager.instance.grenadeCooldownFill.fillAmount = 0;
+            gameManager.instance.fireballCooldownFill.fillAmount = 0;
             ThrowFireball();
             canThrow = true;
         }
@@ -78,23 +82,22 @@ public class FireballAbility : MonoBehaviour
         if (canThrow)
         {
             //change function to fireballCooldown
-            gameManager.instance.grenadeCooldownFill.fillAmount += 1 / gameManager.instance.playerScript.grenadeCooldown * Time.deltaTime;
+            gameManager.instance.fireballCooldownFill.fillAmount += 1 / gameManager.instance.playerScript.fireballCooldown * Time.deltaTime;
 
             // When image fill amount is equal to one, set canThrow to false
             //change function to fireballCooldown
-            if (gameManager.instance.grenadeCooldownFill.fillAmount == 1)
-            {
-                
+            if (gameManager.instance.fireballCooldownFill.fillAmount == 1)
+            {            
                 canThrow = false;
             }
         }
     }
 
-    public void UpdateCooldownGrenade(float time)
+    public void UpdateCooldownFireball(float time)
     {
         //change function to fireballCooldown
-        gameManager.instance.playerScript.grenadeCooldown = gameManager.instance.playerScript.grenadeCooldown - time;
+        gameManager.instance.playerScript.fireballCooldown = gameManager.instance.playerScript.fireballCooldown - time;
         canThrow = true;
-        UpdateGrenadeUI();
+        UpdateFireballUI();
     }
 }
