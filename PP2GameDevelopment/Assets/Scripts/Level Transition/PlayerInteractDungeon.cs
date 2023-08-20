@@ -19,7 +19,7 @@ public class PlayerInteractDungeon : MonoBehaviour
             }
         }
     }
-    //Allows other classes to check to see if there is a gate nearby to interact with
+    //Allows other classes to check to see if the sign is nearby to interact with
     public EnterExitGate GetInteractableObject()
     {
         float interactRange = 3f;
