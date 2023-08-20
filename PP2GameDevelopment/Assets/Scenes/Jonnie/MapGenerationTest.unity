@@ -1161,6 +1161,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnRoomGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
+      propertyPath: spawnRooms.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
+      propertyPath: spawnRooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 4328891452900040782, guid: 52d1b90b93f73674e845ce4ae9d857d1, type: 3}
+    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
+      propertyPath: spawnRooms.Array.data[2]
+      value: 
+      objectReference: {fileID: 3915248432396044791, guid: d83b3f9bd378746489ca93e9d4161f2a, type: 3}
+    - target: {fileID: 7074247712644089510, guid: 12ae432c442098842818f8cd320fae2a, type: 3}
+      propertyPath: spawnRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 6136251127533978503, guid: 6038bbbd2385b7040b9dbcfdb5129519, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
