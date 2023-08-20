@@ -28,6 +28,7 @@ public class gameManager : MonoBehaviour
     public GameObject statsMask;
     public GameObject levelClearedMenu;
     public GameObject loseMenu;
+    public GameObject controlMenu;
     public TextMeshProUGUI enemiesRemainingText;
     public Image playerHPBar;
     public GameObject playerFlashDamageScreen;
