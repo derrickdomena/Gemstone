@@ -391,7 +391,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     audioManager.PlaySFXGun(audioManager.semiSound);
                     break;
                 default:
-                    Debug.Log("Audio Error - playerController: SetMuzzlePOS() - NO AUDIO FOR WEAPON");
+                    //Debug.Log("Audio Error - playerController: SetMuzzlePOS() - NO AUDIO FOR WEAPON");
                     break;
             }
 

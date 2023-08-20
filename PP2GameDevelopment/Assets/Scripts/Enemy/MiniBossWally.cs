@@ -14,7 +14,7 @@ public class MiniBossWally : MonoBehaviour, IDamage
     [SerializeField] Image enemyHPBar;
 
     [Header("----- Stats -----")]
-    [Range(100, 1000)][SerializeField] int hp = 700;
+    [SerializeField] int hp;
     [Range(1f, 2f)][SerializeField] float speedMod;
     [Range(1, 180)][SerializeField] int viewAngle;
     [Range(1, 10)][SerializeField] int playerFaceSpeed;

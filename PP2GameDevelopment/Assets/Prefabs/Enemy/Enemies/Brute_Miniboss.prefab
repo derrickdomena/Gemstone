@@ -2402,7 +2402,7 @@ Transform:
   - {fileID: 6610556877772037188}
   - {fileID: 7467119484329621674}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -62.854, z: 0}
 --- !u!195 &5047666237371822940
 NavMeshAgent:
@@ -2440,7 +2440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5047666237371822940}
   headPos: {fileID: 6610556877772037188}
-  hp: 10
+  hp: 100
   hpBar: {fileID: 5458649133210742199}
   animator: {fileID: 7422947274802344511}
   damage: 2

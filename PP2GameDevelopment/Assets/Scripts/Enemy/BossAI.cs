@@ -135,7 +135,7 @@ public class BossAI : MonoBehaviour, IDamage
         agent.stoppingDistance = stoppingDistanceOrig;
         playerDir = gameManager.instance.playerScript.midMass.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-        Debug.DrawRay(headPos.position, playerDir);
+        //Debug.DrawRay(headPos.position, playerDir);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {

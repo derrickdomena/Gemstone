@@ -60,7 +60,7 @@ public class gameManager : MonoBehaviour
     public Transform chatBubble;
 
     [Header("----- UI Stuff Difficulty -----")]
-    public float difficulty;
+    public int difficulty;
 
     [Header("----- Level Stuff -----")]
     public List<GameObject> rooms = new List<GameObject>();
@@ -105,7 +105,6 @@ public class gameManager : MonoBehaviour
         timescaleOrig = Time.timeScale;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos"); 
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-        difficulty = PlayerPrefs.GetInt("difficulty");
     }
 
     // Start is called before the first frame update

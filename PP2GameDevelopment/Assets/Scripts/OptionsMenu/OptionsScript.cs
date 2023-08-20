@@ -28,7 +28,7 @@ public class OptionsScript : MonoBehaviour
 
     [SerializeField] TMP_Text difficultyTextValue;
     [SerializeField] Slider difficultySlider;
-    [SerializeField] float defaultDifficulty = 1;
+    [SerializeField] int defaultDifficulty = 1;
 
     [Header("Invert Y Setting")]
     [SerializeField] Toggle invertY;
@@ -47,7 +47,7 @@ public class OptionsScript : MonoBehaviour
 
     public void SetDifficulty()
     {
-        defaultDifficulty = difficultySlider.value;
+        defaultDifficulty = (int)difficultySlider.value;
         difficultyTextValue.text = difficultySlider.value.ToString();
     }
     // Sets the music volume
@@ -130,7 +130,7 @@ public class OptionsScript : MonoBehaviour
         sensitivityTextValue.text = defaultSensitivity.ToString("0");
         sensitivitySlider.value = defaultSensitivity;
 
-        defaultDifficulty = PlayerPrefs.GetFloat("difficulty");
+        defaultDifficulty = PlayerPrefs.GetInt("difficulty");
         difficultyTextValue.text = difficultySlider.value.ToString("0.0");
         difficultySlider.value = defaultDifficulty;
     }

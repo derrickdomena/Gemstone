@@ -78,7 +78,6 @@ public class RoomBehavior : MonoBehaviour
             {
                 roomDecremented = true;
                 gameManager.instance.roomCount--;
-                gameManager.instance.difficulty += .1f;
             }
 
             dust.SetActive(true);

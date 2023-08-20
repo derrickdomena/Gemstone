@@ -24,7 +24,7 @@ public class CreateSpawnRoom : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No rooms to instantiate.");
+            //Debug.LogWarning("No rooms to instantiate.");
         }
     }
 }
