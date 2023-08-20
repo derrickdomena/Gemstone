@@ -16,10 +16,12 @@ public class Stasis : MonoBehaviour
     bool stasisUsed;
 
     AudioManager audioManager;
+    Animator animator;
 
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
     }
 
     private void Update()
@@ -38,10 +40,14 @@ public class Stasis : MonoBehaviour
 
         if (Input.GetKeyDown(stasisKey) && !stasisUsed && Time.timeScale != 0)
         {
-
+            animator.SetBool("isStasis", true);
             gameManager.instance.stasisCooldownFill.fillAmount = 0;
             FreezeEnemiesForDuration(stasisDuration);
             stasisUsed = true;
+        }
+        else
+        {
+            animator.SetBool("isStasis", false);
         }
 
         if (stasisUsed)
