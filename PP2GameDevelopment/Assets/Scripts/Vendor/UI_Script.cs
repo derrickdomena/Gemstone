@@ -54,5 +54,4 @@ public class UI_Script : MonoBehaviour
             return;
         }
     }
-
 }

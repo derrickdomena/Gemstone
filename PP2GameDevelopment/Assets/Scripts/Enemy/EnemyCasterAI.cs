@@ -73,12 +73,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
 
         circleCenter = player.transform.position;
 
-        if (CanHitPlayerFromHere()/* && !IsPlayerTooClose()*/)
-        {
-            agent.destination = transform.position;
-            StartCasting();
-        }
-        else if (!isCasting)
+        if (!isCasting)
         {
             animator.SetBool("isAttack" , false);
             ChooseNewDestination();
@@ -105,7 +100,12 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     }
     void ChooseNewDestination()
     {
-        StartCasting();
+        if(CanHitPlayerFromHere())
+        {
+            agent.destination = transform.position;
+            StartCasting();
+        }
+
         Vector3 directionToPlayer = transform.position - player.transform.position;
         Vector3 newDestination;
 

@@ -6136,6 +6136,7 @@ GameObject:
   - component: {fileID: 3243296732186038249}
   - component: {fileID: 2456976614821893058}
   - component: {fileID: 8116877130995120734}
+  - component: {fileID: 6984413051372342175}
   m_Layer: 10
   m_Name: Block 2x2x4 (1)
   m_TagString: Untagged
@@ -6230,6 +6231,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &6984413051372342175
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538032722928673515}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1623934325070819645
 GameObject:
   m_ObjectHideFlags: 0
@@ -12270,7 +12287,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -12679,7 +12696,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -13403,7 +13420,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -16533,7 +16550,7 @@ Transform:
   - {fileID: 6590358985782389015}
   - {fileID: 385326857405556805}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1057307216988068331
 MonoBehaviour:
@@ -18429,7 +18446,7 @@ Transform:
   - {fileID: 2680007652131522521}
   - {fileID: 3494604640796927361}
   - {fileID: 8180018494072929892}
-  - {fileID: 4098317105705279505}
+  - {fileID: 5184794470850161708}
   - {fileID: 3242040906229759104}
   - {fileID: 2340695428325326612}
   - {fileID: 8589614881936550368}
@@ -18697,7 +18714,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -19521,7 +19538,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bed00413ec6f5b469ac0d3e215dafbd, type: 3}
---- !u!4 &4098317105705279505 stripped
+--- !u!4 &5184794470850161708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7034776615337411029, guid: 5bed00413ec6f5b469ac0d3e215dafbd, type: 3}
   m_PrefabInstance: {fileID: 2762002992743296505}

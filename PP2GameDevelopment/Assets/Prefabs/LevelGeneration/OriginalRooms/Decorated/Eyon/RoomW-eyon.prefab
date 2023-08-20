@@ -292,7 +292,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -7797,11 +7797,11 @@ Transform:
   - {fileID: 2953754038197601099}
   - {fileID: 5551865057640563534}
   - {fileID: 1007271254846981864}
-  - {fileID: 6714307843012577799}
+  - {fileID: 3896327064353286778}
   - {fileID: 8272112419655769411}
   - {fileID: 3778103131979320941}
   - {fileID: 6673050529372407282}
-  - {fileID: 8920219840973617284}
+  - {fileID: 5985027077975910179}
   - {fileID: 7058304203450072205}
   m_Father: {fileID: 2707216801456470091}
   m_RootOrder: -1
@@ -7961,7 +7961,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -8936,7 +8936,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -17695,6 +17695,7 @@ GameObject:
   - component: {fileID: 8061976232890044667}
   - component: {fileID: 1370726944747878589}
   - component: {fileID: 4415635276938517809}
+  - component: {fileID: 3076580070836415801}
   m_Layer: 10
   m_Name: Block 2x2x4
   m_TagString: Untagged
@@ -17789,6 +17790,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &3076580070836415801
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7289702940948667800}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7382790154320394937
 GameObject:
   m_ObjectHideFlags: 0
@@ -18682,7 +18699,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -18766,7 +18783,7 @@ Transform:
   - {fileID: 5803085054453110287}
   - {fileID: 2707216801456470091}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5685725844319848623
 MonoBehaviour:
@@ -19521,7 +19538,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900bc11bd39e1af4d9ab71734e99f2e3, type: 3}
---- !u!4 &6714307843012577799 stripped
+--- !u!4 &3896327064353286778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2938012467017981856, guid: 900bc11bd39e1af4d9ab71734e99f2e3, type: 3}
   m_PrefabInstance: {fileID: 2222352794298496474}
@@ -19938,7 +19955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8651804607845569359, guid: c0072d24f8720144087dbde0f5756782, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.769531
+      value: 19.699997
       objectReference: {fileID: 0}
     - target: {fileID: 8651804607845569359, guid: c0072d24f8720144087dbde0f5756782, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20059,7 +20076,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900bc11bd39e1af4d9ab71734e99f2e3, type: 3}
---- !u!4 &8920219840973617284 stripped
+--- !u!4 &5985027077975910179 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2938012467017981856, guid: 900bc11bd39e1af4d9ab71734e99f2e3, type: 3}
   m_PrefabInstance: {fileID: 8920219840973617283}

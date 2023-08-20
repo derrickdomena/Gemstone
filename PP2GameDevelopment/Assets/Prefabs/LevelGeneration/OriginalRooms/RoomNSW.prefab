@@ -17527,6 +17527,7 @@ GameObject:
   - component: {fileID: 1392107964490155074}
   - component: {fileID: 7700385815814757645}
   - component: {fileID: 7284609333045569188}
+  - component: {fileID: 5916362708160871833}
   m_Layer: 10
   m_Name: Block 2x2x4
   m_TagString: Untagged
@@ -17621,6 +17622,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &5916362708160871833
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3123476946142626223}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3140938466063933984
 GameObject:
   m_ObjectHideFlags: 0
@@ -23079,7 +23096,7 @@ Transform:
   - {fileID: 4787838710803702823}
   - {fileID: 6901842568574694159}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5079707687433401579
 MonoBehaviour:
@@ -29516,6 +29533,7 @@ GameObject:
   - component: {fileID: 5650384365530653438}
   - component: {fileID: 8545814913892946023}
   - component: {fileID: 8594124300340372429}
+  - component: {fileID: 4573197487659504763}
   m_Layer: 10
   m_Name: Block 2x2x4 (2)
   m_TagString: Untagged
@@ -29610,6 +29628,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &4573197487659504763
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139291515434609120}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5141668032950558745
 GameObject:
   m_ObjectHideFlags: 0
@@ -31004,6 +31038,7 @@ GameObject:
   - component: {fileID: 1159258215505787257}
   - component: {fileID: 7266325459187790206}
   - component: {fileID: 1553208471377963065}
+  - component: {fileID: 1194321324139713620}
   m_Layer: 10
   m_Name: Block 2x2x4 (3)
   m_TagString: Untagged
@@ -31098,6 +31133,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!208 &1194321324139713620
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6703125897145577873}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 4, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6836324709406865449
 GameObject:
   m_ObjectHideFlags: 0

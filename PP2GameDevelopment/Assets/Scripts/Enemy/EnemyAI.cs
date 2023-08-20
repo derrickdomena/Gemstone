@@ -59,13 +59,10 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     bool isDead = false;
 
-    AudioManager audioManager;
-
     // Awake is called when the script instance is loaded, before Start()
     public void Awake()
     {
         healthBar = GetComponentInChildren<floatingHealthBar>();
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -176,14 +173,6 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void DoDamage()
     {
-        if (enemyType == "Spider")
-        {
-            audioManager.PlaySFXEnemy(audioManager.spiderAttackSound);
-        }
-        else
-        {
-            audioManager.PlaySFXEnemy(audioManager.enemyMeleeSound);
-        }  
         IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
         if (playerDam != null && playerInRange == true)
         {
@@ -231,11 +220,11 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private void StopMoving()
     {
-        agent.SetDestination(agent.transform.position);        
+        agent.SetDestination(agent.transform.position);
     }
 
     private void Death()
-    {     
+    {
         int selectedChance = Random.Range(1, 100);
         float maxDropOffset = 1f;  // Adjust this value based on the size of your drops and how far apart you want them
 
@@ -273,33 +262,4 @@ public class EnemyAI : MonoBehaviour, IDamage
         model.material.color = Color.grey;
     }
 
-    private void BruteStep()
-    {
-        audioManager.PlaySFXEnemy(audioManager.enemyWalkSound);
-    }
-
-    private void JavelinStep()
-    {
-        audioManager.PlaySFXEnemy(audioManager.enemyWalkSound);
-    }
-
-    private void DeathSound()
-    {
-        audioManager.PlaySFXEnemy(audioManager.enemyDeathSound);
-    }
-
-    private void SpiderWalk()
-    {
-        audioManager.PlaySFXEnemy(audioManager.spiderWalkSound);
-    }
-
-    private void SpiderHiss()
-    {
-        audioManager.PlaySFXEnemy(audioManager.spiderHissSound);
-    }
-
-    private void SpiderDeath()
-    {
-        audioManager.PlaySFXEnemy(audioManager.spiderDeathSound);
-    }
 }
