@@ -79,7 +79,7 @@ public class Stasis : MonoBehaviour
             NavMeshAgent enemyAgent;
             Animator enemyAnimator;
 
-            if (enemy.name == "Mage(Clone)")
+            if (enemy.name == "Mage(Clone)" || enemy.name == "Spider_Normal(Clone)" || enemy.name == "Spider_Melee(Clone)")
             {
                 EnemyCasterAI enemyScript = enemy.GetComponent<EnemyCasterAI>();
                 enemyAgent = enemyScript.agent;
