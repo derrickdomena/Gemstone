@@ -1064,7 +1064,7 @@ Transform:
   - {fileID: 8603155899943383953}
   - {fileID: 6827832651148078130}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1043755609994269306
 Animator:
@@ -1123,6 +1123,7 @@ MonoBehaviour:
   PhaseTwoTexture: {fileID: 2800000, guid: 8aca4005d9109fd45b3be579c97b2a9c, type: 3}
   PhaseThreeTexture: {fileID: 2800000, guid: bd6be8c67c624a9459647ab389008a60, type: 3}
   bossPrefab: {fileID: 5264470288047375647}
+  enemyType: Boss
   phaseCounter: 0
 --- !u!135 &7651153379016445627
 SphereCollider:

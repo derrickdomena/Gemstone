@@ -45,6 +45,8 @@ public class BossAI : MonoBehaviour, IDamage
     public GameObject bossPrefab;
     private Material Material;
 
+    [Header("----- Enemy Type -----")]
+    [SerializeField] string enemyType = "default"; // Change in inspector to "mage" for mage enemies
 
     Vector3 playerDir;
     GameObject player;
@@ -240,7 +242,14 @@ public class BossAI : MonoBehaviour, IDamage
     }
     public void doDamage()
     {
-        audioManager.PlaySFXEnemy(audioManager.spiderBossMelee);
+        if (enemyType == "Boss")
+        {
+            audioManager.PlaySFXEnemy(audioManager.spiderBossMelee);
+        }
+        else
+        {
+            audioManager.PlaySFXEnemy(audioManager.spiderAttackSound);
+        }
         IDamage playerD = gameManager.instance.player.GetComponent<IDamage>();
         if (playerD != null && playerInRange)
         {
@@ -339,6 +348,11 @@ public class BossAI : MonoBehaviour, IDamage
     private void BossSpiderWalk()
     {
         audioManager.PlaySFXEnemy(audioManager.spiderBossWalk);
+    }
+
+    void SpiderHiss()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderHissSound);
     }
 
 }

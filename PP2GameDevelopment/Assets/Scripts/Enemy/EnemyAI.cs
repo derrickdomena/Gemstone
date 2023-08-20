@@ -59,10 +59,13 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     bool isDead = false;
 
+    AudioManager audioManager;
+
     // Awake is called when the script instance is loaded, before Start()
     public void Awake()
     {
         healthBar = GetComponentInChildren<floatingHealthBar>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -173,6 +176,14 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     void DoDamage()
     {
+        if(enemyType == "Spider")
+        {
+            audioManager.PlaySFXEnemy(audioManager.spiderAttackSound);
+        }
+        else
+        {
+            audioManager.PlaySFXEnemy(audioManager.enemyMeleeSound);
+        }
         IDamage playerDam = gameManager.instance.player.GetComponent<IDamage>();
         if (playerDam != null && playerInRange == true)
         {
@@ -260,6 +271,31 @@ public class EnemyAI : MonoBehaviour, IDamage
         model.material.color = Color.red;
         yield return new WaitForSeconds(.15f);
         model.material.color = Color.grey;
+    }
+
+    void JavelinStep()
+    {
+        audioManager.PlaySFXEnemy(audioManager.enemyWalkSound);
+    }
+
+    void BruteStep()
+    {
+        audioManager.PlaySFXEnemy(audioManager.enemyWalkSound);
+    }
+
+    void DeathSound()
+    {
+        audioManager.PlaySFXEnemy(audioManager.enemyDeathSound);
+    }
+
+    void SpiderDeath()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderDeathSound);
+    }
+
+    void SpiderHiss()
+    {
+        audioManager.PlaySFXEnemy(audioManager.spiderHissSound);
     }
 
 }
