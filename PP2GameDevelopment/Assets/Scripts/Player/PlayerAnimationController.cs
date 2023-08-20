@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     Animator animator;
-    FireballAbility fireball;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +20,7 @@ public class PlayerAnimationController : MonoBehaviour
         RunningAnimation();
         JumpingAnimation();
         // Abilities
-        AbilityAnimation();
+        //AbilityAnimation();
         // Weapons
         MeleeAnimation();
         //ReloadingAnimation();
@@ -175,22 +174,22 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
-    void AbilityAnimation()
-    {
-        bool isFireball = animator.GetBool("isAbility");
-        bool fireballAbility = Input.GetKeyDown(KeyCode.Q);
-        bool stasisAbility = Input.GetKeyDown(KeyCode.C);
+    //void AbilityAnimation()
+    //{
+    //    bool isFireball = animator.GetBool("isAbility");
+    //    bool fireballAbility = Input.GetKeyDown(KeyCode.Q);
+    //    bool stasisAbility = Input.GetKeyDown(KeyCode.C);
 
-        if (!isFireball && (fireballAbility || stasisAbility))
-        {
-            animator.SetBool("isAbility", true);
-        }
+    //    if (!isFireball && (fireballAbility || stasisAbility) && fireball.canThrow == true)
+    //    {
+    //        animator.SetBool("isAbility", true);
+    //    }
 
-        if (isFireball && (!fireballAbility || !stasisAbility))
-        {
-            animator.SetBool("isAbility", false);
-        }
-    }
+    //    if (isFireball && (!fireballAbility || !stasisAbility) && fireball.canThrow == false)
+    //    {
+    //        animator.SetBool("isAbility", false);
+    //    }
+    //}
 
     void MeleeAnimation()
     {
