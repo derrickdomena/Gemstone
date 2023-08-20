@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     Animator animator;
+    FireballAbility fireball;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        fireball = GameObject.FindGameObjectWithTag("Player").GetComponent<FireballAbility>();
     }
 
     // Update is called once per frame
@@ -177,15 +179,15 @@ public class PlayerAnimationController : MonoBehaviour
     void AbilityAnimation()
     {
         bool isFireball = animator.GetBool("isAbility");
-        bool abilityQ = Input.GetKeyDown(KeyCode.Q);
-        bool ability1 = Input.GetKeyDown(KeyCode.Alpha1);
+        bool fireballAbility = Input.GetKeyDown(KeyCode.Q);
+        bool stasisAbility = Input.GetKeyDown(KeyCode.C);
 
-        if (!isFireball && (abilityQ || ability1) && gameManager.instance.playerScript.grenadeCooldown == 1)
+        if (!isFireball && (fireballAbility || stasisAbility))
         {
             animator.SetBool("isAbility", true);
         }
 
-        if (isFireball && (!abilityQ || !ability1))
+        if (isFireball && (!fireballAbility || !stasisAbility))
         {
             animator.SetBool("isAbility", false);
         }

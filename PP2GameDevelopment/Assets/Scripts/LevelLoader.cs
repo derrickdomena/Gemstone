@@ -10,7 +10,7 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private Slider loadingSlider;
 
-    private void Start()
+    private void Awake()
     {
         loadingScreen = GameObject.Find("LoadingScreen");
         mainMenu = GameObject.Find("MainMenu");

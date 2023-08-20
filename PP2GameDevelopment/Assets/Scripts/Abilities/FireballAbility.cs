@@ -12,7 +12,7 @@ public class FireballAbility : MonoBehaviour
     public float fireballSpeed;
 
     KeyCode fireballKey = KeyCode.Q;
-    bool canThrow;
+    public bool canThrow;
 
     AudioManager audioManager;
 

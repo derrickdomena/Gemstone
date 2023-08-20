@@ -12,7 +12,7 @@ public class Stasis : MonoBehaviour
     private Dictionary<GameObject, float> originalAnimationSpeeds = new Dictionary<GameObject, float>();
     private Dictionary<GameObject, Vector3> originalVelocities = new Dictionary<GameObject, Vector3>();
 
-    KeyCode stasisKey = KeyCode.Alpha1;
+    KeyCode stasisKey = KeyCode.C;
     bool stasisUsed;
 
     private void Update()
