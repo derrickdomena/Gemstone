@@ -29,6 +29,13 @@ public class Collect : MonoBehaviour, ICollectible
     public GameObject collectText;
     public GameObject collectEffect;
 
+    AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -41,7 +48,7 @@ public class Collect : MonoBehaviour, ICollectible
         if (other.tag == "Player")
         {
             CollectItem();
-
+            audioManager.PlaySFXInteractSounds(audioManager.pickUpSound);
         }
 
     }

@@ -60,7 +60,7 @@ RectTransform:
   - {fileID: 4311692899980079328}
   - {fileID: 6342974783838644016}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11296,98 +11296,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: stasisSound
-      value: 
-      objectReference: {fileID: 8300000, guid: fa982acc365c4544f9390d79d3f5492e, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: landingSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 99058f9b8d0019a408d15b690f33f01b, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: walkingSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 0fbcd38f8abb7ea459c8521e11345119, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: enemyWalkSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b19b7c46385a1ed48b14c85863f9afb4, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderBossHiss
-      value: 
-      objectReference: {fileID: 8300000, guid: ea4c4e5ee79278148b07082da5b37504, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderBossSlam
-      value: 
-      objectReference: {fileID: 8300000, guid: 1d5f4ea8e7dfe104e96874312d97b6cb, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderBossWalk
-      value: 
-      objectReference: {fileID: 8300000, guid: b4a55390174343c4983472edf1f5c118, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: enemyDeathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 65188bf158adbf94c9e6b92bd06d9603, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: enemyMeleeSound
-      value: 
-      objectReference: {fileID: 8300000, guid: ba7256dae8d992244ab6b610f32d638c, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: enemySpawnSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 447276c63b806c4438a7328d2524861d, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderBossDeath
-      value: 
-      objectReference: {fileID: 8300000, guid: 6e2e3f05980665b42a5de6b0771f9337, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderBossMelee
-      value: 
-      objectReference: {fileID: 8300000, guid: fe8d6cafb53497b41b1f1a9d1994d62b, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderHissSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 370dc7de5bcb27c4d9b10f12519f5585, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderWalkSound
-      value: 
-      objectReference: {fileID: 8300000, guid: f053a258e7b486d4d9e10ae0623ad23a, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderDeathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 12e18d9d2bf8d5543aaf4beb545002a4, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderAttackSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3322268529a2d3d458e146a32a049dcf, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: enemyProjectileSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3fb07a2df6cc7514cb7821d51bd0c3b3, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderBossProjectile
-      value: 
-      objectReference: {fileID: 8300000, guid: bd63ad750a17ca9448b06d402b716551, type: 3}
-    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: spiderProjectileSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 70dd92b6f5028e74a9b07978f0e1ed74, type: 3}
     - target: {fileID: 7024832426687348497, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8421084349996836213, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: Priority
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421084349996836213, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: m_Volume
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421084349996836213, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 5486129726e01934e9d5c3d1aef0e2d3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

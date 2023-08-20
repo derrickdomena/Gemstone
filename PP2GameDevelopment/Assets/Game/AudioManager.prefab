@@ -817,15 +817,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2551347129147925049, guid: 000edcabf691a214ea53f779d29d72a9, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5486129726e01934e9d5c3d1aef0e2d3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 20
+  Priority: 28
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -961,16 +961,24 @@ MonoBehaviour:
   background: {fileID: 8300000, guid: 5486129726e01934e9d5c3d1aef0e2d3, type: 3}
   backgroundBoss: {fileID: 8300000, guid: fb9b506187852244285352f4fd57601b, type: 3}
   vendor: {fileID: 8300000, guid: 58a84f331102b784dbe3cffd548f1a82, type: 3}
-  walkingSound: {fileID: 8300000, guid: eec53751c4e79a7469fc34e774360128, type: 3}
-  runningSound: {fileID: 8300000, guid: b2c305fdeefa5194eaa2c69a95a9ae77, type: 3}
-  jumpingSound: {fileID: 8300000, guid: 684d90e2defae1547a1d51bec24e6e9d, type: 3}
-  enemyWalkSound: {fileID: 0}
-  enemySpawnSound: {fileID: 0}
-  enemySwingSound: {fileID: 0}
-  enemyProjectileSound: {fileID: 0}
-  spiderWalkSound: {fileID: 0}
-  spiderAttackSound: {fileID: 0}
-  spiderProjectileSound: {fileID: 0}
+  walkingSound: {fileID: 8300000, guid: 0fbcd38f8abb7ea459c8521e11345119, type: 3}
+  landingSound: {fileID: 8300000, guid: 99058f9b8d0019a408d15b690f33f01b, type: 3}
+  enemyWalkSound: {fileID: 8300000, guid: b19b7c46385a1ed48b14c85863f9afb4, type: 3}
+  enemySpawnSound: {fileID: 8300000, guid: 447276c63b806c4438a7328d2524861d, type: 3}
+  enemyMeleeSound: {fileID: 8300000, guid: ba7256dae8d992244ab6b610f32d638c, type: 3}
+  enemyProjectileSound: {fileID: 8300000, guid: 3fb07a2df6cc7514cb7821d51bd0c3b3, type: 3}
+  enemyDeathSound: {fileID: 8300000, guid: 65188bf158adbf94c9e6b92bd06d9603, type: 3}
+  spiderWalkSound: {fileID: 8300000, guid: f053a258e7b486d4d9e10ae0623ad23a, type: 3}
+  spiderAttackSound: {fileID: 8300000, guid: 3322268529a2d3d458e146a32a049dcf, type: 3}
+  spiderProjectileSound: {fileID: 8300000, guid: 70dd92b6f5028e74a9b07978f0e1ed74, type: 3}
+  spiderDeathSound: {fileID: 8300000, guid: 12e18d9d2bf8d5543aaf4beb545002a4, type: 3}
+  spiderHissSound: {fileID: 8300000, guid: 370dc7de5bcb27c4d9b10f12519f5585, type: 3}
+  spiderBossSlam: {fileID: 8300000, guid: 1d5f4ea8e7dfe104e96874312d97b6cb, type: 3}
+  spiderBossProjectile: {fileID: 8300000, guid: bd63ad750a17ca9448b06d402b716551, type: 3}
+  spiderBossMelee: {fileID: 8300000, guid: fe8d6cafb53497b41b1f1a9d1994d62b, type: 3}
+  spiderBossWalk: {fileID: 8300000, guid: b4a55390174343c4983472edf1f5c118, type: 3}
+  spiderBossDeath: {fileID: 8300000, guid: 6e2e3f05980665b42a5de6b0771f9337, type: 3}
+  spiderBossHiss: {fileID: 8300000, guid: ea4c4e5ee79278148b07082da5b37504, type: 3}
   hoverSound: {fileID: 8300000, guid: 35cf7766e9e2aa542811e896fde57989, type: 3}
   applySound: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
   cancelSound: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
@@ -979,15 +987,15 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
   fireballSound: {fileID: 8300000, guid: 6b2f5e232b0be01449b826110c3ad7ec, type: 3}
   dashSound: {fileID: 8300000, guid: 78ad99fd0a0a5144280b07bbdba84815, type: 3}
-  stasisSound: {fileID: 0}
+  stasisSound: {fileID: 8300000, guid: fa982acc365c4544f9390d79d3f5492e, type: 3}
   swingSound: {fileID: 8300000, guid: 80151380c0f818243b66a78ef69c9fcd, type: 3}
   hitSound: {fileID: 0}
   autoSound: {fileID: 8300000, guid: 611f65b2aba4a4af7b4ab3d6ddb5b546, type: 3}
   semiSound: {fileID: 8300000, guid: 1b766da7cc2d648aa84e36cb5fe8abcb, type: 3}
   rifleSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
-  enterDungeonSound: {fileID: 0}
-  bobInteractSound: {fileID: 0}
-  pickUpSound: {fileID: 0}
+  enterDungeonSound: {fileID: 8300000, guid: aa967a280457c054bb646d57611f5bd0, type: 3}
+  bobInteractSound: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 08d11a5fbc1fdd04383b2ea0769e7dde, type: 3}
 --- !u!1 &7160524366276619691
 GameObject:
   m_ObjectHideFlags: 0
