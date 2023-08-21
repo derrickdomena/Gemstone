@@ -20,7 +20,6 @@ public class CollectibleDrops : ShopCollectibles
         {
             default:
             case Collect.CollectibleTypes.Ammo:
-                amount1 = 100;
                 gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoReserve += (int)amount1;
                 break;
             case Collect.CollectibleTypes.HealthPack:
@@ -36,19 +35,14 @@ public class CollectibleDrops : ShopCollectibles
                 gameManager.instance.playerScript.UpdatePlayerUI();
                 break;
             case Collect.CollectibleTypes.CooldownE:
-                amount1 = (float)0.25;
                 gameManager.instance.player.GetComponent<DashAbility>().UpdateCooldownDash(amount1);
                 break;
             case Collect.CollectibleTypes.CooldownQ:
-                amount1 = (float)0.10;
                 gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownFireball(amount1);
                 break;
             case Collect.CollectibleTypes.MaxHPUp:
-                amount1 = 2;
-                amount2 = (float)1.2;
-                float temp = gameManager.instance.playerScript.hpOrig * amount1;
-                gameManager.instance.playerScript.hpOrig = (int)temp;
-                gameManager.instance.playerScript.hp += (int)(gameManager.instance.playerScript.hpOrig * amount2);
+                gameManager.instance.playerScript.hpOrig += (int)amount1;
+                gameManager.instance.playerScript.hp = gameManager.instance.playerScript.hpOrig;
                 gameManager.instance.playerScript.UpdatePlayerUI();
                 break;
             case Collect.CollectibleTypes.MaxSpeedUp:
