@@ -282,7 +282,7 @@ public class CreateLevel : MonoBehaviour
             }
             else if (roomCount == 2)
             {
-                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
                 {
                     foreach (GameObject room in gameManager.instance.BossRoomsTwo)
                     {
