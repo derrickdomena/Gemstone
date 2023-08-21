@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1131901138589226274, guid: d78573a7943753548b30835662ef2d65, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1131901138589226274, guid: d78573a7943753548b30835662ef2d65, type: 3}
       propertyPath: m_AnchorMax.x
@@ -225,21 +225,8 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5130423911611973291, guid: d78573a7943753548b30835662ef2d65, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 14822309}
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d78573a7943753548b30835662ef2d65, type: 3}
---- !u!1 &14822308 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5130423911611973291, guid: d78573a7943753548b30835662ef2d65, type: 3}
-  m_PrefabInstance: {fileID: 14822307}
-  m_PrefabAsset: {fileID: 0}
---- !u!33 &14822309
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14822308}
-  m_Mesh: {fileID: 0}
 --- !u!1001 &123418578
 PrefabInstance:
   m_ObjectHideFlags: 0
