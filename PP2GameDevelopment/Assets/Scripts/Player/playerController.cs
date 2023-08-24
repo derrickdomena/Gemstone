@@ -365,10 +365,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Manages Shooting
     IEnumerator Shoot()
     {
-        weaponRecoil.Recoil();
+        
         if (gunList[selectedGun].ammoCurr > 0)
         {
             isShooting = true;
+            weaponRecoil.Recoil();
             StartCoroutine(muzzleFlashTimer());
             gunList[selectedGun].ammoCurr--;
 
