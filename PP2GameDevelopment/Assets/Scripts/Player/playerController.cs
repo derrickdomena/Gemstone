@@ -383,10 +383,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 case "Rifle":
                     //audioSource.PlayOneShot(rifleAudioClip, .7f);
                     audioManager.PlaySFXGun(audioManager.rifleSound);
+                    
                     break;
                 case "SMG":
                     //audioSource.PlayOneShot(autoAudioClip, .7f);
                     audioManager.PlaySFXGun(audioManager.autoSound);
+                    audioManager.sfxSource.Stop();
                     break;
                 case "SAR":
                     //audioSource.PlayOneShot(semiAudioClip, .7f);
