@@ -66,8 +66,6 @@ MonoBehaviour:
   cooldownQAmount: 1
   cooldownEAmount: 0
   maxHPAddition: 0
-  walkSpeedUp: 0
-  sprintSpeedUp: 0
   critChance: 0
   critPercent: 0
   addDashes: 0
@@ -233,7 +231,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.30645707
+  m_Radius: 0.82
   m_Center: {x: 0, y: 0, z: -0.0062609017}
 --- !u!1 &6723204365639699873
 GameObject:

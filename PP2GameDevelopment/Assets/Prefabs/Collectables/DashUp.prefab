@@ -107,8 +107,6 @@ MonoBehaviour:
   cooldownQAmount: 0
   cooldownEAmount: 0
   maxHPAddition: 0
-  walkSpeedUp: 0
-  sprintSpeedUp: 0
   critChance: 0
   critPercent: 0
   addDashes: 1
@@ -135,7 +133,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.58070123
+  m_Radius: 0.82
   m_Center: {x: -0.18463673, y: 0.029895276, z: 0.000000007450581}
 --- !u!82 &3225741877482424150
 AudioSource:
