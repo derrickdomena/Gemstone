@@ -18,14 +18,11 @@ public interface ICollectible
     public void ReduceQCooldown(float amount);
     //Addition to Max HP
     public void MaxHPUp(float increase, float heal);
-    //Addition to max Speed
-    public void PlayerSpeedUp(float speed, float sprint);
     //Adding & Increasing crit chance
     public void CritChanceUp(int chance, float dam);
     //Adding dash uses and distance
     public void DashUp(int uses, float time);
-    //Adds speed to base speed and sprint;
-    public void SpeedUp(float speed, float sprint);
+
 
 
 }
