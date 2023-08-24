@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [Header("----- Component -----")]
     // Character Controller
     [SerializeField] public CharacterController controller;
-    [SerializeField] CapsuleCollider capsuleCollider;
+    //[SerializeField] CapsuleCollider capsuleCollider;
     [SerializeField] public GameObject midMass;
     public GameObject FirstPersonCamera;
     public GameObject CutSceneCamera;
@@ -272,7 +272,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             // Character Controller Height
             controller.height = controller.height * 0.5f;
             // Capsule Collider Height
-            capsuleCollider.height = capsuleCollider.height * 0.5f;
+            //capsuleCollider.height = capsuleCollider.height * 0.5f;
         }
 
         if (Input.GetKeyUp(crouchKey))
@@ -280,9 +280,19 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             // Character Controller Height
             controller.height = controller.height * 2;
             // Capsule Collider Height
-            capsuleCollider.height = capsuleCollider.height * 2;
+            //capsuleCollider.height = capsuleCollider.height * 2;
         }
-        
+
+        if (Input.GetKeyDown(sprintKey))
+        {
+            controller.radius = controller.radius * 2;
+        }
+
+        if (Input.GetKeyUp(sprintKey))
+        {
+            controller.radius = controller.radius * 0.5f;
+        }
+
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
