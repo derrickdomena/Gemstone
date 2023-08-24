@@ -355,6 +355,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
         gameManager.instance.Health.text = hp.ToString();
         gameManager.instance.HealthMax.text = hpOrig.ToString();
+        gameManager.instance.ammoReserve.text = weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve.ToString();
 
         if (weaponList.Count > 0)
         {
