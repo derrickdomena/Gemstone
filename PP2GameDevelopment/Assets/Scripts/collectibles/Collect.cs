@@ -17,8 +17,6 @@ public class Collect : MonoBehaviour, ICollectible
     [SerializeField] public float cooldownQAmount;
     [SerializeField] public float cooldownEAmount;
     [SerializeField] public float maxHPAddition;
-    //[SerializeField] public float walkSpeedUp;
-    //[SerializeField] public float sprintSpeedUp;
     [SerializeField] public int critChance;
     [SerializeField] public float critPercent;
     [SerializeField] public int addDashes;
@@ -173,14 +171,6 @@ public class Collect : MonoBehaviour, ICollectible
         gameManager.instance.playerScript.hp += (int)(gameManager.instance.playerScript.hpOrig * heal);
         gameManager.instance.playerScript.UpdatePlayerUI();
     }
-
-    //public void PlayerSpeedUp(float speed, float sprint)
-    //{
-    //    float tempSpd = gameManager.instance.playerScript.walkSpeed * speed;
-    //    float tempSpt = gameManager.instance.playerScript.sprintSpeed * sprint;
-    //    gameManager.instance.playerScript.walkSpeed = (int)tempSpd;
-    //    gameManager.instance.playerScript.sprintSpeed = (int)tempSpt;
-    //}
 
     public void CritChanceUp(int chance, float critMul)
     {
