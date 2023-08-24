@@ -446,6 +446,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         attackSpeed = weaponStat.attackSpeed;
         attackDistance = weaponStat.attackDistance;
 
+        weaponType = weaponStat.weaponType;
+
         selectedWeapon = weaponList.Count - 1;
 
         gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
