@@ -50,7 +50,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
 
     [Header("----- Gun Stats -----")]
-    [SerializeField] public List<GunStats> gunList = new List<GunStats>();
+    [SerializeField] public List<WeaponStats> weaponList = new List<WeaponStats>();
     [SerializeField] float shootRate;
     [SerializeField] public int shootDamage;
     [SerializeField] public int shootDamageOrig;
@@ -72,7 +72,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] GameObject smgMuzzleFlashPOS;
     [SerializeField] GameObject rifleMuzzleFlashPOS;
     [SerializeField] GameObject sarMuzzleFlashPOS;
-    public int selectedGun;
+    public int selectedWeapon;
     Vector3 gunModelOrig;
 
     WeaponRecoil weaponRecoil;
@@ -81,12 +81,13 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     AudioManager audioManager;
 
     [Header("----- Melee Stats -----")]
-    [SerializeField] public List<MeleeStats> meleeList = new List<MeleeStats>();
+    //[SerializeField] public List<MeleeStats> meleeList = new List<MeleeStats>();
 
     public float attackDistance;
-    public float attackDelay;
     public float attackSpeed;
     public int attackDamage;
+
+    public string weaponType = "default";
 
     [Header("----- Melee Components -----")]
     [SerializeField] GameObject meleeModel;
@@ -169,7 +170,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             // Checks if player is aiming or not
             bool isAimButtonPressed = Input.GetButton("Aim");
 
-            if (gunList.Count > 0)
+            if (weaponList.Count > 0)
             {
                 // if player is aiming then transform position of weapon, else put weapon pos back to original
                 if (isAimButtonPressed && !isAiming)
@@ -185,21 +186,22 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
                 if (!isAiming)
                 {
-                    ScrollGuns();
+                    //ScrollGuns();
+                    ScrollWeapon();
                 }
 
                 // Switch between Automatic shooting and Semi Automatic shooting
-                if (gunList[selectedGun].auto && Input.GetButton("Shoot") && !isShooting)
+                if (weaponList[selectedWeapon].auto && Input.GetButton("Shoot") && !isShooting)
                 {
                     StartCoroutine(Shoot());
                 }
-                else if (!gunList[selectedGun].auto && Input.GetButtonDown("Shoot") && !isShooting)
+                else if (!weaponList[selectedWeapon].auto && Input.GetButtonDown("Shoot") && !isShooting)
                 {
                     StartCoroutine(Shoot());
                 }
 
                 //If ammo reaches 0 and reserve ammo are full display reload text
-                if (reloadTutorial == true && gunList[selectedGun].ammoCurr <= 0 && gunList[selectedGun].ammoReserve > 0 && gameManager.instance.activeMenu == null)
+                if (reloadTutorial == true && weaponList[selectedWeapon].ammoCurr <= 0 && weaponList[selectedWeapon].ammoReserve > 0 && gameManager.instance.activeMenu == null)
                 {
                     reloadTutorial = false;
                     StartCoroutine(gameManager.instance.OutOfAmmo());
@@ -216,13 +218,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 UpdatePlayerUI();
             }
 
-            if (meleeList.Count > 0 && gunList.Count <= 0)
+            if (weaponType == "Melee" && Input.GetMouseButtonDown(0) && !isAttacking)
             {
-                ScrollMelee();
-                if (Input.GetMouseButtonDown(0) && !isAttacking)
-                {
-                    StartCoroutine(MeleeAttack());
-                }           
+                StartCoroutine(MeleeAttack());
             }
         }
 
@@ -348,10 +346,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         gameManager.instance.Health.text = hp.ToString();
         gameManager.instance.HealthMax.text = hpOrig.ToString();
 
-        if (gunList.Count > 0)
+        if (weaponList.Count > 0)
         {
-            gameManager.instance.ammoCur.text = gunList[selectedGun].ammoCurr.ToString("f0");
-            gameManager.instance.ammoReserve.text = gunList[selectedGun].ammoReserve.ToString("f0");
+            gameManager.instance.ammoCur.text = weaponList[selectedWeapon].ammoCurr.ToString("f0");
+            gameManager.instance.ammoReserve.text = weaponList[selectedWeapon].ammoReserve.ToString("f0");
         }
     }
 
@@ -369,16 +367,16 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     IEnumerator Shoot()
     {
         
-        if (gunList[selectedGun].ammoCurr > 0)
+        if (weaponList[selectedWeapon].ammoCurr > 0)
         {
             isShooting = true;
             weaponRecoil.Recoil();
             StartCoroutine(muzzleFlashTimer());
-            gunList[selectedGun].ammoCurr--;
+            weaponList[selectedWeapon].ammoCurr--;
 
             // Shooting Audio
 
-            string name = gunList[selectedGun].name;
+            string name = weaponList[selectedWeapon].name;
 
             switch (name)
             {
@@ -419,7 +417,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 }
                 else
                 {
-                    Instantiate(gunList[selectedGun].hitEffect, hit.point, Quaternion.identity);
+                    Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, Quaternion.identity);
                 }
             }
 
@@ -437,82 +435,102 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     }
 
     // Handles picking up weapons
-    public void GunPickup(GunStats gunstat)
+    public void WeaponPickup(WeaponStats weaponStat)
     {
-        gunList.Add(gunstat);
+        weaponList.Add(weaponStat);
 
-        shootDamage = gunstat.shootDamage;
-        shootDistance = gunstat.shootDist;
-        shootRate = gunstat.shootRate;
+        shootDamage = weaponStat.shootDamage;
+        shootDistance = weaponStat.shootDist;
+        shootRate = weaponStat.shootRate;
+        attackDamage = weaponStat.attackDamage;
+        attackSpeed = weaponStat.attackSpeed;
+        attackDistance = weaponStat.attackDistance;
 
-        selectedGun = gunList.Count - 1;
+        selectedWeapon = weaponList.Count - 1;
 
-        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 
         SetMuzzlePOS();
         UpdatePlayerUI();
     }
 
     // Handles scrolling through weapons
-    void ScrollGuns()
+    void ScrollWeapon()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunList.Count - 1)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
         {
-            selectedGun++;
-            ChangeGunStats();
+            selectedWeapon++;
+            ChangeWeaponStats();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
         {
-            selectedGun--;
-            ChangeGunStats();
+            selectedWeapon--;
+            ChangeWeaponStats();
+        }
+
+        // Weapon Switching with number keys
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedWeapon = 0;
+            ChangeWeaponStats();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedWeapon = 1;
+            ChangeWeaponStats();
         }
     }
 
-    void ScrollMelee()
-    {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedMelee < meleeList.Count - 1)
-        {
-            selectedMelee++;           
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedMelee > 0)
-        {
-            selectedMelee--;
-        }
-    }
+    //void ScrollMelee()
+    //{
+    //    if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedMelee < weaponList.Count - 1)
+    //    {
+    //        selectedMelee++;
+    //    }
+    //    else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedMelee > 0)
+    //    {
+    //        selectedMelee--;
+    //    }
+    //}
 
     // Method for changing weapon stats
-    public void ChangeGunStats()
+    public void ChangeWeaponStats()
     {
-        shootDamage = gunList[selectedGun].shootDamage;
-        shootDistance = gunList[selectedGun].shootDist;
-        shootRate = gunList[selectedGun].shootRate;
+        shootDamage = weaponList[selectedWeapon].shootDamage;
+        shootDistance = weaponList[selectedWeapon].shootDist;
+        shootRate = weaponList[selectedWeapon].shootRate;
+        attackDamage = weaponList[selectedWeapon].attackDamage;
+        attackSpeed = weaponList[selectedWeapon].attackSpeed;
+        attackDistance = weaponList[selectedWeapon].attackDistance;
 
-        gunModel.GetComponent<MeshFilter>().mesh = gunList[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().material = gunList[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        weaponType = weaponList[selectedWeapon].weaponType;
+
+        gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 
         SetMuzzlePOS();
-
         UpdatePlayerUI();
     }
 
     // Reload Weapon method
     void ReloadWeapon()
     {
-        int ammoLeft = gunList[selectedGun].ammoReserve;
-        int ammoEmpty = gunList[selectedGun].ammoMax - gunList[selectedGun].ammoCurr;
+        int ammoLeft = weaponList[selectedWeapon].ammoReserve;
+        int ammoEmpty = weaponList[selectedWeapon].ammoMax - weaponList[selectedWeapon].ammoCurr;
 
-        if (gunList[selectedGun].ammoReserve > 0)
+        if (weaponList[selectedWeapon].ammoReserve > 0)
         {
-            if (ammoEmpty > gunList[selectedGun].ammoReserve)
+            if (ammoEmpty > weaponList[selectedWeapon].ammoReserve)
             {
-                gunList[selectedGun].ammoCurr = ammoLeft;
-                gunList[selectedGun].ammoReserve -= ammoLeft;
+                weaponList[selectedWeapon].ammoCurr = ammoLeft;
+                weaponList[selectedWeapon].ammoReserve -= ammoLeft;
             }
             else
             {
-                gunList[selectedGun].ammoReserve -= (gunList[selectedGun].ammoMax - gunList[selectedGun].ammoCurr);
-                gunList[selectedGun].ammoCurr = gunList[selectedGun].ammoMax;
+                weaponList[selectedWeapon].ammoReserve -= (weaponList[selectedWeapon].ammoMax - weaponList[selectedWeapon].ammoCurr);
+                weaponList[selectedWeapon].ammoCurr = weaponList[selectedWeapon].ammoMax;
             }
         }
     }
@@ -520,7 +538,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Sets the position of the muzzleFlash dependent on gun name
     void SetMuzzlePOS() 
     {
-        string name = gunList[selectedGun].name;
+        string name = weaponList[selectedWeapon].name;
 
         switch (name)
         {
@@ -541,20 +559,19 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     }
 
     // Handles picking up melee
-    public void MeleePickup(MeleeStats meleestat)
-    {
-        meleeList.Add(meleestat);
+    //public void MeleePickup(WeaponStats meleestat)
+    //{
+    //    weaponList.Add(meleestat);
 
-        attackDamage = meleestat.attackDamage;
-        attackSpeed = meleestat.attackSpeed;
-        attackDelay = meleestat.attackDelay;
-        attackDistance = meleestat.attackDistance;
+    //    attackDamage = meleestat.attackDamage;
+    //    attackSpeed = meleestat.attackSpeed;
+    //    attackDistance = meleestat.attackDistance;
 
-        selectedMelee = meleeList.Count - 1;
+    //    selectedMelee = weaponList.Count - 1;
 
-        meleeModel.GetComponent<MeshFilter>().mesh = meleeList[selectedMelee].model.GetComponent<MeshFilter>().sharedMesh;
-        meleeModel.GetComponent<MeshRenderer>().material = meleeList[selectedMelee].model.GetComponent<MeshRenderer>().sharedMaterial;
-    }
+    //    meleeModel.GetComponent<MeshFilter>().mesh = weaponList[selectedMelee].model.GetComponent<MeshFilter>().sharedMesh;
+    //    meleeModel.GetComponent<MeshRenderer>().material = weaponList[selectedMelee].model.GetComponent<MeshRenderer>().sharedMaterial;
+    //}
 
     // Melee attacks
     IEnumerator MeleeAttack()
@@ -574,7 +591,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             }
         }
 
-        yield return new WaitForSeconds(attackDelay);
+        yield return new WaitForSeconds(attackSpeed);
         isAttacking = false;
     }
 

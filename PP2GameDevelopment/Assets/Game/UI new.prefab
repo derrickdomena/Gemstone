@@ -62,7 +62,7 @@ RectTransform:
   - {fileID: 2552483166201428188}
   - {fileID: 6230791574959671357}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12477,6 +12477,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: gunPickUpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bbd4f09b428216640a6a2eb08f4ef84d, type: 3}
+    - target: {fileID: 5024908899270799690, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
+      propertyPath: meleePickUpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c963f285d61d1c448349ac0c570061a, type: 3}
     - target: {fileID: 7024832426687348497, guid: c6acacdfb05f4964cb6ff0d219f86aa3, type: 3}
       propertyPath: m_Name
       value: AudioManager

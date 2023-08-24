@@ -75,6 +75,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip enterDungeonSound;
     public AudioClip bobInteractSound;
     public AudioClip pickUpSound;
+    public AudioClip gunPickUpSound;
+    public AudioClip meleePickUpSound;
 
     private void Start()
     {

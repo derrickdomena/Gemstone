@@ -197,7 +197,7 @@ public class PlayerAnimationController : MonoBehaviour
         bool attackKey = Input.GetMouseButtonDown(0);
 
         // Changing the gamemanager section to be when melee is equipped.
-        if (!isAttacking && attackKey && gameManager.instance.playerScript.meleeList.Count >= 1 && gameManager.instance.playerScript.gunList.Count < 1)
+        if (!isAttacking && attackKey && gameManager.instance.playerScript.weaponType == "Melee")
         {
             animator.SetBool("isAttacking", true);
         }

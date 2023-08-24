@@ -15,12 +15,17 @@ MonoBehaviour:
   shootDist: 60
   shootRate: 0.1
   shootDamage: 3
-  ammoCurr: 100
+  ammoCurr: 72
   ammoMax: 80
   ammoReserve: 300
   ammoReserveMax: 300
   shootDamageOrig: 3
   auto: 1
   projectileSpeed: 2
+  attackDamage: 0
+  attackDamageOrig: 0
+  attackSpeed: 0
+  attackDistance: 0
   model: {fileID: 539375884333813588, guid: adc738d8dabce1445ba3d0ac21247e26, type: 3}
   hitEffect: {fileID: 9200202391561347005, guid: 7edf9030cc649bf4fa1f2b3d892889a0, type: 3}
+  weaponType: Gun

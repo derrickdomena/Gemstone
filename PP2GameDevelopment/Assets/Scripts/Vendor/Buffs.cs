@@ -18,8 +18,8 @@ public class Buffs : PowerupEffect
             default:
             case Items.ItemType.Damage:
                 
-                gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].shootDamage += (int)amount;
-                gameManager.instance.playerScript.ChangeGunStats();
+                gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].shootDamage += (int)amount;
+                gameManager.instance.playerScript.ChangeWeaponStats();
                 break;
             case Items.ItemType.Health:
                 gameManager.instance.playerScript.hpOrig += (int)amount;

@@ -1,26 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class MeleePickup : MonoBehaviour
-{
-    [SerializeField] MeleeStats melee;
+//public class MeleePickup : MonoBehaviour
+//{
+//    [SerializeField] WeaponStats melee;
 
-    void Start()
-    {
-        melee.attackDamage = melee.attackDamageOrig;
-        melee.attackSpeed = melee.attackSpeedOrig;
-        melee.attackDelay = melee.attackDelayOrig;
-        melee.attackDistance = melee.attackDistanceOrig;
-    }
+//    void Start()
+//    {
+//        melee.attackDamage = melee.attackDamageOrig;
+//    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {        
-            gameManager.instance.playerScript.MeleePickup(melee);
-            Destroy(gameObject);
-        }
-    }
-}
+//    private void OnTriggerEnter(Collider other)
+//    {
+//        if (other.CompareTag("Player"))
+//        {        
+//            gameManager.instance.playerScript.MeleePickup(melee);
+//            Destroy(gameObject);
+//        }
+//    }
+//}
 
