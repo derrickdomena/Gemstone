@@ -21,6 +21,7 @@ public class CollectibleDrops : ShopCollectibles
             default:
             case Collect.CollectibleTypes.Ammo:
                 gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoReserve += (int)amount1;
+                gameManager.instance.playerScript.UpdatePlayerUI();
                 break;
             case Collect.CollectibleTypes.HealthPack:
                 if (gameManager.instance.playerScript.hp < gameManager.instance.playerScript.hpOrig)
@@ -35,21 +36,29 @@ public class CollectibleDrops : ShopCollectibles
                 gameManager.instance.playerScript.UpdatePlayerUI();
                 break;
             case Collect.CollectibleTypes.CooldownE:
-                gameManager.instance.player.GetComponent<DashAbility>().UpdateCooldownDash(amount1);
+                if (gameManager.instance.playerScript.dashCooldown > gameManager.instance.playerScript.dashCooldownMin)
+                {
+                    gameManager.instance.player.GetComponent<DashAbility>().UpdateCooldownDash(amount1);
+                }
+                else if (gameManager.instance.playerScript.dashCooldown <= gameManager.instance.playerScript.dashCooldownMin)
+                {
+                    gameManager.instance.playerScript.dashCooldown = gameManager.instance.playerScript.dashCooldownMin;
+                }
                 break;
             case Collect.CollectibleTypes.CooldownQ:
-                gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownFireball(amount1);
+                if (gameManager.instance.playerScript.fireballCooldown > gameManager.instance.playerScript.fireballCooldownMin)
+                {
+                    gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownFireball(amount1);
+                }
+                else if (gameManager.instance.playerScript.fireballCooldown <= gameManager.instance.playerScript.fireballCooldownMin)
+                {
+                    gameManager.instance.playerScript.fireballCooldown = gameManager.instance.playerScript.fireballCooldownMin;
+                }
                 break;
             case Collect.CollectibleTypes.MaxHPUp:
                 gameManager.instance.playerScript.hpOrig += (int)amount1;
-                gameManager.instance.playerScript.hp = gameManager.instance.playerScript.hpOrig;
+                //gameManager.instance.playerScript.hp = gameManager.instance.playerScript.hpOrig;
                 gameManager.instance.playerScript.UpdatePlayerUI();
-                break;
-            case Collect.CollectibleTypes.MaxSpeedUp:
-                float tempSpd = gameManager.instance.playerScript.walkSpeed * amount1;
-                float tempSpt = gameManager.instance.playerScript.sprintSpeed * amount2;
-                gameManager.instance.playerScript.walkSpeed = (int)tempSpd;
-                gameManager.instance.playerScript.sprintSpeed = (int)tempSpt;
                 break;
             case Collect.CollectibleTypes.CritUp:
                 gameManager.instance.playerScript.critChance += amount1;
@@ -57,8 +66,15 @@ public class CollectibleDrops : ShopCollectibles
                 break;
             case Collect.CollectibleTypes.DashUp:
                 gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(amount2);
-                gameManager.instance.playerScript.dashCount += (int)amount1;
-                gameManager.instance.player.GetComponent<DashAbility>().remainingDashes += (int)amount1;
+                if (gameManager.instance.playerScript.dashCount >= gameManager.instance.playerScript.dashCountMax)
+                {
+                    gameManager.instance.playerScript.dashCount = gameManager.instance.playerScript.dashCountMax;
+                }
+                else
+                {
+                    gameManager.instance.playerScript.dashCount += (int)amount1;
+                    gameManager.instance.player.GetComponent<DashAbility>().remainingDashes += (int)amount1;
+                }
                 break;
 
         }
@@ -88,12 +104,9 @@ public class CollectibleDrops : ShopCollectibles
                 drops = Collect.CollectibleTypes.MaxHPUp;
                 break;
             case 6:
-                drops = Collect.CollectibleTypes.MaxSpeedUp;
-                break;
-            case 7:
                 drops = Collect.CollectibleTypes.CritUp;
                 break;
-            case 8:
+            case 7:
                 drops = Collect.CollectibleTypes.DashUp;
                 break;
         }

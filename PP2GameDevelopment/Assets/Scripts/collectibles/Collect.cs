@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collect : MonoBehaviour, ICollectible
 {
-    public enum CollectibleTypes {Ammo, Gem, HealthPack, CooldownE, CooldownQ, MaxHPUp, MaxSpeedUp, CritUp, DashUp, SpeedUp}
+    public enum CollectibleTypes {Ammo, Gem, HealthPack, CooldownE, CooldownQ, MaxHPUp, CritUp, DashUp}
 
     public CollectibleTypes CollectibleType;
 
@@ -17,8 +17,8 @@ public class Collect : MonoBehaviour, ICollectible
     [SerializeField] public float cooldownQAmount;
     [SerializeField] public float cooldownEAmount;
     [SerializeField] public float maxHPAddition;
-    [SerializeField] public float walkSpeedUp;
-    [SerializeField] public float sprintSpeedUp;
+    //[SerializeField] public float walkSpeedUp;
+    //[SerializeField] public float sprintSpeedUp;
     [SerializeField] public int critChance;
     [SerializeField] public float critPercent;
     [SerializeField] public int addDashes;
@@ -96,15 +96,15 @@ public class Collect : MonoBehaviour, ICollectible
                 MaxHPUp(maxHPAddition, healingAmount);
                 indicator.SetCollecibleText("Max HP up");
                 break;
+            //case 6:
+            //    PlayerSpeedUp(walkSpeedUp, sprintSpeedUp);
+            //    indicator.SetCollecibleText("Player Speed up");
+            //    break;
             case 6:
-                PlayerSpeedUp(walkSpeedUp, sprintSpeedUp);
-                indicator.SetCollecibleText("Player Speed up");
-                break;
-            case 7:
                 CritChanceUp(critChance, critPercent);
                 indicator.SetCollecibleText("Crit up");
                 break;
-            case 8:
+            case 7:
                 DashUp(addDashes, dashTime);
                 indicator.SetCollecibleText("Dash up");
 
@@ -117,7 +117,7 @@ public class Collect : MonoBehaviour, ICollectible
     {
         //IMPORTANT: kinda... This doesnt seem efficient.. is there a better way to increase that number?
         gameManager.instance.playerScript.gunList[gameManager.instance.playerScript.selectedGun].ammoReserve += amount;
-
+        gameManager.instance.playerScript.UpdatePlayerUI();
     }
 
     // Receive health when picking up a health pack
@@ -133,9 +133,7 @@ public class Collect : MonoBehaviour, ICollectible
             gameManager.instance.playerScript.hp += amount;
 
         }
-
         gameManager.instance.playerScript.UpdatePlayerUI();
-
     }
 
     //give player a gem ammount
@@ -146,12 +144,26 @@ public class Collect : MonoBehaviour, ICollectible
 
     public void ReduceECooldown(float amount)
     {
-        gameManager.instance.player.GetComponent<DashAbility>().UpdateCooldownDash(amount);
+        if(gameManager.instance.playerScript.dashCooldown > gameManager.instance.playerScript.dashCooldownMin)
+        {
+            gameManager.instance.player.GetComponent<DashAbility>().UpdateCooldownDash(amount);
+        }
+        else if(gameManager.instance.playerScript.dashCooldown <= gameManager.instance.playerScript.dashCooldownMin)
+        {
+            gameManager.instance.playerScript.dashCooldown = gameManager.instance.playerScript.dashCooldownMin;
+        }
     }
 
     public void ReduceQCooldown(float amount)
     {
-        gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownFireball(amount);
+        if(gameManager.instance.playerScript.fireballCooldown > gameManager.instance.playerScript.fireballCooldownMin)
+        {
+            gameManager.instance.player.GetComponent<FireballAbility>().UpdateCooldownFireball(amount);
+        }
+        else if(gameManager.instance.playerScript.fireballCooldown <= gameManager.instance.playerScript.fireballCooldownMin)
+        {
+            gameManager.instance.playerScript.fireballCooldown = gameManager.instance.playerScript.fireballCooldownMin;
+        }
     }
 
     public void MaxHPUp(float increase, float heal)
@@ -162,13 +174,13 @@ public class Collect : MonoBehaviour, ICollectible
         gameManager.instance.playerScript.UpdatePlayerUI();
     }
 
-    public void PlayerSpeedUp(float speed, float sprint)
-    {
-        float tempSpd = gameManager.instance.playerScript.walkSpeed * speed;
-        float tempSpt = gameManager.instance.playerScript.sprintSpeed * sprint;
-        gameManager.instance.playerScript.walkSpeed = (int)tempSpd;
-        gameManager.instance.playerScript.sprintSpeed = (int)tempSpt;
-    }
+    //public void PlayerSpeedUp(float speed, float sprint)
+    //{
+    //    float tempSpd = gameManager.instance.playerScript.walkSpeed * speed;
+    //    float tempSpt = gameManager.instance.playerScript.sprintSpeed * sprint;
+    //    gameManager.instance.playerScript.walkSpeed = (int)tempSpd;
+    //    gameManager.instance.playerScript.sprintSpeed = (int)tempSpt;
+    //}
 
     public void CritChanceUp(int chance, float critMul)
     {
@@ -179,14 +191,14 @@ public class Collect : MonoBehaviour, ICollectible
     public void DashUp(int uses, float time)
     {
         gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(time);
-        gameManager.instance.playerScript.dashCount += uses;
-        gameManager.instance.player.GetComponent<DashAbility>().remainingDashes += uses;
+        if (gameManager.instance.playerScript.dashCount >= gameManager.instance.playerScript.dashCountMax)
+        {
+            gameManager.instance.playerScript.dashCount = gameManager.instance.playerScript.dashCountMax;
+        }
+        else
+        {
+            gameManager.instance.playerScript.dashCount += (int)uses;
+            gameManager.instance.player.GetComponent<DashAbility>().remainingDashes += (int)uses;
+        }
     }
-
-    public void SpeedUp(float speed, float sprint)
-    {
-        gameManager.instance.playerScript.walkSpeed += speed;
-        gameManager.instance.playerScript.sprintSpeed += sprint;
-    }
-
 }
