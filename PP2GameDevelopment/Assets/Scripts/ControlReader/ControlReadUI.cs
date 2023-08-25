@@ -5,15 +5,15 @@ using UnityEngine;
 public class ControlReadUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerObject;
-    [SerializeField] private ControlInteract sign;
+    [SerializeField] private PlayerInteract sign;
 
     private void Start()
     {
-        sign = gameManager.instance.player.GetComponentInChildren<ControlInteract>();
+        sign = gameManager.instance.player.GetComponentInChildren<PlayerInteract>();
     }
     private void Update()
     {
-        if (sign.GetInteractableObject() != null && gameManager.instance.activeMenu != gameManager.instance.controlMenu)
+        if (sign.GetInteractable() != null && gameManager.instance.activeMenu != gameManager.instance.controlMenu)
         {
             Show();
         }

@@ -5,15 +5,15 @@ using UnityEngine;
 public class InteractDungeonUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerObject;
-    [SerializeField] private PlayerInteractDungeon dungeon;
+    [SerializeField] private PlayerInteract dungeon;
 
     private void Start()
     {
-        dungeon = gameManager.instance.player.GetComponentInChildren<PlayerInteractDungeon>();
+        dungeon = gameManager.instance.player.GetComponentInChildren<PlayerInteract>();
     }
     private void Update()
     {
-        if (dungeon.GetInteractableObject() != null)
+        if (dungeon.GetInteractObject() != null)
         {
             Show();
         }
