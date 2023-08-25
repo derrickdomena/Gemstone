@@ -320,13 +320,13 @@ public class gameManager : MonoBehaviour
     // Toggles between the mini-map and the fullsize map
     void ShowMap()
     {
-        if (Input.GetKeyDown(mapKey) && !isMiniMap)
+        if (Input.GetKeyDown(mapKey) && !isMiniMap && Time.timeScale !=0)
         {
             miniMap.SetActive(false);
             fullMap.SetActive(true);
             isMiniMap = true;
         }
-        else if (Input.GetKeyDown(mapKey) && isMiniMap)
+        else if (Input.GetKeyDown(mapKey) && isMiniMap && Time.timeScale != 0)
         {           
             miniMap.SetActive(true);
             fullMap.SetActive(false);
