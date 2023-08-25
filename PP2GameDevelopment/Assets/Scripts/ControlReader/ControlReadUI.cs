@@ -13,7 +13,7 @@ public class ControlReadUI : MonoBehaviour
     }
     private void Update()
     {
-        if (sign.GetInteractableObject() != null)
+        if (sign.GetInteractableObject() != null && gameManager.instance.activeMenu != gameManager.instance.controlMenu)
         {
             Show();
         }
