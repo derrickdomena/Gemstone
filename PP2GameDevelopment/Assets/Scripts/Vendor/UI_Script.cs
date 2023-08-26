@@ -52,14 +52,57 @@ public class UI_Script : MonoBehaviour
     //if the player has enough gems to buy the item
     private void OnButtonClick(CollectibleDrops shopItem)
     {
-        if (gameManager.instance.playerScript.TrySpendGemAmount(shopItem.cost) == true)
+        if (gameManager.instance.playerScript.TrySpendGemAmount(shopItem.cost) == true && IsMax(shopItem.drops) == false)
         {
             shopItem.Apply();
             gameManager.instance.updateGemCount(-shopItem.cost);
         }
         else
         {
+            StartCoroutine(gameManager.instance.ShowMaxedText());
             return;
         }
     }
+
+    private bool IsMax(Collect.CollectibleTypes itemBought)
+    {
+        bool maxed;
+        switch (itemBought)
+        {
+            default:
+            case Collect.CollectibleTypes.CooldownE:
+                if(gameManager.instance.playerScript.dashCooldown <= gameManager.instance.playerScript.dashCooldownMin)
+                {
+                    maxed = true;
+                }
+                else
+                {
+                    maxed = false;
+                }
+                break;
+            case Collect.CollectibleTypes.CooldownQ:
+                if (gameManager.instance.playerScript.fireballCooldown <= gameManager.instance.playerScript.fireballCooldownMin)
+                {
+                    maxed = true;
+                }
+                else
+                {
+                    maxed = false;
+                }
+                break;
+            case Collect.CollectibleTypes.DashUp:
+                if (gameManager.instance.playerScript.dashCount <= gameManager.instance.playerScript.dashCountMax)
+                {
+                    maxed = true;
+                }
+                else
+                {
+                    maxed = false;
+                }
+                break;
+        }
+        return maxed;
+    }
+
+
 }

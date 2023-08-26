@@ -101,10 +101,6 @@ public class Collect : MonoBehaviour, ICollectible
                 MaxHPUp(maxHPAddition, healingAmount);
                 indicator.SetCollecibleText("Max HP up");
                 break;
-            //case 6:
-            //    PlayerSpeedUp(walkSpeedUp, sprintSpeedUp);
-            //    indicator.SetCollecibleText("Player Speed up");
-            //    break;
             case 6:
                 CritChanceUp(critChance, critPercent);
                 indicator.SetCollecibleText("Crit up");
@@ -187,7 +183,15 @@ public class Collect : MonoBehaviour, ICollectible
 
     public void DashUp(int uses, float time)
     {
-        gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(time);
+        if (gameManager.instance.player.GetComponent<DashAbility>().dashTime <= gameManager.instance.player.GetComponent<DashAbility>().dashTimeMax)
+        {
+            gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(time);
+        }
+        else
+        {
+            return;
+        }
+
         if (gameManager.instance.playerScript.dashCount >= gameManager.instance.playerScript.dashCountMax)
         {
             gameManager.instance.playerScript.dashCount = gameManager.instance.playerScript.dashCountMax;

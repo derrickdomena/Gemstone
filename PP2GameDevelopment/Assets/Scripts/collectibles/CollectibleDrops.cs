@@ -66,7 +66,15 @@ public class CollectibleDrops : ShopCollectibles
                 gameManager.instance.playerScript.critDam += gameManager.instance.playerScript.shootDamage * amount2;
                 break;
             case Collect.CollectibleTypes.DashUp:
-                gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(amount2);
+                if (gameManager.instance.player.GetComponent<DashAbility>().dashTime <= gameManager.instance.player.GetComponent<DashAbility>().dashTimeMax)
+                {
+                    gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(amount2);
+                }
+                else
+                {
+                    return;
+                }
+
                 if (gameManager.instance.playerScript.dashCount >= gameManager.instance.playerScript.dashCountMax)
                 {
                     gameManager.instance.playerScript.dashCount = gameManager.instance.playerScript.dashCountMax;

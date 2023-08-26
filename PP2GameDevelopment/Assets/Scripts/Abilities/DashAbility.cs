@@ -10,8 +10,9 @@ public class DashAbility : MonoBehaviour
 
     [Header("----- Dash Stats -----")]
     [SerializeField] float dashSpeed;
-    [SerializeField] float dashTime;
-    
+    [SerializeField] public float dashTime;
+    [SerializeField] public float dashTimeMax;
+
     //[SerializeField] public float dashCooldownTime;
 
     public KeyCode dashKey = KeyCode.E;

@@ -44,6 +44,8 @@ public class gameManager : MonoBehaviour
     public int gemCount;
     public GameObject shop;
     public GameObject ShopMask;
+    public GameObject shopMax;
+    public float shopMaxTimer;
     public Image BossHPBar;
     public GameObject bossHP;
     public Image fireballCooldownFill;
@@ -265,6 +267,13 @@ public class gameManager : MonoBehaviour
         ShopMask.SetActive(true);
         activeMenu = shop;    
         activeMenu.SetActive(true);
+    }
+
+    public IEnumerator ShowMaxedText()
+    {
+        shopMax.SetActive(true);
+        yield return new WaitForSecondsRealtime(shopMaxTimer);
+        shopMax.SetActive(false);
     }
 
     IEnumerator NextSceneTimer()
