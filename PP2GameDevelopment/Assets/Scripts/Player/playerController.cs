@@ -58,7 +58,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] int shootDistance;
 
     [Header("----- Gun Components -----")]
-    [SerializeField] GameObject gunModel;
+    [SerializeField] public GameObject gunModel;
     public PlayerStats playerStats;
 
     // Aiming Positions
@@ -66,6 +66,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] GameObject rifleModelAimPos;
     [SerializeField] GameObject smgModelAimPos;
     [SerializeField] GameObject sarModelAimPos;
+    [SerializeField] GameObject SwordPos;
+    [SerializeField] GameObject GunPos;
 
     // MuzzlePositions
     [SerializeField] GameObject muzzleFlash;
@@ -90,7 +92,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     public string weaponType = "default";
 
     [Header("----- Melee Components -----")]
-    [SerializeField] GameObject meleeModel;
+    [SerializeField] public GameObject meleeModel;
+    [SerializeField] GameObject meleeAnimation;
     //public GameObject hitEffect;
     public int selectedMelee;
     bool isAttacking;
@@ -449,7 +452,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Handles picking up weapons
     public void WeaponPickup(WeaponStats weaponStat)
-    {
+    {   
+        
         weaponList.Add(weaponStat);
 
         shootDamage = weaponStat.shootDamage;
@@ -463,9 +467,24 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         selectedWeapon = weaponList.Count - 1;
 
-        gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+        
 
+        if (weaponList[selectedWeapon].weaponType == "Melee")
+        {
+            gunModel.SetActive(false);
+            meleeModel.SetActive(true);
+            meleeModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+            meleeModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+            meleeModel.transform.position = SwordPos.transform.position;
+            meleeModel.transform.rotation = SwordPos.transform.rotation;
+        }
+        else
+        {
+            meleeModel.SetActive(false);
+            gunModel.SetActive(true);
+            gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+            gunModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+        }
         SetMuzzlePOS();
         UpdatePlayerUI();
     }
@@ -522,8 +541,18 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         weaponType = weaponList[selectedWeapon].weaponType;
 
-        gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+        if(!meleeModel.activeSelf && isAttacking == false)
+        {
+            meleeModel.SetActive(true);
+            gunModel.SetActive(false);
+        }
+        else
+        {
+            meleeModel.SetActive(false);
+            gunModel.SetActive(true);
+        }
+        //gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        //gunModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 
         SetMuzzlePOS();
         UpdatePlayerUI();
@@ -592,7 +621,8 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     IEnumerator MeleeAttack()
     {
         isAttacking = true;
-
+        meleeModel.SetActive(false);
+        meleeAnimation.SetActive(true);
         audioManager.PlaySFXMelee(audioManager.swingSound);
        
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, attackDistance))
@@ -605,9 +635,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 totalDamage += attackDamage;
             }
         }
-
         yield return new WaitForSeconds(attackSpeed);
+        meleeAnimation.SetActive(false);
         isAttacking = false;
+
     }
 
     public int getGemAmount()

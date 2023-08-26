@@ -200,14 +200,25 @@ public class PlayerAnimationController : MonoBehaviour
         if (!isAttacking && attackKey && gameManager.instance.playerScript.weaponType == "Melee")
         {
             animator.SetBool("isAttacking", true);
-        }
-
-        if(isAttacking && !attackKey)
-        {
-            animator.SetBool("isAttacking", false);
+            StartCoroutine(waitForAttackSpeed());
         }
     }
-
+    IEnumerator waitForAttackSpeed()
+    {
+        gameManager.instance.playerScript.meleeModel.SetActive(false);
+        yield return new WaitForSeconds(gameManager.instance.playerScript.attackSpeed);
+        animator.SetBool("isAttacking", false);
+        if (gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve > 0)
+        {
+            gameManager.instance.playerScript.gunModel.SetActive(true);
+            gameManager.instance.playerScript.meleeModel.SetActive(false);
+        }
+        else
+        {
+            gameManager.instance.playerScript.gunModel.SetActive(false);
+            gameManager.instance.playerScript.meleeModel.SetActive(true);
+        }
+    }
     //void ReloadingAnimation()
     //{
     //    bool isReloading = animator.GetBool("isReloading");
