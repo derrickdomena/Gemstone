@@ -330,13 +330,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         hp -= amount;
         StartCoroutine(gameManager.instance.PlayerFlashDamage());
         UpdatePlayerUI();
-
-        if (hp <= 0)
-        {
-            //audioManager.musicSource.Stop();            
-            gameManager.instance.Death();
-            
-        }
     }
 
     //Apply Poison Damage to player
@@ -347,12 +340,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         hp -= poison;
         StartCoroutine(gameManager.instance.PoisonFlashDamage());
         UpdatePlayerUI();
-
-        if (hp <= 0)
-        {
-            audioManager.musicSource.Stop();
-            gameManager.instance.Death();
-        }
     }
 
     // Updates the Player UI health
@@ -361,12 +348,18 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
         gameManager.instance.Health.text = hp.ToString();
         gameManager.instance.HealthMax.text = hpOrig.ToString();
-        if (weaponList[0])
+        if (hp <= 0)
         {
-            gameManager.instance.ammoReserve.text = weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve.ToString();
+            audioManager.musicSource.Stop();
+            gameManager.instance.Death();
         }
+        
         if (weaponList.Count > 0)
         {
+            if (weaponList[0])
+            {
+                gameManager.instance.ammoReserve.text = weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve.ToString();
+            }
             gameManager.instance.ammoCur.text = weaponList[selectedWeapon].ammoCurr.ToString("f0");
             gameManager.instance.ammoReserve.text = weaponList[selectedWeapon].ammoReserve.ToString("f0");
         }
