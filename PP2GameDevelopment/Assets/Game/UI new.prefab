@@ -62,7 +62,7 @@ RectTransform:
   - {fileID: 2552483166201428188}
   - {fileID: 6230791574959671357}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1341,6 +1341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   containerObject: {fileID: 5282724079461407683}
+  noWeaponNoti: {fileID: 2315534126919224546}
   dungeon: {fileID: 0}
 --- !u!1 &852089266027109532
 GameObject:
@@ -3590,7 +3591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3027889783448003216
 RectTransform:
   m_ObjectHideFlags: 0
