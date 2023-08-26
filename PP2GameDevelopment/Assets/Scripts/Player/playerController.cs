@@ -197,11 +197,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                 }
 
                 // Switch between Automatic shooting and Semi Automatic shooting
-                if (weaponList[selectedWeapon].auto && Input.GetButton("Shoot") && !isShooting)
+                if (weaponList[selectedWeapon].auto && Input.GetButton("Shoot") && !isShooting && weaponList[selectedWeapon].weaponType == "Gun")
                 {
                     StartCoroutine(Shoot());
                 }
-                else if (!weaponList[selectedWeapon].auto && Input.GetButtonDown("Shoot") && !isShooting)
+                else if (!weaponList[selectedWeapon].auto && Input.GetButtonDown("Shoot") && !isShooting && weaponList[selectedWeapon].weaponType == "Gun")
                 {
                     StartCoroutine(Shoot());
                 }
