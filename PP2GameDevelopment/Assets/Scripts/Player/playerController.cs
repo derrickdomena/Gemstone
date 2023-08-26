@@ -546,14 +546,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             meleeModel.SetActive(true);
             gunModel.SetActive(false);
         }
-        else
+        else if(meleeModel.activeSelf && isAttacking == false)
         {
             meleeModel.SetActive(false);
             gunModel.SetActive(true);
         }
-        //gunModel.GetComponent<MeshFilter>().mesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
-        //gunModel.GetComponent<MeshRenderer>().material = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
-
         SetMuzzlePOS();
         UpdatePlayerUI();
     }
@@ -638,7 +635,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         yield return new WaitForSeconds(attackSpeed);
         meleeAnimation.SetActive(false);
         isAttacking = false;
-
     }
 
     public int getGemAmount()
