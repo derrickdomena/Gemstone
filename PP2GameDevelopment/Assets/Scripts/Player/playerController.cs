@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour, IDamage, ShopCustomer
 {
@@ -126,10 +127,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     bool isPlaying = false;
     private RaycastHit target;
+
+    float defaultPlayerRadius = 0.5f;
     
     private void Awake()
     {       
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);       
         gunModelOrig = gunModel.transform.localPosition;
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         weaponRecoil = GameObject.Find("WeaponHolder").GetComponent<WeaponRecoil>();
@@ -292,7 +295,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         {
             controller.radius = controller.radius * 0.5f;
         }
-
+        
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
@@ -368,6 +371,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     public void SpawnPlayer()
     {
         controller.enabled = false;
+        controller.radius = defaultPlayerRadius;
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
         controller.enabled = true;
 
