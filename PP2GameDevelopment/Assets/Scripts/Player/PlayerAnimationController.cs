@@ -208,7 +208,7 @@ public class PlayerAnimationController : MonoBehaviour
         gameManager.instance.playerScript.meleeModel.SetActive(false);
         yield return new WaitForSeconds(gameManager.instance.playerScript.attackSpeed);
         animator.SetBool("isAttacking", false);
-        if (gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve > 0)
+        if (gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].weaponType == "Gun")
         {
             gameManager.instance.playerScript.gunModel.SetActive(true);
             gameManager.instance.playerScript.meleeModel.SetActive(false);

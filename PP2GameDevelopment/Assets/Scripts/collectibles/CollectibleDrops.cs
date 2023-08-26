@@ -20,7 +20,8 @@ public class CollectibleDrops : ShopCollectibles
         {
             default:
             case Collect.CollectibleTypes.Ammo:
-                gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve += (int)amount1;
+                //gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve += (int)amount1;
+                gameManager.instance.playerScript.weaponList[0].ammoReserve += (int)amount1;
                 gameManager.instance.playerScript.UpdatePlayerUI();
                 break;
             case Collect.CollectibleTypes.HealthPack:

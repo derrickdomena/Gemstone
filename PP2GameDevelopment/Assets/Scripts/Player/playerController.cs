@@ -361,8 +361,10 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         gameManager.instance.playerHPBar.fillAmount = (float)hp / hpOrig;
         gameManager.instance.Health.text = hp.ToString();
         gameManager.instance.HealthMax.text = hpOrig.ToString();
-        gameManager.instance.ammoReserve.text = weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve.ToString();
-
+        if (weaponList[0])
+        {
+            gameManager.instance.ammoReserve.text = weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve.ToString();
+        }
         if (weaponList.Count > 0)
         {
             gameManager.instance.ammoCur.text = weaponList[selectedWeapon].ammoCurr.ToString("f0");
@@ -461,8 +463,17 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Handles picking up weapons
     public void WeaponPickup(WeaponStats weaponStat)
     {   
+        if(weaponStat.weaponType == "Gun" && weaponList.Count != 0)
+        {
+            weaponList.Insert(0, weaponStat);
+            selectedWeapon = 0;
+        }
+        else
+        {
+            weaponList.Add(weaponStat);
+            selectedWeapon = weaponList.Count - 1;
+        }
         
-        weaponList.Add(weaponStat);
 
         shootDamage = weaponStat.shootDamage;
         shootDistance = weaponStat.shootDist;
@@ -473,7 +484,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         weaponType = weaponStat.weaponType;
 
-        selectedWeapon = weaponList.Count - 1;
+        
 
         
 
@@ -512,9 +523,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         }
 
         // Weapon Switching with number keys
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && Time.timeScale != 0)
         {
-            if (weaponList[selectedWeapon].weaponType == "Gun")
+            if (weaponList[selectedWeapon].weaponType == "Melee")
             {
                 selectedWeapon = 0;
                 ChangeWeaponStats();
@@ -525,9 +536,9 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && Time.timeScale != 0)
         {
-            if (weaponList[selectedWeapon].weaponType == "Melee")
+            if (weaponList[selectedWeapon].weaponType == "Gun")
             {
                 selectedWeapon = 1;
                 ChangeWeaponStats();
@@ -554,6 +565,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Method for changing weapon stats
     public void ChangeWeaponStats()
     {
+        ChangeWeapon();
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDistance = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;
@@ -563,7 +575,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         weaponType = weaponList[selectedWeapon].weaponType;
 
-        ChangeWeapon();
+        
         SetMuzzlePOS();
         UpdatePlayerUI();
     }

@@ -114,7 +114,7 @@ public class Collect : MonoBehaviour, ICollectible
     public void GiveAmmo(int amount)
     {
         //IMPORTANT: kinda... This doesnt seem efficient.. is there a better way to increase that number?
-        gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve += amount;
+        gameManager.instance.playerScript.weaponList[0].ammoReserve += (int)amount;
         gameManager.instance.playerScript.UpdatePlayerUI();
     }
 
