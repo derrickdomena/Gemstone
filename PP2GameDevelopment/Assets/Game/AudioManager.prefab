@@ -935,7 +935,7 @@ Transform:
   - {fileID: 2092420078523710333}
   - {fileID: 3047496725386010690}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5024908899270799690
 MonoBehaviour:
@@ -993,9 +993,12 @@ MonoBehaviour:
   autoSound: {fileID: 8300000, guid: 611f65b2aba4a4af7b4ab3d6ddb5b546, type: 3}
   semiSound: {fileID: 8300000, guid: 1b766da7cc2d648aa84e36cb5fe8abcb, type: 3}
   rifleSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
+  outOfAmmoSound: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
   enterDungeonSound: {fileID: 8300000, guid: aa967a280457c054bb646d57611f5bd0, type: 3}
   bobInteractSound: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
   pickUpSound: {fileID: 8300000, guid: 08d11a5fbc1fdd04383b2ea0769e7dde, type: 3}
+  gunPickUpSound: {fileID: 0}
+  meleePickUpSound: {fileID: 0}
 --- !u!1 &7160524366276619691
 GameObject:
   m_ObjectHideFlags: 0

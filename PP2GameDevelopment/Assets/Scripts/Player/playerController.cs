@@ -57,7 +57,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     [SerializeField] public int shootDamageOrig;
     [SerializeField] public float critDam;
     [SerializeField] int shootDistance;
-
+    bool outOfAmmo = true;
     [Header("----- Gun Components -----")]
     [SerializeField] public GameObject gunModel;
     public PlayerStats playerStats;
@@ -383,8 +383,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
     // Manages Shooting
     IEnumerator Shoot()
-    {
-        
+    {  
         if (weaponList[selectedWeapon].ammoCurr > 0)
         {
             isShooting = true;
@@ -444,6 +443,11 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             yield return new WaitForSeconds(shootRate);
             isShooting = false;
 
+        }
+        else
+        {
+            if(outOfAmmo == true)
+            StartCoroutine(outOfAmmoSoundEffect());
         }
     }
     // Set muzzleFlash to active on timer and turn off
@@ -678,7 +682,13 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         immune = var;
     }
-
+    IEnumerator outOfAmmoSoundEffect()
+    {
+        outOfAmmo = false;
+        audioManager.PlaySFXGun(audioManager.outOfAmmoSound);
+        yield return new WaitForSeconds(.5f);
+        outOfAmmo = true;
+    }
     // Animation Events Audio
     private void Step()
     {

@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioSource sfxMelee; // Melee SFX Only
     [SerializeField] public AudioSource sfxGun; // Gun SFX Only
     [SerializeField] public AudioSource sfxInteractSounds; // Interact Sounds SFX Only
+    
 
     [Header("Music Clips")] // Will
     public AudioClip background;
@@ -70,6 +71,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip autoSound;
     public AudioClip semiSound;
     public AudioClip rifleSound;
+    public AudioClip outOfAmmoSound;
 
     [Header("Interact Sounds")] // Josh
     public AudioClip enterDungeonSound;
