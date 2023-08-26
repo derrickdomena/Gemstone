@@ -10,9 +10,9 @@ public class SpikeTrap : MonoBehaviour
     private IEnumerator SpikeRoutine()
     {
         yield return new WaitForSeconds(1);
-        trap.transform.Translate(Vector3.up * Time.deltaTime * 100, Space.World);
+        trap.transform.position = new Vector3(trap.transform.position.x, trap.transform.position.y + 1, trap.transform.position.z);
         yield return new WaitForSeconds(4);
-        trap.transform.Translate(Vector3.down * Time.deltaTime * 100, Space.World);
+        trap.transform.position = new Vector3(trap.transform.position.x, trap.transform.position.y - 1, trap.transform.position.z);
         isSprung = false;
     }
     
