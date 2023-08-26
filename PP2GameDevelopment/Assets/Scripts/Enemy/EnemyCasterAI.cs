@@ -34,6 +34,17 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     [Header("----- Enemy Type -----")]
     [SerializeField] string enemyType = "default"; // Change in inspector to "mage" for mage enemies
 
+    [Header("----- State Transition Buffers -----")]
+    [SerializeField] float retreatBufferDistance = 1.0f;
+    [SerializeField] float pursueBufferDistance = 1.0f;
+
+    [Header("----- State Transition Delay -----")]
+    [SerializeField] float attackStateDuration = 2.0f;  // Time enemy spends in the attack state before re-evaluating
+    float lastAttackStartTime;
+
+    [Header("----- Navigation Buffer -----")]
+    [SerializeField] float arrivalBuffer = 0.5f;
+
     GameObject player;
     Vector3 directionToPlayer;
     float stoppingDistOrig;
@@ -41,20 +52,15 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     int hpOrig;
 
     private Vector3 circleCenter;
+    Vector3 startPOS;
 
     public GameObject damageText;
     bool isDead;
 
     AudioManager audioManager;
-
-    enum State
-    {
-        Idle,
-        Pursue,
-        Attack,
-        Retreat,
-        Moving
-    }
+    [SerializeField] int roamDistance;
+    bool needsNewDestination = true;
+    bool hasReachedDestination = false;
 
     void Awake()
     {
@@ -66,6 +72,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        startPOS = transform.position;
         player = gameManager.instance.player;
         stoppingDistOrig = agent.stoppingDistance;
         hpOrig = hp;
@@ -74,124 +81,37 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         enemyHPBar.SetActive(false);
         agent.speed = gameManager.instance.playerScript.walkSpeed * speedMod;
     }
-
-    State currentState = State.Pursue;
-
-    // Update is called once per frame
     void Update()
     {
-        switch (currentState)
+        CheckForPlayer();
+    }
+
+
+    void CheckForPlayer()
+    {
+        FacePlayer();
+
+        if (hasReachedDestination && Time.time - lastAttackStartTime > attackStateDuration)
         {
-            case State.Idle:
-                DoIdle();
-                break;
-            case State.Pursue:
-                PursuePlayer();
-                break;
-            case State.Attack:
-                FacePlayer();
-                StartCasting();
-                break;
-            case State.Retreat:
-                RetreatFromPlayer();
-                break;
-            case State.Moving:
-                MoveToNewDestination();
-                break;
+            ShootAtPlayer();
+            lastAttackStartTime = Time.time;
         }
     }
 
-    void DoIdle()
-    {
 
-        agent.SetDestination(transform.position);
-        animator.SetBool("isWalking", false);
-    }
-    void PursuePlayer()
+    void ShootAtPlayer()
     {
-        if (CanHitPlayerFromHere())
+        if (!isCasting)  // Assuming enemy shouldn't move or shoot while casting
         {
-            currentState = State.Attack;
-        }
-        else if (IsPlayerTooClose())
-        {
-            currentState = State.Retreat;
-        }
-        else
-        {
-            // Move towards the player
-            agent.SetDestination(player.transform.position);
-            animator.SetBool("isWalking", true);
-        }
-    }
-    void RetreatFromPlayer()
-    {
-        Vector3 retreatDirection = transform.position - player.transform.position;
-        Vector3 retreatPosition = transform.position + retreatDirection.normalized * retreatDistance;
-        agent.SetDestination(retreatPosition);
-        animator.SetBool("isWalking", true);
-
-        // Check if we've retreated far enough
-        if (Vector3.Distance(transform.position, player.transform.position) > retreatDistance)
-        {
-            currentState = State.Pursue; // You can change this to State.Idle if you want it to stop after retreating.
-        }
-    }
-    bool IsPlayerTooClose()
-    {
-        float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-
-        if (playerDistance < retreatDistance)
-        {
-            return true;
-        }
-
-        return false;
-    }
-    Vector3 GetRandomPointInCircle(Vector3 center, float innerRadius, float outerRadius)
-    {
-        Vector2 randomCirclePoint = Random.insideUnitCircle.normalized * (outerRadius - innerRadius);
-        Vector3 randomPoint = center + new Vector3(randomCirclePoint.x, 0f, randomCirclePoint.y);
-
-        return randomPoint;
-    }
-    void MoveToNewDestination()
-    {
-        // Move to a new random destination
-        Vector3 newDestination = GetRandomPointInCircle(player.transform.position, innerCircleRadius, outerCircleRadius);
-        agent.SetDestination(newDestination);
-        animator.SetBool("isWalking", true);
-
-        // Check if we've reached the destination
-        if (Vector3.Distance(transform.position, newDestination) <= agent.stoppingDistance)
-        {
-            currentState = State.Attack;  // Go back to the attack state
+            animator.SetBool("isAttack", true);        
         }
     }
 
     void FacePlayer()
     {
-        directionToPlayer = player.transform.position - transform.position;
-        Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
-    }
-
-    bool CanHitPlayerFromHere()
-    {
-        directionToPlayer = player.transform.position - transform.position;
-
-        if (Vector3.Distance(transform.position, player.transform.position) < maxAttackDistance)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, directionToPlayer, out hit))
-            {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * playerFaceSpeed);
     }
 
     public void InstantiateMagicShot()
@@ -208,21 +128,7 @@ public class EnemyCasterAI : MonoBehaviour, IDamage
         {
             audioManager.PlaySFXEnemy(audioManager.enemyProjectileSound);
         }
-    }
 
-    void StartCasting()
-    {
-        isCasting = true;
-        animator.SetBool("isWalking", false);
-        animator.SetBool("isAttack", true);
-
-        // Change the state after shooting
-        currentState = State.Moving;
-    }
-
-    void FinishCasting() //called at the end frame of the casting animation
-    {
-        isCasting = false;
     }
 
     public void TakeDamage(int amount)
