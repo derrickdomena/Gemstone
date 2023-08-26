@@ -510,14 +510,28 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         // Weapon Switching with number keys
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            selectedWeapon = 0;
-            ChangeWeaponStats();
+            if (weaponList[selectedWeapon].weaponType == "Gun")
+            {
+                selectedWeapon = 0;
+                ChangeWeaponStats();
+            }
+            else
+            {
+                return;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            selectedWeapon = 1;
-            ChangeWeaponStats();
+            if (weaponList[selectedWeapon].weaponType == "Melee")
+            {
+                selectedWeapon = 1;
+                ChangeWeaponStats();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 
@@ -545,20 +559,23 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
 
         weaponType = weaponList[selectedWeapon].weaponType;
 
-        if(!meleeModel.activeSelf && isAttacking == false)
+        ChangeWeapon();
+        SetMuzzlePOS();
+        UpdatePlayerUI();
+    }
+    public void ChangeWeapon()
+    {
+        if (!meleeModel.activeSelf && isAttacking == false)
         {
             meleeModel.SetActive(true);
             gunModel.SetActive(false);
         }
-        else if(meleeModel.activeSelf && isAttacking == false)
+        else if (meleeModel.activeSelf && isAttacking == false)
         {
             meleeModel.SetActive(false);
             gunModel.SetActive(true);
         }
-        SetMuzzlePOS();
-        UpdatePlayerUI();
     }
-
     // Reload Weapon method
     void ReloadWeapon()
     {
