@@ -44,7 +44,7 @@ public class Collect : MonoBehaviour, ICollectible
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
-        {
+        { 
             CollectItem();
             audioManager.PlaySFXInteractSounds(audioManager.pickUpSound);
         }
@@ -63,8 +63,15 @@ public class Collect : MonoBehaviour, ICollectible
         {
             default:
             case 0:
-                GiveAmmo(ammoAmount);
-                indicator.SetCollecibleText("");
+                if (gameManager.instance.playerScript.weaponList[0].weaponType != "Gun")
+                {
+                    return;
+                }
+                else
+                {
+                    GiveAmmo(ammoAmount);
+                    indicator.SetCollecibleText("");
+                }
                 break;
             case 1:
                 GiveGem(gemAmount);
