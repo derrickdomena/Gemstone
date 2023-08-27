@@ -16,10 +16,14 @@ public class InteractDungeonUI : MonoBehaviour
     {
         if (dungeon.GetInteractObject() != null)
         {
-            Show();
+            
             if (gameManager.instance.playerScript.weaponList.Count == 0)
             {
                 ShowNoti();
+            }
+            else
+            {
+                Show();
             }
         }
         else

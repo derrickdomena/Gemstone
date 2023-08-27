@@ -8,8 +8,12 @@ public class EnterExitGate : MonoBehaviour
 
     public void Interact()
     {
-        gameManager.instance.anim.SetTrigger("FadeOut");
+        if(gameManager.instance.playerScript.weaponList.Count > 0)
+        {
+            gameManager.instance.anim.SetTrigger("FadeOut");
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
         
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
