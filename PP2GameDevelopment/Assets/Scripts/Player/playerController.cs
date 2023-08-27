@@ -40,6 +40,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     // Other Stats
     [SerializeField] public float critChance;
     [SerializeField] public float critChanceOrig;
+    [SerializeField] public float critChanceMax;
     [SerializeField] public int dashCount;
     [SerializeField] public int dashCountMax;
 

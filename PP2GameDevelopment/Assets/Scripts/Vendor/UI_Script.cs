@@ -70,6 +70,8 @@ public class UI_Script : MonoBehaviour
         switch (itemBought)
         {
             default:
+                maxed = false;
+                break;
             case Collect.CollectibleTypes.CooldownE:
                 if(gameManager.instance.playerScript.dashCooldown <= gameManager.instance.playerScript.dashCooldownMin)
                 {
@@ -91,7 +93,17 @@ public class UI_Script : MonoBehaviour
                 }
                 break;
             case Collect.CollectibleTypes.DashUp:
-                if (gameManager.instance.playerScript.dashCount <= gameManager.instance.playerScript.dashCountMax)
+                if (gameManager.instance.playerScript.dashCount < gameManager.instance.playerScript.dashCountMax)
+                {
+                    maxed = false;
+                }
+                else
+                {
+                    maxed = true;
+                }
+                break;
+            case Collect.CollectibleTypes.CritUp:
+                if (gameManager.instance.playerScript.critChance == gameManager.instance.playerScript.critChanceMax)
                 {
                     maxed = true;
                 }
@@ -101,6 +113,7 @@ public class UI_Script : MonoBehaviour
                 }
                 break;
         }
+
         return maxed;
     }
 

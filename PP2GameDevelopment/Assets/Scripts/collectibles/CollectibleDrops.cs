@@ -21,8 +21,11 @@ public class CollectibleDrops : ShopCollectibles
             default:
             case Collect.CollectibleTypes.Ammo:
                 //gameManager.instance.playerScript.weaponList[gameManager.instance.playerScript.selectedWeapon].ammoReserve += (int)amount1;
-                gameManager.instance.playerScript.weaponList[0].ammoReserve += (int)amount1;
-                gameManager.instance.playerScript.UpdatePlayerUI();
+                if (gameManager.instance.playerScript.weaponList.Count != 0)
+                {
+                    gameManager.instance.playerScript.weaponList[0].ammoReserve += (int)amount1;
+                    gameManager.instance.playerScript.UpdatePlayerUI();
+                }
                 break;
             case Collect.CollectibleTypes.HealthPack:
                 if (gameManager.instance.playerScript.hp < gameManager.instance.playerScript.hpOrig)
@@ -45,6 +48,14 @@ public class CollectibleDrops : ShopCollectibles
                 {
                     gameManager.instance.playerScript.dashCooldown = gameManager.instance.playerScript.dashCooldownMin;
                 }
+                if (gameManager.instance.player.GetComponent<DashAbility>().dashTime <= gameManager.instance.player.GetComponent<DashAbility>().dashTimeMax)
+                {
+                    gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(amount2);
+                }
+                else
+                {
+                    gameManager.instance.player.GetComponent<DashAbility>().dashTime = gameManager.instance.player.GetComponent<DashAbility>().dashTimeMax;
+                }
                 break;
             case Collect.CollectibleTypes.CooldownQ:
                 if (gameManager.instance.playerScript.fireballCooldown > gameManager.instance.playerScript.fireballCooldownMin)
@@ -66,15 +77,6 @@ public class CollectibleDrops : ShopCollectibles
                 gameManager.instance.playerScript.critDam += gameManager.instance.playerScript.shootDamage * amount2;
                 break;
             case Collect.CollectibleTypes.DashUp:
-                if (gameManager.instance.player.GetComponent<DashAbility>().dashTime <= gameManager.instance.player.GetComponent<DashAbility>().dashTimeMax)
-                {
-                    gameManager.instance.player.GetComponent<DashAbility>().IncreaseDashDistance(amount2);
-                }
-                else
-                {
-                    return;
-                }
-
                 if (gameManager.instance.playerScript.dashCount >= gameManager.instance.playerScript.dashCountMax)
                 {
                     gameManager.instance.playerScript.dashCount = gameManager.instance.playerScript.dashCountMax;
