@@ -10,4 +10,7 @@ public class PlayerStats : ScriptableObject
 
     [field: SerializeField]
     public int TotalDamage;
+
+    [field: SerializeField]
+    public int TotalHpTaken;
 }

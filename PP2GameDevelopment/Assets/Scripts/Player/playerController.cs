@@ -161,7 +161,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         }
 
-        playerStats.TotalDamage = totalDamage;
         if (gameManager.instance.activeMenu == null)
         {
             if(!gameManager.instance.dontMove)
@@ -329,6 +328,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
     {
         if (immune == true) { return; }
         hp -= amount;
+        playerStats.TotalHpTaken += amount;
         StartCoroutine(gameManager.instance.PlayerFlashDamage());
         UpdatePlayerUI();
     }
@@ -424,10 +424,12 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
                     if (critCheck <= critChance)
                     {
                         damagable.TakeDamage((int)(shootDamage + critDam));
+                        playerStats.TotalDamage += (int)(shootDamage + critDam);
                     }
                     else
                     {
                         damagable.TakeDamage(shootDamage);
+                        playerStats.TotalDamage += shootDamage;
                     }
                 }
                 else
@@ -476,11 +478,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         attackSpeed = weaponStat.attackSpeed;
         attackDistance = weaponStat.attackDistance;
 
-        weaponType = weaponStat.weaponType;
-
-        
-
-        
+        weaponType = weaponStat.weaponType;    
 
         if (weaponList[selectedWeapon].weaponType == "Melee")
         {
@@ -660,7 +658,7 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             if (damagable != null && !hit.collider.CompareTag("Player"))
             {
                 damagable.TakeDamage(attackDamage);
-                totalDamage += attackDamage;
+                playerStats.TotalDamage += attackDamage;                
             }
         }
         yield return new WaitForSeconds(attackSpeed);

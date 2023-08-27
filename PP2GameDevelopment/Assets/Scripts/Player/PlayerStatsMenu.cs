@@ -46,8 +46,8 @@ public class PlayerStatsMenu : MonoBehaviour
 
     public void UpdateStats()
     {
-        playerHP = gameManager.instance.playerScript.hpMax;
-        playerTotalDamage = gameManager.instance.playerScript.totalDamage;
+        playerHP = gameManager.instance.playerStats.TotalHpTaken;
+        playerTotalDamage = gameManager.instance.playerStats.TotalDamage;
         PlayerCritChance = gameManager.instance.playerScript.critChance;
         PlayerCritDamage = gameManager.instance.playerScript.critDam + gameManager.instance.playerScript.shootDamage;
         playerShootDamage = gameManager.instance.playerScript.shootDamage;

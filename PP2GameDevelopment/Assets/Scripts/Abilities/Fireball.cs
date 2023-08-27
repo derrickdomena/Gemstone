@@ -47,6 +47,7 @@ public class Fireball : MonoBehaviour
             if (damageable != null && !colliders[i].CompareTag("Player"))
             {
                 damageable.TakeDamage(blastDamage);
+                gameManager.instance.playerStats.TotalDamage += blastDamage;
             }
         }
 
