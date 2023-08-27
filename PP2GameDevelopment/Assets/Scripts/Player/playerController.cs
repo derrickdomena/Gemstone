@@ -166,7 +166,6 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
             if(!gameManager.instance.dontMove)
             {
                 Movement();
-
             }
             StateHandler();
 

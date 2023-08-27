@@ -84,14 +84,14 @@ public class Stasis : MonoBehaviour
                 EnemyCasterAI enemyScript = enemy.GetComponent<EnemyCasterAI>();
                 enemyAgent = enemyScript.agent;
                 enemyAnimator = enemyScript.animator;
-                enemyScript.model.material.color = Color.blue;
+                enemyScript.model.material.color = new Color(0f, 0f, 25f / 2f); ;
             }
             else
             {
                 EnemyAI enemyScript = enemy.GetComponent<EnemyAI>();
                 enemyAgent = enemyScript.agent;
                 enemyAnimator = enemyScript.animator;
-                enemyScript.model.material.color = Color.blue;
+                enemyScript.model.material.color = new Color(0f, 0f, 25f / 2f); ;
             }
 
             originalVelocities[enemy] = enemyAgent.velocity;
