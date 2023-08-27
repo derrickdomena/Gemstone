@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8321776676699532469
 MeshFilter:
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bad041a47a8f7a449bd8bad8dfef44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollectibleType: 7
+  CollectibleType: 6
   rotate: 1
   rotationSpeed: 100
   ammoAmount: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
   cooldownQAmount: 0
   cooldownEAmount: 0
   maxHPAddition: 0
-  critChance: 10
-  critPercent: 0.1
+  critChance: 8
+  critPercent: 0.3
   addDashes: 0
   dashTime: 0
   dropItem: {fileID: 11400000, guid: 76ccb961124cebb46af09f2e65526181, type: 2}
