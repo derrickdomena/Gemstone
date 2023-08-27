@@ -506,20 +506,23 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
         {
             selectedWeapon++;
+            audioManager.PlaySFXInteractSounds(audioManager.meleePickUpSound);
             ChangeWeaponStats();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
         {
             selectedWeapon--;
+            audioManager.PlaySFXInteractSounds(audioManager.gunPickUpSound);
             ChangeWeaponStats();
         }
 
         // Weapon Switching with number keys
         if (Input.GetKeyDown(KeyCode.Alpha1) && Time.timeScale != 0)
-        {
+        {  
             if (weaponList[selectedWeapon].weaponType == "Melee")
             {
                 selectedWeapon = 0;
+                audioManager.PlaySFXInteractSounds(audioManager.gunPickUpSound);           
                 ChangeWeaponStats();
             }
             else
@@ -529,17 +532,18 @@ public class playerController : MonoBehaviour, IDamage, ShopCustomer
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2) && Time.timeScale != 0)
-        {
+        {   
             if (weaponList[selectedWeapon].weaponType == "Gun")
             {
                 selectedWeapon = 1;
+                audioManager.PlaySFXInteractSounds(audioManager.meleePickUpSound);
                 ChangeWeaponStats();
             }
             else
             {
                 return;
             }
-        }
+        } 
     }
 
     //void ScrollMelee()
