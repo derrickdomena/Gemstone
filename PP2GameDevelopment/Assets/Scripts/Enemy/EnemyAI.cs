@@ -115,13 +115,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         // Check if enough time has elapsed since the last dash
         bool canDash = Time.time - lastDashTime >= dashCooldown;
 
-        if (enemyType == "javelin" && distanceToPlayer > dashTriggerDistance && !isDashing && canDash)
-        {
-            StartCoroutine(DashTowardsPlayer());
-            lastDashTime = Time.time; // Update the time of the last dash
-            return; // Exit the method since we're dashing.
-        }
-
         agent.SetDestination(gameManager.instance.player.transform.position);
         animator.SetBool("isWalking", true);
 
