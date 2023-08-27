@@ -7,7 +7,7 @@ public class BossRoomBehavior : MonoBehaviour
     public float doorSpeed = 1.5f;
     private bool shouldMove = false;
     public GameObject hiddenRoomIcon;
-    AudioSource doorAudioSource;
+    //AudioSource doorAudioSource;
 
     GameObject doors;
     GameObject dust;
@@ -21,9 +21,11 @@ public class BossRoomBehavior : MonoBehaviour
     bool played = false;
     bool eventDone = false;
     bool doorsClosed = false;
+
+    AudioManager audioManager;
     private void Awake()
     {
-
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     void Start()
     {
@@ -31,7 +33,7 @@ public class BossRoomBehavior : MonoBehaviour
         GetDoors();
         GetDoorsPositions();
         GetSpawner();
-        doorAudioSource = GetComponent<AudioSource>();
+        //doorAudioSource = GetComponent<AudioSource>();
         GetHiddenRoomIcon();
     }
 
@@ -47,6 +49,10 @@ public class BossRoomBehavior : MonoBehaviour
 
     void Update()
     {
+        if (audioManager == null)
+        {
+            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        }
         // External conditions to switch states.
         if (doorState == DoorState.Opened && shouldMove && !eventDone)
         {
@@ -123,9 +129,9 @@ public class BossRoomBehavior : MonoBehaviour
 
     void PlayDoorAudio()
     {
-        if (!doorAudioSource.isPlaying && !played)
+        if (!audioManager.sfxInteractSounds.isPlaying && !played)
         {
-            doorAudioSource.Play();
+            audioManager.PlaySFXInteractSounds(audioManager.doorShutSound);
             played = true;
         }
     }

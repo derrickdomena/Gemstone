@@ -79,6 +79,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip pickUpSound;
     public AudioClip gunPickUpSound;
     public AudioClip meleePickUpSound;
+    public AudioClip doorShutSound;
 
     private void Start()
     {

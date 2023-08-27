@@ -10,7 +10,8 @@ public class RoomBehavior : MonoBehaviour
     public float doorSpeed = 1.5f;
     private bool shouldMove = false;
     public GameObject hiddenRoomIcon;
-    AudioSource doorAudioSource;
+    //AudioSource doorAudioSource;
+    AudioManager audioManager;
 
     GameObject doors;
     GameObject dust;
@@ -28,7 +29,7 @@ public class RoomBehavior : MonoBehaviour
     bool roomDecremented = false;
     private void Awake()
     {
-
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     void Start()
     {
@@ -36,12 +37,16 @@ public class RoomBehavior : MonoBehaviour
         GetDoors();
         GetDoorsPositions();
         GetSpawner();
-        doorAudioSource = GetComponent<AudioSource>();
+        //doorAudioSource = GetComponent<AudioSource>();
         GetHiddenRoomIcon();
     }
 
     void Update()
     {
+        if (audioManager == null)
+        {
+            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        }
         if (shouldMove && !eventDone)
         {
              
@@ -49,9 +54,9 @@ public class RoomBehavior : MonoBehaviour
             dust.SetActive(true);
 
             doors.transform.position = Vector3.Lerp(doors.transform.position, doorClosePOS, Time.deltaTime * doorSpeed);
-            if (!doorAudioSource.isPlaying && !played)
+            if (!audioManager.sfxInteractSounds.isPlaying && !played)
             {
-                doorAudioSource.Play();
+                audioManager.PlaySFXInteractSounds(audioManager.doorShutSound);
                 played = true;
             }
             if (Vector3.Distance(doors.transform.position, doorClosePOS) < 0.252f)
@@ -83,9 +88,9 @@ public class RoomBehavior : MonoBehaviour
             dust.SetActive(true);
             doors.transform.position = Vector3.Lerp(doors.transform.position, doorOpenPOS, Time.deltaTime * doorSpeed);
 
-            if (!doorAudioSource.isPlaying && !played)
+            if (!audioManager.sfxInteractSounds.isPlaying && !played)
             {
-                doorAudioSource.Play();
+                audioManager.PlaySFXInteractSounds(audioManager.doorShutSound);
                 played = true;
             }
 
