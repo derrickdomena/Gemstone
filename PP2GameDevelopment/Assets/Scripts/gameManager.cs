@@ -109,7 +109,7 @@ public class gameManager : MonoBehaviour
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         playerStats.NumberOfKills = 0;
         playerStats.TotalDamage = 0;
-        playerStats.TotalDamage = 0;
+        playerStats.TotalHpTaken = 0;
     }
 
     // Start is called before the first frame update
